@@ -33,6 +33,7 @@ public class Rogue
             term.refreshScreen();
 
             world.tick();
+            System.out.println("Schnittstellenspezifikation");
         }
 
         System.exit(0);

@@ -3,7 +3,10 @@ package rogue;
 import jade.core.World;
 import jade.ui.TiledTermPanel;
 import jade.util.datatype.ColoredChar;
+
 import java.awt.Color;
+
+import pazi.Display;
 import rogue.creature.Monster;
 import rogue.creature.Player;
 import rogue.level.Level;
@@ -23,6 +26,11 @@ public class Rogue
         world.addActor(new Monster(ColoredChar.create('D', Color.red)));
         term.registerCamera(player, 5, 5);
         
+		Display.printStartScreen(term);
+        
+        while(term.getKey() != ' ')
+        	term.refreshScreen();
+        
         while(!player.expired())
         {
             term.clearBuffer();
@@ -33,9 +41,13 @@ public class Rogue
             term.refreshScreen();
 
             world.tick();
-            System.out.println("Schnittstellenspezifikation");
         }
+        
+        Display.printEndScreen(term);
 
+        while(term.getKey() != ' ')
+        	term.refreshScreen();
+        
         System.exit(0);
     }
 }

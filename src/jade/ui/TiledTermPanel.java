@@ -140,7 +140,7 @@ public class TiledTermPanel extends TermPanel
 
         public TiledScreen(int columns, int rows, int tileSize)
         {
-            this(columns, rows, tileSize, tileSize);
+            this(columns, rows, 5*tileSize/8, tileSize);
         }
 
         public TiledScreen(int columns, int rows, int tileWidth, int tileHeight)

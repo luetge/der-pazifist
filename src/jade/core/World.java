@@ -12,6 +12,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import rogue.creature.Monster;
+import rogue.creature.Player;
+
 /**
  * Represents a game world on which {@code Actor} can interact.
  */
@@ -59,6 +62,8 @@ public abstract class World extends Messenger
         for(Class<? extends Actor> cls : actOrder)
             for(Actor actor : getActors(cls))
                 actor.act();
+        if(getActorAt(Monster.class, getActor(Player.class).pos()) != null)
+        	getActor(Player.class).expire();
 
         removeExpired();
     }

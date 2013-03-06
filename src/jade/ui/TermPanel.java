@@ -115,7 +115,7 @@ public class TermPanel extends Terminal
 
         public Screen(int columns, int rows, int fontSize)
         {
-            this(columns, rows, fontSize * 3 / 4, fontSize);
+            this(columns, rows, fontSize * 3/4, fontSize);
         }
         
         public Screen(int columns, int rows, int tileWidth, int tileHeight)

@@ -40,23 +40,23 @@ public class City extends MapGenerator
     @Override
     protected void generateStep(World world, Dice dice)
     {
-        wallFill(world);
+        floorFill(world);
         BSPNode head = new BSPNode(world, minSize);
         head.divide(dice);
         head.makeRooms(world, dice);
     }
 
-    private void wallFill(World world)
+    private void floorFill(World world)
     {
         for(int x = 0; x < world.width(); x++)
             for(int y = 0; y < world.height(); y++)
                 world.setTile(floorTile, true, x, y);
         
         // Fence
-        makeSquare(world, 0, 0, world.width()-1, world.height()-1);
+        makeSquare(0, 0, world.width()-1, world.height()-1, world, false);
     }
     
-    protected void makeSquare(World world, int x1, int y1, int x2, int y2){
+    protected void makeSquare(int x1, int y1, int x2, int y2, World world, boolean makeInteriorImpassable){
     	for(int x=x1; x <= x2; x++){
         	world.setTile(wallTile, false, x, y1);
         	world.setTile(wallTile, false, x, y2);
@@ -65,6 +65,12 @@ public class City extends MapGenerator
         	world.setTile(wallTile, false, x1, y);
         	world.setTile(wallTile, false, x2, y);
         }
+        
+        // Innenraum nicht betretbar
+        if(makeInteriorImpassable)
+        	for(int x=x1+1; x < x2; x++)
+        		for(int y=y1+1; y < y2; y++)
+        			world.setTile(floorTile, false, x, y);
     }
 
     private class BSPNode
@@ -121,7 +127,7 @@ public class City extends MapGenerator
                 rx2 = dice.nextInt(rx1 + minSize, x2 - 1);
                 ry1 = dice.nextInt(y1 + 1, y2 - 1 - minSize);
                 ry2 = dice.nextInt(ry1 + minSize, y2 - 1);
-                makeSquare(world, rx1, ry1, rx2, ry2);
+                makeSquare(rx1, ry1, rx2, ry2, world, true);
             }
             else
             {

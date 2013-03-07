@@ -2,19 +2,18 @@ package jade.ui;
 
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.text.AttributedCharacterIterator;
-import java.text.AttributedCharacterIterator.Attribute;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -113,6 +112,7 @@ public class TermPanel extends Terminal
 
         private int tileWidth;
         private int tileHeight;
+        int columns, rows;
         private BlockingQueue<Integer> inputBuffer;
         private Map<Coordinate, ColoredChar> screenBuffer;
 
@@ -125,7 +125,8 @@ public class TermPanel extends Terminal
         {
             inputBuffer = new LinkedBlockingQueue<Integer>();
             screenBuffer = new HashMap<Coordinate, ColoredChar>();
-
+            this.columns = columns;
+            this.rows = rows;
             addKeyListener(this);
             this.tileWidth = tileWidth;
             this.tileHeight = tileHeight;
@@ -151,6 +152,20 @@ public class TermPanel extends Terminal
             super.paintComponent(page);
             synchronized(screenBuffer)
             {
+//            	Coordinate c = new Coordinate(0, 0);
+//            	StringBuilder sRow = new StringBuilder();
+//            	ColoredChar ch;
+//            	page.setColor(Color.white);
+//            	for(int i=0; i<rows; i++){
+//            		for(int j=0; j<columns; j++){
+//            			ch = screenBuffer.get(c);
+//            			sRow.append(ch == null ? " " : ch.ch());
+//            			c = c.getTranslated(1, 0);
+//            		}
+//            		page.drawString(sRow.toString(), 0, tileHeight * (i+1));
+//            		sRow.delete(0, sRow.length());
+//            		c = new Coordinate(0, c.y()+1);
+//            	}
                 for(Coordinate coord : screenBuffer.keySet())
                 {
                     ColoredChar ch = screenBuffer.get(coord);

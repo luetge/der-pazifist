@@ -21,7 +21,7 @@ public class City extends MapGenerator
      */
     public City()
     {
-        this(ColoredChar.create(' '), ColoredChar.create('#'), 4);
+        this(ColoredChar.create(' '), ColoredChar.create('#'), 16);
     }
 
     /**

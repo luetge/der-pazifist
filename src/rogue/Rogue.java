@@ -21,7 +21,7 @@ public class Rogue implements ComponentListener
 	private int viewcenter_x;
 	private int viewcenter_y;
 	
-	Rogue ()
+	Rogue () throws InterruptedException
 	{
 		term = TiledTermPanel.getFramedTerminal("Der PaziFist");
         term.registerTile("dungeon.png", 5, 59, ColoredChar.create('#'));
@@ -39,12 +39,8 @@ public class Rogue implements ComponentListener
         
 		Display.printStartScreen(term);
         
-		try {
-			while(term.getKey() != ' ')
-				term.refreshScreen();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		while(term.getKey() != ' ')
+			term.refreshScreen();
 	}
 	
 	public void componentHidden(ComponentEvent e) {
@@ -102,24 +98,24 @@ public class Rogue implements ComponentListener
         }
 	}
 	
-	public void finish ()
+	public void finish () throws InterruptedException
 	{
         Display.printEndScreen(term);
 
-        try {
-			while(term.getKey() != ' ')
-				term.refreshScreen();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		while(term.getKey() != ' ')
+			term.refreshScreen();
 	}
 	
     public static void main(String[] args)
     {
-    	Rogue rogue = new Rogue ();
-    	rogue.run ();
-    	rogue.finish ();
+        try {
+        	Rogue rogue = new Rogue ();
+        	rogue.run ();
+        	rogue.finish ();
         
-        System.exit(0);
+        	System.exit(0);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
     }
 }

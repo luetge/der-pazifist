@@ -7,6 +7,7 @@ import jade.util.datatype.Coordinate;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.awt.event.ComponentListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,6 +52,11 @@ public class TiledTermPanel extends TermPanel
     protected TiledScreen screen()
     {
         return (TiledScreen) super.screen();
+    }
+    
+    public void addComponentListener(ComponentListener l)
+    {
+    	screen ().addComponentListener(l);
     }
 
     public boolean registerTile(String tileSet, int x, int y, ColoredChar ch)

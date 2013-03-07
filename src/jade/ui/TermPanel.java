@@ -105,6 +105,15 @@ public class TermPanel extends Terminal
         screen.setBuffer(getBuffer());
         screen.repaint();
     }
+    
+    public int width ()
+    {
+    	return screen.getWidth () / screen.tileWidth ();
+    }
+    public int height ()
+    {
+    	return screen.getHeight () / screen.tileHeight ();
+    }
 
     protected static class Screen extends JPanel implements KeyListener
     {
@@ -112,7 +121,7 @@ public class TermPanel extends Terminal
 
         private int tileWidth;
         private int tileHeight;
-        int columns, rows;
+        private int columns, rows;
         private BlockingQueue<Integer> inputBuffer;
         private Map<Coordinate, ColoredChar> screenBuffer;
 

@@ -34,8 +34,8 @@ public class Rogue
         while(!player.expired())
         {
             term.clearBuffer();
-            for(int x = 0; x < world.width(); x++)
-                for(int y = 0; y < world.height(); y++)
+            for(int x = 0; x < Math.min (term.width (), world.width ()); x++)
+                for(int y = 0; y < Math.min (term.height (), world.height ()); y++)
                     term.bufferChar(x + 11, y, world.look(x, y));
             term.bufferCameras();
             term.refreshScreen();

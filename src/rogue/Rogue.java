@@ -15,7 +15,7 @@ public class Rogue
 {
     public static void main(String[] args) throws InterruptedException
     {
-        TiledTermPanel term = TiledTermPanel.getFramedTerminal("Jade Rogue");
+        TiledTermPanel term = TiledTermPanel.getFramedTerminal("Der PaziFist");
         term.registerTile("dungeon.png", 5, 59, ColoredChar.create('#'));
         term.registerTile("dungeon.png", 3, 60, ColoredChar.create('.'));
         term.registerTile("dungeon.png", 5, 20, ColoredChar.create('@'));

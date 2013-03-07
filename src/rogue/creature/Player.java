@@ -17,7 +17,7 @@ public class Player extends Creature implements Camera
 
     public Player(Terminal term)
     {
-        super(ColoredChar.create('@'));
+        super(ColoredChar.create('♓'));
         this.term = term;
         fov = new RayCaster();
     }

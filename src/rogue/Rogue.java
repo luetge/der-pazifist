@@ -22,7 +22,7 @@ public class Rogue
         term.registerTile("dungeon.png", 14, 30, ColoredChar.create('D', Color.red));
         
         Player player = new Player(term);
-        World world = new Level(69, 24, player);
+        World world = new Level(80, 40, player);
         world.addActor(new Monster(ColoredChar.create('Z', Color.green)));
         term.registerCamera(player, 5, 5);
         

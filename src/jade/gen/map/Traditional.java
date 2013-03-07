@@ -5,6 +5,8 @@ import jade.util.Dice;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.MutableCoordinate;
+
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,7 +28,7 @@ public class Traditional extends MapGenerator
      */
     public Traditional()
     {
-        this(ColoredChar.create('#'), ColoredChar.create('.'), 4);
+        this(ColoredChar.create('#'), ColoredChar.create(' '), 4);
     }
 
     /**

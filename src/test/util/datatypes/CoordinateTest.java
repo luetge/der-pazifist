@@ -216,8 +216,8 @@ public class CoordinateTest
     @Test
     public void getTranslatedDirection()
     {
-        Coordinate expected = new Coordinate(-1, -1);
-        Direction dir = Direction.NORTHEAST;
+        Coordinate expected = new Coordinate(-1, 0);
+        Direction dir = Direction.EAST;
         Coordinate coord = Mockito.mock(Coordinate.class, Mockito.CALLS_REAL_METHODS);
         Mockito.doReturn(expected).when(coord).getTranslated(dir.dx(), dir.dy());
         Assert.assertSame(expected, coord.getTranslated(dir));

@@ -214,7 +214,8 @@ public class ActorTest extends CoreTest
         actor = Mockito.spy(actor);
         actor.move(Direction.NORTH);
         Mockito.verify(actor).setPos(5, 4);
-        actor.move(Direction.SOUTHEAST);
+        actor.move(Direction.SOUTH);
+        actor.move(Direction.EAST);
         Mockito.verify(actor).setPos(6, 5);
         actor.move(Direction.SOUTH);
         Mockito.verify(actor).setPos(6, 6);

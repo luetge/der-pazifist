@@ -1,5 +1,7 @@
 package jade.util.datatype;
 
+import java.awt.event.KeyEvent;
+
 /**
  * A cardinal direction as a 2-dimensional integer vector.
  */
@@ -10,33 +12,17 @@ public enum Direction
      */
     NORTH(0, -1),
     /**
-     * Up-right on the screen
-     */
-    NORTHEAST(1, -1),
-    /**
      * Right on the screen
      */
     EAST(1, 0),
-    /**
-     * Down-right on the screen
-     */
-    SOUTHEAST(1, 1),
     /**
      * Down on the screen
      */
     SOUTH(0, 1),
     /**
-     * Down-left on the screen
-     */
-    SOUTHWEST(-1, 1),
-    /**
      * Left on the screen
      */
     WEST(-1, 0),
-    /**
-     * Up-left on the screen
-     */
-    NORTHWEST(-1, -1),
     /**
      * No change on the screen
      */
@@ -75,34 +61,22 @@ public enum Direction
      * @param key the key direction being queried
      * @return the {@code Direction} corresponding to key
      */
-    public static Direction keyToDir(char key)
+    public static Direction keyToDir(int key)
     {
         switch(key)
         {
-            case '6':
-            case 'l':
+        	case KeyEvent.VK_6:
+        	case KeyEvent.VK_RIGHT:
                 return EAST;
-            case '4':
-            case 'h':
+        	case KeyEvent.VK_4:
+        	case KeyEvent.VK_LEFT:
                 return WEST;
-            case '8':
-            case 'k':
+        	case KeyEvent.VK_8:
+        	case KeyEvent.VK_UP:
                 return NORTH;
-            case '2':
-            case 'j':
+        	case KeyEvent.VK_2:
+        	case KeyEvent.VK_DOWN:
                 return SOUTH;
-            case '3':
-            case 'n':
-                return SOUTHEAST;
-            case '1':
-            case 'b':
-                return SOUTHWEST;
-            case '9':
-            case 'u':
-                return NORTHEAST;
-            case '7':
-            case 'y':
-                return NORTHWEST;
             case '5':
             case '.':
                 return ORIGIN;

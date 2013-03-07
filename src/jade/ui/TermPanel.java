@@ -92,7 +92,7 @@ public class TermPanel extends Terminal
     }
 
     @Override
-    public char getKey() throws InterruptedException
+    public int getKey() throws InterruptedException
     {
         return screen.consumeKeyPress();
     }
@@ -110,7 +110,7 @@ public class TermPanel extends Terminal
 
         private int tileWidth;
         private int tileHeight;
-        private BlockingQueue<Character> inputBuffer;
+        private BlockingQueue<Integer> inputBuffer;
         private Map<Coordinate, ColoredChar> screenBuffer;
 
         public Screen(int columns, int rows, int fontSize)
@@ -120,7 +120,7 @@ public class TermPanel extends Terminal
         
         public Screen(int columns, int rows, int tileWidth, int tileHeight)
         {
-            inputBuffer = new LinkedBlockingQueue<Character>();
+            inputBuffer = new LinkedBlockingQueue<Integer>();
             screenBuffer = new HashMap<Coordinate, ColoredChar>();
 
             addKeyListener(this);
@@ -172,10 +172,10 @@ public class TermPanel extends Terminal
         @Override
         public void keyPressed(KeyEvent event)
         {
-            inputBuffer.offer(event.getKeyChar());
+            inputBuffer.offer(event.getKeyCode());
         }
 
-        public char consumeKeyPress() throws InterruptedException
+        public int consumeKeyPress() throws InterruptedException
         {
             return inputBuffer.take();
         }

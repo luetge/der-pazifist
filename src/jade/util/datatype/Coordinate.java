@@ -150,21 +150,11 @@ public class Coordinate
         int dy = y - this.y;
         if(dx < 0)
         {
-            if(dy < 0)
-                return Direction.NORTHWEST;
-            else if(dy > 0)
-                return Direction.SOUTHWEST;
-            else
-                return Direction.WEST;
+            return Direction.WEST;
         }
         else if(dx > 0)
         {
-            if(dy < 0)
-                return Direction.NORTHEAST;
-            else if(dy > 0)
-                return Direction.SOUTHEAST;
-            else
-                return Direction.EAST;
+            return Direction.EAST;
         }
         else
         {

@@ -46,7 +46,7 @@ public abstract class Terminal
      * @return the next key press
      * @throws InterruptedException
      */
-    public abstract char getKey() throws InterruptedException;
+    public abstract int getKey() throws InterruptedException;
 
     /**
      * Places a character into the buffer at the specified coordinates.

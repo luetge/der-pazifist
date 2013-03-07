@@ -13,21 +13,9 @@ public class DirectionTest
     }
 
     @Test
-    public void vectorNortheast()
-    {
-        verifyVector(Direction.NORTHEAST, 1, -1);
-    }
-
-    @Test
     public void vectorEast()
     {
         verifyVector(Direction.EAST, 1, 0);
-    }
-
-    @Test
-    public void vectorSoutheast()
-    {
-        verifyVector(Direction.SOUTHEAST, 1, 1);
     }
 
     @Test
@@ -37,21 +25,9 @@ public class DirectionTest
     }
 
     @Test
-    public void vectorSouthwest()
-    {
-        verifyVector(Direction.SOUTHWEST, -1, 1);
-    }
-
-    @Test
     public void vectorWest()
     {
         verifyVector(Direction.WEST, -1, 0);
-    }
-
-    @Test
-    public void vectorNorthWest()
-    {
-        verifyVector(Direction.NORTHWEST, -1, -1);
     }
 
     @Test
@@ -74,24 +50,10 @@ public class DirectionTest
     }
 
     @Test
-    public void keyDirNortheast()
-    {
-        verifyKeyDir('u', Direction.NORTHEAST);
-        verifyKeyDir('9', Direction.NORTHEAST);
-    }
-
-    @Test
     public void keyDirEast()
     {
         verifyKeyDir('l', Direction.EAST);
         verifyKeyDir('6', Direction.EAST);
-    }
-
-    @Test
-    public void keyDirSoutheast()
-    {
-        verifyKeyDir('n', Direction.SOUTHEAST);
-        verifyKeyDir('3', Direction.SOUTHEAST);
     }
 
     @Test
@@ -102,24 +64,10 @@ public class DirectionTest
     }
 
     @Test
-    public void keyDirSouthwest()
-    {
-        verifyKeyDir('b', Direction.SOUTHWEST);
-        verifyKeyDir('1', Direction.SOUTHWEST);
-    }
-
-    @Test
     public void keyDirWest()
     {
         verifyKeyDir('h', Direction.WEST);
         verifyKeyDir('4', Direction.WEST);
-    }
-
-    @Test
-    public void keyDirNorthWest()
-    {
-        verifyKeyDir('y', Direction.NORTHWEST);
-        verifyKeyDir('7', Direction.NORTHWEST);
     }
 
     @Test

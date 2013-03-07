@@ -1,5 +1,6 @@
 package rogue.creature;
 
+import java.awt.event.KeyEvent;
 import java.util.Collection;
 import jade.fov.RayCaster;
 import jade.fov.ViewField;
@@ -26,11 +27,11 @@ public class Player extends Creature implements Camera
     {
         try
         {
-            char key;
+            int key;
             key = term.getKey();
             switch(key)
             {
-                case 'q':
+                case KeyEvent.VK_Q:
                     expire();
                     break;
                 default:

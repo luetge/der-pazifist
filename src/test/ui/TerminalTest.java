@@ -19,7 +19,7 @@ public class TerminalTest
         term = new Terminal()
         {
             @Override
-            public char getKey()
+            public int getKey()
             {
                 return 0;
             }

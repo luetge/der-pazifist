@@ -269,7 +269,7 @@ public class CameraTest
         {}
 
         @Override
-        public char getKey()
+        public int getKey()
         {
             return 0;
         }

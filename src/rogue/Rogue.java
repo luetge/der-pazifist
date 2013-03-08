@@ -3,6 +3,7 @@ package rogue;
 import jade.core.World;
 import jade.ui.TiledTermPanel;
 import jade.util.datatype.ColoredChar;
+import jade.util.datatype.Coordinate;
 
 import java.awt.Color;
 import java.awt.event.ComponentListener;
@@ -33,6 +34,7 @@ public class Rogue implements ComponentListener
         world = new Level(256, 196, player);
 		viewcenter_x = player.pos().x();
 		viewcenter_y = player.pos().y();
+		for (int i = 0; i < 600; i++)
         world.addActor(new Monster(ColoredChar.create('Z', Color.green)));
         
         term.addComponentListener(this);
@@ -83,7 +85,20 @@ public class Rogue implements ComponentListener
             	if (worldx < 0 || worldy < 0 || worldx >= world.width()
             		|| worldy >= world.height())
             		continue;
-            	term.bufferChar(x, y, world.look(worldx, worldy));	
+            	ColoredChar c = world.look(worldx, worldy);
+        		if (new Coordinate (worldx, worldy).distance (player.pos ())
+        				> 7.0)
+            	{
+        			if (!world.isAlwaysVisible (worldx, worldy))
+        			{
+            			continue;
+            		}
+        			else
+        			{
+        				c = ColoredChar.create (c.ch (), c.color().darker());
+        			}
+            	}
+            	term.bufferChar(x, y, c);	
             }
         }
         term.refreshScreen();

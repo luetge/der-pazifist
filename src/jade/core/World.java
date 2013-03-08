@@ -411,11 +411,26 @@ public abstract class World extends Messenger
      */
     public void setTile(ColoredChar face, boolean passable, int x, int y)
     {
+    	setTile (face, passable, x, y, false);
+    }
+    
+    /**
+     * Sets the face and passable value of the tile at the specified (x, y) location.
+     * @param face the new face of the tile
+     * @param passable the new passable value of the tile
+     * @param x the x value of the position being updated
+     * @param y the y value of the position being updated
+     * @param alwaysvisible the new alwaysvisible value of the tile
+     */
+    public void setTile(ColoredChar face, boolean passable, int x, int y,
+    					boolean alwaysvisible)
+    {
         Guard.argumentIsNotNull(face);
         Guard.argumentsInsideBounds(x, y, width, height);
 
         grid[x][y].face = face;
         grid[x][y].passable = passable;
+        grid[x][y].alwaysvisible = alwaysvisible;
     }
 
     /**
@@ -429,6 +444,21 @@ public abstract class World extends Messenger
         Guard.argumentIsNotNull(coord);
 
         setTile(face, passable, coord.x(), coord.y());
+    }
+
+    /**
+     * Sets the face and passable value of the tile at the specified {@code Coordinate}.
+     * @param face the new face of the tile
+     * @param passable the new passable value of the tile
+     * @param coord the value of the position being updated
+     * @param alwaysvisible the new alwaysvisible value of the tile
+     */
+    public final void setTile(ColoredChar face, boolean passable, Coordinate coord,
+    						  boolean alwaysvisible)
+    {
+        Guard.argumentIsNotNull(coord);
+
+        setTile(face, passable, coord.x(), coord.y(), alwaysvisible);
     }
 
     /**
@@ -490,6 +520,11 @@ public abstract class World extends Messenger
     public final Coordinate getOpenTile(Dice dice)
     {
         return getOpenTile(dice, 0, 0, width - 1, height - 1);
+    }
+    
+    public final boolean isAlwaysVisible (int x, int y)
+    {
+    	return grid[x][y].alwaysvisible;
     }
 
     /**
@@ -581,12 +616,14 @@ public abstract class World extends Messenger
     private class Tile
     {
         public boolean passable;
+        public boolean alwaysvisible;
         public ColoredChar face;
         public Set<Actor> actors;
 
         public Tile()
         {
             passable = true;
+            alwaysvisible = false;
             face = ColoredChar.create(' ');
             actors = new HashSet<Actor>();
         }

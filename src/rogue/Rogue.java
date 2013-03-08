@@ -5,6 +5,8 @@ import jade.ui.TiledTermPanel;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 
+import java.util.Collection;
+
 import java.awt.Color;
 import java.awt.event.ComponentListener;
 import java.awt.event.ComponentEvent;
@@ -75,6 +77,8 @@ public class Rogue implements ComponentListener
         	viewcenter_y = player.pos().y() + term.height()/2 - viewborder_y;
         if (viewcenter_y + term.height ()/2 - viewborder_y < player.pos().y())
         	viewcenter_y = player.pos().y() - term.height()/2 + viewborder_y;
+        
+        Collection<Coordinate> viewfield = player.getViewField ();
 
         for(int x = 0; x < term.width (); x++)
         {
@@ -86,8 +90,7 @@ public class Rogue implements ComponentListener
             		|| worldy >= world.height())
             		continue;
             	ColoredChar c = world.look(worldx, worldy);
-        		if (new Coordinate (worldx, worldy).distance (player.pos ())
-        				> 7.0)
+        		if (!viewfield.contains(new Coordinate (worldx, worldy)))
             	{
         			if (!world.isAlwaysVisible (worldx, worldy))
         			{

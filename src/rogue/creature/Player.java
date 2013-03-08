@@ -29,7 +29,6 @@ public class Player extends Creature implements Camera
     	 Direction dir = Direction.keyToDir(world().getCurrentKey());
          if(dir != null)
              move(dir);
-         appendMessage("Ich bin schon " + ++counter + " Schritte gelaufen! Hohoho!");
     };
 
     @Override

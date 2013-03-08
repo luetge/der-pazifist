@@ -3,6 +3,7 @@ package jade.gen.map;
 import jade.core.World;
 import jade.util.Dice;
 import jade.util.datatype.ColoredChar;
+import java.awt.Color;
 
 /**
  * Uses a binary space partitioning algorithm to generate rooms, and the connect them using the
@@ -124,6 +125,41 @@ public class City extends MapGenerator
                 ry1 = dice.nextInt(y1 + 1, y2 - 1 - minSize);
                 ry2 = dice.nextInt(ry1 + minSize, y2 - 1);
                 makeSquare(rx1, ry1, rx2, ry2, world, true);
+                
+                int doorside = dice.nextInt(0,3);
+                if (doorside == 0 && rx1 == 1)
+                	doorside = 1;
+                if (doorside == 1 && rx2 == world.width() - 2)
+                	doorside = 0;
+                if (doorside == 2 && ry1 == 1)
+                	doorside = 3;
+                if (doorside == 3 && ry2 == world.height () -2)
+                	doorside = 2;
+                int doorx, doory;
+                switch (dice.nextInt(0,3))
+                {
+                case 0:
+                	doorx = rx1;
+                	doory = dice.nextInt (ry1+1,ry2-2);
+                	break;
+                case 1:
+                	doorx = rx2;
+                	doory = dice.nextInt (ry1+1,ry2-2);
+                	break;
+                case 2:
+                	doorx = dice.nextInt (rx1+1,rx2-1);
+                	doory = ry1;
+                	break;
+                default:
+                	doorx = dice.nextInt (rx1+1,rx2-1);
+                	doory = ry2;
+                	break;
+                }
+
+                // TODO: make c global
+                ColoredChar c = new ColoredChar ('+', Color.white, Color.orange.darker().darker());
+                world.setTile(c, false, doorx, doory, true);
+                world.addDoor (0, doorx, doory);
             }
             else
             {

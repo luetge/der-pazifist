@@ -200,6 +200,11 @@ public abstract class World extends Messenger
         for(Actor actor : expired)
             removeActor(actor);
     }
+    
+    public void addDoor (int roomType, int x, int y)
+    {
+    	
+    }
 
     /**
      * Returns an {@code Actor} of the given class located at (x, y), or null if there is none. If

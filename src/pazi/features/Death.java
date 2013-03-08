@@ -8,7 +8,7 @@ import java.awt.Color;
 public class Death implements IFeature {
 
 	public Death(Actor actor){
-		System.out.println("Ich bin tot!");
+		actor.appendMessage("UUuuuuuuaaaaarrrrrrrghghhgghhh!");
 		actor.setFace(new ColoredChar(actor.face().ch(), Color.gray));
 	}
 	

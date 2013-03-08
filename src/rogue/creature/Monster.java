@@ -9,9 +9,9 @@ import jade.util.datatype.Direction;
 
 public class Monster extends Creature
 {
-    public Monster(ColoredChar face)
+    public Monster(ColoredChar face, String Name)
     {
-        super(face);
+        super(face, Name);
         features.add(new Walking());
     }
 

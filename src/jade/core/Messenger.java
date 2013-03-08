@@ -4,6 +4,7 @@ import jade.util.Guard;
 import jade.util.Lambda;
 import jade.util.Lambda.FilterFunc;
 import jade.util.Lambda.MapFunc;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -14,14 +15,20 @@ import java.util.List;
  */
 public abstract class Messenger
 {
+    private String name = "NoName";
     private List<Message> cache;
 
+    public Messenger(){
+        cache = new ArrayList<Message>();
+    }
+    
     /**
      * Creates a new {@code Messenger}
      */
-    public Messenger()
+    public Messenger(String name)
     {
-        cache = new ArrayList<Message>();
+    	this();
+    	setName(name);
     }
 
     /**
@@ -31,15 +38,25 @@ public abstract class Messenger
      */
     public void appendMessage(String message)
     {
-        Guard.argumentIsNotNull(message);
-
-        cache.add(new Message(message, this));
+    	appendMessage(message, this);
     }
 
     /**
+     * Appends a message, which will have this {@code Messenger} as a source.
+     * @param message the message to append
+     * @param source the source
+     */
+    public void appendMessage(String message, Messenger source)
+    {
+        Guard.argumentIsNotNull(message);
+
+        cache.add(new Message(message, source));
+    }
+    
+    /**
      * Retrieves and clears all messages held by the {@code Messenger}.
      * 
-     * @return all messages held by the {@code Messenger}
+     * @return all messages held by the {@code Messenger} as String
      */
     public Iterable<String> retrieveMessages()
     {
@@ -47,7 +64,33 @@ public abstract class Messenger
         cache.clear();
         return messages;
     }
+    
+    /**
+     * Returns the iterator of the {@code Messenger}.
+     * 
+     * @return iterator over all messages held by the {@code Messenger} 
+     */
+    public Message getNextMessage()
+    {
+    	if(cache.isEmpty())
+    		return null;
+    	Message m = cache.get(0);
+    	cache.remove(0);
+    	return m;
+    }
+    
+    public boolean hasNextMessage(){
+    	return !cache.isEmpty();
+    }
 
+    public void setName(String name){
+    	this.name = name;
+    }
+    
+    public String getName(){
+    	return name;
+    }
+    
     /**
      * Moves the messages stored by the given {@code Messenger} into this one. The source of each
      * message is preserved.
@@ -85,7 +128,7 @@ public abstract class Messenger
         cache.clear();
     }
 
-    private class Message
+    public class Message
     {
         public final String text;
         public final Messenger source;

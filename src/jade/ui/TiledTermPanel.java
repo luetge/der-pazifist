@@ -4,10 +4,11 @@ import jade.core.World;
 import jade.util.Guard;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
+
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.awt.event.ComponentListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.imageio.ImageIO;
 
 public class TiledTermPanel extends TermPanel
@@ -197,6 +199,7 @@ public class TiledTermPanel extends TermPanel
                         page.drawString(ch.toString(), x, y);
                     }
                 }
+                
             }
         }
     }

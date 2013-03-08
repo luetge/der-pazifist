@@ -5,9 +5,9 @@ import jade.util.datatype.ColoredChar;
 
 public abstract class Creature extends Actor
 {
-    public Creature(ColoredChar face)
+    public Creature(ColoredChar face, String Name)
     {
-        super(face);
+        super(face, Name);
     }
 
     @Override
@@ -18,4 +18,9 @@ public abstract class Creature extends Actor
     }
     
     public abstract void walk();
+    
+    @Override
+    public void appendMessage(String message) {
+    	world().appendMessage(message, this);
+    }
 }

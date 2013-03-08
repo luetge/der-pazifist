@@ -39,9 +39,11 @@ public abstract class Actor extends Messenger
      * Constructs a new {@code Actor} with the given face.
      * @param face the face of the {@code Actor}
      */
-    public Actor(ColoredChar face)
+    public Actor(ColoredChar face, String name)
     {
+        super(name);
     	setFace(face);
+    	setName(name);
         pos = new MutableCoordinate(0, 0);
         expired = false;
         holds = new HashSet<Actor>();
@@ -57,7 +59,7 @@ public abstract class Actor extends Messenger
     		if(!feature.act(this))
     			return;
     }
-
+    
     /**
      * Returns the face of the {@code Actor}.
      * @return the face of the {@code Actor}

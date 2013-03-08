@@ -54,12 +54,12 @@ public class City extends MapGenerator
     
     protected void makeSquare(int x1, int y1, int x2, int y2, World world, boolean makeInteriorImpassable){
     	for(int x=x1; x <= x2; x++){
-        	world.setTile(wallTile, false, x, y1);
-        	world.setTile(wallTile, false, x, y2);
+        	world.setTile(wallTile, false, x, y1, true);
+        	world.setTile(wallTile, false, x, y2, true);
         }
         for(int y=y1; y <= y2; y++){
-        	world.setTile(wallTile, false, x1, y);
-        	world.setTile(wallTile, false, x2, y);
+        	world.setTile(wallTile, false, x1, y, true);
+        	world.setTile(wallTile, false, x2, y, true);
         }
         
         // Innenraum nicht betretbar

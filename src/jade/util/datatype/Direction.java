@@ -23,6 +23,10 @@ public enum Direction
      * Left on the screen
      */
     WEST(-1, 0),
+    NORTHWEST(-1, -1),
+    NORTHEAST(1, -1),
+    SOUTHWEST(-1, 1),
+    SOUTHEAST(1, 1),
     /**
      * No change on the screen
      */

@@ -43,7 +43,7 @@ public class ColoredChar
         return create(ch, Color.white);
     }
 
-    private ColoredChar(char ch, Color color)
+    public ColoredChar(char ch, Color color)
     {
         Guard.argumentIsNotNull(color);
 

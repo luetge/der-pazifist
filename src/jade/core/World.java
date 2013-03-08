@@ -587,7 +587,7 @@ public abstract class World extends Messenger
         public Tile()
         {
             passable = true;
-            face = ColoredChar.create('.');
+            face = ColoredChar.create(' ');
             actors = new HashSet<Actor>();
         }
     }

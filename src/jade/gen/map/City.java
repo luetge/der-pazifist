@@ -48,10 +48,6 @@ public class City extends MapGenerator
 
     private void floorFill(World world)
     {
-        for(int x = 0; x < world.width(); x++)
-            for(int y = 0; y < world.height(); y++)
-                world.setTile(floorTile, true, x, y);
-        
         // Fence
         makeSquare(0, 0, world.width()-1, world.height()-1, world, false);
     }

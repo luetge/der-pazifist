@@ -161,23 +161,11 @@ public class TermPanel extends Terminal
             super.paintComponent(page);
             synchronized(screenBuffer)
             {
-//            	Coordinate c = new Coordinate(0, 0);
-//            	StringBuilder sRow = new StringBuilder();
-//            	ColoredChar ch;
-//            	page.setColor(Color.white);
-//            	for(int i=0; i<rows; i++){
-//            		for(int j=0; j<columns; j++){
-//            			ch = screenBuffer.get(c);
-//            			sRow.append(ch == null ? " " : ch.ch());
-//            			c = c.getTranslated(1, 0);
-//            		}
-//            		page.drawString(sRow.toString(), 0, tileHeight * (i+1));
-//            		sRow.delete(0, sRow.length());
-//            		c = new Coordinate(0, c.y()+1);
-//            	}
                 for(Coordinate coord : screenBuffer.keySet())
                 {
                     ColoredChar ch = screenBuffer.get(coord);
+                    if (ch.ch () == ' ')
+                    	continue;
                     int x = tileWidth * coord.x();
                     int y = tileHeight * (coord.y() + 1);
 

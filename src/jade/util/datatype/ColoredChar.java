@@ -13,6 +13,7 @@ public class ColoredChar
 {
     private final char ch;
     private final Color color;
+    private final Color bgcolor;
 
     private static Map<ColoredChar, ColoredChar> interned = new HashMap<ColoredChar, ColoredChar>();
 
@@ -31,6 +32,14 @@ public class ColoredChar
         return interned.get(instance);
     }
 
+    public static ColoredChar create(char ch, Color color, Color bgcolor)
+    {
+        ColoredChar instance = new ColoredChar(ch, color, bgcolor);
+        if(!interned.containsKey(instance))
+            interned.put(instance, instance);
+        return interned.get(instance);
+    }
+
     /**
      * Constructs a new {@code ColoredChar} tuple with the given {@code char} value and {@code
      * Color.white} as the default {@code Color} value. This will always return the interned
@@ -43,12 +52,18 @@ public class ColoredChar
         return create(ch, Color.white);
     }
 
-    public ColoredChar(char ch, Color color)
+    public ColoredChar(char ch, Color color, Color bgcolor)
     {
         Guard.argumentIsNotNull(color);
 
         this.ch = ch;
         this.color = color;
+        this.bgcolor = bgcolor;
+    }
+    
+    public ColoredChar (char ch, Color color)
+    {
+    	this(ch, color, Color.black);
     }
 
     /**
@@ -68,6 +83,11 @@ public class ColoredChar
     {
         return color;
     }
+    
+    public Color bgcolor()
+    {
+    	return bgcolor;
+    }
 
     @Override
     public boolean equals(Object obj)
@@ -75,7 +95,8 @@ public class ColoredChar
         if(obj instanceof ColoredChar)
         {
             ColoredChar other = (ColoredChar)obj;
-            return ch == other.ch && color.equals(other.color);
+            return ch == other.ch && color.equals(other.color)
+            		&& bgcolor.equals(other.bgcolor);
         }
         return false;
     }
@@ -83,7 +104,7 @@ public class ColoredChar
     @Override
     public int hashCode()
     {
-        return (color.hashCode() << 8) | (ch & 0xFF);
+        return (color.hashCode() << 8) | (ch & 0xFF) | (bgcolor.hashCode () << 24);
     }
 
     @Override

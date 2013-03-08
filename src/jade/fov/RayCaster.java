@@ -30,13 +30,14 @@ public class RayCaster extends ViewField
     {
         Collection<Coordinate> fov = new HashSet<Coordinate>();
         fov.add(new Coordinate(x, y));
+        int ry = r * 3/4;
 
         for(int dx = -r; dx <= r; dx++)
         {
-            fov.addAll(raycaster.getPartialPath(world, x, y, x + dx, y - r));
-            fov.addAll(raycaster.getPartialPath(world, x, y, x + dx, y + r));
+            fov.addAll(raycaster.getPartialPath(world, x, y, x + dx, y - ry));
+            fov.addAll(raycaster.getPartialPath(world, x, y, x + dx, y + ry));
         }
-        for(int dy = -r; dy <= r; dy++)
+        for(int dy = -ry; dy <= ry; dy++)
         {
             fov.addAll(raycaster.getPartialPath(world, x, y, x - r, y + dy));
             fov.addAll(raycaster.getPartialPath(world, x, y, x + r, y + dy));

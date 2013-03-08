@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
+import java.awt.Color;
 import jade.core.World;
 import rogue.creature.Player;
 
@@ -57,6 +58,13 @@ public class View {
         				c = ColoredChar.create (c.ch (), c.color().darker());
         			}
             	}
+        		else
+        		{
+        			Color bgcolor = c.bgcolor();
+        			if (bgcolor == Color.black)
+        				bgcolor = Color.darkGray;
+        			c = ColoredChar.create (c.ch (), c.color(), bgcolor.brighter());
+        		}
             	term.bufferChar(x, y, c);	
             }
         }

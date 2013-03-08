@@ -33,7 +33,8 @@ public class Rogue implements ComponentListener
         world = new Level(256, 196, player);
 		viewcenter_x = player.pos().x();
 		viewcenter_y = player.pos().y();
-        world.addActor(new Monster(ColoredChar.create('Z', Color.green)));
+		for(int i=0;i<600; i++)
+			world.addActor(new Monster(ColoredChar.create('Z', Color.green)));
         
         term.addComponentListener(this);
         

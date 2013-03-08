@@ -16,4 +16,6 @@ public abstract class Creature extends Actor
         if(world().passableAt(x, y))
             super.setPos(x, y);
     }
+    
+    public abstract void walk();
 }

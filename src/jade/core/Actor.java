@@ -6,9 +6,15 @@ import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
 import jade.util.datatype.MutableCoordinate;
+
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
+
+import pazi.features.IFeature;
+
+//TODO Prioritäten bei Features
 
 /**
  * Represents anything on a Jade {@code World} that can perform an action (or be acted upon). This
@@ -16,7 +22,7 @@ import java.util.Set;
  * can represent things like items, spells, doors and traps, or even abstract actions like timers
  * and events. An {@code Actor} can be attached to one another in order to create other interesting
  * effects. For example, an enchantment spell might be an effect {@code Actor} attached to an item
- * {@code Actor}. A timer {@code Actor} could be attached to the spell which simple counts an
+ * {@code Actor}. A timer {@code Actor} could be attached to the spell which simply counts an
  * appropriate amount of turns, then expires the spell {@code Actor}.
  */
 public abstract class Actor extends Messenger
@@ -27,6 +33,7 @@ public abstract class Actor extends Messenger
     private boolean expired;
     private Actor holder;
     private Set<Actor> holds;
+    protected LinkedList<IFeature> features = new LinkedList<IFeature>();
 
     /**
      * Constructs a new {@code Actor} with the given face.
@@ -34,7 +41,7 @@ public abstract class Actor extends Messenger
      */
     public Actor(ColoredChar face)
     {
-        this.face = face;
+    	setFace(face);
         pos = new MutableCoordinate(0, 0);
         expired = false;
         holds = new HashSet<Actor>();
@@ -45,7 +52,11 @@ public abstract class Actor extends Messenger
      * {@code World} in the {@code tick()} method, which allows the {@code Actor} actions to be
      * scheduled properly based on act order and {@code Actor} speed.
      */
-    public abstract void act();
+    public void act(){
+    	for(IFeature feature : features)
+    		if(!feature.act(this))
+    			return;
+    }
 
     /**
      * Returns the face of the {@code Actor}.
@@ -54,6 +65,14 @@ public abstract class Actor extends Messenger
     public ColoredChar face()
     {
         return face;
+    }
+    
+    /**
+     * Sets the face of the {@code Actor}.
+     * @param face The new face.
+     */
+    public void setFace(ColoredChar face){
+    	this.face = face;
     }
 
     /**
@@ -307,4 +326,13 @@ public abstract class Actor extends Messenger
         for(Actor held : holds)
             held.propagatePos(pos);
     }
+    
+    public void addFeature(IFeature feature){
+    	features.add(0, feature);
+    }
+    
+    public <T extends IFeature> Collection<T> getFeatures(Class<T> cls){
+    	return Lambda.toSet(Lambda.filterType(features, cls));
+    }
+    
 }

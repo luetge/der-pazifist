@@ -136,7 +136,7 @@ public class City extends MapGenerator
                 if (doorside == 3 && ry2 == world.height () -2)
                 	doorside = 2;
                 int doorx, doory;
-                switch (dice.nextInt(0,3))
+                switch (doorside)
                 {
                 case 0:
                 	doorx = rx1;

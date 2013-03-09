@@ -46,6 +46,9 @@ public class View {
             	if (worldx < 0 || worldy < 0 || worldx >= world.width()
             		|| worldy >= world.height())
             		continue;
+            	
+            	Color background = world.lookBackground(worldx, worldy);
+            	
             	ColoredChar c = world.look(worldx, worldy);
         		if (!viewfield.contains(new Coordinate (worldx, worldy)))
             	{
@@ -57,15 +60,16 @@ public class View {
         			{
         				c = ColoredChar.create (c.ch (), c.color().darker());
         			}
+        			background = Color.black;
             	}
         		else
         		{
-        			Color bgcolor = c.bgcolor();
-        			if (bgcolor == Color.black)
-        				bgcolor = Color.darkGray;
-        			c = ColoredChar.create (c.ch (), c.color(), bgcolor.brighter());
+        			if (background == Color.black)
+        				background = Color.darkGray;
+        			background = background.brighter();
         		}
-            	term.bufferChar(x, y, c);	
+            	term.bufferChar(x, y, c);
+            	term.bufferBackground(x, y, background);
             }
         }
         term.refreshScreen();

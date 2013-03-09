@@ -157,8 +157,9 @@ public class City extends MapGenerator
                 }
 
                 // TODO: make c global
-                ColoredChar c = new ColoredChar ('+', Color.white, Color.orange.darker().darker());
+                ColoredChar c = new ColoredChar ('+', Color.white);
                 world.setTile(c, false, doorx, doory, true);
+                world.setTileBackground(Color.orange.darker().darker(), doorx, doory);
                 world.addDoor (0, doorx, doory);
             }
             else

@@ -13,6 +13,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import java.awt.Color;
+
 import pazi.features.Death;
 import rogue.creature.Creature;
 import rogue.creature.Monster;
@@ -360,6 +362,17 @@ public abstract class World extends Messenger
 
         return look(pos.x(), pos.y());
     }
+    
+    public final Color lookBackground(int x, int y)
+    {
+        Guard.argumentsInsideBounds(x, y, width, height);
+        return grid[x][y].background;
+    }
+    
+    public final Color lookBackground(Coordinate coord)
+    {
+    	return lookBackground(coord.x(), coord.y());    	
+    }
 
     /**
      * Returns the face of the tile at the provided (x, y) coordinates.
@@ -468,6 +481,20 @@ public abstract class World extends Messenger
         Guard.argumentIsNotNull(coord);
 
         setTile(face, passable, coord.x(), coord.y(), alwaysvisible);
+    }
+    
+    public final void setTileBackground(Color background, Coordinate coord)
+    {
+    	Guard.argumentIsNotNull(coord);
+    	setTileBackground (background, coord.x(), coord.y());
+    }
+    
+    public final void setTileBackground(Color background, int x, int y)
+    {
+        Guard.argumentIsNotNull(background);
+        Guard.argumentsInsideBounds(x, y, width, height);
+        
+    	grid[x][y].background = background;
     }
 
     /**
@@ -627,6 +654,7 @@ public abstract class World extends Messenger
         public boolean passable;
         public boolean alwaysvisible;
         public ColoredChar face;
+        public Color background;
         public Set<Actor> actors;
 
         public Tile()
@@ -634,6 +662,7 @@ public abstract class World extends Messenger
             passable = true;
             alwaysvisible = false;
             face = ColoredChar.create(' ');
+            background = Color.black;
             actors = new HashSet<Actor>();
         }
     }

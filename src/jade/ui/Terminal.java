@@ -15,7 +15,9 @@ import java.util.Map;
 public abstract class Terminal
 {
     private Map<Coordinate, ColoredChar> buffer;
+    private Map<Coordinate, Color> backgroundBuffer;
     private Map<Coordinate, ColoredChar> saved;
+    private Map<Coordinate, Color> backgroundSaved;
     private Map<Camera, Coordinate> cameras;
 
     /**
@@ -24,7 +26,9 @@ public abstract class Terminal
     public Terminal()
     {
         buffer = new HashMap<Coordinate, ColoredChar>();
+        backgroundBuffer = new HashMap<Coordinate, Color>();
         saved = new HashMap<Coordinate, ColoredChar>();
+        backgroundSaved = new HashMap<Coordinate, Color>();
         cameras = new HashMap<Camera, Coordinate>();
     }
 
@@ -39,6 +43,11 @@ public abstract class Terminal
     {
         return buffer;
     }
+    
+    protected final Map<Coordinate, Color> getBackgroundBuffer()
+    {
+    	return backgroundBuffer;
+    }
 
     /**
      * Returns the next key press as a {@code char}. This method block until a key press is
@@ -47,6 +56,26 @@ public abstract class Terminal
      * @throws InterruptedException
      */
     public abstract int getKey() throws InterruptedException;
+    
+    public void bufferBackground(Coordinate coord, Color c)
+    {
+    	backgroundBuffer.put(coord, c);
+    }
+    
+    public final void bufferBackground(int x, int y, Color c)
+    {
+    	bufferBackground (new Coordinate(x, y), c);
+    }
+    
+    public Color backgroundAt (Coordinate coord)
+    {
+    	return backgroundBuffer.get(coord);
+    }
+    
+    public final Color backgroundAt (int x, int y)
+    {
+    	return backgroundAt (new Coordinate(x, y));
+    }
 
     /**
      * Places a character into the buffer at the specified coordinates.
@@ -153,6 +182,7 @@ public abstract class Terminal
     public void clearBuffer()
     {
         buffer.clear();
+        backgroundBuffer.clear();
     }
 
     /**
@@ -163,6 +193,8 @@ public abstract class Terminal
     {
         saved.clear();
         saved.putAll(buffer);
+        backgroundSaved.clear();
+        backgroundSaved.putAll(backgroundBuffer);
     }
 
     /**
@@ -173,6 +205,8 @@ public abstract class Terminal
     {
         buffer.clear();
         buffer.putAll(saved);
+        backgroundBuffer.clear();
+        backgroundBuffer.putAll(backgroundSaved);
     }
 
     /**

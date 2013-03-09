@@ -105,6 +105,7 @@ public class TermPanel extends Terminal
     public void refreshScreen()
     {
         screen.setBuffer(getBuffer());
+        screen.setBackgroundBuffer(getBackgroundBuffer());
         screen.repaint();
     }
     
@@ -126,6 +127,7 @@ public class TermPanel extends Terminal
         private int columns, rows;
         private BlockingQueue<Integer> inputBuffer;
         private Map<Coordinate, ColoredChar> screenBuffer;
+        private Map<Coordinate, Color> backgroundBuffer;
 
         public Screen(int columns, int rows, int fontSize)
         {
@@ -136,6 +138,7 @@ public class TermPanel extends Terminal
         {
             inputBuffer = new LinkedBlockingQueue<Integer>();
             screenBuffer = new HashMap<Coordinate, ColoredChar>();
+            backgroundBuffer = new HashMap<Coordinate, Color>();
             this.columns = columns;
             this.rows = rows;
             addKeyListener(this);
@@ -161,26 +164,34 @@ public class TermPanel extends Terminal
         protected void paintComponent(Graphics page)
         {
             super.paintComponent(page);
+            synchronized(backgroundBuffer)
+            {
+            	FontMetrics fm = page.getFontMetrics ();
+            	Rectangle2D rect = fm.getStringBounds("#", page);
+                for(Coordinate coord : backgroundBuffer.keySet())
+                {
+                	Color c = backgroundBuffer.get(coord);
+                	if (c == Color.black)
+                		continue;
+                    int x = tileWidth * coord.x();
+                    int y = tileHeight * (coord.y() + 1);
+                	page.setColor(c);
+                	page.fillRect(x, y -fm.getAscent(),
+                			(int)rect.getWidth(), (int)rect.getHeight());
+                }
+            }
             synchronized(screenBuffer)
             {
                 for(Coordinate coord : screenBuffer.keySet())
                 {
                     ColoredChar ch = screenBuffer.get(coord);
-                    if (ch.ch () == ' ' && ch.bgcolor() == Color.black)
+                    if (ch.ch () == ' ')
                     	continue;
                     int x = tileWidth * coord.x();
                     int y = tileHeight * (coord.y() + 1);
                     
                     String str = ch.toString ();
 
-                    if (ch.bgcolor () != Color.black)
-                    {
-                    	FontMetrics fm = page.getFontMetrics ();
-                    	Rectangle2D rect = fm.getStringBounds(str, page);
-                    	page.setColor(ch.bgcolor ());
-                    	page.fillRect(x, y -fm.getAscent(),
-                    			(int)rect.getWidth(), (int)rect.getHeight());
-                    }
                     page.setColor(ch.color());
                     page.drawString(str, x, y);
                 }
@@ -194,6 +205,15 @@ public class TermPanel extends Terminal
                 screenBuffer.clear();
                 screenBuffer.putAll(buffer);
             }
+        }
+        
+        public void setBackgroundBuffer(Map<Coordinate, Color> buffer)
+        {
+        	synchronized(backgroundBuffer)
+        	{
+        		backgroundBuffer.clear();
+        		backgroundBuffer.putAll(buffer);
+        	}
         }
 
         @Override

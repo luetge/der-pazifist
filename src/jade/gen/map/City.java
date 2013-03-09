@@ -14,7 +14,8 @@ public class City extends MapGenerator
 {
     private ColoredChar wallTile;
     private ColoredChar floorTile;
-    private int minSize;
+    private int minWidth;
+    private int minHeight;
 
     /**
      * Instantiates a BSP with default parameters. Room minSize is 4. Wall and floor tiles are '#'
@@ -22,7 +23,7 @@ public class City extends MapGenerator
      */
     public City()
     {
-        this(ColoredChar.create(' '), ColoredChar.create('#'), 16);
+        this(ColoredChar.create(' '), ColoredChar.create('#'), 16, 16*3/4);
     }
 
     /**
@@ -31,18 +32,19 @@ public class City extends MapGenerator
      * @param wallTile the tile used for passable floors
      * @param minSize the minimum dimension of a room
      */
-    public City(ColoredChar floorTile, ColoredChar wallTile, int minSize)
+    public City(ColoredChar floorTile, ColoredChar wallTile, int minWidth, int minHeight)
     {
         this.floorTile = floorTile;
         this.wallTile = wallTile;
-        this.minSize = minSize;
+        this.minWidth = minWidth;
+        this.minHeight = minHeight;
     }
-
+    
     @Override
     protected void generateStep(World world, Dice dice)
     {
         floorFill(world);
-        BSPNode head = new BSPNode(world, minSize);
+        BSPNode head = new BSPNode(world, minWidth, minHeight);
         head.divide(dice);
         head.makeRooms(world, dice);
     }
@@ -73,7 +75,7 @@ public class City extends MapGenerator
         private BSPNode left;
         private BSPNode right;
 
-        public BSPNode(World world, int minSize)
+        public BSPNode(World world, int minWidth, int minHeight)
         {
             x1 = 0;
             y1 = 0;
@@ -94,9 +96,12 @@ public class City extends MapGenerator
         public void divide(Dice dice)
         {
             boolean vert = dice.chance();
-            int min = minSize + 4;// +4 so we don't get aligned grid of rooms
+            int min = (vert ? minWidth : minHeight) + 4;// +4 so we don't get aligned grid of rooms
             if(divTooSmall(vert, min))
+            {
                 vert = !vert;
+                min = (vert ? minWidth : minHeight) + 4;
+            }
             if(divTooSmall(vert, min))
                 return;
             int div = dice.nextInt(min, (vert ? x2 - x1 : y2 - y1) - min);
@@ -110,10 +115,10 @@ public class City extends MapGenerator
         {
             if(leaf())
             {
-                rx1 = dice.nextInt(x1 + 1, x2 - 1 - minSize);
-                rx2 = dice.nextInt(rx1 + minSize, x2 - 1);
-                ry1 = dice.nextInt(y1 + 1, y2 - 1 - minSize);
-                ry2 = dice.nextInt(ry1 + minSize, y2 - 1);
+                rx1 = dice.nextInt(x1 + 1, x2 - 1 - minWidth);
+                rx2 = dice.nextInt(rx1 + minWidth, x2 - 1);
+                ry1 = dice.nextInt(y1 + 1, y2 - 1 - minHeight);
+                ry2 = dice.nextInt(ry1 + minHeight, y2 - 1);
 
                 // TODO: make the edge characters global
                 ColoredChar edge = new ColoredChar ('╔', Color.white);

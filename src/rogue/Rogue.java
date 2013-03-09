@@ -31,7 +31,7 @@ public class Rogue implements ComponentListener
         term.registerTile("dungeon.png", 14, 30, ColoredChar.create('D', Color.red));
         
         player = new Player(term);
-        world = new Level(256, 196, player);
+        world = new Level(256, 192, player);
         
         view = new View (player.pos ());
         

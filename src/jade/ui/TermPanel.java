@@ -6,8 +6,6 @@ import jade.util.datatype.Coordinate;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.geom.Rectangle2D;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -166,18 +164,15 @@ public class TermPanel extends Terminal
             super.paintComponent(page);
             synchronized(backgroundBuffer)
             {
-            	FontMetrics fm = page.getFontMetrics ();
-            	Rectangle2D rect = fm.getStringBounds("#", page);
                 for(Coordinate coord : backgroundBuffer.keySet())
                 {
                 	Color c = backgroundBuffer.get(coord);
                 	if (c == Color.black)
                 		continue;
                     int x = tileWidth * coord.x();
-                    int y = tileHeight * (coord.y() + 1);
+                    int y = tileHeight * coord.y();
                 	page.setColor(c);
-                	page.fillRect(x, y -fm.getAscent(),
-                			(int)rect.getWidth(), (int)rect.getHeight());
+                	page.fillRect(x, y+2,	tileWidth, tileHeight);
                 }
             }
             synchronized(screenBuffer)

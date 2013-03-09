@@ -60,13 +60,12 @@ public class View {
         			{
         				c = ColoredChar.create (c.ch (), c.color().darker());
         			}
-        			background = Color.black;
+        			background = background.darker();
             	}
         		else
         		{
         			if (background == Color.black)
         				background = Color.darkGray;
-        			background = background.brighter();
         		}
             	term.bufferChar(x, y, c);
             	term.bufferBackground(x, y, background);

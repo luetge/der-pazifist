@@ -50,26 +50,16 @@ public class City extends MapGenerator
     private void floorFill(World world)
     {
         // Fence
-        makeSquare(0, 0, world.width()-1, world.height()-1, world, false);
+    	for(int x=0; x < world.width(); x++){
+        	world.setTile(wallTile, false, x, 0, true);
+        	world.setTile(wallTile, false, x, world.height()-1, true);
+        }
+        for(int y=0; y < world.height(); y++){
+        	world.setTile(wallTile, false, 0, y, true);
+        	world.setTile(wallTile,  false, world.width()-1, y, true);
+        }
     }
     
-    protected void makeSquare(int x1, int y1, int x2, int y2, World world, boolean makeInteriorImpassable){
-    	for(int x=x1; x <= x2; x++){
-        	world.setTile(wallTile, false, x, y1, true);
-        	world.setTile(wallTile, false, x, y2, true);
-        }
-        for(int y=y1; y <= y2; y++){
-        	world.setTile(wallTile, false, x1, y, true);
-        	world.setTile(wallTile, false, x2, y, true);
-        }
-        
-        // Innenraum nicht betretbar
-        if(makeInteriorImpassable)
-        	for(int x=x1+1; x < x2; x++)
-        		for(int y=y1+1; y < y2; y++)
-        			world.setTile(floorTile, false, x, y);
-    }
-
     private class BSPNode
     {
         private int x1;
@@ -124,7 +114,44 @@ public class City extends MapGenerator
                 rx2 = dice.nextInt(rx1 + minSize, x2 - 1);
                 ry1 = dice.nextInt(y1 + 1, y2 - 1 - minSize);
                 ry2 = dice.nextInt(ry1 + minSize, y2 - 1);
-                makeSquare(rx1, ry1, rx2, ry2, world, true);
+
+                // TODO: make the edge characters global
+                ColoredChar edge = new ColoredChar ('╔', Color.white);
+                world.setTile(edge, false, rx1, ry1, true);
+                edge = new ColoredChar ('╚', Color.white);
+                world.setTile(edge, false, rx1, ry2, true);
+                edge = new ColoredChar ('╗', Color.white);
+                world.setTile(edge, false, rx2 , ry1, true);
+                edge = new ColoredChar ('╝', Color.white);
+                world.setTile(edge, false, rx2, ry2, true);
+
+                edge = new ColoredChar ('═', Color.white);
+                for(int x=rx1+1; x < rx2; x++){
+                	world.setTile(edge, false, x, ry1, true);
+                	world.setTile(edge, false, x, ry2, true);
+                }
+                edge = new ColoredChar ('║', Color.white);
+                for(int y=ry1+1; y < ry2; y++){
+                	world.setTile(edge, false, rx1, y, true);
+                	world.setTile(edge, false, rx2, y, true);
+                }
+
+                // Innenraum nicht betretbar
+                for(int x=rx1+1; x < rx2; x++)
+                	for(int y=ry1+1; y < ry2; y++)
+                		world.setTile(floorTile, false, x, y);
+
+                float brightness = ((float)dice.nextInt (64,196))/256.0f;
+                Color background = new Color (brightness,brightness,brightness);
+                
+                for (int x = rx1 + 1; x <= rx2 - 1; x++)
+                {
+                	for (int y = ry1 + 1; y <= ry2 - 1; y++)
+                	{
+                        world.setTile(floorTile, false, x, y, true);
+                        world.setTileBackground(background,  x, y);
+                	}
+                }
                 
                 int doorside = dice.nextInt(0,3);
                 if (doorside == 0 && rx1 == 1)
@@ -133,7 +160,7 @@ public class City extends MapGenerator
                 	doorside = 0;
                 if (doorside == 2 && ry1 == 1)
                 	doorside = 3;
-                if (doorside == 3 && ry2 == world.height () -2)
+                if (doorside == 3 && ry2 == world.height () - 2)
                 	doorside = 2;
                 int doorx, doory;
                 switch (doorside)

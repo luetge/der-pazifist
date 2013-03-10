@@ -80,7 +80,7 @@ public class City extends MapGenerator
             x1 = 0;
             y1 = 0;
             x2 = world.width() - 1;
-            y2 = world.height() - 1;
+            y2 = world.height() - 2;
         }
 
         private BSPNode(BSPNode parent, int div, boolean vert, boolean left)
@@ -119,6 +119,15 @@ public class City extends MapGenerator
                 rx2 = dice.nextInt(rx1 + minWidth, x2 - 1);
                 ry1 = dice.nextInt(y1 + 1, y2 - 1 - minHeight);
                 ry2 = dice.nextInt(ry1 + minHeight, y2 - 1);
+                if (((rx2-rx1) & 1) == 1)
+                {
+                	rx2--;
+                }
+                if (((ry2-ry1) & 1) == 1)
+                {
+                	ry2--;
+                	
+                }
 
                 // TODO: make the edge characters global
                 ColoredChar edge = new ColoredChar ('╔', Color.white);
@@ -140,12 +149,11 @@ public class City extends MapGenerator
                 	world.setTile(edge, false, rx1, y, true);
                 	world.setTile(edge, false, rx2, y, true);
                 }
-
-                // Innenraum nicht betretbar
-                for(int x=rx1+1; x < rx2; x++)
-                	for(int y=ry1+1; y < ry2; y++)
-                		world.setTile(floorTile, false, x, y);
-
+                
+                // TODO: make this character global
+                ColoredChar window = new ColoredChar('⊞', Color.black);
+                ColoredChar windowlit = new ColoredChar('⊞', Color.yellow);
+                
                 float brightness = ((float)dice.nextInt (64,196))/256.0f;
                 Color background = new Color (brightness,brightness,brightness);
                 
@@ -153,46 +161,33 @@ public class City extends MapGenerator
                 {
                 	for (int y = ry1 + 1; y <= ry2 - 1; y++)
                 	{
-                        world.setTile(floorTile, false, x, y, true);
+                		if ((((x-rx1-1)&1)&((y-ry1-1)&1))==1)
+                		{
+                			world.setTile(dice.chance()?windowlit:window, false, x, y, true);
+                		}
+                		else
+                		{
+                			world.setTile(floorTile, false, x, y, true);
+                		}
                         world.setTileBackground(background,  x, y);
                 	}
                 }
                 
-                int doorside = dice.nextInt(0,3);
-                if (doorside == 0 && rx1 == 1)
-                	doorside = 1;
-                if (doorside == 1 && rx2 == world.width() - 2)
-                	doorside = 0;
-                if (doorside == 2 && ry1 == 1)
-                	doorside = 3;
-                if (doorside == 3 && ry2 == world.height () - 2)
-                	doorside = 2;
-                int doorx, doory;
-                switch (doorside)
-                {
-                case 0:
-                	doorx = rx1;
-                	doory = dice.nextInt (ry1+1,ry2-2);
-                	break;
-                case 1:
-                	doorx = rx2;
-                	doory = dice.nextInt (ry1+1,ry2-2);
-                	break;
-                case 2:
-                	doorx = dice.nextInt (rx1+1,rx2-1);
-                	doory = ry1;
-                	break;
-                default:
-                	doorx = dice.nextInt (rx1+1,rx2-1);
-                	doory = ry2;
-                	break;
-                }
+                // TODO: make this character global
+                ColoredChar antenna = new ColoredChar('╧', Color.white);
+                world.setTile(antenna, false, dice.nextInt(rx1+(rx2-rx1)/3,rx2-(rx2-rx1)/3), ry1, true);
+                
+                int doorx = dice.nextInt (rx1+(rx2-rx1)/3,rx2-(rx2-rx1)/3);
+                int doory = ry2;
 
                 // TODO: make c global
-                ColoredChar c = new ColoredChar ('+', Color.white);
-                world.setTile(c, false, doorx, doory, true);
-                world.setTileBackground(Color.orange.darker().darker(), doorx, doory);
-                world.addDoor (0, doorx, doory);
+                ColoredChar c = new ColoredChar ('↑', Color.white);
+                for (int x = 0; x < 3; x++)
+                {
+                	world.setTile(c, false, doorx+x, doory, true);
+                	world.setTileBackground(Color.orange.darker().darker(), doorx+x, doory);
+                }
+                world.addDoor (0, doorx+1, doory);
             }
             else
             {

@@ -3,7 +3,13 @@ package jade.gen.map;
 import jade.core.World;
 import jade.util.Dice;
 import jade.util.datatype.ColoredChar;
+import jade.util.datatype.Coordinate;
+import jade.util.Guard;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 import java.awt.Color;
+import jade.gen.map.AsciiMap;
 
 /**
  * Uses a binary space partitioning algorithm to generate rooms, and the connect them using the
@@ -16,6 +22,7 @@ public class City extends MapGenerator
     private ColoredChar floorTile;
     private int minWidth;
     private int minHeight;
+    private AsciiMap church[];
 
     /**
      * Instantiates a BSP with default parameters. Room minSize is 4. Wall and floor tiles are '#'
@@ -38,15 +45,36 @@ public class City extends MapGenerator
         this.wallTile = wallTile;
         this.minWidth = minWidth;
         this.minHeight = minHeight;
+        this.church = new AsciiMap[3];
+        for (int i = 0; i < 3; i++)
+        	this.church[i] = new AsciiMap ("res/church" + i + ".txt");
     }
     
     @Override
     protected void generateStep(World world, Dice dice)
     {
         floorFill(world);
-        BSPNode head = new BSPNode(world, minWidth, minHeight);
-        head.divide(dice);
-        head.makeRooms(world, dice);
+        for (int tries = 0; tries < 1000; tries++)
+        {
+        	BSPNode head = new BSPNode(world);
+        	head.divide(dice);
+        
+        	for (int i = 0; i < 3; i++)
+        	{
+            	List<BSPNode> spaces = head.getSpaces(church[i].width()+2, church[i].height()+2);
+            	if (spaces.isEmpty())
+            		continue;
+        		BSPNode node = dice.choose(spaces);
+        		node.makeChurch(world, dice, church[i]);
+        		spaces.remove(node);
+        	}
+        
+        	head.makeRooms(world, dice);
+        	return;
+        }
+        // TODO: better error handling
+        Guard.verifyState(false);
+
     }
 
     private void floorFill(World world)
@@ -74,13 +102,15 @@ public class City extends MapGenerator
         private int ry2;
         private BSPNode left;
         private BSPNode right;
+        private boolean used;
 
-        public BSPNode(World world, int minWidth, int minHeight)
+        public BSPNode(World world)
         {
             x1 = 0;
             y1 = 0;
             x2 = world.width() - 1;
             y2 = world.height() - 2;
+            used = false;
         }
 
         private BSPNode(BSPNode parent, int div, boolean vert, boolean left)
@@ -91,6 +121,7 @@ public class City extends MapGenerator
             // non vert means we divide on y
             y1 = parent.y1 + (!vert && !left ? div + 1 : 0);
             y2 = !vert && left ? parent.y1 + div : parent.y2;
+            used = false;
         }
 
         public void divide(Dice dice)
@@ -110,11 +141,49 @@ public class City extends MapGenerator
             left.divide(dice);
             right.divide(dice);
         }
+        
+        public LinkedList<BSPNode> getSpaces (int minw, int minh)
+        {
+        	LinkedList<BSPNode> set = new LinkedList<BSPNode> ();
+        	if (leaf ())
+        	{
+        		if (!used && (x2-x1) >= minw && (y2-y1) >= minh)
+        			set.add(this);
+        	}
+        	else
+        	{
+        		set.addAll(left.getSpaces (minw, minh));
+        		set.addAll(right.getSpaces (minw, minh));
+        	}
+        	return set;
+        }
+        
+        public void makeChurch (World world, Dice dice, AsciiMap church)
+        {
+        	Guard.verifyState(leaf());
+        	Guard.verifyState(!used);
+       		used = true;
+            rx1 = dice.nextInt(x1 + 1, x2 - 1 - church.width());
+            rx2 = rx1 + church.width() - 1;
+                
+            ry1 = dice.nextInt(y1 + 1, y2 - 1 - church.height());
+            ry2 = ry1 + church.height() - 1;
+                
+            church.render(world, rx1, ry1);
+                
+            Set<Coordinate> doors = church.getSpecial("door");
+                
+            Guard.validateArgument(doors.size() == 1);
+            Coordinate coord = doors.iterator().next();
+            world.addDoor(1, rx1 + coord.x(), ry1 + coord.y());
+        }
 
         public void makeRooms(World world, Dice dice)
         {
             if(leaf())
             {
+            	if (used)
+            		return;
                 rx1 = dice.nextInt(x1 + 1, x2 - 1 - minWidth);
                 rx2 = dice.nextInt(rx1 + minWidth, x2 - 1);
                 ry1 = dice.nextInt(y1 + 1, y2 - 1 - minHeight);
@@ -185,9 +254,11 @@ public class City extends MapGenerator
                 for (int x = 0; x < 3; x++)
                 {
                 	world.setTile(c, false, doorx+x, doory, true);
-                	world.setTileBackground(Color.orange.darker().darker(), doorx+x, doory);
+                	world.setTileBackground(new Color(0x806000).brighter(), doorx+x, doory);
                 }
                 world.addDoor (0, doorx+1, doory);
+                
+                used = true;
             }
             else
             {

@@ -1,0 +1,137 @@
+package jade.gen.map;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import jade.util.datatype.MutableCoordinate;
+import jade.util.datatype.Coordinate;
+import jade.util.datatype.ColoredChar;
+import jade.util.Guard;
+import java.awt.Color;
+import jade.core.World;
+
+public class AsciiMap {
+	
+	private int width, height;
+	private Map<Coordinate, ColoredChar> characters;
+	private Map<Coordinate, Color> backgrounds;
+	private Map<String, Set<Coordinate>> specials;
+	public AsciiMap(String filename)
+	{
+		characters = new HashMap<Coordinate, ColoredChar> ();
+		backgrounds = new HashMap<Coordinate, Color> ();
+		specials = new HashMap<String, Set<Coordinate>>();
+		width = height = -1;
+		Loader l = new Loader();
+		l.load(filename);
+	}
+	
+	public void render (World world, int posx, int posy)
+	{
+        for (Coordinate coord : characters.keySet())
+        {
+        	world.setTile(characters.get(coord), false, posx + coord.x(), posy + coord.y(), true);
+        }
+        for (Coordinate coord : backgrounds.keySet())
+        {
+        	world.setTileBackground(backgrounds.get(coord),  posx + coord.x(), posy + coord.y());
+        }
+	}
+	
+	public Set<Coordinate> getSpecial (String name)
+	{
+		return specials.get(name);
+	}
+	
+	public int width()
+	{
+		return width;
+	}
+	
+	public int height()
+	{
+		return height;
+	}
+	
+	private class Loader {
+		private Color background;
+		private Color foreground;
+
+		private void processEscape (Coordinate coord, String esc)
+		{
+			if(esc.startsWith("bg:"))
+			{
+				background = Color.decode("0x"+esc.substring(3));
+			}
+			else if (esc.startsWith("fg:"))
+			{
+				foreground = Color.decode("0x"+esc.substring(3));
+			}
+			else
+			{
+				Set<Coordinate> set = specials.get(esc);
+				if (set == null)
+					specials.put(esc, set = new HashSet<Coordinate> ());
+				set.add(coord);
+			}
+		}
+	
+		private void processLine (String line, MutableCoordinate coord)
+		{
+			for (int i = 0; i < line.length(); i++)
+			{
+				char c = line.charAt(i);
+				if (c == '¥')
+				{
+					int escend = line.indexOf('¥', i+1);
+					Guard.argumentIsPositive (escend);
+					processEscape(coord, line.substring(i+1,escend));
+					i = escend;
+					continue;
+				}
+				if (c != ' ' || !background.equals(Color.black))
+				{
+					characters.put(coord.copy(), new ColoredChar (c, foreground));
+					if (width < coord.x())
+						width = coord.x();
+					if (height < coord.y())
+						height = coord.y();
+				}
+				if (!background.equals(Color.black))
+				{
+					backgrounds.put(coord.copy(), background.brighter());
+					if (width < coord.x())
+						width = coord.x();
+					if (height < coord.y())
+						height = coord.y();
+				}
+				coord.setXY(coord.x()+1,coord.y());
+			}
+			coord.setXY(0,coord.y()+1);
+		}
+	
+		public void load(String filename)
+		{
+			try {
+				BufferedReader reader = new BufferedReader(new FileReader(filename));
+				String str;
+				foreground = Color.white;
+				background = Color.black;
+				MutableCoordinate coord = new MutableCoordinate (0,0);
+				while ((str = reader.readLine ()) != null)
+				{
+					processLine (str, coord);
+				}
+				reader.close();
+				width++;
+				height++;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}

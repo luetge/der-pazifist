@@ -333,6 +333,10 @@ public abstract class Actor extends Messenger
     	features.add(0, feature);
     }
     
+    public void addFeatureAtTheEnd(IFeature feature){
+    	features.add(feature);
+    }
+    
     public <T extends IFeature> Collection<T> getFeatures(Class<T> cls){
     	return Lambda.toSet(Lambda.filterType(features, cls));
     }

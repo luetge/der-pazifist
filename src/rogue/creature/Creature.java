@@ -5,6 +5,8 @@ import jade.util.datatype.ColoredChar;
 
 public abstract class Creature extends Actor
 {
+	protected boolean neutralized = false;
+	
     public Creature(ColoredChar face, String Name)
     {
         super(face, Name);
@@ -22,5 +24,13 @@ public abstract class Creature extends Actor
     @Override
     public void appendMessage(String message) {
     	world().appendMessage(message, this);
+    }
+    
+    public void neutralize(){
+    	neutralized = true;
+    }
+    
+    public boolean isNeutralized(){
+    	return neutralized;
     }
 }

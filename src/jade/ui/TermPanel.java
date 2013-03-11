@@ -6,9 +6,11 @@ import jade.util.datatype.Coordinate;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.geom.Rectangle2D;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
@@ -115,6 +117,10 @@ public class TermPanel extends Terminal
     {
     	return screen.getHeight () / screen.tileHeight ();
     }
+    
+    public void setCurrentConsoleText(String sText){
+    	screen.setCurrentConsoleText(sText);
+    }
 
     protected static class Screen extends JPanel implements KeyListener
     {
@@ -122,10 +128,10 @@ public class TermPanel extends Terminal
 
         private int tileWidth;
         private int tileHeight;
-        private int columns, rows;
         private BlockingQueue<Integer> inputBuffer;
         private Map<Coordinate, ColoredChar> screenBuffer;
         private Map<Coordinate, Color> backgroundBuffer;
+        private String sCurrentConsoleText = "";
 
         public Screen(int columns, int rows, int fontSize)
         {
@@ -137,15 +143,17 @@ public class TermPanel extends Terminal
             inputBuffer = new LinkedBlockingQueue<Integer>();
             screenBuffer = new HashMap<Coordinate, ColoredChar>();
             backgroundBuffer = new HashMap<Coordinate, Color>();
-            this.columns = columns;
-            this.rows = rows;
             addKeyListener(this);
             this.tileWidth = tileWidth;
             this.tileHeight = tileHeight;
             setPreferredSize(new Dimension(columns * tileWidth, rows * tileHeight));
-            setFont(new Font(Font.MONOSPACED, Font.PLAIN, tileHeight));
+            setFont(new Font("DejaVu Sans Mono", Font.PLAIN, tileHeight));
             setBackground(Color.black);
             setFocusable(true);
+        }
+        
+        public void setCurrentConsoleText(String sText){
+        	this.sCurrentConsoleText = sText;
         }
 
         protected int tileWidth()
@@ -190,6 +198,8 @@ public class TermPanel extends Terminal
                     page.setColor(ch.color());
                     page.drawString(str, x, y);
                 }
+                page.setColor(Color.white);
+                page.drawString(sCurrentConsoleText, 0, tileHeight);
             }
         }
 

@@ -31,6 +31,12 @@ public abstract class World extends Messenger
     private Set<Actor> register;
     private List<Class<? extends Actor>> drawOrder;
     private List<Class<? extends Actor>> actOrder;
+	private int currentKey;
+	
+	public World(int width, int height, String name){
+		this(width, height);
+		setName(name);
+	}
 
     /**
      * Constructs a new {@code World} with the given dimensions. Both width and height must be
@@ -70,7 +76,7 @@ public abstract class World extends Messenger
         Creature monster = getActorAt(Monster.class, getActor(Player.class).pos());
         if(monster != null && monster.getFeatures(Death.class).isEmpty())
         	monster.addFeature(new Death(monster));
-        	
+        
         removeExpired();
     }
 
@@ -666,4 +672,16 @@ public abstract class World extends Messenger
             actors = new HashSet<Actor>();
         }
     }
+
+    /**
+     * Gibt die zuletzt gedrückte Taste an 
+     * @param key Die zuletzt gedrückte Taste
+     */
+	public void setCurrentKey(int key) {
+		currentKey = key;
+	}
+
+	public int getCurrentKey() {
+		return currentKey;
+	}
 }

@@ -39,7 +39,8 @@ public class View {
 
         for(int x = 0; x < term.width (); x++)
         {
-            for(int y = 0; y < term.height (); y++)
+        	// Eine Zeile auslassen für Textausgabe
+            for(int y = 1; y < term.height (); y++)
             {
             	int worldx = center_x - term.width()/2 + x;
             	int worldy = center_y - term.height()/2 + y;

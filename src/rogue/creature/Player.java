@@ -3,7 +3,6 @@ package rogue.creature;
 import jade.fov.RayCaster;
 import jade.fov.ViewField;
 import jade.ui.Camera;
-import jade.ui.Terminal;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
@@ -14,35 +13,20 @@ import pazi.features.Walking;
 
 public class Player extends Creature implements Camera
 {
-    private Terminal term;
     private ViewField fov;
-    private int last_key;
+    int counter = 0;
 
-    public Player(Terminal term)
+    public Player()
     {
-        super(ColoredChar.create('♓'));
-        this.term = term;
+        super(ColoredChar.create('♓'), "Der PaziFist");
         fov = new RayCaster();
+        //TODO Singleton?
         features.add(new Walking());
     }
 
     @Override
-    public void act()
-    {
-        try
-        {
-            last_key = term.getKey();
-            super.act();
-        }
-        catch(InterruptedException e)
-        {
-            e.printStackTrace();
-        }
-    }
-    
-    @Override
     public void walk() {
-    	 Direction dir = Direction.keyToDir(last_key);
+    	 Direction dir = Direction.keyToDir(world().getCurrentKey());
          if(dir != null)
              move(dir);
     };

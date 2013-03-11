@@ -70,7 +70,7 @@ public abstract class CoreTest
     {
         public ConcreteActor(ColoredChar face)
         {
-            super(face);
+            super(face, "ConcreteActor");
         }
 
         @Override

@@ -6,6 +6,7 @@ import jade.util.datatype.Coordinate;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -15,6 +16,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -140,6 +143,7 @@ public class TermPanel extends Terminal
         
         public Screen(int columns, int rows, int tileWidth, int tileHeight)
         {
+        	try {
             inputBuffer = new LinkedBlockingQueue<Integer>();
             screenBuffer = new HashMap<Coordinate, ColoredChar>();
             backgroundBuffer = new HashMap<Coordinate, Color>();
@@ -147,9 +151,16 @@ public class TermPanel extends Terminal
             this.tileWidth = tileWidth;
             this.tileHeight = tileHeight;
             setPreferredSize(new Dimension(columns * tileWidth, rows * tileHeight));
-            setFont(new Font("DejaVu Sans Mono", Font.PLAIN, tileHeight));
+            Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream ("res/DejaVuSansMono.ttf"));
+            setFont(font.deriveFont(Font.PLAIN, tileHeight));
             setBackground(Color.black);
             setFocusable(true);
+    		// TODO: proper error handling
+        	} catch(IOException e) {
+        		e.printStackTrace();
+        	} catch(FontFormatException e) {
+        		e.printStackTrace();
+        	}
         }
         
         public void setCurrentConsoleText(String sText){

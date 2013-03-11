@@ -3,6 +3,7 @@ package rogue.creature;
 import jade.fov.RayCaster;
 import jade.fov.ViewField;
 import jade.ui.Camera;
+import jade.ui.HUD;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
@@ -13,6 +14,7 @@ public class Player extends Creature implements Camera
 {
     private ViewField fov;
     int counter = 0;
+    int faith, rage;
 
     public Player()
     {
@@ -39,5 +41,11 @@ public class Player extends Creature implements Camera
     @Override
     public void neutralize() {
     	this.expire();
+    }
+    
+    @Override
+    public void takeDamage(int d) {
+    	super.takeDamage(d);
+    	HUD.setHP(hp);
     }
 }

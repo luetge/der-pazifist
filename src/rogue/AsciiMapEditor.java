@@ -37,13 +37,16 @@ public class AsciiMapEditor implements DocumentListener {
 		
 		JFrame frame = new JFrame("AsciiMapEditor");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Container c = frame.getContentPane();
-		c.setLayout (new GridLayout(0,2));
-		c.add (tascroll);
-		c.add (termscroll);
+		JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+		split.setLeftComponent(tascroll);
+		split.setRightComponent(termscroll);
+		frame.add(split);
+		
 		frame.setSize(800,400);
 		frame.setVisible(true);
-		
+
+		split.setDividerLocation(0.5);
+
 		textarea.getDocument().addDocumentListener(this);
 	}
 	

@@ -28,11 +28,13 @@ public class AsciiMapEditor implements DocumentListener {
 		} catch(FontFormatException e) {
 			e.printStackTrace();
 		}
+		
+		JScrollPane tascroll = new JScrollPane(textarea);
 		JFrame frame = new JFrame("AsciiMapEditor");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Container c = frame.getContentPane();
 		c.setLayout (new GridLayout(0,2));
-		c.add (textarea);
+		c.add (tascroll);
 		c.add (term.panel());
 		frame.pack();
 		frame.setVisible(true);

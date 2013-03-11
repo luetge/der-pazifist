@@ -14,7 +14,11 @@ public abstract class Creature extends Actor
     public void setPos(int x, int y)
     {
         if(world().passableAt(x, y))
-            super.setPos(x, y);
+        	if (world().getActorAt(Creature.class, x, y)== null)
+        		super.setPos(x, y);
+        		else
+        			interact(world().getActorAt(Creature.class, x, y));
+        	
     }
     
     public abstract void walk();

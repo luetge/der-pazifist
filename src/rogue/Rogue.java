@@ -66,7 +66,13 @@ public class Rogue implements ComponentListener
         	view.update (term, world, player);
         	Message m = world.getNextMessage();
         	if(m != null){
-        		term.setCurrentConsoleText(m.source.getName() + ": " + m.text + (world.hasNextMessage() ? " (mehr)" : ""));
+        		String source = m.source.getName();
+        		if (source == "Test-Level")				// TODO sehr haesslich
+        			source = "Gott: ";
+        			else
+        				source += ": ";	
+        				
+        		term.setCurrentConsoleText(source + m.text + (world.hasNextMessage() ? " (mehr)" : ""));
         		if(world.hasNextMessage()){ // Leertaste schaltet zu nächstem Text um
         			waitForSpace();
         			continue;

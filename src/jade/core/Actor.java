@@ -12,7 +12,9 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
 
+import pazi.features.Death;
 import pazi.features.IFeature;
+import rogue.creature.Creature;
 
 //TODO Prioritäten bei Features
 
@@ -59,6 +61,10 @@ public abstract class Actor extends Messenger
     		if(!feature.act(this))
     			return;
     }
+    
+    public void interact(Creature creature) {
+    	//creature.addFeature(new Death();
+	}
     
     /**
      * Returns the face of the {@code Actor}.

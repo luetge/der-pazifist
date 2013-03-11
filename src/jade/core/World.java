@@ -74,8 +74,9 @@ public abstract class World extends Messenger
             for(Actor actor : getActors(cls))
                 actor.act();
         Creature monster = getActorAt(Monster.class, getActor(Player.class).pos());
-        if(monster != null && monster.getFeatures(Death.class).isEmpty())
-        	monster.addFeature(new Death(monster));
+       // if(monster != null && monster.getFeatures(Death.class).isEmpty())
+       // 	monster.addFeature(new Death(monster));
+        	this.appendMessage("Markus ist Poopoo");
         
         removeExpired();
     }

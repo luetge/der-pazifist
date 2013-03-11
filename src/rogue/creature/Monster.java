@@ -1,22 +1,23 @@
 package rogue.creature;
 
-import java.util.Arrays;
-
-import pazi.features.Walking;
 import jade.util.Dice;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Direction;
+
+import java.util.Arrays;
 
 public class Monster extends Creature
 {
     public Monster(ColoredChar face, String Name)
     {
         super(face, Name);
-        features.add(new Walking());
+        min_d = 10;
+        max_d = 100;
     }
 
 	@Override
 	public void walk() {
-        move(Dice.global.choose(Arrays.asList(Direction.values())));
+		if(!neutralized)
+			move(Dice.global.choose(Arrays.asList(Direction.values())));
 	}
 }

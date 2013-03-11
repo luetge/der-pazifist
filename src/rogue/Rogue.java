@@ -11,6 +11,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
 import pazi.Display;
+import pazi.features.Braaaiiiiins;
 import rogue.creature.Monster;
 import rogue.creature.Player;
 import rogue.level.Level;
@@ -35,8 +36,13 @@ public class Rogue implements ComponentListener
         
         view = new View (player.pos ());
         
-		for (int i = 0; i < 600; i++)
-			world.addActor(new Monster(ColoredChar.create('Z', Color.green), "Blutiger Zombie"));
+        Monster m;
+        Braaaiiiiins brains = new Braaaiiiiins();
+		for (int i = 0; i < 600; i++){
+			m = new Monster(ColoredChar.create('Z', Color.green), "Blutiger Zombie");
+			m.addFeatureAtTheEnd(brains);
+			world.addActor(m);
+		}
         
         term.addComponentListener(this);
         
@@ -64,22 +70,31 @@ public class Rogue implements ComponentListener
         while(!player.expired())
         {
         	view.update (term, world, player);
-        	Message m = world.getNextMessage();
-        	if(m != null){
-        		term.setCurrentConsoleText(m.source.getName() + ": " + m.text + (world.hasNextMessage() ? " (mehr)" : ""));
-        		if(world.hasNextMessage()){ // Leertaste schaltet zu nächstem Text um
-        			waitForSpace();
-        			continue;
-        		}
-        	}
-        	else
-        		term.setCurrentConsoleText("");
+        	showMessages();
 			world.setCurrentKey(term.getKey());
             world.tick();
         }
+        
+        showMessages();
 	}
         
-    public void waitForSpace() throws InterruptedException{
+    private void showMessages() throws InterruptedException {
+    	term.setCurrentConsoleText("");
+    	while(world.hasNextMessage()){
+    		Message m = world.getNextMessage();
+    		String source = m.source.getName();
+    		if(source == "Test-Level")
+    			source = "Gott: ";
+    		else
+    			source += ": ";
+    		term.setCurrentConsoleText(source + m.text + (world.hasNextMessage() ? " (mehr)" : ""));
+    		term.refreshScreen();
+    		if(world.hasNextMessage())
+    			waitForSpace();
+    	}
+	}
+
+	public void waitForSpace() throws InterruptedException{
         	while(term.getKey() != ' ')
         		term.refreshScreen();
         }

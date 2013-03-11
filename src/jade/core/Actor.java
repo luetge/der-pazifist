@@ -34,6 +34,7 @@ public abstract class Actor extends Messenger
     private Actor holder;
     private Set<Actor> holds;
     protected LinkedList<IFeature> features = new LinkedList<IFeature>();
+    boolean passable;
 
     /**
      * Constructs a new {@code Actor} with the given face.
@@ -47,6 +48,7 @@ public abstract class Actor extends Messenger
         pos = new MutableCoordinate(0, 0);
         expired = false;
         holds = new HashSet<Actor>();
+        passable = false;
     }
 
     /**
@@ -59,6 +61,8 @@ public abstract class Actor extends Messenger
     		if(!feature.act(this))
     			return;
     }
+    
+    public abstract void interact(Actor actor);
     
     /**
      * Returns the face of the {@code Actor}.
@@ -333,8 +337,20 @@ public abstract class Actor extends Messenger
     	features.add(0, feature);
     }
     
+    public void addFeatureAtTheEnd(IFeature feature){
+    	features.add(feature);
+    }
+    
     public <T extends IFeature> Collection<T> getFeatures(Class<T> cls){
     	return Lambda.toSet(Lambda.filterType(features, cls));
     }
+
+	public boolean isPassable() {
+		return passable;
+	}
+	
+	public void setPassable(boolean passable){
+		this.passable = passable;
+	}
     
 }

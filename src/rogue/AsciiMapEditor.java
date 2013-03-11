@@ -18,7 +18,7 @@ public class AsciiMapEditor implements DocumentListener {
 	
 	public AsciiMapEditor ()
 	{
-		term = new TiledTermPanel();
+		term = new TiledTermPanel(256,256,TiledTermPanel.DEFAULT_TILESIZE);
 		textarea = new JTextArea();
 		try {
 			Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream ("res/DejaVuSansMono.ttf"));
@@ -30,13 +30,18 @@ public class AsciiMapEditor implements DocumentListener {
 		}
 		
 		JScrollPane tascroll = new JScrollPane(textarea);
+		
+		JScrollPane termscroll = new JScrollPane(term.panel());
+		termscroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		termscroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		
 		JFrame frame = new JFrame("AsciiMapEditor");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Container c = frame.getContentPane();
 		c.setLayout (new GridLayout(0,2));
 		c.add (tascroll);
-		c.add (term.panel());
-		frame.pack();
+		c.add (termscroll);
+		frame.setSize(800,400);
 		frame.setVisible(true);
 		
 		textarea.getDocument().addDocumentListener(this);

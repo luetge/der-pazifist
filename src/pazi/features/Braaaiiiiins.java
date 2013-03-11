@@ -8,7 +8,7 @@ public class Braaaiiiiins implements IFeature {
 	@Override
 	public boolean act(Actor actor) {
 		double dist = actor.world().getActor(Player.class).pos().distance(actor.pos());
-		if(dist < 2)
+		if(dist < 2 && Math.random() < 0.01)
 			actor.appendMessage("Braaaaaaiiiiiiiiiiiiiiiiiinns!!!");
 		return true;
 	}

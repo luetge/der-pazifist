@@ -12,9 +12,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
 
-import pazi.features.Death;
 import pazi.features.IFeature;
-import rogue.creature.Creature;
 
 //TODO Prioritäten bei Features
 
@@ -36,6 +34,7 @@ public abstract class Actor extends Messenger
     private Actor holder;
     private Set<Actor> holds;
     protected LinkedList<IFeature> features = new LinkedList<IFeature>();
+    boolean passable;
 
     /**
      * Constructs a new {@code Actor} with the given face.
@@ -49,6 +48,7 @@ public abstract class Actor extends Messenger
         pos = new MutableCoordinate(0, 0);
         expired = false;
         holds = new HashSet<Actor>();
+        passable = false;
     }
 
     /**
@@ -62,9 +62,7 @@ public abstract class Actor extends Messenger
     			return;
     }
     
-    public void interact(Creature creature) {
-    	//creature.addFeature(new Death();
-	}
+    public abstract void interact(Actor actor);
     
     /**
      * Returns the face of the {@code Actor}.
@@ -346,5 +344,13 @@ public abstract class Actor extends Messenger
     public <T extends IFeature> Collection<T> getFeatures(Class<T> cls){
     	return Lambda.toSet(Lambda.filterType(features, cls));
     }
+
+	public boolean isPassable() {
+		return passable;
+	}
+	
+	public void setPassable(boolean passable){
+		this.passable = passable;
+	}
     
 }

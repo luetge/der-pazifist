@@ -11,6 +11,8 @@ public class Monster extends Creature
     public Monster(ColoredChar face, String Name)
     {
         super(face, Name);
+        min_d = 10;
+        max_d = 100;
     }
 
 	@Override

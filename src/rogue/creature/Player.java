@@ -18,6 +18,8 @@ public class Player extends Creature implements Camera
     {
         super(ColoredChar.create('♓'), "Der PaziFist");
         fov = new RayCaster();
+        min_d = 40;
+        max_d = 70;
         //TODO Singleton?
     }
 
@@ -32,5 +34,10 @@ public class Player extends Creature implements Camera
     public Collection<Coordinate> getViewField()
     {
         return fov.getViewField(world(), pos(), 10);
+    }
+    
+    @Override
+    public void neutralize() {
+    	this.expire();
     }
 }

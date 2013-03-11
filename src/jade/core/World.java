@@ -7,15 +7,13 @@ import jade.util.Lambda.FilterFunc;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import java.awt.Color;
-
-import pazi.features.Death;
 import rogue.creature.Creature;
 import rogue.creature.Monster;
 import rogue.creature.Player;
@@ -84,10 +82,9 @@ public abstract class World extends Messenger
             for(Actor actor : getActors(cls))
                 actor.act();
         
-        Creature monster = getActorAt(Monster.class, getActor(Player.class).pos());
+//        Creature monster = getActorAt(Monster.class, getActor(Player.class).pos());
        // if(monster != null && monster.getFeatures(Death.class).isEmpty())
        // 	monster.addFeature(new Death(monster));
-        	this.appendMessage("Markus ist Poopoo");
         
         removeExpired();
     }

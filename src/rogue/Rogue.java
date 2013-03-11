@@ -69,24 +69,8 @@ public class Rogue implements ComponentListener
 	{
         while(!player.expired())
         {
-        	showMessages();
         	view.update (term, world, player);
-        	Message m = world.getNextMessage();
-        	if(m != null){
-        		String source = m.source.getName();
-        		if (source == "Test-Level")				// TODO sehr haesslich
-        			source = "Gott: ";
-        			else
-        				source += ": ";	
-        				
-        		term.setCurrentConsoleText(source + m.text + (world.hasNextMessage() ? " (mehr)" : ""));
-        		if(world.hasNextMessage()){ // Leertaste schaltet zu nächstem Text um
-        			waitForSpace();
-        			continue;
-        		}
-        	}
-        	else
-        		term.setCurrentConsoleText("");
+        	showMessages();
 			world.setCurrentKey(term.getKey());
             world.tick();
         }
@@ -96,16 +80,17 @@ public class Rogue implements ComponentListener
         
     private void showMessages() throws InterruptedException {
     	term.setCurrentConsoleText("");
-    	Message m = world.getNextMessage();
-    	if(m != null)
-    		term.setCurrentConsoleText(m.source.getName() + ": " + m.text + (world.hasNextMessage() ? " (mehr)" : ""));
     	while(world.hasNextMessage()){
-    		m = world.getNextMessage();
-    		term.setCurrentConsoleText(m.source.getName() + ": " + m.text + " (mehr)");
+    		Message m = world.getNextMessage();
+    		String source = m.source.getName();
+    		if(source == "Test-Level")
+    			source = "Gott: ";
+    		else
+    			source += ": ";
+    		term.setCurrentConsoleText(source + m.text + (world.hasNextMessage() ? " (mehr)" : ""));
     		term.refreshScreen();
-    		System.out.println(m.text);
+    		if(world.hasNextMessage())
     			waitForSpace();
-    		term.setCurrentConsoleText("");
     	}
 	}
 

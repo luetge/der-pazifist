@@ -76,6 +76,10 @@ public abstract class CoreTest
         @Override
         public void act()
         {}
+
+		@Override
+		public void interact(Actor actor) {
+		}
     }
 
     public static class ActorA extends ConcreteActor

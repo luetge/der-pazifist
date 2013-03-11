@@ -2,14 +2,14 @@ package jade.gen.map;
 
 import jade.core.World;
 import jade.util.Dice;
+import jade.util.Guard;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
-import jade.util.Guard;
+
+import java.awt.Color;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import java.awt.Color;
-import jade.gen.map.AsciiMap;
 
 /**
  * Uses a binary space partitioning algorithm to generate rooms, and the connect them using the

@@ -1,7 +1,7 @@
 package rogue;
 
 import jade.core.Messenger.Message;
-import jade.core.Door;
+import jade.util.datatype.Door;
 import jade.core.World;
 import jade.ui.TiledTermPanel;
 import jade.ui.View;

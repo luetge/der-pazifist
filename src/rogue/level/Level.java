@@ -1,7 +1,7 @@
 package rogue.level;
 
 import jade.core.World;
-import jade.core.Door;
+import jade.util.datatype.Door;
 import jade.gen.Generator;
 import jade.gen.map.*;
 import rogue.creature.Player;

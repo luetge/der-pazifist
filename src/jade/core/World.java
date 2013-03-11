@@ -7,7 +7,7 @@ import jade.util.Lambda.FilterFunc;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 
-import jade.core.Door;
+import jade.util.datatype.Door;
 
 import java.awt.Color;
 import java.util.ArrayList;

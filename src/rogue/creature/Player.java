@@ -2,7 +2,7 @@ package rogue.creature;
 
 import jade.fov.RayCaster;
 import jade.fov.ViewField;
-import jade.core.Door;
+import jade.util.datatype.Door;
 import jade.ui.Camera;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;

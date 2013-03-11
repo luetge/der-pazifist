@@ -1,7 +1,7 @@
 package jade.gen.map;
 
 import jade.core.World;
-import jade.core.Door;
+import jade.util.datatype.Door;
 import jade.util.Dice;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;

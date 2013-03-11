@@ -211,6 +211,11 @@ public abstract class World extends Messenger
     
     public void addDoor (int roomType, int x, int y)
     {
+    	addDoor (roomType, new Coordinate (x, y));
+    }
+    
+    public void addDoor (int roomType, Coordinate coord)
+    {
     	
     }
 

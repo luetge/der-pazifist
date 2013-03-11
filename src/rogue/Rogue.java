@@ -1,6 +1,7 @@
 package rogue;
 
 import jade.core.Messenger.Message;
+import jade.core.Door;
 import jade.core.World;
 import jade.ui.TiledTermPanel;
 import jade.ui.View;
@@ -20,6 +21,7 @@ public class Rogue implements ComponentListener
 {
 	private TiledTermPanel term;
 	private Player player;
+	private Level level;
 	private World world;
 	private View view;
 	
@@ -32,7 +34,9 @@ public class Rogue implements ComponentListener
         term.registerTile("dungeon.png", 14, 30, ColoredChar.create('D', Color.red));
         
         player = new Player();
-        world = new Level(256, 196, player, "Test-Level");
+        level = new Level(256, 196, player, "Test-Level");
+        
+        world = level.getWorld("Test-Level");
         
         view = new View (player.pos ());
         
@@ -72,7 +76,13 @@ public class Rogue implements ComponentListener
         	view.update (term, world, player);
         	showMessages();
 			world.setCurrentKey(term.getKey());
-            world.tick();
+            Door door = world.tick();
+            if (door != null)
+            {
+            	world.removeActor(player);
+            	world = level.getWorld(door.getWorldName());
+            	world.addActor(player, door.getCoord().x(), door.getCoord().y());
+            }
         }
         
         showMessages();

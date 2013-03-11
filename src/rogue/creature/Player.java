@@ -2,6 +2,7 @@ package rogue.creature;
 
 import jade.fov.RayCaster;
 import jade.fov.ViewField;
+import jade.core.Door;
 import jade.ui.Camera;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
@@ -21,6 +22,17 @@ public class Player extends Creature implements Camera
         min_d = 40;
         max_d = 70;
         //TODO Singleton?
+    }
+    
+    @Override
+    public void setPos(int x, int y)
+    {
+    	Door door = world().getDoor(x,y);
+    	if (door != null)
+    	{
+    		world().stepThroughDoor(door);
+    	}
+    	super.setPos(x,y);
     }
 
     @Override

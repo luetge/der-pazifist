@@ -7,8 +7,12 @@ import jade.util.Lambda.FilterFunc;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 
+import jade.core.Door;
+
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -21,7 +25,7 @@ import rogue.creature.Player;
 /**
  * Represents a game world on which {@code Actor} can interact.
  */
-public abstract class World extends Messenger
+public class World extends Messenger
 {
     private int width;
     private int height;
@@ -30,12 +34,19 @@ public abstract class World extends Messenger
     private List<Class<? extends Actor>> drawOrder;
     private List<Class<? extends Actor>> actOrder;
 	private int currentKey;
+	private Map<Coordinate,Door> doors;
+	Door activedoor;
 	
 	public World(int width, int height, String name){
 		this(width, height);
 		setName(name);
 	}
-
+	
+	public void stepThroughDoor(Door door)
+	{
+		this.activedoor = door;
+	}
+	
     /**
      * Constructs a new {@code World} with the given dimensions. Both width and height must be
      * positive integers.
@@ -46,8 +57,10 @@ public abstract class World extends Messenger
     {
         Guard.argumentsArePositive(width, height);
 
+        this.doors = new HashMap<Coordinate,Door> ();
         this.width = width;
         this.height = height;
+        this.activedoor = null;
         grid = new Tile[width][height];
         for(int x = 0; x < width; x++)
             for(int y = 0; y < height; y++)
@@ -68,7 +81,7 @@ public abstract class World extends Messenger
      * by the act order of the {@code World}. Any {@code Actor} whose type does not appear in the
      * act order does not act. Any expired {@code Actor} are removed from the {@code World}.
      */
-    public void tick()
+    public Door tick()
     {
     	// ALle Kreaturen laufen lassen
         for(Class<? extends Actor> cls : actOrder){
@@ -87,6 +100,13 @@ public abstract class World extends Messenger
        // 	monster.addFeature(new Death(monster));
         
         removeExpired();
+        if (activedoor != null)
+        {
+        	Door d = activedoor;
+        	activedoor = null;
+        	return d;
+        }
+        return null;
     }
 
     /**
@@ -218,14 +238,24 @@ public abstract class World extends Messenger
             removeActor(actor);
     }
     
-    public void addDoor (int roomType, int x, int y)
+    public void addDoor (int x, int y, Door door)
     {
-    	addDoor (roomType, new Coordinate (x, y));
+    	addDoor (new Coordinate (x, y), door);
     }
     
-    public void addDoor (int roomType, Coordinate coord)
+    public void addDoor (Coordinate coord, Door door)
     {
-    	
+    	doors.put(coord, door);
+    }
+    
+    public Door getDoor (int x, int y)
+    {
+    	return getDoor(new Coordinate(x, y));
+    }
+    
+    public Door getDoor(Coordinate coord)
+    {
+    	return doors.get(coord);
     }
 
     /**

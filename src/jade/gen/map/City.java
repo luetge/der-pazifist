@@ -1,6 +1,7 @@
 package jade.gen.map;
 
 import jade.core.World;
+import jade.core.Door;
 import jade.util.Dice;
 import jade.util.Guard;
 import jade.util.datatype.ColoredChar;
@@ -14,6 +15,8 @@ import java.awt.Color;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * Uses a binary space partitioning algorithm to generate rooms, and the connect them using the
@@ -28,6 +31,7 @@ public class City extends MapGenerator
     private int minHeight;
     private AsciiMap church[];
     private LinkedList<Rectangle> reserved;
+    private int roomnum;
 
     /**
      * Instantiates a BSP with default parameters. Room minSize is 4. Wall and floor tiles are '#'
@@ -46,6 +50,7 @@ public class City extends MapGenerator
      */
     public City(ColoredChar floorTile, ColoredChar wallTile, int minWidth, int minHeight)
     {
+    	this.roomnum = 0;
         this.floorTile = floorTile;
         this.wallTile = wallTile;
         this.minWidth = minWidth;
@@ -107,7 +112,7 @@ public class City extends MapGenerator
         	
         head.makeRooms(world, dice, minWidth, minHeight);
     }
-
+    
     private void floorFill(World world)
     {
         // Fence
@@ -186,7 +191,7 @@ public class City extends MapGenerator
                 if (((ry2-ry1) & 1) == 1)
                 	ry2--;	
                 
-                if (checkReserved (rx1, ry1, rx2-rx1, ry2-ry1))
+                if (checkReserved (rx1-1, ry1-1, rx2-rx1+2, ry2-ry1+2))
                 	return;
 
                 // TODO: make the edge characters global
@@ -247,7 +252,11 @@ public class City extends MapGenerator
                 	world.setTile(c, false, doorx+x, doory, true);
                 	world.setTileBackground(new Color(0x806000).brighter(), doorx+x, doory);
                 }
-                world.addDoor (0, doorx+1, doory);
+                Door door = new Door("room" + roomnum, 1, 1);
+                world.addDoor (doorx, doory, door);
+                world.addDoor (doorx+1, doory, door);
+                world.addDoor (doorx+2, doory, door);
+                roomnum++;
             }
             else
             {

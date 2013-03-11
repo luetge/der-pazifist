@@ -57,10 +57,12 @@ public abstract class World extends Messenger
         register = new HashSet<Actor>();
 
         drawOrder = new ArrayList<Class<? extends Actor>>();
-        drawOrder.add(Actor.class);
+        drawOrder.add(Player.class);
+        drawOrder.add(Monster.class);
 
         actOrder = new ArrayList<Class<? extends Actor>>();
-        actOrder.add(Actor.class);
+        actOrder.add(Player.class);
+        actOrder.add(Monster.class);
     }
 
     /**
@@ -70,9 +72,18 @@ public abstract class World extends Messenger
      */
     public void tick()
     {
+    	// ALle Kreaturen laufen lassen
+        for(Class<? extends Actor> cls : actOrder){
+        	if(Creature.class.isAssignableFrom(cls))
+        		for(Actor actor : getActors(cls))
+        			((Creature)actor).walk();
+        }
+        
+        // Alle Aktionen durchführen
         for(Class<? extends Actor> cls : actOrder)
             for(Actor actor : getActors(cls))
                 actor.act();
+        
         Creature monster = getActorAt(Monster.class, getActor(Player.class).pos());
        // if(monster != null && monster.getFeatures(Death.class).isEmpty())
        // 	monster.addFeature(new Death(monster));

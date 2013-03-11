@@ -9,8 +9,6 @@ import jade.util.datatype.Direction;
 
 import java.util.Collection;
 
-import pazi.features.Walking;
-
 public class Player extends Creature implements Camera
 {
     private ViewField fov;
@@ -21,7 +19,6 @@ public class Player extends Creature implements Camera
         super(ColoredChar.create('♓'), "Der PaziFist");
         fov = new RayCaster();
         //TODO Singleton?
-        features.add(new Walking());
     }
 
     @Override

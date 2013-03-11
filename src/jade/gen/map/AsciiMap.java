@@ -93,14 +93,11 @@ public class AsciiMap {
 					i = escend;
 					continue;
 				}
-				if (c != ' ' || !background.equals(Color.black))
-				{
-					characters.put(coord.copy(), new ColoredChar (c, foreground));
-					if (width < coord.x())
-						width = coord.x();
-					if (height < coord.y())
-						height = coord.y();
-				}
+				characters.put(coord.copy(), new ColoredChar (c, foreground));
+				if (width < coord.x())
+					width = coord.x();
+				if (height < coord.y())
+					height = coord.y();
 				if (!background.equals(Color.black))
 				{
 					backgrounds.put(coord.copy(), background.brighter());

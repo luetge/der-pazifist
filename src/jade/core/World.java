@@ -37,10 +37,22 @@ public class World extends Messenger
 	private Map<Coordinate,Door> doorsbycoord;
 	private Map<String,Door> doorsbyid;
 	Door activedoor;
+	private boolean useViewfield;
 	
 	public World(int width, int height, String name){
 		this(width, height);
 		setName(name);
+		this.useViewfield = true;
+	}
+	
+	public boolean useViewfield()
+	{
+		return useViewfield;
+	}
+	
+	public void useViewfield(boolean useViewfield)
+	{
+		this.useViewfield = useViewfield;
 	}
 	
 	public void stepThroughDoor(Door door)

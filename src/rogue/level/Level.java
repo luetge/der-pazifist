@@ -78,6 +78,7 @@ public class Level
     			}
 
     		}
+    		w.useViewfield(false);
     		worlds.put(door.getDestWorld(), w);
     	}
     	return w;

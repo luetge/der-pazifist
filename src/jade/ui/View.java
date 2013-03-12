@@ -56,19 +56,22 @@ public class View {
             	Color background = world.lookBackground(worldx, worldy);
             	
             	ColoredChar c = world.look(worldx, worldy);
-        		if (!viewfield.contains(new Coordinate (worldx, worldy)))
+            	if (world.useViewfield())
             	{
-        			if (!world.isAlwaysVisible (worldx, worldy))
-            			continue;
-        			else
-        				c = ColoredChar.create (c.ch (), c.color().darker());
-        			background = background.darker();
+            		if (!viewfield.contains(new Coordinate (worldx, worldy)))
+            		{
+            			if (!world.isAlwaysVisible (worldx, worldy))
+            				continue;
+            			else
+            				c = ColoredChar.create (c.ch (), c.color().darker());
+            			background = background.darker();
+            		}
+            		else
+            		{
+            			if (background == Color.black)
+            				background = Color.darkGray;
+            		}
             	}
-        		else
-        		{
-        			if (background == Color.black)
-        				background = Color.darkGray;
-        		}
             	term.bufferChar(x, y, c);
             	term.bufferBackground(x, y, background);
             }

@@ -7,7 +7,7 @@ import java.awt.Color;
 
 import rogue.creature.Creature;
 
-public class Death implements IFeature {
+public class Death implements IFeature<Actor> {
 
 	public Death(Actor actor){
 		actor.appendMessage("UUuuuuuuaaaaarrrrrrrghghhgghhh!");

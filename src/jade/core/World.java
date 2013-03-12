@@ -83,17 +83,17 @@ public class World extends Messenger
      */
     public Door tick()
     {
-    	// ALle Kreaturen laufen lassen
+    	// Alle Kreaturen laufen lassen
         for(Class<? extends Actor> cls : actOrder){
         	if(Creature.class.isAssignableFrom(cls))
         		for(Actor actor : getActors(cls))
         			((Creature)actor).walk();
-        }
+        } 
         
-        // Alle Aktionen durchführen
+    	// Alle Aktionen durchführen
         for(Class<? extends Actor> cls : actOrder)
             for(Actor actor : getActors(cls))
-                actor.act();
+                actor.act();  	       
         
 //        Creature monster = getActorAt(Monster.class, getActor(Player.class).pos());
        // if(monster != null && monster.getFeatures(Death.class).isEmpty())
@@ -697,6 +697,10 @@ public class World extends Messenger
     void unregisterActor(Actor actor)
     {
         register.remove(actor);
+    }
+    
+    public Player getPlayer(){
+    	return getActor(Player.class);
     }
 
     private class Tile

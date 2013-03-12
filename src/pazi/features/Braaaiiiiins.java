@@ -1,15 +1,15 @@
 package pazi.features;
 
-import jade.core.Actor;
+import rogue.creature.Monster;
 import rogue.creature.Player;
 
-public class Braaaiiiiins implements IFeature {
+public class Braaaiiiiins implements IFeature<Monster> {
 
 	@Override
-	public boolean act(Actor actor) {
-		double dist = actor.world().getActor(Player.class).pos().distance(actor.pos());
-		if(dist < 2 && Math.random() < 0.01)
-			actor.appendMessage("Braaaaaaiiiiiiiiiiiiiiiiiinns!!!");
+	public boolean act(Monster monster) {
+		double dist = monster.world().getActor(Player.class).pos().distance(monster.pos());
+		if(dist < 2 && Math.random() < 0.05)
+			monster.appendMessage("Braaaaaaiiiiiiiiiiiiiiiiiinns!!!");
 		return true;
 	}
 	

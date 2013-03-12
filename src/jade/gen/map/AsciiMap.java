@@ -14,6 +14,7 @@ import java.util.Set;
 import jade.ui.TermPanel;
 import jade.util.datatype.MutableCoordinate;
 import jade.util.datatype.Coordinate;
+import jade.util.datatype.Direction;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Door;
 import jade.util.Guard;
@@ -151,9 +152,26 @@ public class AsciiMap {
 			else if (esc.startsWith("door:"))
 			{
 				String params[] = esc.substring(5).split(",");
-				Guard.validateArgument(params.length == 3);
+				Guard.validateArgument(params.length == 4);
+				Direction dir = Direction.NORTH;
+				Guard.validateArgument(params[3].length() == 1);
+				switch (params[3].charAt(0))
+				{
+				case 'n':
+					dir = Direction.NORTH;
+					break;
+				case 'w':
+					dir = Direction.WEST;
+					break;
+				case 'e':
+					dir = Direction.EAST;
+					break;
+				case 's':
+					dir = Direction.SOUTH;
+					break;
+				}
 				doors.put(coord.copy(), new Door(params[0],
-						coord.x(), coord.y(), params[1], params[2]));
+						coord.x(), coord.y(), params[1], params[2], dir));
 			}
 			else if (esc.equals("p"))
 			{

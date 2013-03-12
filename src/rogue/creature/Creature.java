@@ -2,6 +2,7 @@ package rogue.creature;
 
 import pazi.features.Death;
 import jade.core.Actor;
+import jade.ui.HUD;
 import jade.util.datatype.ColoredChar;
 
 public abstract class Creature extends Actor
@@ -56,9 +57,9 @@ public abstract class Creature extends Actor
     }
     
     public void takeDamage(int d){
-    	hp -= d;
+    	hp = Math.max(0, hp-d);
     	appendMessage("Ich habe " + d + " Schaden erlitten! Ahhhh Poopoo!");
-    	if(hp <= 0)
+    	if(hp == 0)
     		addFeature(new Death(this));
     }
 }

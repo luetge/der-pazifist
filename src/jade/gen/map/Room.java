@@ -21,31 +21,31 @@ public class Room extends MapGenerator {
 
         // TODO: make the edge characters global
         ColoredChar edge = new ColoredChar ('╔', Color.white);
-        world.setTile(edge, false, 1, 1, true);
+        world.setTile(edge, false, 0, 0, true);
         edge = new ColoredChar ('╚', Color.white);
-        world.setTile(edge, false, 1, world.height()-1, true);
+        world.setTile(edge, false, 0, world.height()-1, true);
         edge = new ColoredChar ('╗', Color.white);
-        world.setTile(edge, false, world.width()-1, 1, true);
+        world.setTile(edge, false, world.width()-1, 0, true);
         edge = new ColoredChar ('╝', Color.white);
         world.setTile(edge, false, world.width()-1, world.height()-1, true);
 
         edge = new ColoredChar ('═', Color.white);
-        for(int x=2; x < world.width()-1; x++){
-        	world.setTile(edge, false, x, 1, true);
+        for(int x=1; x < world.width()-1; x++){
+        	world.setTile(edge, false, x, 0, true);
         	world.setTile(edge, false, x, world.height()-1, true);
         }
         edge = new ColoredChar ('║', Color.white);
-        for(int y=2; y < world.height()-1; y++){
-        	world.setTile(edge, false, 1, y, true);
+        for(int y=1; y < world.height()-1; y++){
+        	world.setTile(edge, false, 0, y, true);
         	world.setTile(edge, false, world.width()-1, y, true);
         }
         
 		ColoredChar wallTile = ColoredChar.create(' ');
-		for (int x = 2; x < world.width() - 2; x++)
+		for (int x = 1; x < world.width() - 2; x++)
         {
-        	for (int y = 2; y < world.height() - 2; y++)
+        	for (int y = 1; y < world.height() - 2; y++)
         	{
-            	world.setTile(wallTile, false, x, 0, true);
+            	world.setTile(wallTile, true, x, y, true);
         	}
         }
         

@@ -153,8 +153,7 @@ public class AsciiMap {
 				String params[] = esc.substring(5).split(",");
 				Guard.validateArgument(params.length == 3);
 				doors.put(coord.copy(), new Door(params[0],
-						Integer.parseInt(params[1]),
-						Integer.parseInt(params[2])));
+						coord.x(), coord.y(), params[1], params[2]));
 			}
 			else if (esc.equals("p"))
 			{

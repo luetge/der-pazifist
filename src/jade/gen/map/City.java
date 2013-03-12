@@ -10,6 +10,7 @@ import java.awt.Rectangle;
 import java.awt.Color;
 import jade.gen.map.AsciiMap;
 import jade.util.datatype.Coordinate;
+import jade.util.datatype.Direction;
 
 import java.awt.Color;
 import java.util.LinkedList;
@@ -99,7 +100,10 @@ public class City extends MapGenerator
     	Map<Coordinate, Door> doors = church.getDoors();
 		for (Coordinate coord : doors.keySet())
     	{
-			Door door = doors.get(coord);
+			// d hat coordinaten relativ zur AsciiMap
+			Door d = doors.get(coord);
+			Door door = new Door(d.getID(), rect.x + 1 + coord.x(), rect.y + 1 + coord.y(),
+					d.getDestWorld(), d.getDestID(), Direction.NORTH);
 			world.addDoor(rect.x + 1 + coord.x(), rect.y + 1 + coord.y(), door);
     	}
     }
@@ -258,7 +262,8 @@ public class City extends MapGenerator
                 	world.setTile(c, false, doorx+x, doory, true);
                 	world.setTileBackground(new Color(0x806000).brighter(), doorx+x, doory);
                 }
-                Door door = new Door("room" + roomnum, 1, 1);
+                Door door = new Door("room" + roomnum + "entry",
+                					 doorx+1, doory, "room" + roomnum, "roomentry");
                 world.addDoor (doorx, doory, door);
                 world.addDoor (doorx+1, doory, door);
                 world.addDoor (doorx+2, doory, door);

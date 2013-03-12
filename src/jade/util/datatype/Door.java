@@ -1,25 +1,55 @@
 package jade.util.datatype;
 import jade.util.datatype.Coordinate;
+import jade.util.datatype.Direction;
 
 public class Door {
-	private String worldname;
-	private Coordinate coord;
-	public Door(String worldname, Coordinate coord)
+	private String id;
+	private String destworld;
+	private String destid;
+	private Coordinate position;
+	private Direction direction;
+	public Door(String id, Coordinate position, String destworld, String destid)
 	{
-		this.worldname = worldname;
-		this.coord = coord;
+		this(id, position, destworld, destid, Direction.NORTH);
 	}
-	public Door(String worldname, int x, int y)
+	public Door(String id, Coordinate position, String destworld, String destid, Direction direction)
 	{
-		this(worldname, new Coordinate(x,y));
+		this.id = id;
+		this.destworld = destworld;
+		this.destid = destid;
+		this.position = position;
+		this.direction = direction;
+	}
+	public Door(String id, int posx, int posy, String destworld, String destid)
+	{
+		this(id, posx, posy, destworld, destid, Direction.NORTH);
+	}
+
+	public Door(String id, int posx, int posy, String destworld, String destid, Direction direction)
+	{
+		this(id, new Coordinate(posx, posy), destworld, destid, direction);
 	}
 	
-	public String getWorldName()
+	public String getID()
 	{
-		return worldname;
+		return id;
 	}
-	public Coordinate getCoord()
+	
+	public String getDestWorld()
 	{
-		return coord;
+		return destworld;
+	}
+	public String getDestID()
+	{
+		return destid;
+	}
+	
+	public Coordinate getPosition()
+	{
+		return position;
+	}
+	public Direction getDirection()
+	{
+		return direction;
 	}
 }

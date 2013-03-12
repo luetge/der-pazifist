@@ -6,8 +6,11 @@ import jade.ui.HUD;
 import jade.ui.TermPanel;
 import jade.ui.TiledTermPanel;
 import jade.ui.View;
+import jade.util.Guard;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Door;
+import jade.util.datatype.Direction;
+import jade.util.datatype.Coordinate;
 
 import java.awt.Color;
 import java.awt.event.ComponentEvent;
@@ -32,9 +35,9 @@ public class Rogue implements ComponentListener
 		term = TiledTermPanel.getFramedTerminal("Der PaziFist");
         
         player = new Player();
-        level = new Level(256, 196, player, "Test-Level");
+        level = new Level(256, 196, player, "mainworld");
         
-        world = level.getWorld("Test-Level");
+        world = level.getWorld("mainworld");
         
         view = new View (player.pos ());
         
@@ -78,8 +81,12 @@ public class Rogue implements ComponentListener
             if (door != null)
             {
             	world.removeActor(player);
-            	world = level.getWorld(door.getWorldName());
-            	world.addActor(player, door.getCoord().x(), door.getCoord().y());
+            	world = level.stepToWorld(door);
+            	Guard.verifyState(world!=null);
+            	Door dest = world.getDoor(door.getDestID());
+            	Guard.verifyState(dest!=null);
+            	world.addActor(player, dest.getPosition().x() - dest.getDirection().dx(),
+            			dest.getPosition().y() - dest.getDirection().dy());
             }
         }
         

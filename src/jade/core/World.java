@@ -34,7 +34,8 @@ public class World extends Messenger
     private List<Class<? extends Actor>> drawOrder;
     private List<Class<? extends Actor>> actOrder;
 	private int currentKey;
-	private Map<Coordinate,Door> doors;
+	private Map<Coordinate,Door> doorsbycoord;
+	private Map<String,Door> doorsbyid;
 	Door activedoor;
 	
 	public World(int width, int height, String name){
@@ -57,7 +58,8 @@ public class World extends Messenger
     {
         Guard.argumentsArePositive(width, height);
 
-        this.doors = new HashMap<Coordinate,Door> ();
+        this.doorsbycoord = new HashMap<Coordinate,Door> ();
+        this.doorsbyid = new HashMap<String,Door> ();
         this.width = width;
         this.height = height;
         this.activedoor = null;
@@ -245,7 +247,8 @@ public class World extends Messenger
     
     public void addDoor (Coordinate coord, Door door)
     {
-    	doors.put(coord, door);
+    	doorsbycoord.put(coord, door);
+    	doorsbyid.put(door.getID(), door);
     }
     
     public Door getDoor (int x, int y)
@@ -255,7 +258,12 @@ public class World extends Messenger
     
     public Door getDoor(Coordinate coord)
     {
-    	return doors.get(coord);
+    	return doorsbycoord.get(coord);
+    }
+    
+    public Door getDoor(String id)
+    {
+    	return doorsbyid.get(id);
     }
 
     /**

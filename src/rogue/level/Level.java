@@ -2,11 +2,14 @@ package rogue.level;
 
 import jade.core.World;
 import jade.util.datatype.Door;
+import jade.util.datatype.Coordinate;
+import jade.util.datatype.Direction;
 import jade.gen.Generator;
 import jade.gen.map.*;
 import rogue.creature.Player;
 import java.util.HashMap;
 import java.util.Map;
+import java.io.File;
 
 public class Level
 {
@@ -33,13 +36,38 @@ public class Level
     
     public World getWorld (String name)
     {
-    	World w = worlds.get(name);
+    	return worlds.get(name);
+    }
+    
+    public World stepToWorld (Door door)
+    {
+    	World w = worlds.get(door.getDestWorld());
     	if (w == null)
     	{
-    		w = new World (128, 128, name);
-    		roomgen.generate(w);
-    		roomgen.addExit(w, new Door(startname, player.pos()));
-    		worlds.put(name, w);
+    		w = new World (128, 128, door.getDestWorld());
+    		
+    		File f = new File("res/rooms/"+door.getDestWorld());
+    		if (f.exists() && !f.isDirectory())
+    		{
+    			AsciiMap asciimap = new AsciiMap("res/rooms/"+door.getDestWorld());
+    			asciimap.render(w, 0, 0);
+    			Map<Coordinate, Door> doors = asciimap.getDoors();
+    			for (Coordinate coord : doors.keySet())
+    			{
+    				Door d = doors.get(coord);
+    				d = new Door(d.getID(), d.getPosition(), d.getDestWorld(),
+    						d.getDestID(), Direction.SOUTH);
+    				w.addDoor(d.getPosition(), d);
+    			}
+    		}
+    		else
+    		{
+    			roomgen.generate(w);
+    			// TODO: real exit
+    			roomgen.addExit(w, new Door("roomentry",
+    					new Coordinate (5,5), startname, door.getDestWorld()+"entry"));
+    		}
+    		worlds.put(door.getDestWorld(), w);
     	}
     	return w;
     }

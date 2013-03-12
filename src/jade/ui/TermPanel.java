@@ -78,7 +78,7 @@ public class TermPanel extends Terminal
     {
         JFrame frame = new JFrame(title);
         frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
-      	frame.add(HUD.getPanel());
+        frame.add(HUD.getPanel());
         frame.add(term.panel());
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

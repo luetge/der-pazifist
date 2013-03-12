@@ -18,7 +18,7 @@ public class View {
 		this.center_y = center.y();
 	}
 	
-	public void update (TiledTermPanel term, World world, Player player)
+	public void update (TermPanel term, World world, Player player)
 	{
         term.clearBuffer();
 

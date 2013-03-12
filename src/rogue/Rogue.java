@@ -1,12 +1,12 @@
 package rogue;
 
-import jade.core.Messenger.Message;
-import jade.util.datatype.Door;
 import jade.core.World;
 import jade.core.Messenger.Message;
+import jade.ui.TermPanel;
 import jade.ui.TiledTermPanel;
 import jade.ui.View;
 import jade.util.datatype.ColoredChar;
+import jade.util.datatype.Door;
 
 import java.awt.Color;
 import java.awt.event.ComponentEvent;
@@ -20,7 +20,7 @@ import rogue.level.Level;
 
 public class Rogue implements ComponentListener
 {
-	private TiledTermPanel term;
+	private TermPanel term;
 	private Player player;
 	private Level level;
 	private World world;
@@ -29,10 +29,6 @@ public class Rogue implements ComponentListener
 	public Rogue () throws InterruptedException
 	{
 		term = TiledTermPanel.getFramedTerminal("Der PaziFist");
-        term.registerTile("dungeon.png", 5, 59, ColoredChar.create('#'));
-        term.registerTile("dungeon.png", 3, 60, ColoredChar.create('.'));
-        term.registerTile("dungeon.png", 5, 20, ColoredChar.create('@'));
-        term.registerTile("dungeon.png", 14, 30, ColoredChar.create('D', Color.red));
         
         player = new Player();
         level = new Level(256, 196, player, "Test-Level");

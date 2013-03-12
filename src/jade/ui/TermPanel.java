@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
+import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.FileInputStream;
@@ -17,6 +18,7 @@ import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -75,10 +77,17 @@ public class TermPanel extends Terminal
     protected static void frameTermPanel(TermPanel term, String title)
     {
         JFrame frame = new JFrame(title);
+        frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
+      	frame.add(HUD.getPanel());
         frame.add(term.panel());
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+    }
+    
+    public void addComponentListener(ComponentListener l)
+    {
+    	screen ().addComponentListener(l);
     }
 
     /**

@@ -1,12 +1,17 @@
 package jade.gen.map;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.StringReader;
+import java.io.Reader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import jade.ui.TermPanel;
 import jade.util.datatype.MutableCoordinate;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.ColoredChar;
@@ -22,12 +27,39 @@ public class AsciiMap {
 	private Map<String, Set<Coordinate>> specials;
 	public AsciiMap(String filename)
 	{
+		this();
+		loadFromFile(filename);
+	}
+	
+	private AsciiMap()
+	{
 		characters = new HashMap<Coordinate, ColoredChar> ();
 		backgrounds = new HashMap<Coordinate, Color> ();
 		specials = new HashMap<String, Set<Coordinate>>();
 		width = height = -1;
+	}
+	
+	private void loadFromFile (String filename)
+	{
+		try {
+			Loader l = new Loader();
+			l.load(new FileReader(filename));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void loadFromString (String str)
+	{
 		Loader l = new Loader();
-		l.load(filename);
+		l.load(new StringReader(str));
+	}
+	
+	public static AsciiMap createFromString(String str)
+	{
+		AsciiMap asciimap = new AsciiMap();
+		asciimap.loadFromString(str);
+		return asciimap;
 	}
 	
 	public void render (World world, int posx, int posy)
@@ -40,6 +72,14 @@ public class AsciiMap {
         {
         	world.setTileBackground(backgrounds.get(coord),  posx + coord.x(), posy + coord.y());
         }
+	}
+	
+	public void render (TermPanel term)
+	{
+		for (Coordinate coord : characters.keySet())
+			term.bufferChar(coord,  characters.get(coord));
+		for (Coordinate coord : backgrounds.keySet())
+			term.bufferBackground(coord, backgrounds.get(coord));
 	}
 	
 	public Set<Coordinate> getSpecial (String name)
@@ -93,14 +133,11 @@ public class AsciiMap {
 					i = escend;
 					continue;
 				}
-				if (c != ' ' || !background.equals(Color.black))
-				{
-					characters.put(coord.copy(), new ColoredChar (c, foreground));
-					if (width < coord.x())
-						width = coord.x();
-					if (height < coord.y())
-						height = coord.y();
-				}
+				characters.put(coord.copy(), new ColoredChar (c, foreground));
+				if (width < coord.x())
+					width = coord.x();
+				if (height < coord.y())
+					height = coord.y();
 				if (!background.equals(Color.black))
 				{
 					backgrounds.put(coord.copy(), background.brighter());
@@ -114,10 +151,10 @@ public class AsciiMap {
 			coord.setXY(0,coord.y()+1);
 		}
 	
-		public void load(String filename)
+		public void load(Reader r)
 		{
 			try {
-				BufferedReader reader = new BufferedReader(new FileReader(filename));
+				BufferedReader reader = new BufferedReader(r);
 				String str;
 				foreground = Color.white;
 				background = Color.black;

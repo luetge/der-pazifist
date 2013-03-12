@@ -91,6 +91,11 @@ public class TermPanel extends Terminal
         return screen;
     }
     
+    public int tileHeight()
+    {
+    	return screen().tileHeight();
+    }
+    
     protected Screen screen()
     {
         return screen;

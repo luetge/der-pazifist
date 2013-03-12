@@ -63,9 +63,7 @@ public class Level
     		else
     		{
     			roomgen.generate(w);
-    			// TODO: real exit
-    			roomgen.addExit(w, new Door("roomentry",
-    					new Coordinate (5,5), startname, door.getDestWorld()+"entry"));
+    			roomgen.addDoors (w, startname);
     		}
     		worlds.put(door.getDestWorld(), w);
     	}

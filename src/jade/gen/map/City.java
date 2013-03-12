@@ -103,7 +103,7 @@ public class City extends MapGenerator
 			// d hat coordinaten relativ zur AsciiMap
 			Door d = doors.get(coord);
 			Door door = new Door(d.getID(), rect.x + 1 + coord.x(), rect.y + 1 + coord.y(),
-					d.getDestWorld(), d.getDestID(), Direction.NORTH);
+					d.getDestWorld(), d.getDestID(), d.getDirection());
 			world.addDoor(rect.x + 1 + coord.x(), rect.y + 1 + coord.y(), door);
     	}
     }
@@ -262,11 +262,12 @@ public class City extends MapGenerator
                 	world.setTile(c, false, doorx+x, doory, true);
                 	world.setTileBackground(new Color(0x806000).brighter(), doorx+x, doory);
                 }
-                Door door = new Door("room" + roomnum + "entry",
-                					 doorx+1, doory, "room" + roomnum, "roomentry");
-                world.addDoor (doorx, doory, door);
-                world.addDoor (doorx+1, doory, door);
-                world.addDoor (doorx+2, doory, door);
+                for (int i = 0; i < 3; i++)
+                {
+                	Door door = new Door("room" + roomnum + "entry" + i,
+                					 doorx+i, doory, "room" + roomnum, "roomentry" + i);
+                	world.addDoor (doorx+i, doory, door);
+                }
                 roomnum++;
             }
             else

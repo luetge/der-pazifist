@@ -52,4 +52,9 @@ public class Door {
 	{
 		return direction;
 	}
+	
+	public Coordinate getDestination()
+	{
+		return new Coordinate(position.x() - direction.dx(), position.y() - direction.dy());
+	}
 }

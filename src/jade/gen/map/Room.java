@@ -26,9 +26,20 @@ public class Room extends MapGenerator {
         	world.setTile(wallTile,  false, world.width()-1, y, true);
         }
         
-        ColoredChar doorTile = ColoredChar.create('x');
-        world.setTile(doorTile, false, 4, 4, true);
+        for (int i =0; i < 3; i++)
+        {
+        	ColoredChar doorTile = ColoredChar.create('x');
+        	world.setTile(doorTile, false, 4+i, 4, true);
+        }
     }
+	public void addDoors(World world, String exitname)
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			world.addDoor(4+i,4,new Door("roomentry"+i,4+i,4,exitname,
+					world.getName()+"entry"+i));
+		}
+	}
 	
 	public void addExit(World world, Door door)
 	{

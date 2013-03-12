@@ -1,4 +1,4 @@
-e0=door:church2entry0,mainworld,church2entry0;e1=door:church2entry1,mainworld,church2entry1;e2=door:church2entry2,mainworld,church2entry2
+e0=door:church2entry0,mainworld,church2entry0,s;e1=door:church2entry1,mainworld,church2entry1,s;e2=door:church2entry2,mainworld,church2entry2,s
 ╔═════════════════════════════════╗
 ║¥p¥    ¥np¥¥fg:0091EA¥♨¥fg:FFFFFF¥¥p¥  ¥bg:A30000¥  ¥np¥¥bg:9A5E01¥  †  ¥bg:A30000¥  ¥p¥¥bg:000000¥      ¥np¥¥fg:000000¥¥bg:834200¥¥box¥┐¥fg:FFFFFF¥¥bg:000000¥          ¥np¥║
 ║¥p¥       ¥bg:A30000¥  ¥np¥¥bg:9A5E01¥     ¥bg:A30000¥  ¥p¥¥bg:000000¥¥fg:FFFFFF¥                 ¥bg:000000¥¥np¥║

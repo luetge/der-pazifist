@@ -43,18 +43,17 @@ public class Level
     	return worlds.get(name);
     }
     
-    public World stepToWorld (Door door)
+    public World stepToWorld (World from, Door door)
     {
     	World w = worlds.get(door.getDestWorld());
     	if (w == null)
     	{
-    		int size = Dice.global.nextInt(10,30);
-    		w = new World (size, size*3/4, door.getDestWorld());
     		
     		File f = new File("res/rooms/"+door.getDestWorld());
     		if (f.exists() && !f.isDirectory())
     		{
     			AsciiMap asciimap = new AsciiMap("res/rooms/"+door.getDestWorld());
+        		w = new World (asciimap.width(), asciimap.height(), door.getDestWorld());
     			asciimap.render(w, 0, 0);
     			Map<Coordinate, Door> doors = asciimap.getDoors();
     			for (Coordinate coord : doors.keySet())
@@ -67,8 +66,11 @@ public class Level
     		}
     		else
     		{
+        		int size = Dice.global.nextInt(10,30);
+        		w = new World (size, size*3/4, door.getDestWorld());
     			roomgen.generate(w);
-    			roomgen.addDoors (w, startname);
+    			System.out.println(from.getName());
+    			roomgen.addDoors (w, from.getName());
     			for (int i = 0; i < 5; i++){
     				Monster m = new Monster(ColoredChar.create('Z', Color.green),
     						"Blutiger Zombie");

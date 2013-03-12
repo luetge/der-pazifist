@@ -36,6 +36,11 @@ public class View {
         	center_y = player.pos().y() - term.height()/2 + viewborder_y;
         
         Collection<Coordinate> viewfield = player.getViewField ();
+        if(viewfield == null) {
+        	term.refreshScreen();
+        	return;
+        }
+        	
 
         for(int x = 0; x < term.width (); x++)
         {
@@ -54,13 +59,9 @@ public class View {
         		if (!viewfield.contains(new Coordinate (worldx, worldy)))
             	{
         			if (!world.isAlwaysVisible (worldx, worldy))
-        			{
             			continue;
-            		}
         			else
-        			{
         				c = ColoredChar.create (c.ch (), c.color().darker());
-        			}
         			background = background.darker();
             	}
         		else

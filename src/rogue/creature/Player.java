@@ -2,12 +2,12 @@ package rogue.creature;
 
 import jade.fov.RayCaster;
 import jade.fov.ViewField;
-import jade.util.datatype.Door;
 import jade.ui.Camera;
 import jade.ui.HUD;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
+import jade.util.datatype.Door;
 
 import java.util.Collection;
 
@@ -47,6 +47,8 @@ public class Player extends Creature implements Camera
     @Override
     public Collection<Coordinate> getViewField()
     {
+    	if(world() == null)
+    		return null;
         return fov.getViewField(world(), pos(), 10);
     }
     

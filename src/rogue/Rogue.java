@@ -2,6 +2,7 @@ package rogue;
 
 import jade.core.World;
 import jade.core.Messenger.Message;
+import jade.ui.HUD;
 import jade.ui.TermPanel;
 import jade.ui.TiledTermPanel;
 import jade.ui.View;
@@ -39,7 +40,7 @@ public class Rogue implements ComponentListener
         
         Monster m;
         Braaaiiiiins brains = new Braaaiiiiins();
-		for (int i = 0; i < 600; i++){
+		for (int i = 0; i < 2000; i++){
 			m = new Monster(ColoredChar.create('Z', Color.green), "Blutiger Zombie");
 			m.addFeatureAtTheEnd(brains);
 			world.addActor(m);
@@ -108,6 +109,7 @@ public class Rogue implements ComponentListener
 	
 	public void finish () throws InterruptedException
 	{
+		HUD.setVisible(false);
         Display.printEndScreen(term);
         waitForSpace();
 	}
@@ -116,6 +118,7 @@ public class Rogue implements ComponentListener
     {
         try {
         	Rogue rogue = new Rogue ();
+        	HUD.setVisible(true);
         	rogue.run ();
         	rogue.finish ();
         

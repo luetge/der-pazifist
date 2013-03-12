@@ -35,7 +35,7 @@ public class HUD {
 			pnl.setLayout(new GridLayout(6,2));
 			hud.add(pnl, BorderLayout.NORTH);
 			addLabels(pnl);
-			hud.setVisible(true);
+			hud.setVisible(false);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -46,6 +46,16 @@ public class HUD {
 		if(hud == null)
 			init();
 		return hud;
+	}
+	
+	public static void setVisible(boolean visible){
+		hud.setVisible(visible);
+		hud.getParent().doLayout();
+		hud.validate();
+		hud.repaint();
+		
+//		hud.getParent().validate();
+//		hud.getParent().repaint();
 	}
 	
 	private static void addLabels(JPanel pnl) {

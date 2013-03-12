@@ -15,15 +15,39 @@ import jade.ui.TermPanel;
 import jade.util.datatype.MutableCoordinate;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.ColoredChar;
+import jade.util.datatype.Door;
 import jade.util.Guard;
 import java.awt.Color;
 import jade.core.World;
 
 public class AsciiMap {
 	
+	private class Tile
+	{
+		private boolean passable;
+		ColoredChar ch;
+		
+		Tile(ColoredChar ch, boolean passable)
+		{
+			this.ch = ch;
+			this.passable = passable;
+		}
+		
+		ColoredChar ch ()
+		{
+			return ch;
+		}
+		
+		boolean passable ()
+		{
+			return passable;
+		}
+	}
+	
 	private int width, height;
-	private Map<Coordinate, ColoredChar> characters;
+	private Map<Coordinate, Tile> characters;
 	private Map<Coordinate, Color> backgrounds;
+	private Map<Coordinate, Door> doors;
 	private Map<String, Set<Coordinate>> specials;
 	public AsciiMap(String filename)
 	{
@@ -33,10 +57,16 @@ public class AsciiMap {
 	
 	private AsciiMap()
 	{
-		characters = new HashMap<Coordinate, ColoredChar> ();
+		characters = new HashMap<Coordinate, Tile> ();
 		backgrounds = new HashMap<Coordinate, Color> ();
 		specials = new HashMap<String, Set<Coordinate>>();
+		doors = new HashMap<Coordinate, Door> ();
 		width = height = -1;
+	}
+	
+	public Map<Coordinate, Door> getDoors()
+	{
+		return doors;
 	}
 	
 	private void loadFromFile (String filename)
@@ -66,7 +96,8 @@ public class AsciiMap {
 	{
         for (Coordinate coord : characters.keySet())
         {
-        	world.setTile(characters.get(coord), false, posx + coord.x(), posy + coord.y(), true);
+        	world.setTile(characters.get(coord).ch(), characters.get(coord).passable(),
+        			posx + coord.x(), posy + coord.y(), true);
         }
         for (Coordinate coord : backgrounds.keySet())
         {
@@ -77,7 +108,7 @@ public class AsciiMap {
 	public void render (TermPanel term)
 	{
 		for (Coordinate coord : characters.keySet())
-			term.bufferChar(coord,  characters.get(coord));
+			term.bufferChar(coord,  characters.get(coord).ch());
 		for (Coordinate coord : backgrounds.keySet())
 			term.bufferBackground(coord, backgrounds.get(coord));
 	}
@@ -100,9 +131,15 @@ public class AsciiMap {
 	private class Loader {
 		private Color background;
 		private Color foreground;
+		private boolean passable;
+		private Map<String, String> aliases;
 
-		private void processEscape (Coordinate coord, String esc)
+		private void processEscape (Coordinate coord, String input)
 		{
+			String esc;
+			esc = aliases.get(input);
+			if (esc == null)
+				esc = input;
 			if(esc.startsWith("bg:"))
 			{
 				background = Color.decode("0x"+esc.substring(3));
@@ -111,12 +148,28 @@ public class AsciiMap {
 			{
 				foreground = Color.decode("0x"+esc.substring(3));
 			}
+			else if (esc.startsWith("door:"))
+			{
+				String params[] = esc.substring(5).split(",");
+				Guard.validateArgument(params.length == 3);
+				doors.put(coord.copy(), new Door(params[0],
+						Integer.parseInt(params[1]),
+						Integer.parseInt(params[2])));
+			}
+			else if (esc.equals("p"))
+			{
+				passable = true;
+			}
+			else if (esc.equals("np"))
+			{
+				passable = false;
+			}
 			else
 			{
 				Set<Coordinate> set = specials.get(esc);
 				if (set == null)
 					specials.put(esc, set = new HashSet<Coordinate> ());
-				set.add(coord);
+				set.add(coord.copy());
 			}
 		}
 	
@@ -133,7 +186,8 @@ public class AsciiMap {
 					i = escend;
 					continue;
 				}
-				characters.put(coord.copy(), new ColoredChar (c, foreground));
+				characters.put(coord.copy(), new Tile(new ColoredChar (c, foreground),
+						passable));
 				if (width < coord.x())
 					width = coord.x();
 				if (height < coord.y())
@@ -150,6 +204,19 @@ public class AsciiMap {
 			}
 			coord.setXY(0,coord.y()+1);
 		}
+		
+		private void parseAliases(String aliases)
+		{
+			if (aliases.isEmpty())
+				return;
+			String list[] = aliases.split(";");
+			for (String alias : list)
+			{
+				String s[] = alias.split("=");
+				Guard.validateArgument(s.length==2);
+				this.aliases.put(s[0],s[1]);
+			}
+		}
 	
 		public void load(Reader r)
 		{
@@ -158,7 +225,10 @@ public class AsciiMap {
 				String str;
 				foreground = Color.white;
 				background = Color.black;
+				passable = false;
 				MutableCoordinate coord = new MutableCoordinate (0,0);
+				aliases = new HashMap<String,String>();
+				parseAliases(reader.readLine());
 				while ((str = reader.readLine ()) != null)
 				{
 					processLine (str, coord);

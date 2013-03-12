@@ -85,8 +85,9 @@ public abstract class Terminal
     public void bufferChar(Coordinate coord, ColoredChar ch)
     {
         Guard.argumentsAreNotNull(coord, ch);
-
-        buffer.put(coord, ch);
+        synchronized(buffer){
+        	buffer.put(coord, ch);
+        }
     }
 
     /**
@@ -108,7 +109,9 @@ public abstract class Terminal
      */
     public ColoredChar charAt(Coordinate coord)
     {
-        return buffer.get(coord);
+    	synchronized(buffer){
+    		return buffer.get(coord);
+    	}
     }
 
     /**
@@ -181,8 +184,10 @@ public abstract class Terminal
      */
     public void clearBuffer()
     {
-        buffer.clear();
-        backgroundBuffer.clear();
+    	synchronized(buffer){
+    		buffer.clear();
+    		backgroundBuffer.clear();
+    	}
     }
 
     /**
@@ -191,10 +196,12 @@ public abstract class Terminal
      */
     public void saveBuffer()
     {
-        saved.clear();
-        saved.putAll(buffer);
-        backgroundSaved.clear();
-        backgroundSaved.putAll(backgroundBuffer);
+    	synchronized(buffer){
+	        saved.clear();
+	        saved.putAll(buffer);
+	        backgroundSaved.clear();
+	        backgroundSaved.putAll(backgroundBuffer);
+    	}
     }
 
     /**
@@ -203,10 +210,12 @@ public abstract class Terminal
      */
     public void recallBuffer()
     {
-        buffer.clear();
-        buffer.putAll(saved);
-        backgroundBuffer.clear();
-        backgroundBuffer.putAll(backgroundSaved);
+    	synchronized(buffer){
+	        buffer.clear();
+	        buffer.putAll(saved);
+	        backgroundBuffer.clear();
+	        backgroundBuffer.putAll(backgroundSaved);
+    	}
     }
 
     /**

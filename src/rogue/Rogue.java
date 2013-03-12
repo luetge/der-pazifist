@@ -110,6 +110,7 @@ public class Rogue implements ComponentListener
 	public void finish () throws InterruptedException
 	{
 		HUD.setVisible(false);
+		Thread.sleep(200);		//TODO 
         Display.printEndScreen(term);
         waitForSpace();
 	}

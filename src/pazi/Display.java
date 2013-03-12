@@ -41,26 +41,28 @@ public class Display {
     }
 	
 	public static void printFileToScreen(Terminal term, String sPath) throws IOException{
-		term.clearBuffer();
-		BufferedReader reader = new BufferedReader(new FileReader(sPath));
-		String sStart = reader.readLine();
-		int i, j=1;
-		Color c = Color.white;
-		while(sStart != null){
-			int iCorrection = 0;
-			for(i=0;i<sStart.length();i++){
-				if(sStart.charAt(i)=='¥'){
-					c = COLORS.get(sStart.charAt(i+1));
-					iCorrection += 2;
-					i++;
-				} else		
-					term.bufferChar(i-iCorrection, j, ColoredChar.create(sStart.charAt(i), c));
+		synchronized(term){
+			term.clearBuffer();
+			BufferedReader reader = new BufferedReader(new FileReader(sPath));
+			String sStart = reader.readLine();
+			int i, j=1;
+			Color c = Color.white;
+			while(sStart != null){
+				int iCorrection = 0;
+				for(i=0;i<sStart.length();i++){
+					if(sStart.charAt(i)=='¥'){
+						c = COLORS.get(sStart.charAt(i+1));
+						iCorrection += 2;
+						i++;
+					} else		
+						term.bufferChar(i-iCorrection, j, ColoredChar.create(sStart.charAt(i), c));
+				}
+				j++;
+				sStart = reader.readLine();
 			}
-			j++;
-			sStart = reader.readLine();
+			reader.close();
+			term.refreshScreen();
 		}
-		reader.close();
-		term.refreshScreen();
 	}
 
 }

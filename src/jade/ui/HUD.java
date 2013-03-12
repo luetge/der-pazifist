@@ -53,7 +53,6 @@ public class HUD {
 		hud.getParent().doLayout();
 		hud.validate();
 		hud.repaint();
-		
 //		hud.getParent().validate();
 //		hud.getParent().repaint();
 	}

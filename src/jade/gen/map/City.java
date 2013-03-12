@@ -96,6 +96,12 @@ public class City extends MapGenerator
     {
     	Rectangle rect = getRandomRect (world, dice, church.width() + 2, church.height() + 2);
     	church.render (world, rect.x + 1, rect.y + 1);
+    	Map<Coordinate, Door> doors = church.getDoors();
+		for (Coordinate coord : doors.keySet())
+    	{
+			Door door = doors.get(coord);
+			world.addDoor(rect.x + 1 + coord.x(), rect.y + 1 + coord.y(), door);
+    	}
     }
     
     @Override

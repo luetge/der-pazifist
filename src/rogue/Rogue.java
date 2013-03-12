@@ -1,7 +1,7 @@
 package rogue;
 
-import jade.core.Messenger.Message;
 import jade.core.World;
+import jade.core.Messenger.Message;
 import jade.ui.TiledTermPanel;
 import jade.ui.View;
 import jade.util.datatype.ColoredChar;
@@ -23,7 +23,7 @@ public class Rogue implements ComponentListener
 	private World world;
 	private View view;
 	
-	Rogue () throws InterruptedException
+	public Rogue () throws InterruptedException
 	{
 		term = TiledTermPanel.getFramedTerminal("Der PaziFist");
         term.registerTile("dungeon.png", 5, 59, ColoredChar.create('#'));

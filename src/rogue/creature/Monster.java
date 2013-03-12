@@ -12,7 +12,7 @@ public class Monster extends Creature
     {
         super(face, Name);
         min_d = 10;
-        max_d = 100;
+        max_d = 24;
     }
 
 	@Override

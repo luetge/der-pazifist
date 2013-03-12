@@ -1,14 +1,18 @@
 package rogue.level;
 
 import jade.core.World;
+import jade.util.Dice;
+import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Door;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
 import jade.gen.Generator;
 import jade.gen.map.*;
+import rogue.creature.Monster;
 import rogue.creature.Player;
 import java.util.HashMap;
 import java.util.Map;
+import java.awt.Color;
 import java.io.File;
 
 public class Level
@@ -44,7 +48,8 @@ public class Level
     	World w = worlds.get(door.getDestWorld());
     	if (w == null)
     	{
-    		w = new World (128, 128, door.getDestWorld());
+    		int size = Dice.global.nextInt(10,30);
+    		w = new World (size, size*3/4, door.getDestWorld());
     		
     		File f = new File("res/rooms/"+door.getDestWorld());
     		if (f.exists() && !f.isDirectory())
@@ -64,6 +69,12 @@ public class Level
     		{
     			roomgen.generate(w);
     			roomgen.addDoors (w, startname);
+    			for (int i = 0; i < 5; i++){
+    				Monster m = new Monster(ColoredChar.create('Z', Color.green),
+    						"Blutiger Zombie");
+    				w.addActor(m);
+    			}
+
     		}
     		worlds.put(door.getDestWorld(), w);
     	}

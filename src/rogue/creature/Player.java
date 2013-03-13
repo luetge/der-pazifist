@@ -1,5 +1,6 @@
 package rogue.creature;
 
+import jade.core.Actor;
 import jade.fov.RayCaster;
 import jade.fov.ViewField;
 import jade.ui.Camera;
@@ -10,6 +11,8 @@ import jade.util.datatype.Direction;
 import jade.util.datatype.Door;
 
 import java.util.Collection;
+
+import pazi.items.Item;
 
 public class Player extends Creature implements Camera
 {
@@ -36,6 +39,9 @@ public class Player extends Creature implements Camera
     		world().stepThroughDoor(door);
     	}
     	super.setPos(x,y);
+    	Item item = world().getActorAt(Item.class, x, y);
+    	if (item != null)
+    			item.getPickedUp(this);
     }
 
     @Override
@@ -66,7 +72,7 @@ public class Player extends Creature implements Camera
 
 	public void getGold(int amount) {
     	gold+=amount;
-    	HUD.setGold(amount);	
+    	HUD.setGold(gold);	
 	}
 
 }

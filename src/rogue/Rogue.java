@@ -102,6 +102,7 @@ public class Rogue implements ComponentListener
 	}
         
     private void showMessages() throws InterruptedException {
+    	term.setCurrentConsoleText("");
     	while(level.world().hasNextMessage()){
     		Message m = level.world().getNextMessage();
     		String source = m.source.getName();

@@ -177,6 +177,13 @@ public class TiledTermPanel extends TermPanel
             tileBuffer.put(coord.getTranslated(offX, offY),
                     world.lookAll(coord));
     }
+    
+    @Override
+    public void unbuffer (Coordinate coord)
+    {
+    	super.unbuffer(coord);
+    	tileBuffer.remove(coord);
+    }
 
     @Override
     public void bufferRelative(Camera camera, ColoredChar ch, int x, int y)

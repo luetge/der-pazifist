@@ -36,9 +36,11 @@ public class Rogue implements ComponentListener
 	private Level level;
 	private World world;
 	private View view;
+	boolean running;
 	
 	public Rogue () throws InterruptedException
 	{
+		running = false;
 		term = TiledTermPanel.getFramedTerminal("Der PaziFist");
 
 		term.loadTiles("res/tiles");
@@ -63,8 +65,7 @@ public class Rogue implements ComponentListener
         
 		Display.printStartScreen(term);
         
-		while(term.getKey() != ' ')
-			term.refreshScreen();
+		waitForSpace();
 	}
 	
 	public void componentHidden(ComponentEvent e) {
@@ -74,7 +75,8 @@ public class Rogue implements ComponentListener
     }
 
     public void componentResized(ComponentEvent e) {
-    	view.update (term, world, player);
+    	if (running)
+    		view.update (term, world, player);
     }
 
     public void componentShown(ComponentEvent e) {
@@ -82,6 +84,7 @@ public class Rogue implements ComponentListener
 
     public void run () throws InterruptedException
 	{
+    	running = true;
         while(!player.expired())
         {
         	view.update (term, world, player);
@@ -100,14 +103,14 @@ public class Rogue implements ComponentListener
         }
         
         showMessages();
+        running = false;
 	}
         
     private void showMessages() throws InterruptedException {
-    	term.setCurrentConsoleText("");
     	while(world.hasNextMessage()){
     		Message m = world.getNextMessage();
     		String source = m.source.getName();
-    		if(source == "Test-Level")
+    		if(source == "mainworld")
     			source = "Gott: ";
     		else
     			source += ": ";
@@ -126,7 +129,6 @@ public class Rogue implements ComponentListener
 	public void finish () throws InterruptedException
 	{
 		HUD.setVisible(false);
-		Thread.sleep(200);		//TODO 
         Display.printEndScreen(term);
         waitForSpace();
 	}

@@ -139,7 +139,9 @@ public class TermPanel extends Terminal
     }
     
     public void setCurrentConsoleText(String sText){
-    	screen.setCurrentConsoleText(sText);
+    	for (int i = 0; i < screen.rows(); i++)
+    		unbuffer(i,0);
+    	bufferString(0, 0, sText);
     }
 
     protected static class Screen extends JPanel implements KeyListener
@@ -151,7 +153,7 @@ public class TermPanel extends Terminal
         private BlockingQueue<Integer> inputBuffer;
         private Map<Coordinate, ColoredChar> screenBuffer;
         private Map<Coordinate, Color> backgroundBuffer;
-        private String sCurrentConsoleText = "";
+        private int columns, rows;
 
         public Screen(int columns, int rows, int fontSize)
         {
@@ -167,6 +169,8 @@ public class TermPanel extends Terminal
             addKeyListener(this);
             this.tileWidth = tileWidth;
             this.tileHeight = tileHeight;
+            this.columns = columns;
+            this.rows = rows;
             setPreferredSize(new Dimension(columns * tileWidth, rows * tileHeight));
             Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream ("res/DejaVuSansMono.ttf"));
             setFont(font.deriveFont(Font.PLAIN, tileHeight));
@@ -180,10 +184,16 @@ public class TermPanel extends Terminal
         	}
         }
         
-        public void setCurrentConsoleText(String sText){
-        	this.sCurrentConsoleText = sText;
+        public int columns()
+        {
+        	return columns;
         }
-
+        
+        public int rows()
+        {
+        	return rows;
+        }
+        
         protected int tileWidth()
         {
             return tileWidth;
@@ -235,7 +245,6 @@ public class TermPanel extends Terminal
                     paintChar (page, x, y + tileHeight(), ch);
                 }
                 page.setColor(Color.white);
-                page.drawString(sCurrentConsoleText, 0, tileHeight);
             }
         }
 

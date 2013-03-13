@@ -50,11 +50,7 @@ public class HUD {
 	
 	public static void setVisible(boolean visible){
 		hud.setVisible(visible);
-		hud.getParent().doLayout();
-		hud.validate();
-		hud.repaint();
-//		hud.getParent().validate();
-//		hud.getParent().repaint();
+		hud.getParent().validate();
 	}
 	
 	private static void addLabels(JPanel pnl) {

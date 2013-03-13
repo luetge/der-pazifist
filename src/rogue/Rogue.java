@@ -43,7 +43,6 @@ public class Rogue implements ComponentListener
 		term = TiledTermPanel.getFramedTerminal("Der PaziFist");
 
 		term.loadTiles("res/tiles");
-		
         
         player = new Player();
         level = new Level(256, 196, player, "mainworld");
@@ -91,7 +90,7 @@ public class Rogue implements ComponentListener
             if (door != null)
             {
             	level.world().removeActor(player);
-            	level.stepToWorld(door);
+            	level.stepThroughDoor(door);
             	Door destdoor = level.world().getDoor(door.getDestID());
             	Guard.verifyState(destdoor!=null);
             	level.world().addActor(player, destdoor.getDestination());

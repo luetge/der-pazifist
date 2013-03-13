@@ -34,7 +34,7 @@ public class Level
     	world = new World (width, height, name);
     	gen.generate(world);
     	world.addActor(player);
-    	worlds.put(name, world);	
+    	worlds.put(name, world);
     }
     
     public World world ()
@@ -47,7 +47,7 @@ public class Level
     	return worlds.get(name);
     }
     
-    public void stepToWorld (Door door)
+    public void stepThroughDoor (Door door)
     {
     	World w = worlds.get(door.getDestWorld());
     	if (w == null)

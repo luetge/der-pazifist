@@ -61,6 +61,8 @@ public class View {
             	Collections.reverse(list);
             	for (ColoredChar c : list)
             	{
+            		if (c == null)
+            			continue;
             		if (world.useViewfield())
             		{
             			if (!viewfield.contains(new Coordinate (worldx, worldy)))

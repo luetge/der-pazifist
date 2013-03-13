@@ -1,10 +1,12 @@
 package jade.ui;
 
 import java.util.Collection;
+import java.util.Collections;
 
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 import java.awt.Color;
+import java.util.List;
 import jade.core.World;
 import rogue.creature.Player;
 
@@ -55,24 +57,28 @@ public class View {
             	
             	Color background = world.lookBackground(worldx, worldy);
             	
-            	ColoredChar c = world.look(worldx, worldy);
-            	if (world.useViewfield())
+            	List<ColoredChar> list = world.lookAll(worldx, worldy);
+            	Collections.reverse(list);
+            	for (ColoredChar c : list)
             	{
-            		if (!viewfield.contains(new Coordinate (worldx, worldy)))
+            		if (world.useViewfield())
             		{
-            			if (!world.isAlwaysVisible (worldx, worldy))
-            				continue;
+            			if (!viewfield.contains(new Coordinate (worldx, worldy)))
+            			{
+            				if (!world.isAlwaysVisible (worldx, worldy))
+            					continue;
+            				else
+            					c = ColoredChar.create (c.ch (), c.color().darker());
+            				background = background.darker();
+            			}
             			else
-            				c = ColoredChar.create (c.ch (), c.color().darker());
-            			background = background.darker();
+            			{
+            				if (background == Color.black)
+            					background = Color.darkGray;
+            			}
             		}
-            		else
-            		{
-            			if (background == Color.black)
-            				background = Color.darkGray;
-            		}
+            		term.bufferTile(x, y, c);
             	}
-            	term.bufferTile(x, y, c);
             	term.bufferBackground(x, y, background);
             }
         }

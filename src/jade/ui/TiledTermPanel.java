@@ -242,17 +242,16 @@ public class TiledTermPanel extends TermPanel
             		int y = tileHeight() * coord.y();
                 
             		List<ColoredChar> tiles = tileBuffer.get(coord);
-            		Collections.reverse(tiles);
             		for(ColoredChar ch : tiles)
             		{
             			if(tileRegister.containsKey(ch))
             			{
-            				page.drawImage(tileRegister.get(ch), x, y - tileHeight(),
+            				page.drawImage(tileRegister.get(ch), x, y,
                                 tileWidth(), tileHeight(), null);
             			}
             			else
             			{
-            				paintChar (page, x, y, ch);
+            				paintChar (page, x, y + tileHeight(), ch);
             			}
             		}
                 

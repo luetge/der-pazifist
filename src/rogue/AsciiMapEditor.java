@@ -76,12 +76,12 @@ public class AsciiMapEditor implements DocumentListener {
 		 asciimap = AsciiMap.createFromString (content);
 		} catch (Exception e) {
 	        term.clearBuffer();
-	        term.bufferString(0,  1, "Invalid input");
+	        term.bufferString(0,  0, "Invalid input");
 	        term.refreshScreen();
 			return;
 		}
         term.clearBuffer();
-		asciimap.render (term, 0, 1);
+		asciimap.render (term, 0, 0);
         term.refreshScreen();
         } catch(BadLocationException e) {
 			e.printStackTrace();

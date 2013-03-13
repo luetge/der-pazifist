@@ -219,7 +219,7 @@ public class TermPanel extends Terminal
                     int x = tileWidth * coord.x();
                     int y = tileHeight * coord.y();
                 	page.setColor(c);
-                	page.fillRect(x, y-tileHeight+2, tileWidth, tileHeight);
+                	page.fillRect(x, y+2, tileWidth, tileHeight);
                 }
             }
             synchronized(screenBuffer)
@@ -232,7 +232,7 @@ public class TermPanel extends Terminal
                     int x = tileWidth * coord.x();
                     int y = tileHeight * coord.y();
                     
-                    paintChar (page, x, y, ch);
+                    paintChar (page, x, y + tileHeight(), ch);
                 }
                 page.setColor(Color.white);
                 page.drawString(sCurrentConsoleText, 0, tileHeight);

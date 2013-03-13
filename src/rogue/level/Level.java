@@ -14,6 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.awt.Color;
 import java.io.File;
+import pazi.items.Item;
+import pazi.items.Gold;
 
 public class Level
 {
@@ -78,6 +80,9 @@ public class Level
     				Monster m = new Monster(ColoredChar.create('Z', Color.green),
     						"Blutiger Zombie");
     				w.addActor(m);
+    				Gold g = new Gold(ColoredChar.create('o', Color.yellow),
+        					"Gold");
+        			w.addActor(g);
     			}
 
     		}

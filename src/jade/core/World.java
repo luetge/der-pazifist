@@ -21,6 +21,7 @@ import java.util.Set;
 import rogue.creature.Creature;
 import rogue.creature.Monster;
 import rogue.creature.Player;
+import pazi.items.Item;
 
 /**
  * Represents a game world on which {@code Actor} can interact.
@@ -84,10 +85,12 @@ public class World extends Messenger
         drawOrder = new ArrayList<Class<? extends Actor>>();
         drawOrder.add(Player.class);
         drawOrder.add(Monster.class);
+        drawOrder.add(Item.class);
 
         actOrder = new ArrayList<Class<? extends Actor>>();
         actOrder.add(Player.class);
         actOrder.add(Monster.class);
+        actOrder.add(Item.class);
     }
 
     /**

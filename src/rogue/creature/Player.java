@@ -16,6 +16,7 @@ public class Player extends Creature implements Camera
     private ViewField fov;
     int counter = 0;
     int faith, rage;
+    int gold = 0;
 
     public Player()
     {
@@ -61,5 +62,11 @@ public class Player extends Creature implements Camera
     public void takeDamage(int d) {
     	super.takeDamage(d);
     	HUD.setHP(hp);
-    }
+    }   
+
+	public void getGold(int amount) {
+    	gold+=amount;
+    	HUD.setGold(amount);	
+	}
+
 }

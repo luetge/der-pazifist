@@ -12,7 +12,7 @@ import java.io.FileInputStream;
 import javax.swing.JPanel;
 
 public class HUD {
-	protected static Label lblHP, lblAgil, lblFaith, lblRage, lblLevel;
+	protected static Label lblHP, lblAgil, lblFaith, lblRage, lblLevel, lblGold;
 	protected static int fontHeight;
 	protected static Panel hud;
 	
@@ -63,6 +63,7 @@ public class HUD {
 		lblFaith = new Label("100%");
 		lblRage = new Label("10%");
 		lblLevel = new Label("1");
+		lblGold = new Label("0");
 		pnl.add(new Label("HP:"));
 		pnl.add(lblHP);
 		pnl.add(new Label("Agil:"));
@@ -72,7 +73,9 @@ public class HUD {
 		pnl.add(new Label("Rage:"));
 		pnl.add(lblRage);
 		pnl.add(new Label("Level:"));
-		pnl.add(lblLevel);		
+		pnl.add(lblLevel);	
+		pnl.add(new Label("Gold:"));
+		pnl.add(lblGold);	
 	}
 
 	public static void setHP(int hp){
@@ -89,5 +92,9 @@ public class HUD {
 	
 	public static void setLevel(int level){
 		lblLevel.setText("" + level);
+	}
+	
+	public static void setGold(int amount){
+		lblGold.setText("" +amount);
 	}
 }

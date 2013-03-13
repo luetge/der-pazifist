@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import jade.ui.TermPanel;
+import jade.ui.TiledTermPanel;
 import jade.util.datatype.MutableCoordinate;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
@@ -106,12 +106,17 @@ public class AsciiMap {
         }
 	}
 	
-	public void render (TermPanel term)
+	public void render (TiledTermPanel term, Coordinate pos)
 	{
 		for (Coordinate coord : characters.keySet())
-			term.bufferChar(coord,  characters.get(coord).ch());
+			term.bufferTile(coord.getTranslated(pos),  characters.get(coord).ch());
 		for (Coordinate coord : backgrounds.keySet())
-			term.bufferBackground(coord, backgrounds.get(coord));
+			term.bufferBackground(coord.getTranslated(pos), backgrounds.get(coord));
+	}
+	
+	public void render (TiledTermPanel term, int posx, int posy)
+	{
+		render(term, new Coordinate (posx, posy));
 	}
 	
 	public Set<Coordinate> getSpecial (String name)

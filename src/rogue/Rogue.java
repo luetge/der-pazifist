@@ -22,6 +22,13 @@ import rogue.creature.Monster;
 import rogue.creature.Player;
 import rogue.level.Level;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class Rogue implements ComponentListener
 {
 	private TiledTermPanel term;
@@ -33,7 +40,8 @@ public class Rogue implements ComponentListener
 	public Rogue () throws InterruptedException
 	{
 		term = TiledTermPanel.getFramedTerminal("Der PaziFist");
-		term.registerTile("res/tiles.png", 0, 0, ColoredChar.create('♓'));
+
+		term.loadTiles("res/tiles");
 		
         
         player = new Player();

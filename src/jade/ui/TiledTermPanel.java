@@ -5,10 +5,15 @@ import jade.util.Guard;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -67,6 +72,42 @@ public class TiledTermPanel extends TermPanel
         	}
         	list.add (ch);
         }
+    }
+    
+    public void loadTiles (String dirname)
+    {
+		File tiledir = new File(dirname);
+		Guard.verifyState(tiledir.isDirectory());
+		File files[] = tiledir.listFiles(new FilenameFilter() {
+			public boolean accept (File dir, String name) {
+				return name.endsWith(".txt");
+			}
+		});
+		for (File file : files)
+		{
+			String filename = file.getPath();
+			filename = filename.substring(0, filename.length()-4) + ".png";
+			
+			try {
+				BufferedReader reader; 
+				reader = new BufferedReader(new FileReader (file));
+				String ch = reader.readLine();
+				String color = reader.readLine();
+				reader.close();
+				
+				Guard.argumentsAreNotNull(ch, color);
+				
+				registerTile (filename, 0, 0, ColoredChar.create(ch.charAt(0), Color.decode("0x"+color)));
+				
+			} catch(FileNotFoundException e) {
+				e.printStackTrace();
+				continue;
+			} catch (IOException e) {
+				e.printStackTrace();
+				continue;
+			}
+		}
+
     }
     
     public final void bufferTile (int x, int y, ColoredChar ch)

@@ -1,0 +1,13 @@
+Für jedes Tile wird tilename.txt und tilename.png benötigt.
+
+tilename.png enthält das 10x16 Pixel Bild für das Tile.
+
+tilename.txt enthält zwei Zeilen:
+ - in der ersten Zeile steht das Zeichen,
+   das durch das Tile ersetzt werden soll
+ - in der zweiten Zeile steht das Farbattribut
+   des zu ersetzenden Zeichens als sechsstellige
+   Hexadezimalzahl (RGB).
+
+Alle .txt Dateien in diesem Verzeichnis werden automatisch
+eingelesen (und eine zugehörige .png Datei muss existieren).

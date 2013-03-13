@@ -388,7 +388,9 @@ public class World extends Messenger
                     look.add(actor.face());
             }
 
-        look.add(tileAt(x, y));
+        ColoredChar tile = tileAt(x, y);
+        if (tile != null)
+        	look.add(tile);
 
         return look;
     }

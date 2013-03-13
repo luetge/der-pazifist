@@ -222,7 +222,7 @@ public class TermPanel extends Terminal
         	if (image == null)
         	{
         		FontMetrics fm = page.getFontMetrics();
-        		image = new BufferedImage(fm.charWidth(ch.ch()), fm.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
+        		image = new BufferedImage(fm.charWidth(ch.ch()), fm.getHeight(), BufferedImage.TYPE_INT_ARGB);
         		Graphics g = image.createGraphics();
                 String str = ch.toString ();
 

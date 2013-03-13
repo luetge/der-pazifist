@@ -9,9 +9,9 @@ import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
 
-public class Room extends MapGenerator {
+public class House extends MapGenerator {
 	
-	public Room()
+	public House()
 	{
 		
 	}
@@ -41,11 +41,12 @@ public class Room extends MapGenerator {
         }
         
 		ColoredChar wallTile = ColoredChar.create(' ');
-		for (int x = 1; x < world.width() - 2; x++)
+		for (int x = 1; x < world.width() - 1; x++)
         {
-        	for (int y = 1; y < world.height() - 2; y++)
+        	for (int y = 1; y < world.height() - 1; y++)
         	{
             	world.setTile(wallTile, true, x, y, true);
+            	world.setTileBackground(Color.darkGray, x, y);
         	}
         }
         
@@ -63,7 +64,7 @@ public class Room extends MapGenerator {
 		for (int i = 0; i < 3; i++)
 		{
 			world.addDoor(world.width()/2+i,world.height()-1,
-					new Door("roomentry"+i,world.width()/2+i,world.height()-1,exitname,
+					new Door("worldentry"+i,world.width()/2+i,world.height()-1,exitname,
 					world.getName()+"entry"+i, Direction.SOUTH));
 		}
 	}

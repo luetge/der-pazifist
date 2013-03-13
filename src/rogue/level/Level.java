@@ -18,7 +18,7 @@ import java.io.File;
 public class Level
 {
     private final static Generator gen = getLevelGenerator();
-    private final static Room roomgen = getRoomGenerator();
+    private final static House housegen = getHouseGenerator();
     
     private Map<String,World> worlds;
     
@@ -66,11 +66,10 @@ public class Level
     		}
     		else
     		{
-        		int size = Dice.global.nextInt(10,30);
+        		int size = Dice.global.nextInt(25, 30);
         		w = new World (size, size*3/4, door.getDestWorld());
-    			roomgen.generate(w);
-    			System.out.println(from.getName());
-    			roomgen.addDoors (w, from.getName());
+    			housegen.generate(w);
+    			housegen.addDoors (w, from.getName());
     			for (int i = 0; i < 5; i++){
     				Monster m = new Monster(ColoredChar.create('Z', Color.green),
     						"Blutiger Zombie");
@@ -90,8 +89,8 @@ public class Level
 //        return new Cellular();
     }
     
-    private static Room	 getRoomGenerator()
+    private static House getHouseGenerator()
     {
-    	return new Room();
+    	return new House();
     }
 }

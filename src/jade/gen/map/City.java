@@ -32,7 +32,7 @@ public class City extends MapGenerator
     private int minHeight;
     private AsciiMap church[];
     private LinkedList<Rectangle> reserved;
-    private int roomnum;
+    private int housenum;
 
     /**
      * Instantiates a BSP with default parameters. Room minSize is 4. Wall and floor tiles are '#'
@@ -51,7 +51,7 @@ public class City extends MapGenerator
      */
     public City(ColoredChar floorTile, ColoredChar wallTile, int minWidth, int minHeight)
     {
-    	this.roomnum = 0;
+    	this.housenum = 0;
         this.floorTile = floorTile;
         this.wallTile = wallTile;
         this.minWidth = minWidth;
@@ -264,11 +264,11 @@ public class City extends MapGenerator
                 }
                 for (int i = 0; i < 3; i++)
                 {
-                	Door door = new Door("room" + roomnum + "entry" + i,
-                					 doorx+i, doory, "room" + roomnum, "roomentry" + i);
+                	Door door = new Door("house" + housenum + "entry" + i,
+                					 doorx+i, doory, "house" + housenum, "worldentry" + i);
                 	world.addDoor (doorx+i, doory, door);
                 }
-                roomnum++;
+                housenum++;
             }
             else
             {

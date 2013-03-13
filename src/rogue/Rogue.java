@@ -24,7 +24,7 @@ import rogue.level.Level;
 
 public class Rogue implements ComponentListener
 {
-	private TermPanel term;
+	private TiledTermPanel term;
 	private Player player;
 	private Level level;
 	private World world;
@@ -33,6 +33,8 @@ public class Rogue implements ComponentListener
 	public Rogue () throws InterruptedException
 	{
 		term = TiledTermPanel.getFramedTerminal("Der PaziFist");
+		term.registerTile("res/tiles.png", 0, 0, ColoredChar.create('♓'));
+		
         
         player = new Player();
         level = new Level(256, 196, player, "mainworld");

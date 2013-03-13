@@ -55,6 +55,26 @@ public class TiledTermPanel extends TermPanel
         return (TiledScreen) super.screen();
     }
 
+    public void bufferTile(Coordinate coord, ColoredChar ch)
+    {
+        Guard.argumentsAreNotNull(coord, ch);
+        synchronized(tileBuffer) {
+        	List<ColoredChar> list = tileBuffer.get(coord);
+        	if (list == null)
+        	{
+        		list = new ArrayList<ColoredChar> ();
+        		tileBuffer.put(coord, list);
+        	}
+        	list.add (ch);
+        }
+    }
+    
+    public final void bufferTile (int x, int y, ColoredChar ch)
+    {
+    	bufferTile (new Coordinate (x, y), ch);
+    }
+
+
     public boolean registerTile(String tileSet, int x, int y, ColoredChar ch)
     {
         try
@@ -173,27 +193,29 @@ public class TiledTermPanel extends TermPanel
         protected void paintComponent(Graphics page)
         {
             super.paintComponent(page);
-            for(Coordinate coord : tileBuffer.keySet())
+            synchronized(tileBuffer)
             {
-                int x = tileWidth() * coord.x();
-                int y = tileHeight() * coord.y();
+            	for(Coordinate coord : tileBuffer.keySet())
+            	{
+            		int x = tileWidth() * coord.x();
+            		int y = tileHeight() * coord.y();
                 
-                List<ColoredChar> tiles = tileBuffer.get(coord);
-                Collections.reverse(tiles);
-                for(ColoredChar ch : tiles)
-                {
-                    if(tileRegister.containsKey(ch))
-                    {
-                        page.drawImage(tileRegister.get(ch), x, y - tileHeight(),
+            		List<ColoredChar> tiles = tileBuffer.get(coord);
+            		Collections.reverse(tiles);
+            		for(ColoredChar ch : tiles)
+            		{
+            			if(tileRegister.containsKey(ch))
+            			{
+            				page.drawImage(tileRegister.get(ch), x, y - tileHeight(),
                                 tileWidth(), tileHeight(), null);
-                    }
-                    else
-                    {
-                        page.setColor(ch.color());
-                        page.drawString(ch.toString(), x, y);
-                    }
-                }
+            			}
+            			else
+            			{
+            				paintChar (page, x, y, ch);
+            			}
+            		}
                 
+            	}
             }
         }
     }

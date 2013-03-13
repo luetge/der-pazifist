@@ -104,7 +104,12 @@ public class TermPanel extends Terminal
     {
     	return screen().tileHeight();
     }
-    
+
+    public int tileWidth()
+    {
+    	return screen().tileWidth();
+    }
+
     protected Screen screen()
     {
         return screen;
@@ -188,6 +193,17 @@ public class TermPanel extends Terminal
         {
             return tileHeight;
         }
+        
+        protected void paintChar (Graphics page, int x, int y, ColoredChar ch)
+        {
+        	if (ch.ch() == ' ')
+        		return;
+        	
+            String str = ch.toString ();
+
+            page.setColor(ch.color());
+            page.drawString(str, x, y);
+        }
 
         @Override
         protected void paintComponent(Graphics page)
@@ -203,7 +219,7 @@ public class TermPanel extends Terminal
                     int x = tileWidth * coord.x();
                     int y = tileHeight * coord.y();
                 	page.setColor(c);
-                	page.fillRect(x, y+2,	tileWidth, tileHeight);
+                	page.fillRect(x, y-tileHeight+2, tileWidth, tileHeight);
                 }
             }
             synchronized(screenBuffer)
@@ -214,12 +230,9 @@ public class TermPanel extends Terminal
                     if (ch.ch () == ' ')
                     	continue;
                     int x = tileWidth * coord.x();
-                    int y = tileHeight * (coord.y() + 1);
+                    int y = tileHeight * coord.y();
                     
-                    String str = ch.toString ();
-
-                    page.setColor(ch.color());
-                    page.drawString(str, x, y);
+                    paintChar (page, x, y, ch);
                 }
                 page.setColor(Color.white);
                 page.drawString(sCurrentConsoleText, 0, tileHeight);

@@ -18,7 +18,7 @@ public class View {
 		this.center_y = center.y();
 	}
 	
-	public void update (TermPanel term, World world, Player player)
+	public void update (TiledTermPanel term, World world, Player player)
 	{
         term.clearBuffer();
 
@@ -72,7 +72,7 @@ public class View {
             				background = Color.darkGray;
             		}
             	}
-            	term.bufferChar(x, y, c);
+            	term.bufferTile(x, y, c);
             	term.bufferBackground(x, y, background);
             }
         }

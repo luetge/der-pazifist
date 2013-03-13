@@ -59,7 +59,7 @@ public class House extends MapGenerator {
         	world.setTile(doorTile, false, doorx, doory, true);
         }
     }
-	public void addDoors(World world, String exitname)
+	public void addExitDoors(World world, String exitname)
 	{
 		for (int i = 0; i < 3; i++)
 		{
@@ -67,11 +67,6 @@ public class House extends MapGenerator {
 					new Door("worldentry"+i,world.width()/2+i,world.height()-1,exitname,
 					world.getName()+"entry"+i, Direction.SOUTH));
 		}
-	}
-	
-	public void addExit(World world, Door door)
-	{
-		world.addDoor(4, 4, door);
 	}
 	
     @Override

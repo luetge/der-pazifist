@@ -21,6 +21,7 @@ public class Level
     private final static House housegen = getHouseGenerator();
     
     private Map<String,World> worlds;
+    private World world;
     
     private Player player;
     private String startname;
@@ -30,20 +31,23 @@ public class Level
     	this.player = player;
     	this.startname = name;
     	worlds = new HashMap<String, World>();
-    	World startworld = new World (width, height, name);
-    	gen.generate(startworld);
-    	startworld.addActor(player);
-    	worlds.put(name, startworld);
-    	
-    	
+    	world = new World (width, height, name);
+    	gen.generate(world);
+    	world.addActor(player);
+    	worlds.put(name, world);	
     }
     
-    public World getWorld (String name)
+    public World world ()
+    {
+    	return world;
+    }
+    
+    public World world (String name)
     {
     	return worlds.get(name);
     }
     
-    public World stepToWorld (World from, Door door)
+    public void stepToWorld (Door door)
     {
     	World w = worlds.get(door.getDestWorld());
     	if (w == null)
@@ -69,7 +73,7 @@ public class Level
         		int size = Dice.global.nextInt(25, 30);
         		w = new World (size, size*3/4, door.getDestWorld());
     			housegen.generate(w);
-    			housegen.addDoors (w, from.getName());
+    			housegen.addExitDoors (w, world.getName());
     			for (int i = 0; i < 5; i++){
     				Monster m = new Monster(ColoredChar.create('Z', Color.green),
     						"Blutiger Zombie");
@@ -80,7 +84,7 @@ public class Level
     		w.useViewfield(false);
     		worlds.put(door.getDestWorld(), w);
     	}
-    	return w;
+    	world = w;
     }
 
     private static Generator getLevelGenerator()

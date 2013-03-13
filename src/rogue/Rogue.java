@@ -34,7 +34,6 @@ public class Rogue implements ComponentListener
 	private TiledTermPanel term;
 	private Player player;
 	private Level level;
-	private World world;
 	private View view;
 	boolean running;
 	
@@ -49,8 +48,6 @@ public class Rogue implements ComponentListener
         player = new Player();
         level = new Level(256, 196, player, "mainworld");
         
-        world = level.getWorld("mainworld");
-        
         view = new View (player.pos ());
         
         Monster m;
@@ -58,7 +55,7 @@ public class Rogue implements ComponentListener
 		for (int i = 0; i < 500; i++){
 			m = new Monster(ColoredChar.create('Z', Color.green), "Blutiger Zombie");
 			m.addFeatureAtTheEnd(brains);
-			world.addActor(m);
+			level.world().addActor(m);
 		}
         
         term.addComponentListener(this);
@@ -76,7 +73,7 @@ public class Rogue implements ComponentListener
 
     public void componentResized(ComponentEvent e) {
     	if (running)
-    		view.update (term, world, player);
+    		view.update (term, level.world(), player);
     }
 
     public void componentShown(ComponentEvent e) {
@@ -87,18 +84,17 @@ public class Rogue implements ComponentListener
     	running = true;
         while(!player.expired())
         {
-        	view.update (term, world, player);
+        	view.update (term, level.world(), player);
         	showMessages();
-			world.setCurrentKey(term.getKey());
-            Door door = world.tick();
+			level.world().setCurrentKey(term.getKey());
+            Door door = level.world().tick();
             if (door != null)
             {
-            	world.removeActor(player);
-            	world = level.stepToWorld(world, door);
-            	Guard.verifyState(world!=null);
-            	Door destdoor = world.getDoor(door.getDestID());
+            	level.world().removeActor(player);
+            	level.stepToWorld(door);
+            	Door destdoor = level.world().getDoor(door.getDestID());
             	Guard.verifyState(destdoor!=null);
-            	world.addActor(player, destdoor.getDestination());
+            	level.world().addActor(player, destdoor.getDestination());
             }
         }
         
@@ -107,16 +103,16 @@ public class Rogue implements ComponentListener
 	}
         
     private void showMessages() throws InterruptedException {
-    	while(world.hasNextMessage()){
-    		Message m = world.getNextMessage();
+    	while(level.world().hasNextMessage()){
+    		Message m = level.world().getNextMessage();
     		String source = m.source.getName();
     		if(source == "mainworld")
     			source = "Gott: ";
     		else
     			source += ": ";
-    		term.setCurrentConsoleText(source + m.text + (world.hasNextMessage() ? " (mehr)" : ""));
+    		term.setCurrentConsoleText(source + m.text + (level.world().hasNextMessage() ? " (mehr)" : ""));
     		term.refreshScreen();
-    		if(world.hasNextMessage())
+    		if(level.world().hasNextMessage())
     			waitForSpace();
     	}
 	}

@@ -43,7 +43,7 @@ public class Rogue implements ComponentListener
         
         Monster m;
         Braaaiiiiins brains = new Braaaiiiiins();
-		for (int i = 0; i < 2000; i++){
+		for (int i = 0; i < 500; i++){
 			m = new Monster(ColoredChar.create('Z', Color.green), "Blutiger Zombie");
 			m.addFeatureAtTheEnd(brains);
 			world.addActor(m);

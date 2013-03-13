@@ -84,11 +84,11 @@ public class World extends Messenger
     public Door tick()
     {
     	// Alle Kreaturen laufen lassen
-        for(Class<? extends Actor> cls : actOrder){
-        	if(Creature.class.isAssignableFrom(cls))
-        		for(Actor actor : getActors(cls))
-        			((Creature)actor).walk();
-        } 
+//        for(Class<? extends Actor> cls : actOrder){
+//        	if(Creature.class.isAssignableFrom(cls))
+//        		for(Actor actor : getActors(cls))
+//        			((Creature)actor).walk();
+//        } 
         
     	// Alle Aktionen durchführen
         for(Class<? extends Actor> cls : actOrder)

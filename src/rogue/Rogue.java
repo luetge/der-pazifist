@@ -16,6 +16,7 @@ import java.awt.event.ComponentListener;
 import pazi.Display;
 import pazi.features.Braaaiiiiins;
 import pazi.features.Follow;
+import pazi.features.RandomBehaviour;
 import rogue.creature.Monster;
 import rogue.creature.Player;
 import rogue.level.Level;
@@ -40,11 +41,11 @@ public class Rogue implements ComponentListener
         view = new View (player.pos ());
         
         Monster m;
-        Braaaiiiiins brains = new Braaaiiiiins();
 		for (int i = 0; i < 100; i++){
 			m = new Monster(ColoredChar.create('Z', Color.green), "Blutiger Zombie");
-			m.addFeatureAtTheEnd(brains);
-			m.addFeatureAtTheEnd(new Follow());
+			m.addGeneralFeature(Braaaiiiiins.getInstance());
+			m.setWalkBehaviour(new Follow(player, 20));
+			m.setBehaviour(new RandomBehaviour());
 			world.addActor(m);
 		}
         

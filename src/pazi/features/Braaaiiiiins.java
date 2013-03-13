@@ -5,12 +5,24 @@ import rogue.creature.Player;
 
 public class Braaaiiiiins implements IFeature<Monster> {
 
+	/**
+	 * Singleton
+	 */
+	private static Braaaiiiiins inst;
+	
+	private Braaaiiiiins(){}
+	
+	public static Braaaiiiiins getInstance(){
+		if(inst == null)
+			inst = new Braaaiiiiins();
+		return inst;
+	}
+	
 	@Override
-	public boolean act(Monster monster) {
-		double dist = monster.world().getActor(Player.class).pos().distance(monster.pos());
+	public void act(Monster monster) {
+		double dist = monster.world().getPlayer().pos().distance(monster.pos());
 		if(dist < 2 && Math.random() < 0.05)
 			monster.appendMessage("Braaaaaaiiiiiiiiiiiiiiiiiinns!!!");
-		return true;
 	}
 	
 }

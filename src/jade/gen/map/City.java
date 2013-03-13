@@ -60,7 +60,7 @@ public class City extends MapGenerator
         this.reserved = new LinkedList<Rectangle>();
         
         for (int i = 0; i < 3; i++)
-        	this.church[i] = new AsciiMap ("res/church" + i + ".txt");
+        	this.church[i] = new AsciiMap ("res/maps/church" + i + ".txt");
     }
     
     private Rectangle getRandomRect (World world, Dice dice, int width, int height)

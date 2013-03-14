@@ -1,7 +1,12 @@
 package pazi.features;
 
 import rogue.creature.Monster;
-
+/**
+ * 
+ *	First Fight, Then Walk! With Prob. Given To Constructor, else 0.5
+ *	Otherwise: First Walk, Then Fight!
+ *
+ */
 public class RandomBehaviour implements IFeature<Monster> {
 
 	private double randFactor;

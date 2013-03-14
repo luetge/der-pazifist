@@ -217,24 +217,27 @@ public class TermPanel extends Terminal
         {
         	if (ch.ch() == ' ')
         		return;
-        	BufferedImage image = images.get (ch);
-        	
-        	if (image == null)
+        	synchronized(images)
         	{
-        		FontMetrics fm = page.getFontMetrics();
-        		image = new BufferedImage(fm.charWidth(ch.ch()), fm.getHeight(), BufferedImage.TYPE_INT_ARGB);
-        		Graphics g = image.createGraphics();
-                String str = ch.toString ();
-
-                g.setColor(ch.color());
-                g.setFont(page.getFont());
-
-                g.drawString(str, 0, fm.getAscent());
-
-                images.put(ch,  image);
-        	}
+        		BufferedImage image = images.get (ch);
         	
-        	page.drawImage(image, x, y-tileHeight(), image.getWidth(), image.getHeight(), null);
+        		if (image == null)
+        		{
+        			FontMetrics fm = page.getFontMetrics();
+        			image = new BufferedImage(fm.charWidth(ch.ch()), fm.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        			Graphics g = image.createGraphics();
+        			String str = ch.toString ();
+
+        			g.setColor(ch.color());
+        			g.setFont(page.getFont());
+
+        			g.drawString(str, 0, fm.getAscent());
+
+        			images.put(ch,  image);
+        		}
+        	
+        		page.drawImage(image, x, y-tileHeight(), image.getWidth(), image.getHeight(), null);
+        	}
         }
 
         @Override

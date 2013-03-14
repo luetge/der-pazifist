@@ -1,6 +1,7 @@
 package rogue.creature;
 
 import jade.util.datatype.ColoredChar;
+import jade.core.Dialog;
 
 public class Ally extends Creature {
 
@@ -15,4 +16,8 @@ public class Ally extends Creature {
 		// TODO Auto-generated constructor stub
 	}
 
+	public void startDialog ()
+	{
+		world().setActiveDialog (new Dialog ());
+	}
 }

@@ -88,8 +88,25 @@ public abstract class Creature extends Actor
     
     @Override
     public void interact(Actor actor) {
+    	Guard.verifyState(Player.class.isAssignableFrom(this.getClass()));
     	if(Creature.class.isAssignableFrom(actor.getClass()))
     		this.fight((Creature)actor);
+    	/*else if (Ally.class.isAssignableFrom(actor.getClass()))
+    		this.talk((Ally)actor);*/
+    }
+    
+    public void interact (Direction dir) {
+    	Collection<Monster> monsters = world().getActorsAt(Monster.class, pos().getTranslated(dir));
+    	for (Monster monster : monsters)
+    		fight(monster);
+    	Collection<Ally> allies = world().getActorsAt(Ally.class, pos().getTranslated(dir));
+    	for (Ally ally : allies)
+    		talkto(ally);
+    }
+    
+    public void talkto (Ally ally)
+    {
+    	
     }
     
     public void fight(Creature creature){

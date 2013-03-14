@@ -65,7 +65,7 @@ public class World extends Messenger
 		return activedialog;
 	}
 	
-	void setActiveDialog (Dialog dialog)
+	public void setActiveDialog (Dialog dialog)
 	{
 		activedialog = dialog;
 	}

@@ -4,6 +4,7 @@ import jade.util.Guard;
 import jade.util.datatype.ColoredChar;
 import java.awt.Color;
 import rogue.creature.Ally;
+import jade.ui.Log;
 
 public class Dialog {
 	private String text;
@@ -33,6 +34,8 @@ public class Dialog {
 			}
 		}
 		term.bufferString(posx, posy, t);
+		Log.addMessage(t);
+		
 	}
 	
 	public void tick (World world, TiledTermPanel term) throws InterruptedException

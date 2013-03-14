@@ -1,6 +1,5 @@
 package rogue.creature;
 
-import jade.core.Actor;
 import jade.fov.RayCaster;
 import jade.fov.ViewField;
 import jade.ui.Camera;
@@ -9,10 +8,13 @@ import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
 import jade.util.datatype.Door;
-import java.awt.Color;
 
+import java.awt.Color;
 import java.util.Collection;
 
+import pazi.features.KeyboardFight;
+import pazi.features.KeyboardWalk;
+import pazi.features.PlayerBehaviour;
 import pazi.items.Item;
 
 public class Player extends Creature implements Camera
@@ -35,6 +37,9 @@ public class Player extends Creature implements Camera
         fov = new RayCaster();
         min_d = 40;
         max_d = 70;
+        setWalkBehaviour(new KeyboardWalk());
+        setBehaviour(new PlayerBehaviour());
+        setFightBehaviour(new KeyboardFight());
         //TODO Singleton?
     }
     
@@ -52,7 +57,7 @@ public class Player extends Creature implements Camera
     			item.getPickedUp(this);
     }
 
-    @Override
+    @Override	
     public void walk() {
     	 Direction dir = Direction.keyToDir(world().getCurrentKey());
          if(dir != null)
@@ -70,11 +75,6 @@ public class Player extends Creature implements Camera
     	if(world() == null)
     		return null;
         return fov.getViewField(world(), pos(), 10);
-    }
-    
-    @Override
-    public void neutralize() {
-    	this.expire();
     }
     
     @Override

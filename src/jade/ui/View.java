@@ -79,7 +79,11 @@ public class View {
             					background = Color.darkGray;
             			}
             		}
-            		term.bufferTile(x, y, c);
+            		try {
+            			term.bufferTile(x, y, c);
+            		} catch(IllegalArgumentException e) {
+            			continue;
+            		}
             	}
             	term.bufferBackground(x, y, background);
             }

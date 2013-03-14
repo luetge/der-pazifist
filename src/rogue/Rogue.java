@@ -18,6 +18,9 @@ import java.awt.event.ComponentListener;
 
 import pazi.Display;
 import pazi.features.Braaaiiiiins;
+import pazi.features.Follow;
+import pazi.features.RandomBehaviour;
+import rogue.creature.CreatureFactory;
 import rogue.creature.Monster;
 import rogue.creature.Player;
 import rogue.level.Level;
@@ -49,12 +52,8 @@ public class Rogue implements ComponentListener
         
         view = new View (player.pos ());
         
-        Monster m;
-        Braaaiiiiins brains = new Braaaiiiiins();
-		for (int i = 0; i < 500; i++){
-			m = new Monster(ColoredChar.create('Z', Color.green), "Blutiger Zombie");
-			m.addFeatureAtTheEnd(brains);
-			level.world().addActor(m);
+		for (int i = 0; i < 100; i++){
+			level.world().addActor(CreatureFactory.createCreature("zombie1", level.world()));
 		}
         
         term.addComponentListener(this);
@@ -102,6 +101,7 @@ public class Rogue implements ComponentListener
 	}
         
     private void showMessages() throws InterruptedException {
+    	term.setCurrentConsoleText("");
     	while(level.world().hasNextMessage()){
     		Message m = level.world().getNextMessage();
     		String source = m.source.getName();

@@ -6,22 +6,20 @@ import jade.util.Lambda;
 import jade.util.Lambda.FilterFunc;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
-
 import jade.util.datatype.Door;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
-import rogue.creature.Creature;
+import pazi.items.Item;
 import rogue.creature.Monster;
 import rogue.creature.Player;
-import pazi.items.Item;
 
 /**
  * Represents a game world on which {@code Actor} can interact.

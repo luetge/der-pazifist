@@ -23,7 +23,7 @@ public class Follow implements IBehaviour<Monster> {
 	
 	@Override
 	public void act(Monster monster) {
-		if(!monster.getHasActed() && monster.world().getActor(Player.class).pos().distance(monster.pos()) > radius || target == null)
+		if(!monster.hasActed() && monster.world().getActor(Player.class).pos().distance(monster.pos()) > radius || target == null)
 			return;
 		Iterator<Coordinate> it = pathFinder.getPartialPath(monster.world(), monster.pos(), target.pos()).iterator();
 		monster.setNextCoord(it.hasNext() ? it.next() : null);

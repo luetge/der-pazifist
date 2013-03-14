@@ -9,6 +9,7 @@ import java.awt.Color;
 import pazi.behaviour.DefaultFightBehaviour;
 import pazi.behaviour.Flee;
 import pazi.behaviour.Follow;
+import pazi.behaviour.ParalyzerBehaviour;
 import pazi.behaviour.RandomBehaviour;
 import pazi.behaviour.SneakStealFlee;
 import pazi.features.Braaaiiiiins;
@@ -27,13 +28,17 @@ public class CreatureFactory {
 	        creature.getWalkFeatures().add(new EatBrains());
 			creature.setWalkBehaviour(new Follow(world.getPlayer(), 5));
 			creature.setBehaviour(new RandomBehaviour());
-		} else if (identifier == "bandit2"){
+		} else if (identifier == "bandit1"){
 				creature = new Monster(ColoredChar.create(' ', Color.red), "Touchy Hobbit");
 				creature.addGeneralFeature(Braaaiiiiins.getInstance());
 				ColoredChar faces[] = new ColoredChar[9];
 				for (int i = 0; i < 9; i++)
 					faces[i] = ColoredChar.create('B', new Color(0xFF0000+i));
 				creature.setBehaviour(new SneakStealFlee(world.getPlayer(), faces));
+		} else if (identifier == "alien1"){
+			creature = new Monster(ColoredChar.create('A', Color.yellow), "Schleimiges Alien");
+			creature.setAllFaces(new ColoredChar('A', Color.yellow));
+			creature.setBehaviour(new ParalyzerBehaviour(world.getPlayer()));
 		} else {
 			System.out.println("Konnte Kreatur \"" + identifier + "\" nicht laden!");
 		}

@@ -5,7 +5,7 @@ import rogue.creature.Creature;
 public class DefaultFightBehaviour implements IBehaviour<Creature> {
 	@Override
 	public void act(Creature monster) {
-		if(!monster.getHasActed() && monster.world().getPlayer().pos().distance(monster.pos()) < 2)
+		if(!monster.hasActed() && monster.world().getPlayer().pos().distance(monster.pos()) < 2)
 			monster.fight(monster.world().getPlayer());
 		monster.setHasActed(true);
 	}

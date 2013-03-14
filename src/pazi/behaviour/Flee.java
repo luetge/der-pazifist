@@ -3,14 +3,10 @@ package pazi.behaviour;
 import jade.core.Actor;
 import jade.path.AStar;
 import jade.util.datatype.Coordinate;
-import jade.util.datatype.Direction;
 
 import java.util.Iterator;
 
-import pazi.features.IFeature;
-
 import rogue.creature.Monster;
-import rogue.creature.Player;
 
 public class Flee implements IBehaviour<Monster> {
 
@@ -25,7 +21,7 @@ public class Flee implements IBehaviour<Monster> {
 	
 	@Override
 	public void act(Monster monster) {
-		if(!monster.getHasActed() && target.pos().distance(monster.pos()) > radius)
+		if(!monster.hasActed() && target.pos().distance(monster.pos()) > radius)
 			return;
 		Iterator<Coordinate> it = pathFinder.getPartialPath(monster.world(), monster.pos(), target.pos()).iterator();
 		if (it.hasNext()){

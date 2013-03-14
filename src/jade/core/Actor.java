@@ -361,7 +361,7 @@ public abstract class Actor extends Messenger
 		this.passable = passable;
 	}
 	
-	public boolean getHasActed(){
+	public boolean hasActed(){
 		return hasActed;
 	}
 	

@@ -35,6 +35,7 @@ public class TermPanel extends Terminal
     public static final int DEFAULT_SIZE = 12;
     
     private Screen screen;
+    private JFrame frame;
     
     /**
      * Constructs a new {@code TermPanel} with the given dimensions. Note that the rows and columns
@@ -78,13 +79,16 @@ public class TermPanel extends Terminal
     
     protected static void frameTermPanel(TermPanel term, String title)
     {
-        JFrame frame = new JFrame(title);
-        frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
-        frame.add(HUD.getPanel());
-        frame.add(term.panel());
-        frame.pack();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+        term.frame = new JFrame(title);
+        term.frame.getContentPane().setLayout(new BoxLayout(term.frame.getContentPane(), BoxLayout.X_AXIS));
+        term.frame.add(HUD.getPanel());
+        term.frame.add(term.panel());
+        term.frame.pack();
+        term.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        term.frame.setLocation(0, 0);
+        Log.getLogFrame().setLocation(0, term.frame.getHeight()+1);
+        Log.getLogFrame().setSize(term.frame.getWidth(), Log.getLogFrame().getPreferredSize().height);
+        term.frame.setVisible(true);
     }
     
     public void addComponentListener(ComponentListener l)

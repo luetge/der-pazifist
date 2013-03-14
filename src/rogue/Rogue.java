@@ -1,36 +1,20 @@
 package rogue;
 
-import jade.core.World;
 import jade.core.Messenger.Message;
 import jade.ui.HUD;
-import jade.ui.TermPanel;
+import jade.ui.Log;
 import jade.ui.TiledTermPanel;
 import jade.ui.View;
 import jade.util.Guard;
-import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Door;
-import jade.util.datatype.Direction;
-import jade.util.datatype.Coordinate;
 
-import java.awt.Color;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
 import pazi.Display;
-import pazi.behaviour.Follow;
-import pazi.behaviour.RandomBehaviour;
-import pazi.features.Braaaiiiiins;
 import rogue.creature.CreatureFactory;
-import rogue.creature.Monster;
 import rogue.creature.Player;
 import rogue.level.Level;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FilenameFilter;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 
 public class Rogue implements ComponentListener
 {
@@ -53,8 +37,9 @@ public class Rogue implements ComponentListener
         view = new View (player.pos ());
         
 		for (int i = 0; i < 100; i++){
-			level.world().addActor(CreatureFactory.createCreature("zombie1", level.world()));
-			level.world().addActor(CreatureFactory.createCreature("bandit2", level.world()));
+//			level.world().addActor(CreatureFactory.createCreature("zombie1", level.world()));
+//			level.world().addActor(CreatureFactory.createCreature("bandit1", level.world()));
+			level.world().addActor(CreatureFactory.createCreature("alien1", level.world()));
 		}
         
         term.addComponentListener(this);
@@ -81,6 +66,7 @@ public class Rogue implements ComponentListener
     public void run () throws InterruptedException
 	{
     	running = true;
+    	Log.showLogFrame(true);
         while(!player.expired())
         {
         	view.update (term, level.world(), player);
@@ -94,6 +80,7 @@ public class Rogue implements ComponentListener
         }
         
         showMessages();
+        Log.showLogFrame(false);
         running = false;
 	}
         
@@ -106,10 +93,14 @@ public class Rogue implements ComponentListener
     			source = "Gott: ";
     		else
     			source += ": ";
-    		term.setCurrentConsoleText(source + m.text + (level.world().hasNextMessage() ? " (mehr)" : ""));
+    		String sText = source + m.text;
+    		if(m.important)
+    			term.setCurrentConsoleText(sText);
+//    			term.setCurrentConsoleText(sText + (level.world().hasNextMessage() ? " (mehr)" : ""));
+    		Log.addMessage(sText);
     		term.refreshScreen();
-    		if(level.world().hasNextMessage())
-    			waitForSpace();
+//    		if(m.important && level.world().hasNextMessage())
+//    			waitForSpace();
     	}
 	}
 

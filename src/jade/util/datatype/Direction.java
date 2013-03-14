@@ -65,7 +65,7 @@ public enum Direction
     {
     	return (dx+1)*3+dy+1;
     }
-
+    
     /**
      * Returns the {@code Direction} corresponding to the given key press, or null if there is none.
      * The key can be either vi-keys (with '.' as {@code ORIGIN}), or num-pad keys.

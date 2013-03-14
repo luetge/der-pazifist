@@ -39,7 +39,8 @@ public class HealingPotion extends Item implements IFeature<Player> {
 			actor.appendMessage("Aaaaaah, das tut gut, ich fühle mich wie auferstanden!");
 		}
 //		this.detach();
-		this.expire();
+//		this.expire();
+		// TODO: expire o.ä.
 		actor.removeFeature(this);
 	}
 

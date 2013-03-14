@@ -100,6 +100,7 @@ public class Level
     			movePlayerThroughDoor (w, door);
     			if (w.getName().equals("bunker"))
     			{
+    				w.addActor(CreatureFactory.createCreature("hitler", w));
     			}
     			else
     			{
@@ -110,8 +111,6 @@ public class Level
     					w.addActor(g);
     				}
     			}
-    			w.addActor(CreatureFactory.createCreature("hitler", w));
-
     		}
     		w.useViewfield(false);
     		worlds.put(door.getDestWorld(), w);

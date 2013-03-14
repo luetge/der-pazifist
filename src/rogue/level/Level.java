@@ -15,6 +15,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.awt.Color;
 import java.io.File;
+
+import pazi.features.Braaaiiiiins;
+import pazi.features.RandomBehaviour;
 import pazi.items.Item;
 import pazi.items.Gold;
 
@@ -50,6 +53,13 @@ public class Level
     	return worlds.get(name);
     }
     
+    private void movePlayerThroughDoor (World toworld, Door door)
+    {
+    	world().removeActor(player);
+		Door destdoor = toworld.getDoor(door.getDestID());
+		toworld.addActor(player, destdoor.getDestination());
+    }
+    
     public void stepThroughDoor (Door door)
     {
     	World w = worlds.get(door.getDestWorld());
@@ -70,6 +80,7 @@ public class Level
     						d.getDestID(), Direction.SOUTH);
     				w.addDoor(d.getPosition(), d);
     			}
+    			movePlayerThroughDoor (w, door);
     		}
     		else
     		{
@@ -77,6 +88,7 @@ public class Level
         		w = new World (size, size*3/4, door.getDestWorld());
     			housegen.generate(w);
     			housegen.addExitDoors (w, world.getName());
+    			movePlayerThroughDoor (w, door);
     			for (int i = 0; i < 5; i++){
     				w.addActor(CreatureFactory.createCreature("zombie1", w));
     				Gold g = new Gold(ColoredChar.create('o', Color.yellow),
@@ -87,6 +99,10 @@ public class Level
     		}
     		w.useViewfield(false);
     		worlds.put(door.getDestWorld(), w);
+    	}
+    	else
+    	{
+    		movePlayerThroughDoor(w, door);
     	}
     	world = w;
     }

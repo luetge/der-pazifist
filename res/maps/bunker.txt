@@ -1,0 +1,19 @@
+fred=fg:FF0000;bred=bg:A30000;bwhite=bg:FFFFFF;fwhite=fg:FFFFFF;bgrey=bg:5F5E5F;fgrey=bg:5F5E5F;bblack=bg:000000;fblack=fg:000000;bbeige=bg:B27A35;fdgrey=fg:424242;bgreen=bg:287600;fgreen=fg:33CC66;fbrown=fg:4C1900;bdgrey=bg:424242
+¥fwhite¥###########################################
+#¥bbeige¥¥fred¥⚔¥fwhite¥                   ¥fred¥⚔⚔               ¥fgreen¥_  ⚔¥fwhite¥¥bblack¥#
+#¥bbeige¥     ¥fgreen¥_     ¥bblack¥¥fdgrey¥╔═══╗¥bbeige¥         ¥bblack¥╔═══╗¥bbeige¥      ¥bgreen¥¥fgreen¥( )¥bbeige¥  ¥fwhite¥¥bblack¥#
+#¥bbeige¥    ¥bgreen¥¥fgreen¥( )¥bbeige¥  ¥bblack¥¥fdgrey¥╔═╝¥bgrey¥   ¥bblack¥╚═════════╝¥bdgrey¥  ¥bgrey¥ ¥bblack¥╚═╗¥bbeige¥     ¥fbrown¥I   ¥fwhite¥¥bblack¥#
+#¥bbeige¥     ¥fbrown¥I   ¥bblack¥¥fdgrey¥║¥bgrey¥ ¥bdgrey¥  ¥bgrey¥      ¥bdgrey¥  ¥bgrey¥          ¥bblack¥║¥bbeige¥         ¥fwhite¥¥bblack¥#
+#¥bbeige¥         ¥bblack¥¥fdgrey¥║¥bdgrey¥  ¥bgrey¥ ¥bred¥    ¥bgrey¥  ╔══╗  ╔══╗  ¥bblack¥║¥bbeige¥  ¥fgreen¥_      ¥fwhite¥¥bblack¥#
+#¥bbeige¥¥fred¥⚔        ¥bblack¥¥fdgrey¥║¥bgrey¥   ¥bred¥ ¥fblack¥¥bwhite¥卐 ¥bred¥ ¥bgrey¥  ¥fdgrey¥║¥bblack¥  ¥bgrey¥║¥bdgrey¥ ¥bgrey¥ ║¥bblack¥  ¥bgrey¥║  ¥bblack¥║¥bbeige¥ ¥bgreen¥¥fgreen¥( )¥bbeige¥    ¥fred¥⚔¥fwhite¥¥bblack¥#
+#¥bbeige¥         ¥bblack¥¥fdgrey¥║¥bgrey¥   ¥bred¥    ¥bgrey¥  ╚══╝ ¥bdgrey¥ ¥bgrey¥╚══╝ ¥bdgrey¥ ¥bblack¥║¥bbeige¥  ¥fbrown¥I      ¥fwhite¥¥bblack¥#
+#¥bbeige¥         ¥bblack¥¥fdgrey¥║¥bgrey¥  ╔═══╗¥bdgrey¥   ¥bgrey¥           ¥bblack¥║¥bbeige¥         ¥fwhite¥¥bblack¥#
+#¥bbeige¥   ¥fgreen¥_    ¥fred¥⚔¥bblack¥¥fdgrey¥║¥bgrey¥  ║¥bblack¥   ¥bgrey¥║              ¥bblack¥║¥bbeige¥¥fred¥⚔    ¥fgreen¥_   ¥fwhite¥¥bblack¥#
+#¥bbeige¥  ¥bgreen¥¥fgreen¥( )¥bbeige¥        ¥fblack¥\¥fred¥⚔⚔¥fblack¥\                   ¥bgreen¥¥fgreen¥( )¥bbeige¥  ¥fwhite¥¥bblack¥#
+#¥bbeige¥¥fred¥⚔  ¥fbrown¥I          ¥fblack¥\  \                   I   ¥fwhite¥¥bblack¥#
+#¥bbeige¥           ¥fgreen¥_   ¥fblack¥\  \             ¥fgreen¥_        ¥fwhite¥¥bblack¥#
+#¥bbeige¥      ¥fgreen¥_   ¥bgreen¥( )¥bbeige¥   ¥fblack¥\  \      ¥fgreen¥_    ¥bgreen¥¥fgreen¥( )¥bbeige¥       ¥fwhite¥¥bblack¥#
+#¥bbeige¥     ¥bgreen¥¥fgreen¥( )¥bbeige¥   ¥fbrown¥I     ¥fblack¥\  \    ¥bgreen¥¥fgreen¥( )¥bbeige¥    ¥fbrown¥I        ¥fwhite¥¥bblack¥#
+#¥bbeige¥      ¥fbrown¥I           \  \    ¥fbrown¥I              ¥fwhite¥¥bblack¥#
+#¥bbeige¥¥fred¥⚔                 ¥fred¥⚔¥fblack¥\  \¥fred¥⚔                ⚔¥fwhite¥¥bblack¥#
+#####################¥bbeige¥¥fblack¥↑↑↑¥bblack¥¥fwhite¥###################

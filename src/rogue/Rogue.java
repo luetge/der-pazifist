@@ -30,7 +30,7 @@ public class Rogue implements ComponentListener
 		term = TiledTermPanel.getFramedTerminal("Der PaziFist");
 
 		term.loadTiles("res/tiles");
-        
+		
         player = new Player();
         level = new Level(256, 196, player, "mainworld");
         
@@ -38,6 +38,7 @@ public class Rogue implements ComponentListener
         
 		for (int i = 0; i < 100; i++){
 			level.world().addActor(CreatureFactory.createCreature("zombie1", level.world()));
+			level.world().addActor(CreatureFactory.createCreature("bandit2", level.world()));
 		}
         
         term.addComponentListener(this);
@@ -73,11 +74,7 @@ public class Rogue implements ComponentListener
             Door door = level.world().tick();
             if (door != null)
             {
-            	level.world().removeActor(player);
             	level.stepThroughDoor(door);
-            	Door destdoor = level.world().getDoor(door.getDestID());
-            	Guard.verifyState(destdoor!=null);
-            	level.world().addActor(player, destdoor.getDestination());
             }
         }
         
@@ -97,11 +94,12 @@ public class Rogue implements ComponentListener
     			source += ": ";
     		String sText = source + m.text;
     		if(m.important)
-    			term.setCurrentConsoleText(sText + (level.world().hasNextMessage() ? " (mehr)" : ""));
+    			term.setCurrentConsoleText(sText);
+//    			term.setCurrentConsoleText(sText + (level.world().hasNextMessage() ? " (mehr)" : ""));
     		Log.addMessage(sText);
     		term.refreshScreen();
-    		if(m.important && level.world().hasNextMessage())
-    			waitForSpace();
+//    		if(m.important && level.world().hasNextMessage())
+//    			waitForSpace();
     	}
 	}
 

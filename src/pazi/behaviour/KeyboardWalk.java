@@ -6,6 +6,8 @@ import rogue.creature.Creature;
 public class KeyboardWalk implements IBehaviour<Creature> {
 	@Override
 	public void act(Creature creature) {
+		if (creature.getHasActed())
+			return;
 		Direction dir = Direction.keyToDir(creature.world().getCurrentKey());
 		if(dir != null)
 			creature.move(dir);

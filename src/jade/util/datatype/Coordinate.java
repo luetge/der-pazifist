@@ -148,23 +148,16 @@ public class Coordinate
     {
         int dx = x - this.x;
         int dy = y - this.y;
-        if(dx < 0)
-        {
-            return Direction.WEST;
-        }
-        else if(dx > 0)
-        {
-            return Direction.EAST;
-        }
-        else
-        {
-            if(dy < 0)
-                return Direction.NORTH;
-            else if(dy > 0)
-                return Direction.SOUTH;
-            else
-                return Direction.ORIGIN;
-        }
+        if (dx != 0)
+        	dx /= Math.abs(dx);
+        if (dy != 0)
+        	dy /= Math.abs(dy);
+        final Direction directions[] = { Direction.NORTHWEST, Direction.WEST,
+        		Direction.SOUTHWEST, Direction.NORTH, Direction.ORIGIN,
+        		Direction.SOUTH, Direction.NORTHEAST, Direction.EAST,
+        		Direction.SOUTHEAST };
+        
+        return directions[(dx+1)*3+dy+1];
     }
 
     @Override

@@ -59,7 +59,9 @@ public abstract class Terminal
     
     public void bufferBackground(Coordinate coord, Color c)
     {
-    	backgroundBuffer.put(coord, c);
+    	synchronized(backgroundBuffer) {
+    		backgroundBuffer.put(coord, c);
+    	}
     }
     
     public final void bufferBackground(int x, int y, Color c)
@@ -69,7 +71,9 @@ public abstract class Terminal
     
     public Color backgroundAt (Coordinate coord)
     {
-    	return backgroundBuffer.get(coord);
+    	synchronized(backgroundBuffer) {
+    		return backgroundBuffer.get(coord);
+    	}
     }
     
     public final Color backgroundAt (int x, int y)

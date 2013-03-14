@@ -78,36 +78,42 @@ public class TiledTermPanel extends TermPanel
     {
 		File tiledir = new File(dirname);
 		Guard.verifyState(tiledir.isDirectory());
-		File files[] = tiledir.listFiles(new FilenameFilter() {
-			public boolean accept (File dir, String name) {
-				return name.endsWith(".txt");
-			}
-		});
-		for (File file : files)
+		File dirs[] = tiledir.listFiles();
+		
+		for (File dir : dirs)
 		{
-			String filename = file.getPath();
-			filename = filename.substring(0, filename.length()-4) + ".png";
+			if (!dir.isDirectory())
+				continue;
+			File files[] = dir.listFiles(new FilenameFilter() {
+				public boolean accept (File dir, String name) {
+					return name.endsWith(".txt");
+				}	
+			});	
+			for (File file : files)
+			{
+				String filename = file.getPath();
+				filename = filename.substring(0, filename.length()-4) + ".png";
 			
-			try {
-				BufferedReader reader; 
-				reader = new BufferedReader(new FileReader (file));
-				String ch = reader.readLine();
-				String color = reader.readLine();
-				reader.close();
+				try {
+					BufferedReader reader; 
+					reader = new BufferedReader(new FileReader (file));
+					String ch = reader.readLine();
+					String color = reader.readLine();
+					reader.close();
 				
-				Guard.argumentsAreNotNull(ch, color);
+					Guard.argumentsAreNotNull(ch, color);
 				
-				registerTile (filename, 0, 0, ColoredChar.create(ch.charAt(0), Color.decode("0x"+color)));
+					registerTile (filename, 0, 0, ColoredChar.create(ch.charAt(0), Color.decode("0x"+color)));
 				
-			} catch(FileNotFoundException e) {
-				e.printStackTrace();
-				continue;
-			} catch (IOException e) {
-				e.printStackTrace();
-				continue;
+				} catch(FileNotFoundException e) {
+					e.printStackTrace();
+					continue;
+				} catch (IOException e) {
+					e.printStackTrace();
+					continue;
+				}
 			}
 		}
-
     }
     
     public final void bufferTile (int x, int y, ColoredChar ch)

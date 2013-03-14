@@ -52,6 +52,7 @@ public class EatBrains implements IBeforeAfterFeature<Monster> {
 			deadBody.expire();
 			deadBody = null;
 			reset(monster);
+			monster.setHasActed(true);
 		}
 	}
 	

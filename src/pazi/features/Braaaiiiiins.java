@@ -1,7 +1,6 @@
 package pazi.features;
 
 import rogue.creature.Monster;
-import rogue.creature.Player;
 
 public class Braaaiiiiins implements IFeature<Monster> {
 

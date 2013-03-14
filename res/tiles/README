@@ -9,5 +9,5 @@ tilename.txt enthält zwei Zeilen:
    des zu ersetzenden Zeichens als sechsstellige
    Hexadezimalzahl (RGB).
 
-Alle .txt Dateien in diesem Verzeichnis werden automatisch
+Alle .txt Dateien in allen Unterverzeichnissen werden automatisch
 eingelesen (und eine zugehörige .png Datei muss existieren).

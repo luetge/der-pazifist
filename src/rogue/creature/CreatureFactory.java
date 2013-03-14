@@ -47,7 +47,7 @@ public class CreatureFactory {
 			creature = new Monster(ColoredChar.create('H', Color.white), "Hitler");
 			creature.setFightBehaviour(DefaultFightBehaviour.getInstance());
 			creature.setWalkBehaviour(new RandomWalk());
-			creature.addGeneralFeature(new Braaaiiiiins("Arrrrrrr!"));
+			creature.addGeneralFeature(new Braaaiiiiins("Arrrrrrr!", 10));
 			creature.setBehaviour(new RandomBehaviour());
 			creature.max_d = 100;
 			creature.min_d = 30;

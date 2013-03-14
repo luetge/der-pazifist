@@ -1,12 +1,12 @@
 package pazi.behaviour;
 
-import jade.core.Actor;
 import jade.util.datatype.ColoredChar;
-import pazi.features.IBeforeAfterFeature;
 import rogue.creature.Monster;
 import rogue.creature.Player;
 
 public class SneakStealFlee implements IBehaviour<Monster> {
+	
+	protected static final int MONEY_AMOUNT = 20;
 	
 	Player player;
 	Character symbol;
@@ -21,7 +21,7 @@ public class SneakStealFlee implements IBehaviour<Monster> {
 		if (monster.pos().distance(player.pos()) < 2){
 			monster.appendMessage("OMZFG!! I stealz ur monneyz lols!");
 			monster.setAllFaces(new ColoredChar(symbol, monster.face().color()));
-			player.getGold(-20);
+			player.getGold(-MONEY_AMOUNT);
 			monster.setHasActed(true);
 			monster.setBehaviour(new RandomBehaviour());
 		} else {

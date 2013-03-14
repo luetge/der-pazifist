@@ -21,7 +21,7 @@ public class ParalyzeFightBehaviour implements IBehaviour<Creature> {
 			return;
 		}
 		
-		if(!monster.getHasActed() && monster.world().getPlayer().pos().distance(monster.pos()) < 2){
+		if(!monster.hasActed() && monster.world().getPlayer().pos().distance(monster.pos()) < 2){
 			target.addGeneralFeature(new Paralyzed(2));
 			monster.setHasActed(true);
 			counter = 0;

@@ -30,7 +30,10 @@ public class CreatureFactory {
 		} else if (identifier == "bandit2"){
 				creature = new Monster(ColoredChar.create(' ', Color.red), "Touchy Hobbit");
 				creature.addGeneralFeature(Braaaiiiiins.getInstance());
-				creature.setBehaviour(new SneakStealFlee(world.getPlayer(), 'B'));
+				ColoredChar faces[] = new ColoredChar[9];
+				for (int i = 0; i < 9; i++)
+					faces[i] = ColoredChar.create('B', new Color(0xFF0000+i));
+				creature.setBehaviour(new SneakStealFlee(world.getPlayer(), faces));
 		} else {
 			System.out.println("Konnte Kreatur \"" + identifier + "\" nicht laden!");
 		}

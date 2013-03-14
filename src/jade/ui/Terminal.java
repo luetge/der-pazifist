@@ -100,6 +100,18 @@ public abstract class Terminal
     {
         bufferChar(new Coordinate(x, y), ch);
     }
+    
+    public void unbuffer (Coordinate coord)
+    {
+    	synchronized(buffer) {
+    		buffer.remove(coord);
+    	}
+    }
+    
+    public final void unbuffer (int x, int y)
+    {
+    	unbuffer (new Coordinate (x, y));
+    }
 
     /**
      * Returns the character at the specified coordinates. Null is returned if nothing is in the

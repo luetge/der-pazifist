@@ -1,5 +1,6 @@
 package rogue.creature;
 
+import jade.core.Actor;
 import jade.fov.RayCaster;
 import jade.fov.ViewField;
 import jade.ui.Camera;
@@ -8,8 +9,11 @@ import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
 import jade.util.datatype.Door;
+import java.awt.Color;
 
 import java.util.Collection;
+
+import pazi.items.Item;
 
 public class Player extends Creature implements Camera
 {
@@ -19,13 +23,14 @@ public class Player extends Creature implements Camera
     
     ColoredChar faces[];
     int currentface;
+    int gold = 0;
 
     public Player()
     {
         super(ColoredChar.create('♓'), "Der PaziFist");
     	faces = new ColoredChar[2];
-    	faces[0] = ColoredChar.create('♓');
-    	faces[1] = ColoredChar.create('J');
+    	faces[0] = ColoredChar.create('♓', new Color(0xFFFFFF));
+    	faces[1] = ColoredChar.create('♓', new Color(0xFEFEFE));
     	currentface = 0;
         fov = new RayCaster();
         min_d = 40;
@@ -42,6 +47,9 @@ public class Player extends Creature implements Camera
     		world().stepThroughDoor(door);
     	}
     	super.setPos(x,y);
+    	Item item = world().getActorAt(Item.class, x, y);
+    	if (item != null)
+    			item.getPickedUp(this);
     }
 
     @Override
@@ -73,5 +81,11 @@ public class Player extends Creature implements Camera
     public void takeDamage(int d) {
     	super.takeDamage(d);
     	HUD.setHP(hp);
-    }
+    }   
+
+	public void getGold(int amount) {
+    	gold+=amount;
+    	HUD.setGold(gold);	
+	}
+
 }

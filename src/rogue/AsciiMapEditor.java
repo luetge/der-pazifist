@@ -19,6 +19,7 @@ public class AsciiMapEditor implements DocumentListener {
 	public AsciiMapEditor ()
 	{
 		term = new TiledTermPanel(256,256,TiledTermPanel.DEFAULT_TILESIZE);
+		term.loadTiles("res/tiles");
 		textarea = new JTextArea();
 		try {
 			Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream ("res/DejaVuSansMono.ttf"));
@@ -80,7 +81,7 @@ public class AsciiMapEditor implements DocumentListener {
 			return;
 		}
         term.clearBuffer();
-		asciimap.render (term);
+		asciimap.render (term, 0, 0);
         term.refreshScreen();
         } catch(BadLocationException e) {
 			e.printStackTrace();

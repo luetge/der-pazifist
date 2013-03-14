@@ -14,13 +14,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.awt.Color;
 import java.io.File;
+import pazi.items.Item;
+import pazi.items.Gold;
 
 public class Level
 {
     private final static Generator gen = getLevelGenerator();
-    private final static Room roomgen = getRoomGenerator();
+    private final static House housegen = getHouseGenerator();
     
     private Map<String,World> worlds;
+    private World world;
     
     private Player player;
     private String startname;
@@ -30,20 +33,23 @@ public class Level
     	this.player = player;
     	this.startname = name;
     	worlds = new HashMap<String, World>();
-    	World startworld = new World (width, height, name);
-    	gen.generate(startworld);
-    	startworld.addActor(player);
-    	worlds.put(name, startworld);
-    	
-    	
+    	world = new World (width, height, name);
+    	gen.generate(world);
+    	world.addActor(player);
+    	worlds.put(name, world);
     }
     
-    public World getWorld (String name)
+    public World world ()
+    {
+    	return world;
+    }
+    
+    public World world (String name)
     {
     	return worlds.get(name);
     }
     
-    public World stepToWorld (World from, Door door)
+    public void stepThroughDoor (Door door)
     {
     	World w = worlds.get(door.getDestWorld());
     	if (w == null)
@@ -66,22 +72,24 @@ public class Level
     		}
     		else
     		{
-        		int size = Dice.global.nextInt(10,30);
+        		int size = Dice.global.nextInt(25, 30);
         		w = new World (size, size*3/4, door.getDestWorld());
-    			roomgen.generate(w);
-    			System.out.println(from.getName());
-    			roomgen.addDoors (w, from.getName());
+    			housegen.generate(w);
+    			housegen.addExitDoors (w, world.getName());
     			for (int i = 0; i < 5; i++){
     				Monster m = new Monster(ColoredChar.create('Z', Color.green),
     						"Blutiger Zombie");
     				w.addActor(m);
+    				Gold g = new Gold(ColoredChar.create('o', Color.yellow),
+        					"Gold");
+        			w.addActor(g);
     			}
 
     		}
     		w.useViewfield(false);
     		worlds.put(door.getDestWorld(), w);
     	}
-    	return w;
+    	world = w;
     }
 
     private static Generator getLevelGenerator()
@@ -90,8 +98,8 @@ public class Level
 //        return new Cellular();
     }
     
-    private static Room	 getRoomGenerator()
+    private static House getHouseGenerator()
     {
-    	return new Room();
+    	return new House();
     }
 }

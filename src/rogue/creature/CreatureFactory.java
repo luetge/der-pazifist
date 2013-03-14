@@ -1,6 +1,7 @@
 package rogue.creature;
 
 import jade.core.World;
+import jade.core.Dialog;
 import jade.util.datatype.ColoredChar;
 
 import java.awt.Color;
@@ -38,7 +39,7 @@ public class CreatureFactory {
 			creature.setAllFaces(new ColoredChar('A', Color.yellow));
 			creature.setBehaviour(new ParalyzerBehaviour(world.getPlayer()));
 		} else if (identifier.equals("priest")) {
-			creature = new Ally (ColoredChar.create('P'), "Priest");
+			creature = new Ally (ColoredChar.create('P'), "Priest", new Dialog ());
 		} else {
 			System.out.println("Konnte Kreatur \"" + identifier + "\" nicht laden!");
 		}

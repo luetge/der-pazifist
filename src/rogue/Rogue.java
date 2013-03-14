@@ -76,7 +76,7 @@ public class Rogue implements ComponentListener
         	
         	if (dialog != null)
         	{
-        		dialog.tick(level.world());
+        		dialog.tick(level.world(), term);
         	}
         	else
         	{

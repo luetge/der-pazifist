@@ -89,11 +89,7 @@ public class Rogue implements ComponentListener
             Door door = level.world().tick();
             if (door != null)
             {
-            	level.world().removeActor(player);
             	level.stepThroughDoor(door);
-            	Door destdoor = level.world().getDoor(door.getDestID());
-            	Guard.verifyState(destdoor!=null);
-            	level.world().addActor(player, destdoor.getDestination());
             }
         }
         

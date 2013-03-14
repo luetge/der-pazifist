@@ -1,4 +1,4 @@
-package pazi.features;
+package pazi.behaviour;
 
 import jade.util.datatype.ColoredChar;
 
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import rogue.creature.Creature;
 import rogue.creature.Player;
 
-public class DeadBehaviour implements IFeature<Creature> {
+public class DeadBehaviour implements IBehaviour<Creature> {
 	
 	public static ArrayList<Creature> deadBodies = new ArrayList<Creature>();
 	
@@ -23,5 +23,16 @@ public class DeadBehaviour implements IFeature<Creature> {
 	
 	@Override
 	public void act(Creature actor) {}
+
+	@Override
+	public void exit(Creature actor) {
+		if(deadBodies.contains(actor))
+			deadBodies.remove(actor);
+	}
+
+	@Override
+	public void init(Creature actor) {
+		deadBodies.add(actor);
+	}
 
 }

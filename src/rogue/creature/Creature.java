@@ -9,11 +9,10 @@ import jade.util.datatype.Direction;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import pazi.features.DeadBehaviour;
-import pazi.features.Death;
-import pazi.features.DoNothing;
+import pazi.behaviour.DeadBehaviour;
+import pazi.behaviour.DoNothingBehaviour;
+import pazi.behaviour.IBehaviour;
 import pazi.features.IBeforeAfterFeature;
-import pazi.features.IFeature;
 
 public abstract class Creature extends Actor
 {
@@ -21,9 +20,9 @@ public abstract class Creature extends Actor
 	protected int min_d, max_d;
 	protected Coordinate nextCoordinate;
 	protected LinkedList<IBeforeAfterFeature> walkFeatures = new LinkedList<IBeforeAfterFeature>();
-	protected IFeature walkBehaviour;
+	protected IBehaviour walkBehaviour;
     protected LinkedList<IBeforeAfterFeature> fightFeatures = new LinkedList<IBeforeAfterFeature>();
-    protected IFeature fightBehaviour;
+    protected IBehaviour fightBehaviour;
     
     private ColoredChar faces[];
     
@@ -37,9 +36,10 @@ public abstract class Creature extends Actor
     	super (faces[4], Name);
     	Guard.validateArgument(faces.length == 9);
     	this.faces = faces;
-        walkBehaviour = new DoNothing();
-        fightBehaviour = new DoNothing();
-        setBehaviour(new DoNothing());
+
+        walkBehaviour = new DoNothingBehaviour();
+        fightBehaviour = new DoNothingBehaviour();
+        setBehaviour(new DoNothingBehaviour());
     }
     
     public void setFace (Direction dir, ColoredChar face)
@@ -62,14 +62,16 @@ public abstract class Creature extends Actor
     @Override
     public void setPos(int x, int y)
     {
-    	Collection<Actor> actors = world().getActorsAt(Actor.class, x, y);
-        if(world().passableAt(x, y)){
-        	for(Actor actor : actors)
-        		if(!actor.isPassable())
-        			return;
-    		super.setPos(x, y);
-    		setHasActed(true);
-        }
+	    if (world().insideBounds(x, y)){
+	    	Collection<Actor> actors = world().getActorsAt(Actor.class, x, y);
+	        if(world().passableAt(x, y)){
+	        	for(Actor actor : actors)
+	        		if(!actor.isPassable())
+	        			return;
+	    		super.setPos(x, y);
+	    		setHasActed(true);
+	        }
+	    }
     }
     
     @Override
@@ -133,19 +135,27 @@ public abstract class Creature extends Actor
 		doStep();
 	}
 	
-	public void setWalkBehaviour(IFeature walkBehaviour){
+	public void setWalkBehaviour(IBehaviour walkBehaviour){
+		if(this.walkBehaviour != null)
+			this.walkBehaviour.exit(this);
 		this.walkBehaviour = walkBehaviour;
+		if(walkBehaviour != null)
+			walkBehaviour.init(this);
 	}
 	
-	public IFeature getWalkBehaviour(){
+	public IBehaviour getWalkBehaviour(){
 		return walkBehaviour;
 	}
 	
-	public void setFightBehaviour(IFeature fightBehaviour){
+	public void setFightBehaviour(IBehaviour fightBehaviour){
+		if(this.fightBehaviour != null)
+			this.fightBehaviour.exit(this);
 		this.fightBehaviour = fightBehaviour;
+		if(fightBehaviour != null)
+			fightBehaviour.init(this);
 	}
 	
-	public IFeature getFightBehaviour(){
+	public IBehaviour getFightBehaviour(){
 		return fightBehaviour;
 	}
 	

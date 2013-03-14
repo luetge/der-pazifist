@@ -1,13 +1,8 @@
-package pazi.features;
+package pazi.behaviour;
 
 import rogue.creature.Monster;
-/**
- * 
- *	First Fight, Then Walk! With Prob. Given To Constructor, else 0.5
- *	Otherwise: First Walk, Then Fight!
- *
- */
-public class RandomBehaviour implements IFeature<Monster> {
+
+public class RandomBehaviour implements IBehaviour<Monster> {
 
 	private double randFactor;
 	
@@ -30,5 +25,11 @@ public class RandomBehaviour implements IFeature<Monster> {
 			monster.fight();
 		}
 	}
+
+	@Override
+	public void exit(Monster actor) {}
+
+	@Override
+	public void init(Monster actor) {}
 
 }

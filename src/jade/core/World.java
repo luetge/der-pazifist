@@ -6,22 +6,21 @@ import jade.util.Lambda;
 import jade.util.Lambda.FilterFunc;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
-
 import jade.util.datatype.Door;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
-import rogue.creature.Creature;
-import rogue.creature.Monster;
-import rogue.creature.Player;
 import pazi.items.Item;
+import rogue.creature.Monster;
+import rogue.creature.Ally;
+import rogue.creature.Player;
 
 /**
  * Represents a game world on which {@code Actor} can interact.
@@ -37,13 +36,13 @@ public class World extends Messenger
 	private int currentKey;
 	private Map<Coordinate,Door> doorsbycoord;
 	private Map<String,Door> doorsbyid;
-	Door activedoor;
+	private Door activedoor;
 	private boolean useViewfield;
+	private Dialog activedialog;
 	
 	public World(int width, int height, String name){
 		this(width, height);
 		setName(name);
-		this.useViewfield = true;
 	}
 	
 	public boolean useViewfield()
@@ -61,6 +60,16 @@ public class World extends Messenger
 		this.activedoor = door;
 	}
 	
+	public Dialog getActiveDialog ()
+	{
+		return activedialog;
+	}
+	
+	void setActiveDialog (Dialog dialog)
+	{
+		activedialog = dialog;
+	}
+	
     /**
      * Constructs a new {@code World} with the given dimensions. Both width and height must be
      * positive integers.
@@ -71,6 +80,8 @@ public class World extends Messenger
     {
         Guard.argumentsArePositive(width, height);
 
+		this.useViewfield = true;
+		this.activedialog = null;
         this.doorsbycoord = new HashMap<Coordinate,Door> ();
         this.doorsbyid = new HashMap<String,Door> ();
         this.width = width;
@@ -84,11 +95,13 @@ public class World extends Messenger
 
         drawOrder = new ArrayList<Class<? extends Actor>>();
         drawOrder.add(Player.class);
+        drawOrder.add(Ally.class);
         drawOrder.add(Monster.class);
         drawOrder.add(Item.class);
 
         actOrder = new ArrayList<Class<? extends Actor>>();
         actOrder.add(Player.class);
+        actOrder.add(Ally.class);
         actOrder.add(Monster.class);
         actOrder.add(Item.class);
     }
@@ -100,17 +113,17 @@ public class World extends Messenger
      */
     public Door tick()
     {
-    	// ALle Kreaturen laufen lassen
-        for(Class<? extends Actor> cls : actOrder){
-        	if(Creature.class.isAssignableFrom(cls))
-        		for(Actor actor : getActors(cls))
-        			((Creature)actor).walk();
-        }
+    	// Alle Kreaturen laufen lassen
+//        for(Class<? extends Actor> cls : actOrder){
+//        	if(Creature.class.isAssignableFrom(cls))
+//        		for(Actor actor : getActors(cls))
+//        			((Creature)actor).walk();
+//        } 
         
-        // Alle Aktionen durchführen
+    	// Alle Aktionen durchführen
         for(Class<? extends Actor> cls : actOrder)
             for(Actor actor : getActors(cls))
-                actor.act();
+                actor.act();  	       
         
 //        Creature monster = getActorAt(Monster.class, getActor(Player.class).pos());
        // if(monster != null && monster.getFeatures(Death.class).isEmpty())
@@ -722,6 +735,10 @@ public class World extends Messenger
     void unregisterActor(Actor actor)
     {
         register.remove(actor);
+    }
+    
+    public Player getPlayer(){
+    	return getActor(Player.class);
     }
 
     private class Tile

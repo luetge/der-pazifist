@@ -1,5 +1,7 @@
 package jade.util.datatype;
 
+import jade.util.Guard;
+
 import java.awt.event.KeyEvent;
 
 /**
@@ -10,27 +12,27 @@ public enum Direction
     /**
      * Up on the screen
      */
-    NORTH(0, -1),
+    NORTH(0, -1), // ID: 3
     /**
      * Right on the screen
      */
-    EAST(1, 0),
+    EAST(1, 0), // ID: 7
     /**
      * Down on the screen
      */
-    SOUTH(0, 1),
+    SOUTH(0, 1), // ID: 5
     /**
      * Left on the screen
      */
-    WEST(-1, 0),
-    NORTHWEST(-1, -1),
-    NORTHEAST(1, -1),
-    SOUTHWEST(-1, 1),
-    SOUTHEAST(1, 1),
+    WEST(-1, 0), // ID: 1
+    NORTHWEST(-1, -1), // ID: 0
+    NORTHEAST(1, -1), // ID: 6
+    SOUTHWEST(-1, 1), // ID: 2
+    SOUTHEAST(1, 1), // ID: 8
     /**
      * No change on the screen
      */
-    ORIGIN(0, 0);
+    ORIGIN(0, 0); // ID: 4
 
     private int dx;
     private int dy;
@@ -58,7 +60,12 @@ public enum Direction
     {
         return dy;
     }
-
+    
+    public int getID()
+    {
+    	return (dx+1)*3+dy+1;
+    }
+    
     /**
      * Returns the {@code Direction} corresponding to the given key press, or null if there is none.
      * The key can be either vi-keys (with '.' as {@code ORIGIN}), or num-pad keys.

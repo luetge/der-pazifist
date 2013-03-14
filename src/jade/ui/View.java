@@ -61,6 +61,8 @@ public class View {
             	Collections.reverse(list);
             	for (ColoredChar c : list)
             	{
+            		if (c == null)
+            			continue;
             		if (world.useViewfield())
             		{
             			if (!viewfield.contains(new Coordinate (worldx, worldy)))
@@ -77,7 +79,11 @@ public class View {
             					background = Color.darkGray;
             			}
             		}
-            		term.bufferTile(x, y, c);
+            		try {
+            			term.bufferTile(x, y, c);
+            		} catch(IllegalArgumentException e) {
+            			continue;
+            		}
             	}
             	term.bufferBackground(x, y, background);
             }

@@ -15,7 +15,7 @@ public class Gold extends Item {
 	}
 	
 	public void getPickedUp (Player player){
-		player.appendMessage("Ich habe "+ amount +" Gold gefunden.");
+		player.appendMessage("Ich habe "+ amount +" Gold gefunden.", true);
 		player.getGold(amount);
 		this.expire();
 	}

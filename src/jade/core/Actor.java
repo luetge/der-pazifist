@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
 
+import pazi.behaviour.IBehaviour;
 import pazi.features.IFeature;
 
 //TODO Prioritäten bei Features
@@ -33,8 +34,13 @@ public abstract class Actor extends Messenger
     private boolean expired;
     private Actor holder;
     private Set<Actor> holds;
-    protected LinkedList<IFeature> features = new LinkedList<IFeature>();
+    protected LinkedList<IFeature> generalFeatures = new LinkedList<IFeature>();
     boolean passable;
+	protected IBehaviour behaviour;
+	/**
+	 * Gibt an, ob im aktuellen Zug bereits eine Aktion durchgeführt wurde.
+	 */
+	private boolean hasActed;
 
     /**
      * Constructs a new {@code Actor} with the given face.
@@ -57,9 +63,15 @@ public abstract class Actor extends Messenger
      * scheduled properly based on act order and {@code Actor} speed.
      */
     public void act(){
-    	for(IFeature feature : features)
-    		if(!feature.act(this))
-    			return;
+    	setHasActed(false);
+    	//allg features
+    	for(IFeature feature : generalFeatures)
+    		feature.act(this);
+
+    	//verhaltensfeature ausführen
+    	if (getBehaviour() != null) 			
+    		getBehaviour().act(this);
+
     }
     
     public abstract void interact(Actor actor);
@@ -333,16 +345,12 @@ public abstract class Actor extends Messenger
             held.propagatePos(pos);
     }
     
-    public void addFeature(IFeature feature){
-    	features.add(0, feature);
-    }
-    
-    public void addFeatureAtTheEnd(IFeature feature){
-    	features.add(feature);
+    public void addGeneralFeature(IFeature feature){
+    	generalFeatures.add(0, feature);
     }
     
     public <T extends IFeature> Collection<T> getFeatures(Class<T> cls){
-    	return Lambda.toSet(Lambda.filterType(features, cls));
+    	return Lambda.toSet(Lambda.filterType(generalFeatures, cls));
     }
 
 	public boolean isPassable() {
@@ -351,6 +359,26 @@ public abstract class Actor extends Messenger
 	
 	public void setPassable(boolean passable){
 		this.passable = passable;
+	}
+	
+	public boolean hasActed(){
+		return hasActed;
+	}
+	
+	public void setHasActed(boolean hasActed){
+		this.hasActed = hasActed;
+	}
+	
+	public void setBehaviour(IBehaviour behaviour) {
+		if(this.behaviour != null)
+			this.behaviour.exit(this);
+		this.behaviour = behaviour;
+		if(behaviour != null)
+			behaviour.init(this);
+	}
+
+	public IBehaviour<Actor> getBehaviour() {
+		return behaviour;
 	}
     
 }

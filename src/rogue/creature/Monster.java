@@ -1,23 +1,25 @@
 package rogue.creature;
 
-import jade.util.Dice;
+import jade.path.AStar;
 import jade.util.datatype.ColoredChar;
-import jade.util.datatype.Direction;
-
-import java.util.Arrays;
+import pazi.behaviour.DefaultFightBehaviour;
+import pazi.features.EatBrains;
 
 public class Monster extends Creature
 {
+	protected static AStar pathFinder = new AStar();
+	
+	public Monster(ColoredChar faces[], String Name)
+	{
+		super(faces, Name);
+        min_d = 0;
+        max_d = 5;
+        setFightBehaviour(DefaultFightBehaviour.getInstance());
+        getWalkFeatures().add(new EatBrains());
+	}
+	
     public Monster(ColoredChar face, String Name)
     {
-        super(face, Name);
-        min_d = 10;
-        max_d = 20;
+    	this (new ColoredChar[]{face, face, face, face, face, face, face, face, face }, Name);
     }
-
-	@Override
-	public void walk() {
-		if(!neutralized)
-			move(Dice.global.choose(Arrays.asList(Direction.values())));
-	}
 }

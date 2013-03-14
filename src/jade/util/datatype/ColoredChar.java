@@ -83,7 +83,7 @@ public class ColoredChar
     @Override
     public int hashCode()
     {
-        return (color.hashCode() << 8) | (ch & 0xFF);
+        return color.hashCode() ^ ch;
     }
 
     @Override

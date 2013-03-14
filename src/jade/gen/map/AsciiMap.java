@@ -19,6 +19,8 @@ import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Door;
 import jade.util.Guard;
 import java.awt.Color;
+
+import rogue.creature.CreatureFactory;
 import jade.core.World;
 
 public class AsciiMap {
@@ -49,6 +51,7 @@ public class AsciiMap {
 	private Map<Coordinate, Tile> characters;
 	private Map<Coordinate, Color> backgrounds;
 	private Map<Coordinate, Door> doors;
+	private Map<Coordinate, String> creatures;
 	private Map<String, Set<Coordinate>> specials;
 	public AsciiMap(String filename)
 	{
@@ -58,6 +61,7 @@ public class AsciiMap {
 	
 	private AsciiMap()
 	{
+		creatures = new HashMap<Coordinate, String>();
 		characters = new HashMap<Coordinate, Tile> ();
 		backgrounds = new HashMap<Coordinate, Color> ();
 		specials = new HashMap<String, Set<Coordinate>>();
@@ -68,6 +72,11 @@ public class AsciiMap {
 	public Map<Coordinate, Door> getDoors()
 	{
 		return doors;
+	}
+	
+	public Map<Coordinate, String> getCreatures()
+	{
+		return creatures;
 	}
 	
 	private void loadFromFile (String filename)
@@ -103,6 +112,13 @@ public class AsciiMap {
         for (Coordinate coord : backgrounds.keySet())
         {
         	world.setTileBackground(backgrounds.get(coord),  posx + coord.x(), posy + coord.y());
+        }
+	}
+	public void addCreatures (World world)
+	{
+        for (Coordinate coord : creatures.keySet())
+        {
+        	world.addActor(CreatureFactory.createCreature(creatures.get(coord), world), coord);
         }
 	}
 	
@@ -153,6 +169,10 @@ public class AsciiMap {
 			else if (esc.startsWith("fg:"))
 			{
 				foreground = Color.decode("0x"+esc.substring(3));
+			}
+			else if (esc.startsWith("creature:"))
+			{
+				creatures.put(coord.copy(), esc.substring(9));
 			}
 			else if (esc.startsWith("door:"))
 			{

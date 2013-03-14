@@ -20,6 +20,7 @@ import java.util.Set;
 
 import rogue.creature.Creature;
 import rogue.creature.Monster;
+import rogue.creature.Ally;
 import rogue.creature.Player;
 import pazi.items.Item;
 
@@ -37,13 +38,13 @@ public class World extends Messenger
 	private int currentKey;
 	private Map<Coordinate,Door> doorsbycoord;
 	private Map<String,Door> doorsbyid;
-	Door activedoor;
+	private Door activedoor;
 	private boolean useViewfield;
+	private Dialog activedialog;
 	
 	public World(int width, int height, String name){
 		this(width, height);
 		setName(name);
-		this.useViewfield = true;
 	}
 	
 	public boolean useViewfield()
@@ -61,6 +62,16 @@ public class World extends Messenger
 		this.activedoor = door;
 	}
 	
+	public Dialog getActiveDialog ()
+	{
+		return activedialog;
+	}
+	
+	void setActiveDialog (Dialog dialog)
+	{
+		activedialog = dialog;
+	}
+	
     /**
      * Constructs a new {@code World} with the given dimensions. Both width and height must be
      * positive integers.
@@ -71,6 +82,8 @@ public class World extends Messenger
     {
         Guard.argumentsArePositive(width, height);
 
+		this.useViewfield = true;
+		this.activedialog = null;
         this.doorsbycoord = new HashMap<Coordinate,Door> ();
         this.doorsbyid = new HashMap<String,Door> ();
         this.width = width;
@@ -84,11 +97,13 @@ public class World extends Messenger
 
         drawOrder = new ArrayList<Class<? extends Actor>>();
         drawOrder.add(Player.class);
+        drawOrder.add(Ally.class);
         drawOrder.add(Monster.class);
         drawOrder.add(Item.class);
 
         actOrder = new ArrayList<Class<? extends Actor>>();
         actOrder.add(Player.class);
+        actOrder.add(Ally.class);
         actOrder.add(Monster.class);
         actOrder.add(Item.class);
     }

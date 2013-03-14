@@ -17,7 +17,7 @@ import pazi.features.EatBrains;
 public class CreatureFactory {
 	public static Creature createCreature(String identifier, World world){
 		Creature creature = null;
-		if(identifier == "zombie1"){
+		if(identifier.equals ("zombie1")){
 			ColoredChar faces[] = new ColoredChar[9];
 			for (int i = 0; i < 9; i++)
 				faces[i] = ColoredChar.create('Z', new Color(0x00FF00+i));
@@ -27,13 +27,15 @@ public class CreatureFactory {
 	        creature.getWalkFeatures().add(new EatBrains());
 			creature.setWalkBehaviour(new Follow(world.getPlayer(), 5));
 			creature.setBehaviour(new RandomBehaviour());
-		} else if (identifier == "bandit2"){
+		} else if (identifier.equals("bandit2")){
 				creature = new Monster(ColoredChar.create(' ', Color.red), "Touchy Hobbit");
 				creature.addGeneralFeature(Braaaiiiiins.getInstance());
 				ColoredChar faces[] = new ColoredChar[9];
 				for (int i = 0; i < 9; i++)
 					faces[i] = ColoredChar.create('B', new Color(0xFF0000+i));
 				creature.setBehaviour(new SneakStealFlee(world.getPlayer(), faces));
+		} else if (identifier.equals("priest")) {
+			creature = new Ally (ColoredChar.create('P'), "Priest");
 		} else {
 			System.out.println("Konnte Kreatur \"" + identifier + "\" nicht laden!");
 		}

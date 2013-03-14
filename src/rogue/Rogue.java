@@ -17,9 +17,9 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
 import pazi.Display;
+import pazi.behaviour.Follow;
+import pazi.behaviour.RandomBehaviour;
 import pazi.features.Braaaiiiiins;
-import pazi.features.Follow;
-import pazi.features.RandomBehaviour;
 import rogue.creature.CreatureFactory;
 import rogue.creature.Monster;
 import rogue.creature.Player;

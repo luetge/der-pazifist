@@ -5,9 +5,9 @@ import jade.util.datatype.ColoredChar;
 
 import java.awt.Color;
 
+import pazi.behaviour.Follow;
+import pazi.behaviour.RandomBehaviour;
 import pazi.features.Braaaiiiiins;
-import pazi.features.Follow;
-import pazi.features.RandomBehaviour;
 
 public class CreatureFactory {
 	public static Creature createCreature(String identifier, World world){

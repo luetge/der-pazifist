@@ -1,18 +1,18 @@
 package pazi.features;
 
-import jade.util.Dice;
-import jade.util.datatype.ColoredChar;
-
 import java.awt.Color;
 import java.util.ArrayList;
 
+import pazi.behaviour.DeadBehaviour;
+import pazi.behaviour.Follow;
+import pazi.behaviour.IBehaviour;
 import rogue.creature.Creature;
 import rogue.creature.Monster;
 
 public class EatBrains implements IBeforeAfterFeature<Monster> {
 	
 	private int maxDist;
-	private IFeature oldBehaviour;
+	private IBehaviour oldBehaviour;
 	private Creature deadBody;
 	private static final ArrayList<Color> COLORS = new ArrayList<Color>();
 	

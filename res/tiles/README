@@ -11,3 +11,15 @@ tilename.txt enthält zwei Zeilen:
 
 Alle .txt Dateien in diesem Verzeichnis werden automatisch
 eingelesen (und eine zugehörige .png Datei muss existieren).
+
+Für Zombies (Zeichen 'Z'):
+Farbe 00FF00:	Zombie steht
+Farbe 01FF00:	Zombie von Norden
+Farbe 02FF00:   Zombie von Osten
+Farbe 03FF00:	Zombie von Süden
+Farbe 04FF00:   Zombie von Westen
+Farbe 05FF00:   Zombie von Nordost
+Farbe 06FF00:   Zombie von Südost
+Farbe 07FF00:   Zombie von Südwest
+Farbe 08FF00:   Zombie von Nordwest
+Farbe 808080:   Tot

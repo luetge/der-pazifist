@@ -1,5 +1,7 @@
 package jade.util.datatype;
 
+import jade.util.Guard;
+
 import java.awt.event.KeyEvent;
 
 /**
@@ -57,6 +59,11 @@ public enum Direction
     public int dy()
     {
         return dy;
+    }
+    
+    public int getID()
+    {
+    	return (dy+1)*3+dx+1;
     }
 
     /**

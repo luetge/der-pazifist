@@ -1,6 +1,7 @@
 package rogue.creature;
 
 import jade.core.Actor;
+import jade.util.Guard;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
@@ -24,14 +25,32 @@ public abstract class Creature extends Actor
     protected LinkedList<IBeforeAfterFeature> fightFeatures = new LinkedList<IBeforeAfterFeature>();
     protected IFeature fightBehaviour;
     
-    
+    private ColoredChar faces[];
     
     public Creature(ColoredChar face, String Name)
     {
-        super(face, Name);
+        this(new ColoredChar[]{face, face, face, face, face, face, face, face ,face}, Name);
+    }
+    
+    public Creature(ColoredChar faces[], String Name)
+    {
+    	super (faces[4], Name);
+    	Guard.validateArgument(faces.length == 9);
+    	this.faces = faces;
         walkBehaviour = new DoNothing();
         fightBehaviour = new DoNothing();
         setBehaviour(new DoNothing());
+    }
+    
+    public void setFace (Direction dir, ColoredChar face)
+    {
+    	this.faces[dir.getID()] = face;
+    }
+    
+    public void setCurrentFace (int id)
+    {
+    	Guard.argumentInsideBound(id, 9);
+    	setFace (faces[id]);
     }
 
     @Override
@@ -77,7 +96,11 @@ public abstract class Creature extends Actor
 
 	public void doStep() {
 		if(nextCoordinate != null)
-			setPos(nextCoordinate);		
+		{
+			Direction dir = pos().directionTo(nextCoordinate);
+			setCurrentFace (dir.getID());
+			setPos(nextCoordinate);
+		}
 	}
 	
 	public void setNextCoord(Coordinate coordinate) {

@@ -1,0 +1,41 @@
+In der ersten Zeile einer AsciiMap können Aliases definiert werden.
+Ein Alias hat folgende Form: name=wert
+Mehrere Aliases werden durch einen Strichpunkt getrennt.
+In der gesamten Map können Escape Sequenzen verteilt werden.
+Das Escape Zeichen ist ¥, eine Escape Sequenz hat also die Form:
+¥befehl¥
+Steht zwischen den Escape Zeichen ein vorher definiertes Alias, so wird
+dieses durch den definierten Wert des Aliases ersetzt.
+
+Bisherige Befehle für die Escape-Sequenzen sind:
+
+¥fg:FF0000¥		- setzt die Vordergrundfarbe (standard: weiß)
+
+¥bg:000000¥		- setzt die Hintergrundfarbe (standard: schwarz)
+
+¥p¥				- macht die folgenden Zeichen passierbar
+
+¥np¥			- macht die folgenden Zeichen unpassierbar (standard)
+
+¥door:id,destworld,destname,n¥
+Definiert eine Tür am nächsten Zeichen.
+Die Tür bekommt die Bezeichnung "id" und führt in die
+Welt "destworld" zur Tür "destname". An letzter Stelle steht die Ausrichtung
+der Tür, d.h. in welche Richtung man läuft, wenn man durch die Tür geht
+(d.h. die selbe Richtung wie die Türpfeile). Mögliche Ausrichtungen
+sind n für Norden, s für Süden, e für Osten und w für Westen.
+
+AsciiMaps können mit dem AsciiMapEditor gleichzeitig bearbeitet und angezeigt
+werden. "Laden" und "speichern" kann man im AsciiMapEditor erstellte
+AsciiMaps mittels Copy&Paste.
+
+Beispiel für eine Ascii-Map:
+
+fr=fg:FF0000;fw=fg:FFFFFF;door1=door:tuer1,raum143,tuer46,s
+#######################################
+#¥fr¥***********TEST ASCII MAP************¥fw¥#
+#¥p¥                                     ¥np¥#
+#¥p¥                                     ¥np¥#
+#¥p¥                                     ¥np¥#
+#¥p¥                                     ¥np¥#
+##################¥door1¥¥bg:806000¥↓¥bg:000000¥####################

@@ -1,10 +1,12 @@
 package jade.ui;
 
 import java.util.Collection;
+import java.util.Collections;
 
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 import java.awt.Color;
+import java.util.List;
 import jade.core.World;
 import rogue.creature.Player;
 
@@ -18,7 +20,7 @@ public class View {
 		this.center_y = center.y();
 	}
 	
-	public void update (TermPanel term, World world, Player player)
+	public void update (TiledTermPanel term, World world, Player player)
 	{
         term.clearBuffer();
 
@@ -55,21 +57,30 @@ public class View {
             	
             	Color background = world.lookBackground(worldx, worldy);
             	
-            	ColoredChar c = world.look(worldx, worldy);
-        		if (!viewfield.contains(new Coordinate (worldx, worldy)))
+            	List<ColoredChar> list = world.lookAll(worldx, worldy);
+            	Collections.reverse(list);
+            	for (ColoredChar c : list)
             	{
-        			if (!world.isAlwaysVisible (worldx, worldy))
+            		if (c == null)
             			continue;
-        			else
-        				c = ColoredChar.create (c.ch (), c.color().darker());
-        			background = background.darker();
+            		if (world.useViewfield())
+            		{
+            			if (!viewfield.contains(new Coordinate (worldx, worldy)))
+            			{
+            				if (!world.isAlwaysVisible (worldx, worldy))
+            					continue;
+            				else
+            					c = ColoredChar.create (c.ch (), c.color().darker());
+            				background = background.darker();
+            			}
+            			else
+            			{
+            				if (background == Color.black)
+            					background = Color.darkGray;
+            			}
+            		}
+            		term.bufferTile(x, y, c);
             	}
-        		else
-        		{
-        			if (background == Color.black)
-        				background = Color.darkGray;
-        		}
-            	term.bufferChar(x, y, c);
             	term.bufferBackground(x, y, background);
             }
         }

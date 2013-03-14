@@ -11,9 +11,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import jade.ui.TermPanel;
+import jade.ui.TiledTermPanel;
 import jade.util.datatype.MutableCoordinate;
 import jade.util.datatype.Coordinate;
+import jade.util.datatype.Direction;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Door;
 import jade.util.Guard;
@@ -105,12 +106,17 @@ public class AsciiMap {
         }
 	}
 	
-	public void render (TermPanel term)
+	public void render (TiledTermPanel term, Coordinate pos)
 	{
 		for (Coordinate coord : characters.keySet())
-			term.bufferChar(coord,  characters.get(coord).ch());
+			term.bufferTile(coord.getTranslated(pos),  characters.get(coord).ch());
 		for (Coordinate coord : backgrounds.keySet())
-			term.bufferBackground(coord, backgrounds.get(coord));
+			term.bufferBackground(coord.getTranslated(pos), backgrounds.get(coord));
+	}
+	
+	public void render (TiledTermPanel term, int posx, int posy)
+	{
+		render(term, new Coordinate (posx, posy));
 	}
 	
 	public Set<Coordinate> getSpecial (String name)
@@ -151,10 +157,26 @@ public class AsciiMap {
 			else if (esc.startsWith("door:"))
 			{
 				String params[] = esc.substring(5).split(",");
-				Guard.validateArgument(params.length == 3);
+				Guard.validateArgument(params.length == 4);
+				Direction dir = Direction.NORTH;
+				Guard.validateArgument(params[3].length() == 1);
+				switch (params[3].charAt(0))
+				{
+				case 'n':
+					dir = Direction.NORTH;
+					break;
+				case 'w':
+					dir = Direction.WEST;
+					break;
+				case 'e':
+					dir = Direction.EAST;
+					break;
+				case 's':
+					dir = Direction.SOUTH;
+					break;
+				}
 				doors.put(coord.copy(), new Door(params[0],
-						Integer.parseInt(params[1]),
-						Integer.parseInt(params[2])));
+						coord.x(), coord.y(), params[1], params[2], dir));
 			}
 			else if (esc.equals("p"))
 			{

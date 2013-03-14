@@ -10,6 +10,7 @@ import java.awt.Rectangle;
 import java.awt.Color;
 import jade.gen.map.AsciiMap;
 import jade.util.datatype.Coordinate;
+import jade.util.datatype.Direction;
 
 import java.awt.Color;
 import java.util.LinkedList;
@@ -31,7 +32,7 @@ public class City extends MapGenerator
     private int minHeight;
     private AsciiMap church[];
     private LinkedList<Rectangle> reserved;
-    private int roomnum;
+    private int housenum;
 
     /**
      * Instantiates a BSP with default parameters. Room minSize is 4. Wall and floor tiles are '#'
@@ -50,7 +51,7 @@ public class City extends MapGenerator
      */
     public City(ColoredChar floorTile, ColoredChar wallTile, int minWidth, int minHeight)
     {
-    	this.roomnum = 0;
+    	this.housenum = 0;
         this.floorTile = floorTile;
         this.wallTile = wallTile;
         this.minWidth = minWidth;
@@ -59,7 +60,7 @@ public class City extends MapGenerator
         this.reserved = new LinkedList<Rectangle>();
         
         for (int i = 0; i < 3; i++)
-        	this.church[i] = new AsciiMap ("res/church" + i + ".txt");
+        	this.church[i] = new AsciiMap ("res/maps/church" + i + ".txt");
     }
     
     private Rectangle getRandomRect (World world, Dice dice, int width, int height)
@@ -96,6 +97,15 @@ public class City extends MapGenerator
     {
     	Rectangle rect = getRandomRect (world, dice, church.width() + 2, church.height() + 2);
     	church.render (world, rect.x + 1, rect.y + 1);
+    	Map<Coordinate, Door> doors = church.getDoors();
+		for (Coordinate coord : doors.keySet())
+    	{
+			// d hat coordinaten relativ zur AsciiMap
+			Door d = doors.get(coord);
+			Door door = new Door(d.getID(), rect.x + 1 + coord.x(), rect.y + 1 + coord.y(),
+					d.getDestWorld(), d.getDestID(), d.getDirection());
+			world.addDoor(rect.x + 1 + coord.x(), rect.y + 1 + coord.y(), door);
+    	}
     }
     
     @Override
@@ -252,11 +262,13 @@ public class City extends MapGenerator
                 	world.setTile(c, false, doorx+x, doory, true);
                 	world.setTileBackground(new Color(0x806000).brighter(), doorx+x, doory);
                 }
-                Door door = new Door("room" + roomnum, 1, 1);
-                world.addDoor (doorx, doory, door);
-                world.addDoor (doorx+1, doory, door);
-                world.addDoor (doorx+2, doory, door);
-                roomnum++;
+                for (int i = 0; i < 3; i++)
+                {
+                	Door door = new Door("house" + housenum + "entry" + i,
+                					 doorx+i, doory, "house" + housenum, "worldentry" + i);
+                	world.addDoor (doorx+i, doory, door);
+                }
+                housenum++;
             }
             else
             {

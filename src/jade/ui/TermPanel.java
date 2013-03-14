@@ -6,6 +6,7 @@ import jade.util.datatype.Coordinate;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.event.ComponentListener;
@@ -17,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.awt.image.BufferedImage;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -33,7 +35,7 @@ public class TermPanel extends Terminal
     public static final int DEFAULT_SIZE = 12;
     
     private Screen screen;
-
+    
     /**
      * Constructs a new {@code TermPanel} with the given dimensions. Note that the rows and columns
      * can be changed by resizing the underlying JPanel, but font size is fixed.
@@ -104,7 +106,12 @@ public class TermPanel extends Terminal
     {
     	return screen().tileHeight();
     }
-    
+
+    public int tileWidth()
+    {
+    	return screen().tileWidth();
+    }
+
     protected Screen screen()
     {
         return screen;
@@ -146,7 +153,15 @@ public class TermPanel extends Terminal
         private BlockingQueue<Integer> inputBuffer;
         private Map<Coordinate, ColoredChar> screenBuffer;
         private Map<Coordinate, Color> backgroundBuffer;
+        private Map<ColoredChar, BufferedImage> images;
         private String sCurrentConsoleText = "";
+        
+        public void setCurrentConsoleText(String sText)
+        {
+        	this.sCurrentConsoleText = sText;
+        }
+
+        private int columns, rows;
 
         public Screen(int columns, int rows, int fontSize)
         {
@@ -162,6 +177,9 @@ public class TermPanel extends Terminal
             addKeyListener(this);
             this.tileWidth = tileWidth;
             this.tileHeight = tileHeight;
+            this.columns = columns;
+            this.rows = rows;
+            this.images = new HashMap<ColoredChar, BufferedImage>();
             setPreferredSize(new Dimension(columns * tileWidth, rows * tileHeight));
             Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream ("res/DejaVuSansMono.ttf"));
             setFont(font.deriveFont(Font.PLAIN, tileHeight));
@@ -175,10 +193,16 @@ public class TermPanel extends Terminal
         	}
         }
         
-        public void setCurrentConsoleText(String sText){
-        	this.sCurrentConsoleText = sText;
+        public int columns()
+        {
+        	return columns;
         }
-
+        
+        public int rows()
+        {
+        	return rows;
+        }
+        
         protected int tileWidth()
         {
             return tileWidth;
@@ -187,6 +211,33 @@ public class TermPanel extends Terminal
         protected int tileHeight()
         {
             return tileHeight;
+        }
+        
+        protected void paintChar (Graphics page, int x, int y, ColoredChar ch)
+        {
+        	if (ch.ch() == ' ')
+        		return;
+        	synchronized(images)
+        	{
+        		BufferedImage image = images.get (ch);
+        	
+        		if (image == null)
+        		{
+        			FontMetrics fm = page.getFontMetrics();
+        			image = new BufferedImage(fm.charWidth(ch.ch()), fm.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        			Graphics g = image.createGraphics();
+        			String str = ch.toString ();
+
+        			g.setColor(ch.color());
+        			g.setFont(page.getFont());
+
+        			g.drawString(str, 0, fm.getAscent());
+
+        			images.put(ch,  image);
+        		}
+        	
+        		page.drawImage(image, x, y-tileHeight(), image.getWidth(), image.getHeight(), null);
+        	}
         }
 
         @Override
@@ -203,7 +254,7 @@ public class TermPanel extends Terminal
                     int x = tileWidth * coord.x();
                     int y = tileHeight * coord.y();
                 	page.setColor(c);
-                	page.fillRect(x, y+2,	tileWidth, tileHeight);
+                	page.fillRect(x, y+2, tileWidth, tileHeight);
                 }
             }
             synchronized(screenBuffer)
@@ -211,19 +262,16 @@ public class TermPanel extends Terminal
                 for(Coordinate coord : screenBuffer.keySet())
                 {
                     ColoredChar ch = screenBuffer.get(coord);
-                    if (ch.ch () == ' ')
-                    	continue;
                     int x = tileWidth * coord.x();
-                    int y = tileHeight * (coord.y() + 1);
+                    int y = tileHeight * coord.y();
                     
-                    String str = ch.toString ();
-
-                    page.setColor(ch.color());
-                    page.drawString(str, x, y);
+                    paintChar (page, x, y + tileHeight(), ch);
                 }
-                page.setColor(Color.white);
-                page.drawString(sCurrentConsoleText, 0, tileHeight);
             }
+            page.setColor(Color.black);
+            page.fillRect(0,  0,  getWidth(),  tileHeight);
+            page.setColor(Color.white);
+            page.drawString(sCurrentConsoleText, 0, tileHeight);
         }
 
         public void setBuffer(Map<Coordinate, ColoredChar> buffer)

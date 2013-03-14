@@ -13,12 +13,14 @@ import java.util.Collection;
 import pazi.features.KeyboardFight;
 import pazi.features.KeyboardWalk;
 import pazi.features.PlayerBehaviour;
+import pazi.items.Item;
 
 public class Player extends Creature implements Camera
 {
     private ViewField fov;
     int counter = 0;
     int faith, rage;
+    int gold = 0;
 
     public Player()
     {
@@ -41,6 +43,9 @@ public class Player extends Creature implements Camera
     		world().stepThroughDoor(door);
     	}
     	super.setPos(x,y);
+    	Item item = world().getActorAt(Item.class, x, y);
+    	if (item != null)
+    			item.getPickedUp(this);
     }
 
     @Override
@@ -55,5 +60,11 @@ public class Player extends Creature implements Camera
     public void takeDamage(int d) {
     	super.takeDamage(d);
     	HUD.setHP(hp);
-    }
+    }   
+
+	public void getGold(int amount) {
+    	gold+=amount;
+    	HUD.setGold(gold);	
+	}
+
 }

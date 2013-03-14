@@ -21,6 +21,7 @@ import java.util.Set;
 import rogue.creature.Creature;
 import rogue.creature.Monster;
 import rogue.creature.Player;
+import pazi.items.Item;
 
 /**
  * Represents a game world on which {@code Actor} can interact.
@@ -34,12 +35,25 @@ public class World extends Messenger
     private List<Class<? extends Actor>> drawOrder;
     private List<Class<? extends Actor>> actOrder;
 	private int currentKey;
-	private Map<Coordinate,Door> doors;
+	private Map<Coordinate,Door> doorsbycoord;
+	private Map<String,Door> doorsbyid;
 	Door activedoor;
+	private boolean useViewfield;
 	
 	public World(int width, int height, String name){
 		this(width, height);
 		setName(name);
+		this.useViewfield = true;
+	}
+	
+	public boolean useViewfield()
+	{
+		return useViewfield;
+	}
+	
+	public void useViewfield(boolean useViewfield)
+	{
+		this.useViewfield = useViewfield;
 	}
 	
 	public void stepThroughDoor(Door door)
@@ -57,7 +71,8 @@ public class World extends Messenger
     {
         Guard.argumentsArePositive(width, height);
 
-        this.doors = new HashMap<Coordinate,Door> ();
+        this.doorsbycoord = new HashMap<Coordinate,Door> ();
+        this.doorsbyid = new HashMap<String,Door> ();
         this.width = width;
         this.height = height;
         this.activedoor = null;
@@ -70,10 +85,12 @@ public class World extends Messenger
         drawOrder = new ArrayList<Class<? extends Actor>>();
         drawOrder.add(Player.class);
         drawOrder.add(Monster.class);
+        drawOrder.add(Item.class);
 
         actOrder = new ArrayList<Class<? extends Actor>>();
         actOrder.add(Player.class);
         actOrder.add(Monster.class);
+        actOrder.add(Item.class);
     }
 
     /**
@@ -245,7 +262,8 @@ public class World extends Messenger
     
     public void addDoor (Coordinate coord, Door door)
     {
-    	doors.put(coord, door);
+    	doorsbycoord.put(coord, door);
+    	doorsbyid.put(door.getID(), door);
     }
     
     public Door getDoor (int x, int y)
@@ -255,7 +273,12 @@ public class World extends Messenger
     
     public Door getDoor(Coordinate coord)
     {
-    	return doors.get(coord);
+    	return doorsbycoord.get(coord);
+    }
+    
+    public Door getDoor(String id)
+    {
+    	return doorsbyid.get(id);
     }
 
     /**
@@ -368,7 +391,9 @@ public class World extends Messenger
                     look.add(actor.face());
             }
 
-        look.add(tileAt(x, y));
+        ColoredChar tile = tileAt(x, y);
+        if (tile != null)
+        	look.add(tile);
 
         return look;
     }

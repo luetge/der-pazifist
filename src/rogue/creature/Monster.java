@@ -1,10 +1,9 @@
 package rogue.creature;
 
-import pazi.features.DefaultFightBehaviour;
-import pazi.features.DoNothing;
-import pazi.features.EatBrains;
 import jade.path.AStar;
 import jade.util.datatype.ColoredChar;
+import pazi.features.DefaultFightBehaviour;
+import pazi.features.EatBrains;
 
 public class Monster extends Creature
 {

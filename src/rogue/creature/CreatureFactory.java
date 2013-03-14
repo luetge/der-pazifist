@@ -6,9 +6,13 @@ import jade.util.datatype.Direction;
 
 import java.awt.Color;
 
+import pazi.behaviour.DefaultFightBehaviour;
+import pazi.behaviour.Flee;
+import pazi.behaviour.Follow;
+import pazi.behaviour.RandomBehaviour;
+import pazi.behaviour.SneakStealFlee;
 import pazi.features.Braaaiiiiins;
-import pazi.features.Follow;
-import pazi.features.RandomBehaviour;
+import pazi.features.EatBrains;
 
 public class CreatureFactory {
 	public static Creature createCreature(String identifier, World world){
@@ -26,11 +30,19 @@ public class CreatureFactory {
 			faces[Direction.NORTHWEST.getID()] = ColoredChar.create('Z', new Color(0x08FF00));
 			creature = new Monster(faces, "Blutiger Zombie");
 			creature.addGeneralFeature(Braaaiiiiins.getInstance());
-			creature.setWalkBehaviour(new Follow(world.getPlayer(), 20));
+	        creature.setFightBehaviour(new DefaultFightBehaviour());
+	        creature.getWalkFeatures().add(new EatBrains());
+			creature.setWalkBehaviour(new Follow(world.getPlayer(), 5));
 			creature.setBehaviour(new RandomBehaviour());
+		} else if (identifier == "bandit2"){
+				creature = new Monster(ColoredChar.create(' ', Color.red), "Touchy Hobbit");
+				creature.addGeneralFeature(Braaaiiiiins.getInstance());
+				creature.setBehaviour(new SneakStealFlee(world.getPlayer(), 'B'));
 		} else {
 			System.out.println("Konnte Kreatur \"" + identifier + "\" nicht laden!");
 		}
+		
+		
 		return creature;
 	}
 }

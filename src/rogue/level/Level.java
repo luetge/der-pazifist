@@ -17,7 +17,6 @@ import java.awt.Color;
 import java.io.File;
 
 import pazi.features.Braaaiiiiins;
-import pazi.features.Follow;
 import pazi.features.RandomBehaviour;
 import pazi.items.Item;
 import pazi.items.Gold;

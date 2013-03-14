@@ -17,9 +17,9 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
 import pazi.Display;
+import pazi.behaviour.Follow;
+import pazi.behaviour.RandomBehaviour;
 import pazi.features.Braaaiiiiins;
-import pazi.features.Follow;
-import pazi.features.RandomBehaviour;
 import rogue.creature.CreatureFactory;
 import rogue.creature.Monster;
 import rogue.creature.Player;
@@ -54,6 +54,7 @@ public class Rogue implements ComponentListener
         
 		for (int i = 0; i < 100; i++){
 			level.world().addActor(CreatureFactory.createCreature("zombie1", level.world()));
+			level.world().addActor(CreatureFactory.createCreature("bandit2", level.world()));
 		}
         
         term.addComponentListener(this);

@@ -2,12 +2,10 @@ package rogue.creature;
 
 import jade.core.World;
 import jade.util.datatype.ColoredChar;
-import jade.util.datatype.Direction;
 
 import java.awt.Color;
 
 import pazi.behaviour.DefaultFightBehaviour;
-import pazi.behaviour.Flee;
 import pazi.behaviour.Follow;
 import pazi.behaviour.ParalyzerBehaviour;
 import pazi.behaviour.RandomBehaviour;
@@ -24,7 +22,7 @@ public class CreatureFactory {
 				faces[i] = ColoredChar.create('Z', new Color(0x00FF00+i));
 			creature = new Monster(faces, "Blutiger Zombie");
 			creature.addGeneralFeature(Braaaiiiiins.getInstance());
-	        creature.setFightBehaviour(new DefaultFightBehaviour());
+	        creature.setFightBehaviour(DefaultFightBehaviour.getInstance());
 	        creature.getWalkFeatures().add(new EatBrains());
 			creature.setWalkBehaviour(new Follow(world.getPlayer(), 5));
 			creature.setBehaviour(new RandomBehaviour());

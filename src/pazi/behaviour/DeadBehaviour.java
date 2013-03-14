@@ -12,6 +12,19 @@ public class DeadBehaviour implements IBehaviour<Creature> {
 	
 	public static ArrayList<Creature> deadBodies = new ArrayList<Creature>();
 	
+	/**
+	 * Singleton
+	 */
+	private static DeadBehaviour inst;
+	
+	private DeadBehaviour(){}
+	
+	public static DeadBehaviour getInstance(){
+		if(inst == null)
+			inst = new DeadBehaviour();
+		return inst;
+	}
+	
 	public DeadBehaviour(Creature creature){
 		creature.appendMessage("UUuuuuuuaaaaarrrrrrrghghhgghhh!");
 		creature.setFace(new ColoredChar(creature.face().ch(), Color.gray));

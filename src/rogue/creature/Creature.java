@@ -38,9 +38,9 @@ public abstract class Creature extends Actor
     	Guard.validateArgument(faces.length == 9);
     	this.faces = faces;
 
-        walkBehaviour = new DoNothingBehaviour();
-        fightBehaviour = new DoNothingBehaviour();
-        setBehaviour(new DoNothingBehaviour());
+        walkBehaviour = DoNothingBehaviour.getInstance();
+        fightBehaviour = DoNothingBehaviour.getInstance();
+        setBehaviour(DoNothingBehaviour.getInstance());
     }
     
     public void setFace (Direction dir, ColoredChar face)
@@ -99,6 +99,8 @@ public abstract class Creature extends Actor
     }
     
     public void takeDamage(int d){
+    	if(getBehaviour().getClass() == DeadBehaviour.class)
+    		return;
     	hp = Math.max(0, hp-d);
     	appendMessage("Ich habe " + d + " Schaden erlitten! Ahhhh Poopoo!", true);
     	if(hp == 0)

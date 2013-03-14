@@ -104,7 +104,11 @@ public abstract class Creature extends Actor
 	}
 	
 	public void setWalkBehaviour(IBehaviour walkBehaviour){
+		if(this.walkBehaviour != null)
+			this.walkBehaviour.exit(this);
 		this.walkBehaviour = walkBehaviour;
+		if(walkBehaviour != null)
+			walkBehaviour.init(this);
 	}
 	
 	public IBehaviour getWalkBehaviour(){
@@ -112,7 +116,11 @@ public abstract class Creature extends Actor
 	}
 	
 	public void setFightBehaviour(IBehaviour fightBehaviour){
+		if(this.fightBehaviour != null)
+			this.fightBehaviour.exit(this);
 		this.fightBehaviour = fightBehaviour;
+		if(fightBehaviour != null)
+			fightBehaviour.init(this);
 	}
 	
 	public IBehaviour getFightBehaviour(){

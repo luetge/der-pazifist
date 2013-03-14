@@ -9,6 +9,7 @@ import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
 import jade.util.datatype.Door;
+import java.awt.Color;
 
 import java.util.Collection;
 
@@ -19,11 +20,18 @@ public class Player extends Creature implements Camera
     private ViewField fov;
     int counter = 0;
     int faith, rage;
+    
+    ColoredChar faces[];
+    int currentface;
     int gold = 0;
 
     public Player()
     {
         super(ColoredChar.create('♓'), "Der PaziFist");
+    	faces = new ColoredChar[2];
+    	faces[0] = ColoredChar.create('♓', new Color(0xFFFFFF));
+    	faces[1] = ColoredChar.create('♓', new Color(0xFEFEFE));
+    	currentface = 0;
         fov = new RayCaster();
         min_d = 40;
         max_d = 70;
@@ -49,6 +57,11 @@ public class Player extends Creature implements Camera
     	 Direction dir = Direction.keyToDir(world().getCurrentKey());
          if(dir != null)
              move(dir);
+         
+         currentface++;
+         if (currentface >= faces.length)
+        	 currentface = 0;
+         setFace(faces[currentface]);
     };
 
     @Override

@@ -17,7 +17,7 @@ import pazi.features.IBeforeAfterFeature;
 
 public abstract class Creature extends Actor
 {
-	protected int hp = 100;
+	private int hp = 100;
 	protected int min_d, max_d;
 	protected Coordinate nextCoordinate;
 	protected LinkedList<IBeforeAfterFeature> walkFeatures = new LinkedList<IBeforeAfterFeature>();
@@ -118,14 +118,14 @@ public abstract class Creature extends Actor
     public void takeDamage(int d){
     	if(getBehaviour().getClass() == DeadBehaviour.class)
     		return;
-    	hp = Math.max(0, hp-d);
+    	setHP(Math.max(0, hp-d));
     	appendMessage("Ich habe " + d + " Schaden erlitten! Ahhhh Poopoo!", true);
     	if(hp == 0)
     		setBehaviour(new DeadBehaviour(this));
     }
     
     public void addHP(int hp){
-    	this.hp += hp;
+    	setHP(this.hp + hp);
     }
 
 	public void doStep() {
@@ -195,5 +195,13 @@ public abstract class Creature extends Actor
 
 	public void fight(Direction dir) {
 		fight(world().getActorAt(Creature.class, pos().getTranslated(dir)));
+	}
+	
+	protected void setHP(int hp){
+		this.hp = hp;
+	}
+	
+	protected int getHP(){
+		return hp;
 	}
 }

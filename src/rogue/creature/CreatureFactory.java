@@ -34,8 +34,10 @@ public class CreatureFactory {
 					faces[i] = ColoredChar.create('B', new Color(0xFF0000+i));
 				creature.setBehaviour(new SneakStealFlee(world.getPlayer(), faces));
 		} else if (identifier.equals("alien1")){
-			creature = new Monster(ColoredChar.create('A', Color.yellow), "Schleimiges Alien");
-			creature.setAllFaces(new ColoredChar('A', Color.yellow));
+			ColoredChar faces[] = new ColoredChar[9];
+			for (int i = 0; i < 9; i++)
+				faces[i] = ColoredChar.create('A', new Color(0xFFFF00+i));
+			creature = new Monster(faces, "Schleimiges Alien");
 			creature.setBehaviour(new ParalyzerBehaviour(world.getPlayer()));
 		} else if (identifier.equals("priest")) {
 			creature = new Ally (ColoredChar.create('P'), "Priest");

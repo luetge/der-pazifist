@@ -84,19 +84,33 @@ public class Level
     		}
     		else
     		{
-        		int size = Dice.global.nextInt(25, 30);
+        		int size;
+    			if (door.getDestWorld().equals("bunker"))
+    			{
+    				size = 40;
+    			}
+    			else
+    			{
+    				size = Dice.global.nextInt(25, 30);
+    			}
+
         		w = new World (size, size*3/4, door.getDestWorld());
     			housegen.generate(w);
     			housegen.addExitDoors (w, world.getName());
     			movePlayerThroughDoor (w, door);
-    			for (int i = 0; i < 5; i++){
-    				w.addActor(CreatureFactory.createCreature("zombie1", w));
-    				Gold g = new Gold(ColoredChar.create('o', Color.yellow),
-        					"Gold");
-        			w.addActor(g);
+    			if (w.getName().equals("bunker"))
+    			{
+    				w.addActor(CreatureFactory.createCreature("hitler", w));
     			}
-    			w.addActor(CreatureFactory.createCreature("hitler", w));
-
+    			else
+    			{
+    				for (int i = 0; i < 5; i++){
+    					w.addActor(CreatureFactory.createCreature("zombie1", w));
+    					Gold g = new Gold(ColoredChar.create('o', Color.yellow),
+        						"Gold");
+    					w.addActor(g);
+    				}
+    			}
     		}
     		w.useViewfield(false);
     		worlds.put(door.getDestWorld(), w);

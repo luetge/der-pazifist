@@ -44,7 +44,7 @@ public class CreatureFactory {
 		} else if (identifier.equals("priest")) {
 			creature = new Ally (ColoredChar.create('P'), "Priest", new Dialog ());
 		} else if (identifier.equals("hitler")) {
-			creature = new Monster(ColoredChar.create('H', Color.magenta), "Hitler");
+			creature = new Monster(ColoredChar.create('H', Color.white), "Hitler");
 			creature.setFightBehaviour(DefaultFightBehaviour.getInstance());
 			creature.setWalkBehaviour(new RandomWalk());
 			creature.addGeneralFeature(new Braaaiiiiins("Arrrrrrr!", 10));

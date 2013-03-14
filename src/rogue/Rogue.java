@@ -1,6 +1,7 @@
 package rogue;
 
 import jade.core.Messenger.Message;
+import jade.core.Dialog;
 import jade.ui.HUD;
 import jade.ui.Log;
 import jade.ui.TiledTermPanel;
@@ -70,13 +71,23 @@ public class Rogue implements ComponentListener
         while(!player.expired())
         {
         	view.update (term, level.world(), player);
-        	showMessages();
-			level.world().setCurrentKey(term.getKey());
-            Door door = level.world().tick();
-            if (door != null)
-            {
-            	level.stepThroughDoor(door);
-            }
+        	
+        	Dialog dialog = level.world().getActiveDialog();
+        	
+        	if (dialog != null)
+        	{
+        		dialog.tick(level.world());
+        	}
+        	else
+        	{
+        		showMessages();
+        		level.world().setCurrentKey(term.getKey());
+        		Door door = level.world().tick();
+        		if (door != null)
+        		{
+        			level.stepThroughDoor(door);
+        		}
+        	}
         }
         
         showMessages();

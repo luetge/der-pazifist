@@ -8,6 +8,7 @@ import jade.util.datatype.Direction;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import pazi.features.DeadBehaviour;
 import pazi.features.Death;
 import pazi.features.DoNothing;
 import pazi.features.IBeforeAfterFeature;
@@ -65,7 +66,7 @@ public abstract class Creature extends Actor
     	hp = Math.max(0, hp-d);
     	appendMessage("Ich habe " + d + " Schaden erlitten! Ahhhh Poopoo!");
     	if(hp == 0)
-    		addGeneralFeature(new Death(this));
+    		setBehaviour(new DeadBehaviour(this));
     }
 
 	public void doStep() {

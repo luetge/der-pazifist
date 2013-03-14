@@ -16,6 +16,8 @@ public class EatBrains implements IBeforeAfterFeature<Monster> {
 	private Creature deadBody;
 	private static final ArrayList<Color> COLORS = new ArrayList<Color>();
 	
+	protected final int HP = 20;
+	
 	public EatBrains(){
 		this(5);
 	}
@@ -33,25 +35,42 @@ public class EatBrains implements IBeforeAfterFeature<Monster> {
 		if(oldBehaviour == null) {
 			deadBody = getDeadBodyInRange(monster, maxDist);
 			if(deadBody != null){
+				System.out.println("Es riecht nach Leiche, das Hirn schnappe ich mir!" + monster.pos());
 				oldBehaviour = monster.getWalkBehaviour();
 				monster.setWalkBehaviour(new Follow(deadBody, maxDist));
 			}
 			return;
 		}
-		if(deadBody.pos() == monster.pos()){
+		
+		if(deadBody.expired()){
+			reset(monster);
+			return;
+		}
+		
+		if(deadBody.pos().equals(monster.pos())){
 			monster.appendMessage("Hahahahahaha! I am eating your brains! Yumyumyumyum!");
-			monster.setFace(new ColoredChar(monster.face().ch(), Dice.global.choose(COLORS)));
+			eatBrain(monster);
 			deadBody.expire();
 			deadBody = null;
-			monster.setBehaviour(oldBehaviour);
-			oldBehaviour = null;
+			reset(monster);
 		}
 	}
 	
+	protected void eatBrain(Monster monster){
+		// 20 Leben hinzufügen
+		monster.takeDamage(-HP);
+	}
+	
+	protected void reset(Monster monster){
+		monster.setWalkBehaviour(oldBehaviour);
+		oldBehaviour = null;
+	}
+	
 	private Creature getDeadBodyInRange(Monster monster, int range){
-		for(Creature creature : monster.world().getActors(Creature.class))
-			if(creature.pos().distance(monster.pos()) < range && creature.getFeatures(Death.class).size() != 0)
+		for(Creature creature : DeadBehaviour.deadBodies){
+			if(creature != null && creature.pos().distance(monster.pos()) < range && creature.getBehaviour().getClass() == DeadBehaviour.class && !creature.expired())
 				return creature;
+		}
 		return null;
 	}
 

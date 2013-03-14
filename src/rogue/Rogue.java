@@ -30,8 +30,6 @@ public class Rogue implements ComponentListener
 		running = false;
 		term = TiledTermPanel.getFramedTerminal("Der PaziFist");
 
-		term.loadTiles("res/tiles");
-		
         player = new Player();
         level = new Level(256, 196, player, "mainworld");
         
@@ -49,6 +47,8 @@ public class Rogue implements ComponentListener
 		Display.printStartScreen(term);
         
 		waitForSpace();
+		
+		term.loadTiles("res/tiles");
 	}
 	
 	public void componentHidden(ComponentEvent e) {
@@ -123,6 +123,7 @@ public class Rogue implements ComponentListener
 	
 	public void finish () throws InterruptedException
 	{
+		term.clearTiles();
 		HUD.setVisible(false);
         Display.printEndScreen(term);
         waitForSpace();

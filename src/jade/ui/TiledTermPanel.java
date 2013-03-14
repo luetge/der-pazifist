@@ -73,6 +73,11 @@ public class TiledTermPanel extends TermPanel
         }
     }
     
+    public void clearTiles()
+    {
+    	screen().clearTiles();
+    }
+    
     public void loadTiles (String dirname)
     {
 		File tiledir = new File(dirname);
@@ -234,6 +239,14 @@ public class TiledTermPanel extends TermPanel
                 tileBuffer.clear();
                 tileBuffer.putAll(buffer);
             }
+        }
+        
+        public void clearTiles()
+        {
+        	synchronized(tileRegister)
+        	{
+        		tileRegister.clear();
+        	}
         }
 
         public void registerTile(ColoredChar ch, Image tile)

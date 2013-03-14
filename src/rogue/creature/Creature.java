@@ -8,11 +8,10 @@ import jade.util.datatype.Direction;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import pazi.features.DeadBehaviour;
-import pazi.features.Death;
-import pazi.features.DoNothing;
+import pazi.behaviour.DeadBehaviour;
+import pazi.behaviour.DoNothingBehaviour;
+import pazi.behaviour.IBehaviour;
 import pazi.features.IBeforeAfterFeature;
-import pazi.features.IFeature;
 
 public abstract class Creature extends Actor
 {
@@ -20,18 +19,18 @@ public abstract class Creature extends Actor
 	protected int min_d, max_d;
 	protected Coordinate nextCoordinate;
 	protected LinkedList<IBeforeAfterFeature> walkFeatures = new LinkedList<IBeforeAfterFeature>();
-	protected IFeature walkBehaviour;
+	protected IBehaviour walkBehaviour;
     protected LinkedList<IBeforeAfterFeature> fightFeatures = new LinkedList<IBeforeAfterFeature>();
-    protected IFeature fightBehaviour;
+    protected IBehaviour fightBehaviour;
     
     
     
     public Creature(ColoredChar face, String Name)
     {
         super(face, Name);
-        walkBehaviour = new DoNothing();
-        fightBehaviour = new DoNothing();
-        setBehaviour(new DoNothing());
+        walkBehaviour = new DoNothingBehaviour();
+        fightBehaviour = new DoNothingBehaviour();
+        setBehaviour(new DoNothingBehaviour());
     }
 
     @Override
@@ -104,19 +103,19 @@ public abstract class Creature extends Actor
 		doStep();
 	}
 	
-	public void setWalkBehaviour(IFeature walkBehaviour){
+	public void setWalkBehaviour(IBehaviour walkBehaviour){
 		this.walkBehaviour = walkBehaviour;
 	}
 	
-	public IFeature getWalkBehaviour(){
+	public IBehaviour getWalkBehaviour(){
 		return walkBehaviour;
 	}
 	
-	public void setFightBehaviour(IFeature fightBehaviour){
+	public void setFightBehaviour(IBehaviour fightBehaviour){
 		this.fightBehaviour = fightBehaviour;
 	}
 	
-	public IFeature getFightBehaviour(){
+	public IBehaviour getFightBehaviour(){
 		return fightBehaviour;
 	}
 	

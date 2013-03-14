@@ -10,9 +10,9 @@ import jade.util.datatype.Door;
 
 import java.util.Collection;
 
-import pazi.features.KeyboardFight;
-import pazi.features.KeyboardWalk;
-import pazi.features.PlayerBehaviour;
+import pazi.behaviour.KeyboardFight;
+import pazi.behaviour.KeyboardWalk;
+import pazi.behaviour.PlayerBehaviour;
 import pazi.items.Item;
 
 public class Player extends Creature implements Camera

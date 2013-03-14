@@ -12,8 +12,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
 
+import pazi.behaviour.IBehaviour;
 import pazi.features.IFeature;
-import rogue.creature.Creature;
 
 //TODO Prioritäten bei Features
 
@@ -34,9 +34,9 @@ public abstract class Actor extends Messenger
     private boolean expired;
     private Actor holder;
     private Set<Actor> holds;
-    protected LinkedList<IFeature<Actor>> generalFeatures = new LinkedList<IFeature<Actor>>();
+    protected LinkedList<IFeature> generalFeatures = new LinkedList<IFeature>();
     boolean passable;
-	protected IFeature<Actor> behaviour;
+	protected IBehaviour behaviour;
 	/**
 	 * Gibt an, ob im aktuellen Zug bereits eine Aktion durchgeführt wurde.
 	 */
@@ -369,11 +369,11 @@ public abstract class Actor extends Messenger
 		this.hasActed = hasActed;
 	}
 	
-	public void setBehaviour(IFeature behaviour) {
+	public void setBehaviour(IBehaviour behaviour) {
 		this.behaviour = behaviour;
 	}
 
-	public IFeature<Actor> getBehaviour() {
+	public IBehaviour<Actor> getBehaviour() {
 		return behaviour;
 	}
     

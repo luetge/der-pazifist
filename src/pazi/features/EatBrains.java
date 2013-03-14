@@ -58,7 +58,7 @@ public class EatBrains implements IBeforeAfterFeature<Monster> {
 	
 	protected void eatBrain(Monster monster){
 		// 20 Leben hinzufügen
-		monster.takeDamage(-HP);
+		monster.addHP(HP);
 	}
 	
 	protected void reset(Monster monster){

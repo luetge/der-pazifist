@@ -227,18 +227,10 @@ public class TermPanel extends Terminal
                 String str = ch.toString ();
 
                 g.setColor(ch.color());
-                try {
-                	Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream ("res/DejaVuSansMono.ttf"));
-                	font = font.deriveFont(Font.PLAIN, tileHeight);
-                	g.setFont(font);
+                g.setFont(page.getFont());
 
-                	g.drawString(str, 0, fm.getAscent());
-                	
-                } catch (IOException e) {
-                	e.printStackTrace();
-                } catch (FontFormatException e) {
-                	e.printStackTrace();
-                }
+                g.drawString(str, 0, fm.getAscent());
+
                 images.put(ch,  image);
         	}
         	

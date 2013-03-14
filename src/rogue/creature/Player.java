@@ -60,6 +60,12 @@ public class Player extends Creature implements Camera
     	if (item != null)
     			item.getPickedUp(this);
     }
+    
+    @Override
+    public void talkto(Ally ally)
+    {
+    	ally.startDialog ();
+    }
 
     @Override	
     public void walk() {

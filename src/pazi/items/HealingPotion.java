@@ -38,7 +38,7 @@ public class HealingPotion extends Item implements IFeature<Player> {
 			((Player)actor).addHP(HP);
 			actor.appendMessage("Aaaaaah, das tut gut, ich fühle mich wie auferstanden!");
 		}
-		this.detach();
+//		this.detach();
 		this.expire();
 		actor.removeFeature(this);
 	}

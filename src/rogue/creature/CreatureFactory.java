@@ -24,7 +24,7 @@ public class CreatureFactory {
 			creature.addGeneralFeature(Braaaiiiiins.getInstance());
 	        creature.setFightBehaviour(DefaultFightBehaviour.getInstance());
 	        creature.getWalkFeatures().add(new EatBrains());
-			creature.setWalkBehaviour(new Follow(world.getPlayer(), 5));
+			creature.setWalkBehaviour(new Follow(world.getPlayer(), 5, 30));
 			creature.setBehaviour(new RandomBehaviour());
 		} else if (identifier == "bandit1"){
 				creature = new Monster(ColoredChar.create(' ', Color.red), "Touchy Hobbit");

@@ -81,6 +81,7 @@ public class Level
     				w.addDoor(d.getPosition(), d);
     			}
     			movePlayerThroughDoor (w, door);
+    			asciimap.addCreatures(w);
     		}
     		else
     		{

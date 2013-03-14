@@ -21,9 +21,6 @@ public class Gold extends Item {
 	}
 
 	@Override
-	public void interact(Actor actor) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void interact(Actor actor) {}
 	
 }

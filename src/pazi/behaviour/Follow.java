@@ -35,6 +35,7 @@ public class Follow implements IBehaviour<Monster> {
 			return;
 		if(Dice.global.chance()){
 			monster.move(Dice.global.choose(Arrays.asList(Direction.values())));
+			monster.setHasActed(true);
 			return;
 		}
 		Iterator<Coordinate> it = pathFinder.getPartialPath(monster.world(), monster.pos(), target.pos()).iterator();

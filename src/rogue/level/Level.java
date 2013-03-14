@@ -110,6 +110,7 @@ public class Level
     					w.addActor(g);
     				}
     			}
+    			w.addActor(CreatureFactory.createCreature("hitler", w));
 
     		}
     		w.useViewfield(false);

@@ -5,20 +5,21 @@ import jade.util.datatype.ColoredChar;
 
 import java.awt.Color;
 
-import rogue.creature.Creature;
+import rogue.creature.Player;
 
-public class Death implements IFeature {
+public class Death implements IFeature<Actor> {
 
 	public Death(Actor actor){
 		actor.appendMessage("UUuuuuuuaaaaarrrrrrrghghhgghhh!");
 		actor.setFace(new ColoredChar(actor.face().ch(), Color.gray));
-		if(Creature.class.isAssignableFrom(actor.getClass()))
-				((Creature)actor).neutralize();
+		actor.setBehaviour(new DoNothing());
+		actor.setPassable(true);
+		if(Player.class.isAssignableFrom(actor.getClass()))
+			actor.expire();
 	}
 	
 	@Override
-	public boolean act(Actor actor) {
-		return false;
+	public void act(Actor actor) {
 	}
 	
 }

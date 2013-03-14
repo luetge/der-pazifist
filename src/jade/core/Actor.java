@@ -370,7 +370,11 @@ public abstract class Actor extends Messenger
 	}
 	
 	public void setBehaviour(IBehaviour behaviour) {
+		if(this.behaviour != null)
+			this.behaviour.exit(this);
 		this.behaviour = behaviour;
+		if(behaviour != null)
+			behaviour.init(this);
 	}
 
 	public IBehaviour<Actor> getBehaviour() {

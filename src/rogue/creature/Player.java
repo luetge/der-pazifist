@@ -23,17 +23,21 @@ public class Player extends Creature implements Camera
     int counter = 0;
     int faith, rage;
     
-    ColoredChar faces[];
-    int currentface;
+    ColoredChar facesets[][];
+    int currentfaceset;
     int gold = 0;
 
     public Player()
     {
-        super(ColoredChar.create('♓'), "Der PaziFist");
-    	faces = new ColoredChar[2];
-    	faces[0] = ColoredChar.create('♓', new Color(0xFFFFFF));
-    	faces[1] = ColoredChar.create('♓', new Color(0xFEFEFE));
-    	currentface = 0;
+        super(ColoredChar.create('♓', new Color(0xFFFFF0)), "Der PaziFist");
+        facesets = new ColoredChar[2][9];
+        for (int i = 0; i < 9; i++)
+        {
+        	facesets[0][i] = ColoredChar.create('♓', new Color(0xFFFFF0 + i));
+        	facesets[1][i] = ColoredChar.create('♓', new Color(0xFFFEF0 + i));
+        }
+    	currentfaceset = 0;
+        setFaces (facesets[currentfaceset]);
         fov = new RayCaster();
         min_d = 40;
         max_d = 70;
@@ -59,14 +63,21 @@ public class Player extends Creature implements Camera
 
     @Override	
     public void walk() {
-    	 Direction dir = Direction.keyToDir(world().getCurrentKey());
+        currentfaceset++;
+        if (currentfaceset >= facesets.length)
+       	 currentfaceset = 0;
+
+        Direction dir = Direction.keyToDir(world().getCurrentKey());
          if(dir != null)
+         {
+        	 setFace (facesets[currentfaceset][dir.getID()]);
              move(dir);
+         }
+         else
+         {
+        	 setFace (facesets[currentfaceset][4]);
+         }
          
-         currentface++;
-         if (currentface >= faces.length)
-        	 currentface = 0;
-         setFace(faces[currentface]);
     };
 
     @Override

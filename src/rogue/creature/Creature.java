@@ -47,6 +47,12 @@ public abstract class Creature extends Actor
     	this.faces[dir.getID()] = face;
     }
     
+    public void setFaces (ColoredChar faces[])
+    {
+    	Guard.validateArgument(faces.length == 9);
+    	this.faces = faces;
+    }
+    
     public void setCurrentFace (int id)
     {
     	Guard.argumentInsideBound(id, 9);

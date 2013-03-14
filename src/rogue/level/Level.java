@@ -8,6 +8,7 @@ import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
 import jade.gen.Generator;
 import jade.gen.map.*;
+import rogue.creature.CreatureFactory;
 import rogue.creature.Monster;
 import rogue.creature.Player;
 import java.util.HashMap;
@@ -77,9 +78,7 @@ public class Level
     			housegen.generate(w);
     			housegen.addExitDoors (w, world.getName());
     			for (int i = 0; i < 5; i++){
-    				Monster m = new Monster(ColoredChar.create('Z', Color.green),
-    						"Blutiger Zombie");
-    				w.addActor(m);
+    				w.addActor(CreatureFactory.createCreature("zombie1", w));
     				Gold g = new Gold(ColoredChar.create('o', Color.yellow),
         					"Gold");
         			w.addActor(g);

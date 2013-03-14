@@ -68,6 +68,10 @@ public abstract class Creature extends Actor
     	if(hp == 0)
     		setBehaviour(new DeadBehaviour(this));
     }
+    
+    public void addHP(int hp){
+    	this.hp += hp;
+    }	
 
 	public void doStep() {
 		if(nextCoordinate != null)

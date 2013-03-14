@@ -1,18 +1,18 @@
 package rogue;
 
-import jade.core.Messenger.Message;
 import jade.core.Dialog;
+import jade.core.Messenger.Message;
 import jade.ui.HUD;
 import jade.ui.Log;
 import jade.ui.TiledTermPanel;
 import jade.ui.View;
-import jade.util.Guard;
 import jade.util.datatype.Door;
 
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
 import pazi.Display;
+import pazi.items.HealingPotion;
 import rogue.creature.CreatureFactory;
 import rogue.creature.Player;
 import rogue.level.Level;
@@ -41,6 +41,7 @@ public class Rogue implements ComponentListener
 //			level.world().addActor(CreatureFactory.createCreature("zombie1", level.world()));
 //			level.world().addActor(CreatureFactory.createCreature("bandit1", level.world()));
 			level.world().addActor(CreatureFactory.createCreature("alien1", level.world()));
+			level.world().addActor(new HealingPotion());
 		}
         
         term.addComponentListener(this);

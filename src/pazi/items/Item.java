@@ -9,11 +9,9 @@ public abstract class Item extends Actor {
 
 	public Item(ColoredChar face, String name) {
 		super(face, name);
-		this.setPassable(true);
-		// TODO Auto-generated constructor stub
+		setPassable(true);
 	}
 	
-	public void getPickedUp (Player player){
-	}
+	public abstract void getPickedUp (Player player);
 	
 }

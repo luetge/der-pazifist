@@ -3,6 +3,19 @@ package pazi.behaviour;
 import rogue.creature.Creature;
 
 public class DefaultFightBehaviour implements IBehaviour<Creature> {
+	/**
+	 * Singleton
+	 */
+	private static DefaultFightBehaviour inst;
+	
+	private DefaultFightBehaviour(){}
+	
+	public static DefaultFightBehaviour getInstance(){
+		if(inst == null)
+			inst = new DefaultFightBehaviour();
+		return inst;
+	}
+	
 	@Override
 	public void act(Creature monster) {
 		if(!monster.hasActed() && monster.world().getPlayer().pos().distance(monster.pos()) < 2)

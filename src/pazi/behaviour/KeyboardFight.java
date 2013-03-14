@@ -3,7 +3,7 @@ package pazi.behaviour;
 import jade.util.datatype.Direction;
 import rogue.creature.Creature;
 
-public class KeyboardFight implements IBehaviour<Creature> {
+public class KeyboardFight implements IBehaviour<Creature> {	
 	@Override
 	public void act(Creature creature) {
 		if (creature.hasActed())

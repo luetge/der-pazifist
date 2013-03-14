@@ -86,7 +86,7 @@ public class TermPanel extends Terminal
         term.frame.pack();
         term.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         term.frame.setLocation(0, 0);
-        Log.getLogFrame().setLocation(0, term.frame.getHeight()+1);
+        Log.getLogFrame().setLocation(0, term.frame.getHeight()-4);
         Log.getLogFrame().setSize(term.frame.getWidth(), Log.getLogFrame().getPreferredSize().height);
         term.frame.setVisible(true);
     }

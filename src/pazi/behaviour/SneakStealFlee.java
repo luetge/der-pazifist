@@ -39,7 +39,7 @@ public class SneakStealFlee implements IBehaviour<Monster> {
 
 	@Override
 	public void init(Monster monster) {
-		monster.setWalkBehaviour(new Follow(player, 20));	
+		monster.setWalkBehaviour(new Follow(player, 5));	
 	}
 	
 }

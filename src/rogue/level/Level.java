@@ -1,25 +1,24 @@
 package rogue.level;
 
 import jade.core.World;
+import jade.gen.Generator;
+import jade.gen.map.AsciiMap;
+import jade.gen.map.City;
+import jade.gen.map.House;
 import jade.util.Dice;
 import jade.util.datatype.ColoredChar;
-import jade.util.datatype.Door;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
-import jade.gen.Generator;
-import jade.gen.map.*;
-import rogue.creature.CreatureFactory;
-import rogue.creature.Monster;
-import rogue.creature.Player;
-import java.util.HashMap;
-import java.util.Map;
+import jade.util.datatype.Door;
+
 import java.awt.Color;
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
-import pazi.features.Braaaiiiiins;
-import pazi.features.RandomBehaviour;
-import pazi.items.Item;
 import pazi.items.Gold;
+import rogue.creature.CreatureFactory;
+import rogue.creature.Player;
 
 public class Level
 {

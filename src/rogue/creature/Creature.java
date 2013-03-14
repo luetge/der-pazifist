@@ -24,6 +24,8 @@ public abstract class Creature extends Actor
     protected LinkedList<IBeforeAfterFeature> fightFeatures = new LinkedList<IBeforeAfterFeature>();
     protected IFeature fightBehaviour;
     
+    
+    
     public Creature(ColoredChar face, String Name)
     {
         super(face, Name);

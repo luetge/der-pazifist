@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import java.util.Set;
 
 import pazi.features.IFeature;
+import rogue.creature.Creature;
 
 //TODO Prioritäten bei Features
 
@@ -68,7 +69,9 @@ public abstract class Actor extends Messenger
     		feature.act(this);
 
     	//verhaltensfeature ausführen
-    	getBehaviour().act(this);
+    	if (getBehaviour() != null) 			
+    		getBehaviour().act(this);
+
     }
     
     public abstract void interact(Actor actor);
@@ -365,7 +368,7 @@ public abstract class Actor extends Messenger
 	public void setHasActed(boolean hasActed){
 		this.hasActed = hasActed;
 	}
-
+	
 	public void setBehaviour(IFeature behaviour) {
 		this.behaviour = behaviour;
 	}

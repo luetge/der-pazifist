@@ -1,7 +1,7 @@
 e0=door:church2entry0,mainworld,church2entry0,s;e1=door:church2entry1,mainworld,church2entry1,s;e2=door:church2entry2,mainworld,church2entry2,s
 ╔═════════════════════════════════╗
-║¥p¥    ¥np¥¥fg:0091EA¥♨¥fg:FFFFFF¥¥p¥  ¥bg:A30000¥  ¥np¥¥bg:9A5E01¥  †  ¥bg:A30000¥  ¥p¥¥bg:000000¥      ¥np¥¥fg:000000¥¥bg:834200¥¥box¥┐¥fg:FFFFFF¥¥bg:000000¥          ¥np¥║
-║¥p¥       ¥bg:A30000¥  ¥np¥¥bg:9A5E01¥     ¥bg:A30000¥  ¥p¥¥bg:000000¥¥fg:FFFFFF¥                 ¥bg:000000¥¥np¥║
+║¥p¥    ¥np¥¥fg:0091EA¥♨¥fg:FFFFFF¥¥p¥  ¥bg:A30000¥  ¥np¥¥bg:9A5E01¥  †  ¥bg:A30000¥¥p¥  ¥bg:000000¥      ¥np¥¥fg:000000¥¥bg:834200¥¥box¥┐¥fg:FFFFFF¥¥bg:000000¥¥p¥          ¥np¥║
+║¥p¥       ¥bg:A30000¥  ¥np¥¥bg:9A5E01¥     ¥bg:A30000¥¥p¥  ¥bg:000000¥¥fg:FFFFFF¥                 ¥bg:000000¥¥np¥║
 ║¥p¥¥bg:681E00¥¥fg:996633¥  ___ _¥bg:A30000¥__  ¥fg:FFFFFF¥¥creature:priest¥♔  ¥fg:996633¥__¥bg:681E00¥_ ___            ¥bg:000000¥¥fg:FFFFFF¥¥np¥║
 ║¥p¥¥bg:681E00¥¥fg:996633¥ ¥np¥I¥bg:834200¥---¥bg:681E00¥I¥bg:834200¥---¥bg:681E00¥I¥p¥¥bg:A30000¥   ¥bg:681E00¥¥np¥I¥bg:834200¥---¥bg:681E00¥I¥bg:834200¥---¥bg:681E00¥I¥p¥           ¥bg:000000¥¥fg:FFFFFF¥¥np¥║
 ║¥p¥¥bg:681E00¥¥fg:996633¥  ___ ___ ¥bg:A30000¥   ¥bg:681E00¥ ___ ___            ¥bg:000000¥¥fg:FFFFFF¥¥np¥║

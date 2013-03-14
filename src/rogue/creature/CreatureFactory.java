@@ -5,10 +5,13 @@ import jade.util.datatype.ColoredChar;
 
 import java.awt.Color;
 
+import pazi.behaviour.DefaultFightBehaviour;
 import pazi.behaviour.Flee;
 import pazi.behaviour.Follow;
 import pazi.behaviour.RandomBehaviour;
+import pazi.behaviour.SneakStealFlee;
 import pazi.features.Braaaiiiiins;
+import pazi.features.EatBrains;
 
 public class CreatureFactory {
 	public static Creature createCreature(String identifier, World world){
@@ -16,13 +19,15 @@ public class CreatureFactory {
 		if(identifier == "zombie1"){
 			creature = new Monster(ColoredChar.create('Z', Color.green), "Blutiger Zombie");
 			creature.addGeneralFeature(Braaaiiiiins.getInstance());
-			creature.setWalkBehaviour(new Follow(world.getPlayer(), 2));
+	        creature.setFightBehaviour(new DefaultFightBehaviour());
+	        creature.getWalkFeatures().add(new EatBrains());
+			creature.setWalkBehaviour(new Follow(world.getPlayer(), 5));
 			creature.setBehaviour(new RandomBehaviour());
 		} else if (identifier == "bandit2"){
-				creature = new Monster(ColoredChar.create('B', Color.red), "Touchy Hobbit");
+				creature = new Monster(ColoredChar.create('.', Color.red), "Touchy Hobbit");
 				creature.addGeneralFeature(Braaaiiiiins.getInstance());
-				creature.setWalkBehaviour(new Flee(world.getPlayer(), 5));
-				creature.setBehaviour(new RandomBehaviour());			
+				creature.setBehaviour(new SneakStealFlee(world.getPlayer(), 'B'));
+//				creature.setWalkBehaviour(new Follow(world.getPlayer(),5));
 		}
 		
 		{

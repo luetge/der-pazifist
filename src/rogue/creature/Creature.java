@@ -36,7 +36,6 @@ public abstract class Creature extends Actor
     @Override
     public void setPos(int x, int y)
     {
-    	System.out.println(x);
 	    if (world().insideBounds(x, y)){
 	    	Collection<Actor> actors = world().getActorsAt(Actor.class, x, y);
 	        if(world().passableAt(x, y)){

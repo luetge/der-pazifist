@@ -65,8 +65,8 @@ public abstract class Actor extends Messenger
     public void act(){
     	setHasActed(false);
     	//allg features
-    	for(IFeature feature : generalFeatures)
-    		feature.act(this);
+    	for(int i= generalFeatures.size()-1; i >= 0; i--)
+    		generalFeatures.get(i).act(this);
 
     	//verhaltensfeature ausführen
     	if (getBehaviour() != null) 			
@@ -351,6 +351,10 @@ public abstract class Actor extends Messenger
     
     public <T extends IFeature> Collection<T> getFeatures(Class<T> cls){
     	return Lambda.toSet(Lambda.filterType(generalFeatures, cls));
+    }
+    
+    public void removeFeature(IFeature feature){
+    	generalFeatures.remove(feature);
     }
 
 	public boolean isPassable() {

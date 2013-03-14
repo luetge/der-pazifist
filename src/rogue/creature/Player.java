@@ -91,12 +91,17 @@ public class Player extends Creature implements Camera
     @Override
     public void takeDamage(int d) {
     	super.takeDamage(d);
-    	HUD.setHP(hp);
+    	setHP(getHP() - d);
     }   
 
 	public void getGold(int amount) {
-    	gold+=amount;
+    	gold += amount;
     	HUD.setGold(gold);	
+	}
+	
+	protected void setHP(int hp){
+		super.setHP(hp);
+		HUD.setHP(hp);
 	}
 
 }

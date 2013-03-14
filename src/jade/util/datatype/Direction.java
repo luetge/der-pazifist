@@ -1,7 +1,5 @@
 package jade.util.datatype;
 
-import jade.util.Guard;
-
 import java.awt.event.KeyEvent;
 
 /**

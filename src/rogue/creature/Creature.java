@@ -1,6 +1,7 @@
 package rogue.creature;
 
 import jade.core.Actor;
+import jade.core.Messenger;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
@@ -45,10 +46,10 @@ public abstract class Creature extends Actor
     		setHasActed(true);
         }
     }
-    
+
     @Override
-    public void appendMessage(String message) {
-    	world().appendMessage(message, this);
+    public void appendMessage(String message, Messenger source,	boolean important) {
+    	world().appendMessage(message, source, important);
     }
     
     @Override
@@ -65,7 +66,7 @@ public abstract class Creature extends Actor
     
     public void takeDamage(int d){
     	hp = Math.max(0, hp-d);
-    	appendMessage("Ich habe " + d + " Schaden erlitten! Ahhhh Poopoo!");
+    	appendMessage("Ich habe " + d + " Schaden erlitten! Ahhhh Poopoo!", true);
     	if(hp == 0)
     		setBehaviour(new DeadBehaviour(this));
     }

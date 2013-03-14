@@ -35,7 +35,6 @@ public class EatBrains implements IBeforeAfterFeature<Monster> {
 		if(oldBehaviour == null) {
 			deadBody = getDeadBodyInRange(monster, maxDist);
 			if(deadBody != null){
-				System.out.println("Es riecht nach Leiche, das Hirn schnappe ich mir!" + monster.pos());
 				oldBehaviour = monster.getWalkBehaviour();
 				monster.setWalkBehaviour(new Follow(deadBody, maxDist));
 			}

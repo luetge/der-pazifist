@@ -1,5 +1,6 @@
 package jade.core;
 
+import jade.ui.Log;
 import jade.util.Dice;
 import jade.util.Guard;
 import jade.util.Lambda;

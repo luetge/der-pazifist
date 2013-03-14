@@ -40,7 +40,7 @@ public abstract class Messenger
     {
     	appendMessage(message, this);
     }
-
+    
     /**
      * Appends a message, which will have this {@code Messenger} as a source.
      * @param message the message to append
@@ -48,9 +48,30 @@ public abstract class Messenger
      */
     public void appendMessage(String message, Messenger source)
     {
+    	appendMessage(message, source, false);
+    }
+    
+    /**
+     * Appends a message, which will have this {@code Messenger} as a source.
+     * @param message the message to append
+     * @param source the source
+     */
+    public void appendMessage(String message, boolean important)
+    {
+    	appendMessage(message, this, important);
+    }
+
+    /**
+     * Appends a message, which will have this {@code Messenger} as a source.
+     * @param message the message to append
+     * @param source the source
+     * @param important if the message will be shown ingame
+     */
+    public void appendMessage(String message, Messenger source, boolean important)
+    {
         Guard.argumentIsNotNull(message);
 
-        cache.add(new Message(message, source));
+        cache.add(new Message(message, source, important));
     }
     
     /**
@@ -132,11 +153,17 @@ public abstract class Messenger
     {
         public final String text;
         public final Messenger source;
+        public final boolean important;
+        
+        public Message(String text, Messenger source){
+        	this(text, source, false);
+        }
 
-        public Message(String text, Messenger source)
+        public Message(String text, Messenger source, boolean important)
         {
             this.text = text;
             this.source = source;
+            this.important = important;
         }
     }
 

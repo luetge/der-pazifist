@@ -16,6 +16,7 @@ public class Paralyzed implements IFeature<Creature> {
 			creature.getFeatures(IFeature.class).remove(this);
 		else
 			roundsToWait--;
+			creature.setHasActed(true);
 	}
 
 }

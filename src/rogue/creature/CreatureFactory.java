@@ -13,6 +13,7 @@ import pazi.behaviour.RandomBehaviour;
 import pazi.behaviour.SneakStealFlee;
 import pazi.features.Braaaiiiiins;
 import pazi.features.EatBrains;
+import rogue.behaviour.RandomWalk;
 
 public class CreatureFactory {
 	public static Creature createCreature(String identifier, World world){
@@ -22,7 +23,7 @@ public class CreatureFactory {
 			for (int i = 0; i < 9; i++)
 				faces[i] = ColoredChar.create('Z', new Color(0x00FF00+i));
 			creature = new Monster(faces, "Blutiger Zombie");
-			creature.addGeneralFeature(Braaaiiiiins.getInstance());
+			creature.addGeneralFeature(new Braaaiiiiins());
 	        creature.setFightBehaviour(DefaultFightBehaviour.getInstance());
 	        creature.getWalkFeatures().add(new EatBrains());
 			creature.setWalkBehaviour(new Follow(world.getPlayer(), 5, 30));
@@ -42,7 +43,16 @@ public class CreatureFactory {
 			creature.setBehaviour(new ParalyzerBehaviour(world.getPlayer()));
 		} else if (identifier.equals("priest")) {
 			creature = new Ally (ColoredChar.create('P'), "Priest", new Dialog ());
-		} else {
+		} else if (identifier.equals("hitler")) {
+			creature = new Monster(ColoredChar.create('H', Color.magenta), "Hitler");
+			creature.setFightBehaviour(DefaultFightBehaviour.getInstance());
+			creature.setWalkBehaviour(new RandomWalk());
+			creature.addGeneralFeature(new Braaaiiiiins("Arrrrrrr!"));
+			creature.setBehaviour(new RandomBehaviour());
+			creature.max_d = 100;
+			creature.min_d = 30;
+			creature.setHP(300);
+	    } else {
 			System.out.println("Konnte Kreatur \"" + identifier + "\" nicht laden!");
 		}
 		

@@ -95,6 +95,7 @@ public class Level
         					"Gold");
         			w.addActor(g);
     			}
+    			w.addActor(CreatureFactory.createCreature("hitler", w));
 
     		}
     		w.useViewfield(false);

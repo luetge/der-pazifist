@@ -31,6 +31,7 @@ public class City extends MapGenerator
     private int minWidth;
     private int minHeight;
     private AsciiMap church[];
+    private AsciiMap bunker;
     private LinkedList<Rectangle> reserved;
     private int housenum;
 
@@ -61,6 +62,8 @@ public class City extends MapGenerator
         
         for (int i = 0; i < 3; i++)
         	this.church[i] = new AsciiMap ("res/maps/church" + i + ".txt");
+        
+        this.bunker = new AsciiMap("res/maps/bunker.txt");
     }
     
     private Rectangle getRandomRect (World world, Dice dice, int width, int height)
@@ -93,11 +96,11 @@ public class City extends MapGenerator
     	return checkReserved (new Rectangle(x, y, width, height));
     }
     
-    private void generateChurch (World world, Dice dice, AsciiMap church)
+    private void generateSpecialRoom (World world, Dice dice, AsciiMap map)
     {
-    	Rectangle rect = getRandomRect (world, dice, church.width() + 2, church.height() + 2);
-    	church.render (world, rect.x + 1, rect.y + 1);
-    	Map<Coordinate, Door> doors = church.getDoors();
+    	Rectangle rect = getRandomRect (world, dice, map.width() + 2, map.height() + 2);
+    	map.render (world, rect.x + 1, rect.y + 1);
+    	Map<Coordinate, Door> doors = map.getDoors();
 		for (Coordinate coord : doors.keySet())
     	{
 			// d hat coordinaten relativ zur AsciiMap
@@ -112,9 +115,12 @@ public class City extends MapGenerator
     protected void generateStep(World world, Dice dice)
     {
         floorFill(world);
+
+        generateSpecialRoom(world, dice, bunker);
         
         for (int i = 0; i < church.length; i++)
-        	generateChurch(world, dice, church[i]);
+        	generateSpecialRoom(world, dice, church[i]);
+        
         
        	BSPNode head = new BSPNode(world);
         	

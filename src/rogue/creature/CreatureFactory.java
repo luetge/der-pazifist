@@ -28,7 +28,7 @@ public class CreatureFactory {
 			creature.setBehaviour(new RandomBehaviour());
 		} else if (identifier.equals("bandit2")){
 				creature = new Monster(ColoredChar.create(' ', Color.red), "Touchy Hobbit");
-				creature.addGeneralFeature(Braaaiiiiins.getInstance());
+				//creature.addGeneralFeature(Braaaiiiiins.getInstance());
 				ColoredChar faces[] = new ColoredChar[9];
 				for (int i = 0; i < 9; i++)
 					faces[i] = ColoredChar.create('B', new Color(0xFF0000+i));

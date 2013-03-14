@@ -15,7 +15,7 @@ public class Monster extends Creature
         min_d = 0;
         max_d = 5;
         setFightBehaviour(DefaultFightBehaviour.getInstance());
-        getWalkFeatures().add(new EatBrains());
+        //getWalkFeatures().add(new EatBrains());
 	}
 	
     public Monster(ColoredChar face, String Name)

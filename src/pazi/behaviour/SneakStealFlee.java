@@ -20,7 +20,7 @@ public class SneakStealFlee implements IBehaviour<Monster> {
 	public void act(Monster monster) {
 		if (monster.pos().distance(player.pos()) < 2){
 			monster.appendMessage("OMZFG!! I stealz ur monneyz lols!");
-			monster.setFace(new ColoredChar(symbol, monster.face().color()));
+			monster.setAllFaces(new ColoredChar(symbol, monster.face().color()));
 			player.getGold(-20);
 			monster.setHasActed(true);
 			monster.setBehaviour(new RandomBehaviour());

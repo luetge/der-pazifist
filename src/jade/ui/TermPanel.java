@@ -267,9 +267,11 @@ public class TermPanel extends Terminal
                     
                     paintChar (page, x, y + tileHeight(), ch);
                 }
-                page.setColor(Color.white);
-                page.drawString(sCurrentConsoleText, 0, tileHeight);
             }
+            page.setColor(Color.black);
+            page.fillRect(0,  0,  getWidth(),  tileHeight);
+            page.setColor(Color.white);
+            page.drawString(sCurrentConsoleText, 0, tileHeight);
         }
 
         public void setBuffer(Map<Coordinate, ColoredChar> buffer)

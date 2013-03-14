@@ -187,7 +187,9 @@ public class TiledTermPanel extends TermPanel
     public void unbuffer (Coordinate coord)
     {
     	super.unbuffer(coord);
+    	synchronized (tileBuffer) {
     	tileBuffer.remove(coord);
+    	}
     }
 
     @Override

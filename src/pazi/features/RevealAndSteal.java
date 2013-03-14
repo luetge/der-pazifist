@@ -19,6 +19,7 @@ public class RevealAndSteal implements IFeature<Monster> {
 		{
 			monster.setFace(new ColoredChar(symbol, monster.face().color()));
 //			monster.
+//			TODO: STEAL!
 		}
 		
 	}

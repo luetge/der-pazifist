@@ -42,7 +42,7 @@ public class CreatureFactory {
 			creature = new Monster(faces, "Schleimiges Alien");
 			creature.setBehaviour(new ParalyzerBehaviour(world.getPlayer()));
 		} else if (identifier.equals("priest")) {
-			creature = new Ally (ColoredChar.create('P'), "Priest", new Dialog ());
+			creature = new Ally (ColoredChar.create('P'), "Priest", new Dialog ("res/dialogs/priest.txt"));
 		} else if (identifier.equals("hitler")) {
 			creature = new Monster(ColoredChar.create('H', Color.white), "Hitler");
 			creature.setFightBehaviour(DefaultFightBehaviour.getInstance());

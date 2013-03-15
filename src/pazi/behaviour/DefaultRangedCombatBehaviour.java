@@ -1,5 +1,6 @@
 package pazi.behaviour;
 
+import pazi.features.Paralyzed;
 import rogue.creature.Creature;
 
 public class DefaultRangedCombatBehaviour implements IBehaviour<Creature> {
@@ -23,6 +24,8 @@ public class DefaultRangedCombatBehaviour implements IBehaviour<Creature> {
 			shoot(monster);
 			// TODO: man sollte beliebiges Ziel übergeben können!
 			monster.setHasActed(true);		// Ein Schuss ist ein Zug. Daneben zählt auch.
+			monster.addGeneralFeature(new Paralyzed(2));	// cooldown von 2 Runden
+			
 		}
 	}
 	
@@ -34,6 +37,7 @@ public class DefaultRangedCombatBehaviour implements IBehaviour<Creature> {
 		} else {
 			monster.appendMessage("... schießt meilenweit daneben! Du lachst ihn aus.");
 		}
+
 	}
 
 	@Override

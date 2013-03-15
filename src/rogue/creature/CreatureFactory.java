@@ -53,8 +53,7 @@ public class CreatureFactory {
 			creature.setWalkBehaviour(new Follow(world.getPlayer(), 13, 5, 0));
 			
 		} else if (identifier.equals("priest")) {
-			creature = new Ally (ColoredChar.create('P'), "Priest", new Dialog ());
-	
+			creature = new Ally (ColoredChar.create('P'), "Priest", new Dialog ("res/dialogs/priest.txt"));
 		} else if (identifier.equals("hitler")) {
 			creature = new Monster(ColoredChar.create('H', Color.white), "Hitler");
 			creature.setCloseCombatBehaviour(DefaultFightBehaviour.getInstance());

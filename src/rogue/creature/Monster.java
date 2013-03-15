@@ -3,8 +3,6 @@ package rogue.creature;
 import jade.path.AStar;
 import jade.util.datatype.ColoredChar;
 import pazi.behaviour.DefaultFightBehaviour;
-import pazi.features.EatBrains;
-import pazi.items.Inventory;
 
 public class Monster extends Creature
 {

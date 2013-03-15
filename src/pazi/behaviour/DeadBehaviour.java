@@ -5,8 +5,6 @@ import jade.util.datatype.ColoredChar;
 import java.awt.Color;
 import java.util.ArrayList;
 
-import pazi.items.Gold;
-
 import rogue.creature.Creature;
 import rogue.creature.Player;
 

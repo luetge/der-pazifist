@@ -42,12 +42,12 @@ public class SneakStealFlee implements IBehaviour<Monster> {
 
 	@Override
 	public void exit(Monster monster) {
-		monster.setWalkBehaviour(new Flee(player, 5, 0.2));		
+		monster.setWalkBehaviour(new Flee(player, 8, 0.1));		
 	}
 
 	@Override
 	public void init(Monster monster) {
-		monster.setWalkBehaviour(new Follow(player, 5));	
+		monster.setWalkBehaviour(new Follow(player, 8));	
 	}
 	
 }

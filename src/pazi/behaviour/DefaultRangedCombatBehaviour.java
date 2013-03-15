@@ -1,8 +1,5 @@
 package pazi.behaviour;
 
-import java.util.Random;
-
-import pazi.features.IBeforeAfterFeature;
 import rogue.creature.Creature;
 
 public class DefaultRangedCombatBehaviour implements IBehaviour<Creature> {

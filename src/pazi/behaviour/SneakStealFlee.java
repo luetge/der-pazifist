@@ -34,7 +34,7 @@ public class SneakStealFlee implements IBehaviour<Monster> {
 			monster.setFace(symbols[4]);
 			
 			monster.setHasActed(true);
-			monster.setBehaviour(new RandomBehaviour());
+			monster.setBehaviour(new DefaultRandomBehaviour());
 		} else {
 			monster.walk();
 		}

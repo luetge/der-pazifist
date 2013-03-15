@@ -15,7 +15,7 @@ public class Monster extends Creature
 		super(faces, Name);
         min_d = 0;
         max_d = 5;
-        setFightBehaviour(DefaultFightBehaviour.getInstance());
+        setCloseCombatBehaviour(DefaultFightBehaviour.getInstance());
         //getWalkFeatures().add(new EatBrains());
 	}
 	

@@ -6,9 +6,11 @@ import rogue.creature.Player;
 public class ParalyzerBehaviour implements IBehaviour<Creature> {
 	
 	Player player;
+	int radius;
 	
-	public ParalyzerBehaviour(Player player){
+	public ParalyzerBehaviour(Player player, int radius){
 		this.player = player;
+		this.radius = radius;
 	}
 
 	@Override
@@ -26,8 +28,8 @@ public class ParalyzerBehaviour implements IBehaviour<Creature> {
 
 	@Override
 	public void init(Creature creature) {
-		creature.setWalkBehaviour(new Follow(player, 5, 0.5));
-		creature.setFightBehaviour(new ParalyzeFightBehaviour(player, 10));
+		creature.setWalkBehaviour(new Follow(player, radius, 0.5));
+		creature.setCloseCombatBehaviour(new ParalyzeFightBehaviour(player, 10));
 	}
 
 }

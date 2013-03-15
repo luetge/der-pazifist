@@ -20,6 +20,7 @@ public class DefaultFightBehaviour implements IBehaviour<Creature> {
 	public void act(Creature monster) {
 		if(!monster.hasActed() && monster.world().getPlayer().pos().distance(monster.pos()) < 2)
 			monster.fight(monster.world().getPlayer());
+			// TODO: man sollte beliebiges Ziel übergeben können!
 		monster.setHasActed(true);
 	}
 

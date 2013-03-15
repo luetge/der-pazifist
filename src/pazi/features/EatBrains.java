@@ -1,5 +1,7 @@
 package pazi.features;
 
+import jade.util.datatype.ColoredChar;
+
 import java.awt.Color;
 import java.util.ArrayList;
 
@@ -49,8 +51,11 @@ public class EatBrains implements IBeforeAfterFeature<Monster> {
 		if(deadBody.pos().equals(monster.pos())){
 			monster.appendMessage("Hahahahahaha! I am eating your brains! Yumyumyumyum!");
 			eatBrain(monster);
-			deadBody.expire();
+//			deadBody.expire();
+			deadBody.setAllFaces(new ColoredChar('Z', Color.DARK_GRAY));	//TODO Leichenbild
+			DeadBehaviour.deadBodies.remove(deadBody);
 			deadBody = null;
+			
 			reset(monster);
 			monster.setHasActed(true);
 		}

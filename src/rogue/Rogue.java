@@ -42,6 +42,9 @@ public class Rogue implements ComponentListener
 			level.world().addActor(CreatureFactory.createCreature("alien1", level.world()));
 			level.world().addActor(new HealingPotion());
 		}
+		for (int i = 0; i < 20; i++) {
+			level.world().addActor(CreatureFactory.createCreature("sniper1", level.world()));
+		}
         
         term.addComponentListener(this);
         

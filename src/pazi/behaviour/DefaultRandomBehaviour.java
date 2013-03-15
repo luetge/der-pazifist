@@ -2,15 +2,18 @@ package pazi.behaviour;
 
 import rogue.creature.Monster;
 
-public class RandomBehaviour implements IBehaviour<Monster> {
+public class DefaultRandomBehaviour implements IBehaviour<Monster> {
 
 	private double randFactor;
 	
-	public RandomBehaviour(){
+	public DefaultRandomBehaviour(){
 		this(0.5);
 	}
-	
-	public RandomBehaviour(double randFactor){
+	/**
+	 * 
+	 * @param randFactor: With This Prob. The Monster Fights Before It Walks.
+	 */
+	public DefaultRandomBehaviour(double randFactor){
 		this.randFactor = randFactor;
 	}
 	

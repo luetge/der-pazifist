@@ -12,6 +12,7 @@ import rogue.creature.Player;
 
 public class DeadBehaviour implements IBehaviour<Creature> {
 	
+	// Achtung! In deadBodies sind nur die Toten mit Hirn!
 	public static ArrayList<Creature> deadBodies = new ArrayList<Creature>();
 	
 	/**

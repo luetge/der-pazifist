@@ -1,14 +1,14 @@
 fr=fg:FF0000;fw=fg:FFFFFF;fb=fg:000000;bb=bg:000000;d0=door:church2entry0,church2,church2entry0,n;d1=door:church2entry1,church2,church2entry1,n;d2=door:church2entry2,church2,church2entry2,n
 ######################
 #             Î      #
-#            / \     #
-#     ______/ ◴ \    #
-#    /______| ¥fr¥†¥fw¥ |    #
-#    |◻ ◻ ◻ |   |    #
-#    |______| ¥bg:806000¥¥fg:403000¥∩¥fw¥¥bb¥ |    #
+#            /⊕\     #
+#     ______/   \    #
+#    /______| † |    #
+#    |⊞ ⊞ ⊞ |   |    #
+#    |______| ¥bg:806000¥¥fg:403000¥∩¥fg:FFFFFF¥¥bg:000000¥ |    #
 #            //      #
 #           //       #
-#¥bg:00CC00¥¥fb¥ †  †  †  //   †  † ¥bb¥¥fw¥#
-#¥bg:00CC00¥¥fb¥†  †  †  //   †  †  ¥bb¥¥fw¥#
+#¥bg:00A4FF¥¥fg:280099¥ ~  ≈    ~    ≈  ~  ¥fg:FFFFFF¥¥bg:000000¥#
+#¥bg:00A4FF¥¥fg:280099¥   ≈ ~       ~ ≈    ¥bg:000000¥¥fg:FFFFFF¥#
 #        //          #
 ########¥bg:806000¥¥d0¥↑¥d1¥↑¥d2¥↑¥bb¥###########

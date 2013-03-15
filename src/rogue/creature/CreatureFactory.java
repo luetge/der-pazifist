@@ -26,7 +26,7 @@ public class CreatureFactory {
 			creature.addGeneralFeature(new Braaaiiiiins());
 	        creature.setFightBehaviour(DefaultFightBehaviour.getInstance());
 	        creature.getWalkFeatures().add(new EatBrains());
-			creature.setWalkBehaviour(new Follow(world.getPlayer(), 5, 30));
+			creature.setWalkBehaviour(new Follow(world.getPlayer(), 5, 0.5));
 			creature.setBehaviour(new RandomBehaviour());
 		} else if (identifier.equals("bandit2")){
 				creature = new Monster(ColoredChar.create(' ', Color.red), "Touchy Hobbit");
@@ -35,6 +35,7 @@ public class CreatureFactory {
 				for (int i = 0; i < 9; i++)
 					faces[i] = ColoredChar.create('B', new Color(0xFF0000+i));
 				creature.setBehaviour(new SneakStealFlee(world.getPlayer(), faces));
+				creature.getGold(5);
 		} else if (identifier.equals("alien1")){
 			ColoredChar faces[] = new ColoredChar[9];
 			for (int i = 0; i < 9; i++)

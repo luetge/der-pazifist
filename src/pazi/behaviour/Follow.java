@@ -33,7 +33,7 @@ public class Follow implements IBehaviour<Monster> {
 	public void act(Monster monster) {
 		if(!monster.hasActed() && monster.world().getActor(Player.class).pos().distance(monster.pos()) > radius || target == null)
 			return;
-		if(Dice.global.chance()){
+		if(Dice.global.chance(randomFactor)){
 			monster.move(Dice.global.choose(Arrays.asList(Direction.values())));
 			monster.setHasActed(true);
 			return;

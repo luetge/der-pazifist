@@ -5,6 +5,8 @@ import jade.util.datatype.ColoredChar;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import pazi.items.Gold;
+
 import rogue.creature.Creature;
 import rogue.creature.Player;
 
@@ -29,6 +31,7 @@ public class DeadBehaviour implements IBehaviour<Creature> {
 		creature.appendMessage("UUuuuuuuaaaaarrrrrrrghghhgghhh!");
 		creature.setFace(new ColoredChar(creature.face().ch(), Color.gray));
 		creature.setPassable(true);
+		creature.dropInventory();
 		if(Player.class.isAssignableFrom(creature.getClass()))
 			creature.expire();
 		deadBodies.add(creature);

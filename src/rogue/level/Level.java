@@ -106,8 +106,7 @@ public class Level
     			{
     				for (int i = 0; i < 5; i++){
     					w.addActor(CreatureFactory.createCreature("zombie1", w));
-    					Gold g = new Gold(ColoredChar.create('o', Color.yellow),
-        						"Gold");
+    					Gold g = new Gold();
     					w.addActor(g);
     				}
     			}

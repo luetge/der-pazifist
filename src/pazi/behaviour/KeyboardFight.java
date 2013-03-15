@@ -2,8 +2,6 @@ package pazi.behaviour;
 
 import jade.util.datatype.Direction;
 import rogue.creature.Creature;
-import rogue.creature.Monster;
-import rogue.creature.Ally;
 
 public class KeyboardFight implements IBehaviour<Creature> {	
 	@Override

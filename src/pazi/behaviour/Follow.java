@@ -54,7 +54,7 @@ public class Follow implements IBehaviour<Monster> {
 
 		dist = monster.world().getActor(Player.class).pos().distance(monster.pos());
 		if (dist > radius || dist < minDistance)
-		return;
+			return;
 		
 		if(Dice.global.chance(randomFactor)){
 			monster.move(Dice.global.choose(Arrays.asList(Direction.values())));

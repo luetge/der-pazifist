@@ -14,6 +14,9 @@ import pazi.behaviour.DeadBehaviour;
 import pazi.behaviour.DoNothingBehaviour;
 import pazi.behaviour.IBehaviour;
 import pazi.features.IBeforeAfterFeature;
+import pazi.items.Gold;
+import pazi.items.Inventory;
+import pazi.items.Item;
 
 public abstract class Creature extends Actor
 {
@@ -23,9 +26,9 @@ public abstract class Creature extends Actor
 	protected LinkedList<IBeforeAfterFeature> walkFeatures = new LinkedList<IBeforeAfterFeature>();
 	protected IBehaviour walkBehaviour;
     protected LinkedList<IBeforeAfterFeature> fightFeatures = new LinkedList<IBeforeAfterFeature>();
+    protected Inventory inventory = new Inventory(this);
     protected IBehaviour closeCombatBehaviour;
     protected IBehaviour rangedCombatBehaviour;
-
     
     private ColoredChar faces[];
     
@@ -220,9 +223,34 @@ public abstract class Creature extends Actor
 	
 	protected void setHP(int hp){
 		this.hp = hp;
+		if(this.hp > 100)
+			this.hp = 100;
 	}
 	
 	protected int getHP(){
 		return hp;
+	}
+	
+	public Inventory getInventory() {
+		return inventory;
+	}
+
+	public void dropInventory() {
+		if(inventory.getGold() > 0)
+			world().addActor(new Gold(inventory.getGold()), pos());
+	}
+	
+	public int getGold(int amount) {
+		if(amount >= 0) {
+			inventory.findGold(amount);
+			return amount;
+		} else
+			return inventory.loseGold(-amount);
+	}
+	
+	public void useItem(Item item){
+		item.interact(this);
+		getInventory().removeItem(item);
+		setHasActed(true);
 	}
 }

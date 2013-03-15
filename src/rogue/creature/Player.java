@@ -4,6 +4,7 @@ import jade.fov.RayCaster;
 import jade.fov.ViewField;
 import jade.ui.Camera;
 import jade.ui.HUD;
+import jade.util.Lambda;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
@@ -13,8 +14,10 @@ import java.awt.Color;
 import java.util.Collection;
 
 import pazi.behaviour.KeyboardFight;
+import pazi.behaviour.KeyboardGeneral;
 import pazi.behaviour.KeyboardWalk;
 import pazi.behaviour.PlayerBehaviour;
+import pazi.items.HealingPotion;
 import pazi.items.Item;
 
 public class Player extends Creature implements Camera
@@ -22,10 +25,10 @@ public class Player extends Creature implements Camera
     private ViewField fov;
     int counter = 0;
     int faith, rage;
+    private int radius;
     
     ColoredChar facesets[][];
     int currentfaceset;
-    int gold = 0;
 
     public Player()
     {
@@ -41,8 +44,10 @@ public class Player extends Creature implements Camera
         fov = new RayCaster();
         min_d = 40;
         max_d = 70;
+        radius = 10;
         setWalkBehaviour(new KeyboardWalk());
         setBehaviour(new PlayerBehaviour());
+        addGeneralFeature(new KeyboardGeneral());
         setCloseCombatBehaviour(new KeyboardFight());
         //TODO Singleton?
     }
@@ -91,7 +96,7 @@ public class Player extends Creature implements Camera
     {
     	if(world() == null)
     		return null;
-        return fov.getViewField(world(), pos(), 10);
+        return fov.getViewField(world(), pos(), radius);
     }
     
     @Override
@@ -100,14 +105,34 @@ public class Player extends Creature implements Camera
     	setHP(getHP() - d);
     }   
 
-	public void getGold(int amount) {
-    	gold += amount;
-    	HUD.setGold(gold);	
+	@Override
+	public int getGold(int amount) {
+		int ret = super.getGold(amount);
+		HUD.setGold(inventory.getGold());	
+		return ret;
 	}
 	
 	protected void setHP(int hp){
 		super.setHP(hp);
-		HUD.setHP(hp);
+		HUD.setHP(getHP());
+	}
+
+
+	public void setViewFieldRadius(int radius) {
+		this.radius = radius;
+	}
+
+	public int getViewFieldRadius() {
+		return radius;
+	}
+
+
+	public void drinkHealingPotion() {
+		for(HealingPotion potion : Lambda.filterType(getInventory().getItems(), HealingPotion.class)) {
+			useItem(potion);
+			return;
+		}
+		appendMessage("Ich habe leider keine Tränke mehr! :(");
 	}
 
 }

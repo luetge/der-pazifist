@@ -18,7 +18,6 @@ public class Log {
 	protected static int fontHeight;
 	protected static ScrollPane scrollpane;
 	protected static JTextPane lblMessages;
-	protected static String currentText = "";
 	
 	public static JPanel getLogPanel(){
 		if(logPanel == null)
@@ -50,9 +49,10 @@ public class Log {
 			scrollpane.add(lblMessages);
 			logPanel.add(scrollpane, BorderLayout.CENTER);
 			logPanel.setVisible(true);
-			logFrame = new JFrame();
+			logFrame = new JFrame("Log");
 			logFrame.add(logPanel);
 			logPanel.setForeground(Color.white);
+			logFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 			logFrame.pack();
 			logFrame.setFocusable(false);
 		} catch (Exception e) {
@@ -68,12 +68,7 @@ public class Log {
 	}
 	
 	public static void addMessage(String text){
-		currentText = currentText + text + "\n";
-		lblMessages.setText(currentText.trim());
+		lblMessages.setText(lblMessages.getText() + text + "\n");
 		scrollpane.setScrollPosition(scrollpane.getScrollPosition().x, Integer.MAX_VALUE);
-	}
-	
-	protected static String convertToHTML(String text){
-		return "<html>" + text.replace("\n", "<br>") + "</html>";
 	}
 }

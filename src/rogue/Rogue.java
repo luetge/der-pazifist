@@ -2,6 +2,7 @@ package rogue;
 
 import jade.core.Dialog;
 import jade.core.Messenger.Message;
+import jade.ui.Bagpack;
 import jade.ui.HUD;
 import jade.ui.Log;
 import jade.ui.TiledTermPanel;
@@ -73,6 +74,7 @@ public class Rogue implements ComponentListener
 	{
     	running = true;
     	Log.showLogFrame(true);
+    	Bagpack.showBPFrame(true);
         while(!player.expired())
         {
         	view.update (term, level.world(), player);
@@ -96,7 +98,6 @@ public class Rogue implements ComponentListener
         }
         
         showMessages();
-        Log.showLogFrame(false);
         running = false;
 	}
         

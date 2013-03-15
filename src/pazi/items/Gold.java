@@ -1,22 +1,29 @@
 package pazi.items;
 
-import rogue.creature.Player;
 import jade.core.Actor;
 import jade.util.datatype.ColoredChar;
+
+import java.awt.Color;
+
+import rogue.creature.Creature;
 
 public class Gold extends Item {
 	
 	protected int amount;
 
-	public Gold(ColoredChar face, String name) {
-		super(face, name);
-		amount=(int) (Math.random()*100);
-		// TODO Auto-generated constructor stub
+	public Gold() {
+		this((int) (Math.random()*100));
 	}
 	
-	public void getPickedUp (Player player){
-		player.appendMessage("Ich habe "+ amount +" Gold gefunden.", true);
-		player.getGold(amount);
+	public Gold(int amount) {
+		super(ColoredChar.create('o', Color.yellow), "Gold");
+		this.amount = amount;
+	}
+	
+	@Override
+	public void getPickedUp (Creature creature){
+		creature.appendMessage("Ich habe "+ amount +" Gold gefunden.", true);
+		creature.getGold(amount);
 		this.expire();
 	}
 

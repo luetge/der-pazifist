@@ -24,6 +24,8 @@ public abstract class Creature extends Actor
 	protected IBehaviour walkBehaviour;
     protected LinkedList<IBeforeAfterFeature> fightFeatures = new LinkedList<IBeforeAfterFeature>();
     protected IBehaviour closeCombatBehaviour;
+    protected IBehaviour rangedCombatBehaviour;
+
     
     private ColoredChar faces[];
     
@@ -40,6 +42,7 @@ public abstract class Creature extends Actor
 
         walkBehaviour = DoNothingBehaviour.getInstance();
         closeCombatBehaviour = DoNothingBehaviour.getInstance();
+        rangedCombatBehaviour = DoNothingBehaviour.getInstance();
         setBehaviour(DoNothingBehaviour.getInstance());
     }
     
@@ -115,6 +118,14 @@ public abstract class Creature extends Actor
     	creature.takeDamage((int)Math.floor(Math.random()* (max_d - min_d) + min_d));
     }
     
+    
+    public void fight(Creature creature, int max_d, int min_d){
+    	if(creature == null || getClass() == creature.getClass())
+    		return;
+    	creature.takeDamage((int)Math.floor(Math.random()* (max_d - min_d) + min_d));
+    }
+    
+    
     public void takeDamage(int d){
     	if(getBehaviour().getClass() == DeadBehaviour.class)
     		return;
@@ -146,6 +157,7 @@ public abstract class Creature extends Actor
 		for(IBeforeAfterFeature<Creature> feature : fightFeatures)
 			feature.actBefore(this);
 		closeCombatBehaviour.act(this);
+		rangedCombatBehaviour.act(this);
 		for(IBeforeAfterFeature<Creature> feature : fightFeatures)
 			feature.actAfter(this);
 	}

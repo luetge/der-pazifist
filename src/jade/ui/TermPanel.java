@@ -9,6 +9,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -88,6 +89,8 @@ public class TermPanel extends Terminal
         term.frame.setLocation(0, 0);
         Log.getLogFrame().setLocation(0, term.frame.getHeight()-4);
         Log.getLogFrame().setSize(term.frame.getWidth(), Log.getLogFrame().getPreferredSize().height);
+        Bagpack.getBPFrame().setLocation(term.frame.getWidth(), 0);
+        Bagpack.getBPFrame().setSize(Toolkit.getDefaultToolkit().getScreenSize().width - term.frame.getWidth(), Log.getLogFrame().getBounds().y + Log.getLogFrame().getBounds().height);
         term.frame.setVisible(true);
     }
     

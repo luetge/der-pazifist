@@ -49,8 +49,8 @@ public class CreatureFactory {
 				faces[i] = ColoredChar.create('ø', Color.ORANGE);
 			creature = new Monster(faces, "Mr. Sniper");
 			creature.setBehaviour(new DefaultRandomBehaviour(1));
-			creature.setRangedCombatBehaviour(new DefaultRangedCombatBehaviour(5, 1, 20, 10));
-			creature.setWalkBehaviour(new Follow(world.getPlayer(), 10, 4, 0));
+			creature.setRangedCombatBehaviour(new DefaultRangedCombatBehaviour(5, 0.5, 20, 10));
+			creature.setWalkBehaviour(new Follow(world.getPlayer(), 13, 5, 0));
 			
 		} else if (identifier.equals("priest")) {
 			creature = new Ally (ColoredChar.create('P'), "Priest", new Dialog ());

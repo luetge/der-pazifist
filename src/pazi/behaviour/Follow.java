@@ -50,10 +50,12 @@ public class Follow implements IBehaviour<Monster> {
 	public void act(Monster monster) {
 		double dist = 0;
 		if(monster.hasActed() || target == null)
-			
-			dist = monster.world().getActor(Player.class).pos().distance(monster.pos());
-			if (dist > radius || dist < minDistance)
 			return;
+
+		dist = monster.world().getActor(Player.class).pos().distance(monster.pos());
+		if (dist > radius || dist < minDistance)
+		return;
+		
 		if(Dice.global.chance(randomFactor)){
 			monster.move(Dice.global.choose(Arrays.asList(Direction.values())));
 			monster.setHasActed(true);

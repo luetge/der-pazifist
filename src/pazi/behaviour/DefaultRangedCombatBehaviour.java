@@ -8,11 +8,11 @@ import rogue.creature.Creature;
 public class DefaultRangedCombatBehaviour implements IBehaviour<Creature> {
 
 	private int range;
-	private float hitProbability;
+	private double hitProbability;
 	private int maxDamage, minDamage;
 	
 	
-	public DefaultRangedCombatBehaviour(int range, float hitProbability, int maxDamage, int minDamage) {
+	public DefaultRangedCombatBehaviour(int range, double hitProbability, int maxDamage, int minDamage) {
 		this.range = range;
 		this.hitProbability = hitProbability;
 		this.maxDamage = maxDamage;

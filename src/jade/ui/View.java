@@ -20,6 +20,18 @@ public class View {
 		this.center_y = center.y();
 	}
 	
+	private static View view = null;
+	public static void setGlobalView (View view) {
+		View.view = view;
+	}
+	public static View global() {
+		return view;
+	}
+	
+	public void update (TiledTermPanel term, World world)
+	{
+		update (term, world, world.getPlayer());
+	}
 	public void update (TiledTermPanel term, World world, Player player)
 	{
         term.clearBuffer();

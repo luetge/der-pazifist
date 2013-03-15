@@ -22,6 +22,7 @@ public class Player extends Creature implements Camera
     private ViewField fov;
     int counter = 0;
     int faith, rage;
+    private int radius;
     
     ColoredChar facesets[][];
     int currentfaceset;
@@ -41,6 +42,7 @@ public class Player extends Creature implements Camera
         fov = new RayCaster();
         min_d = 40;
         max_d = 70;
+        radius = 10;
         setWalkBehaviour(new KeyboardWalk());
         setBehaviour(new PlayerBehaviour());
         setCloseCombatBehaviour(new KeyboardFight());
@@ -91,7 +93,7 @@ public class Player extends Creature implements Camera
     {
     	if(world() == null)
     		return null;
-        return fov.getViewField(world(), pos(), 10);
+        return fov.getViewField(world(), pos(), radius);
     }
     
     @Override
@@ -108,6 +110,14 @@ public class Player extends Creature implements Camera
 	protected void setHP(int hp){
 		super.setHP(hp);
 		HUD.setHP(hp);
+	}
+
+	public void setViewFieldRadius(int radius) {
+		this.radius = radius;
+	}
+
+	public int getViewFieldRadius() {
+		return radius;
 	}
 
 }

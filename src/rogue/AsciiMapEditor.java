@@ -57,7 +57,6 @@ public class AsciiMapEditor implements DocumentListener, WindowListener {
 				content += str + "\n";
 			}
 			reader.close();
-			System.out.println(content);
 			textarea.setText(content);
 			setChanged (false);
 			} catch (IOException e) {

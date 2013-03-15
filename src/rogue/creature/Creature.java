@@ -23,7 +23,7 @@ public abstract class Creature extends Actor
 	protected LinkedList<IBeforeAfterFeature> walkFeatures = new LinkedList<IBeforeAfterFeature>();
 	protected IBehaviour walkBehaviour;
     protected LinkedList<IBeforeAfterFeature> fightFeatures = new LinkedList<IBeforeAfterFeature>();
-    protected IBehaviour fightBehaviour;
+    protected IBehaviour closeCombatBehaviour;
     
     private ColoredChar faces[];
     
@@ -39,7 +39,7 @@ public abstract class Creature extends Actor
     	this.faces = faces;
 
         walkBehaviour = DoNothingBehaviour.getInstance();
-        fightBehaviour = DoNothingBehaviour.getInstance();
+        closeCombatBehaviour = DoNothingBehaviour.getInstance();
         setBehaviour(DoNothingBehaviour.getInstance());
     }
     
@@ -145,7 +145,7 @@ public abstract class Creature extends Actor
     	// FIGHT!!!
 		for(IBeforeAfterFeature<Creature> feature : fightFeatures)
 			feature.actBefore(this);
-		fightBehaviour.act(this);
+		closeCombatBehaviour.act(this);
 		for(IBeforeAfterFeature<Creature> feature : fightFeatures)
 			feature.actAfter(this);
 	}
@@ -173,16 +173,25 @@ public abstract class Creature extends Actor
 		return walkBehaviour;
 	}
 	
-	public void setFightBehaviour(IBehaviour fightBehaviour){
-		if(this.fightBehaviour != null)
-			this.fightBehaviour.exit(this);
-		this.fightBehaviour = fightBehaviour;
-		if(fightBehaviour != null)
-			fightBehaviour.init(this);
+	public void setCloseCombatBehaviour(IBehaviour closeCombatBehaviour){
+		if(this.closeCombatBehaviour != null)
+			this.closeCombatBehaviour.exit(this);
+		this.closeCombatBehaviour = closeCombatBehaviour;
+		if(closeCombatBehaviour != null)
+			closeCombatBehaviour.init(this);
 	}
 	
-	public IBehaviour getFightBehaviour(){
-		return fightBehaviour;
+	public void setRangedCombatBehaviour(IBehaviour rangedCombatBehaviour){
+		if(this.closeCombatBehaviour != null)
+			this.closeCombatBehaviour.exit(this);
+		this.closeCombatBehaviour = rangedCombatBehaviour;
+		if(rangedCombatBehaviour != null)
+			rangedCombatBehaviour.init(this);
+	}
+
+	
+	public IBehaviour getCloseCombatBehaviour(){
+		return closeCombatBehaviour;
 	}
 	
 	public LinkedList<IBeforeAfterFeature> getWalkFeatures(){

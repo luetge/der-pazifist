@@ -43,7 +43,7 @@ public class Player extends Creature implements Camera
         max_d = 70;
         setWalkBehaviour(new KeyboardWalk());
         setBehaviour(new PlayerBehaviour());
-        setFightBehaviour(new KeyboardFight());
+        setCloseCombatBehaviour(new KeyboardFight());
         //TODO Singleton?
     }
     

@@ -24,7 +24,7 @@ public class CreatureFactory {
 				faces[i] = ColoredChar.create('Z', new Color(0x00FF00+i));
 			creature = new Monster(faces, "Blutiger Zombie");
 			creature.addGeneralFeature(new Braaaiiiiins());
-	        creature.setFightBehaviour(DefaultFightBehaviour.getInstance());
+	        creature.setCloseCombatBehaviour(DefaultFightBehaviour.getInstance());
 	        creature.getWalkFeatures().add(new EatBrains());
 			creature.setWalkBehaviour(new Follow(world.getPlayer(), 5, 30));
 			creature.setBehaviour(new RandomBehaviour());
@@ -45,7 +45,7 @@ public class CreatureFactory {
 			creature = new Ally (ColoredChar.create('P'), "Priest", new Dialog ());
 		} else if (identifier.equals("hitler")) {
 			creature = new Monster(ColoredChar.create('H', Color.white), "Hitler");
-			creature.setFightBehaviour(DefaultFightBehaviour.getInstance());
+			creature.setCloseCombatBehaviour(DefaultFightBehaviour.getInstance());
 			creature.setWalkBehaviour(new RandomWalk());
 			creature.addGeneralFeature(new Braaaiiiiins("Arrrrrrr!", 10));
 			creature.setBehaviour(new RandomBehaviour());

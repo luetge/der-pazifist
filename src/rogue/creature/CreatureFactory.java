@@ -50,7 +50,7 @@ public class CreatureFactory {
 				faces[i] = ColoredChar.create('ø', Color.ORANGE);
 			creature = new Monster(faces, "Mr. Sniper");
 			creature.setBehaviour(new DefaultRandomBehaviour(1));
-			creature.setRangedCombatBehaviour(new DefaultRangedCombatBehaviour(5, 0.5, 20, 10));
+			creature.setRangedCombatBehaviour(new DefaultRangedCombatBehaviour(5, 0.3, 10, 5));
 			creature.setWalkBehaviour(new Follow(world.getPlayer(), 13, 5, 0));
 			
 		} else if (identifier.equals("priest")) {

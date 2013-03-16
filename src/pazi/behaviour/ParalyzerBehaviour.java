@@ -29,7 +29,7 @@ public class ParalyzerBehaviour implements IBehaviour<Creature> {
 	@Override
 	public void init(Creature creature) {
 		creature.setWalkBehaviour(new Follow(player, radius, 0.5));
-		creature.setCloseCombatBehaviour(new ParalyzeFightBehaviour(player, 10));
+		//TODO creature.setCloseCombatBehaviour(new ParalyzeFightBehaviour(player, 10));
 	}
 
 }

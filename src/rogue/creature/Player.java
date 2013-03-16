@@ -13,7 +13,6 @@ import jade.util.datatype.Door;
 import java.awt.Color;
 import java.util.Collection;
 
-import pazi.behaviour.KeyboardFight;
 import pazi.behaviour.KeyboardGeneral;
 import pazi.behaviour.KeyboardWalk;
 import pazi.behaviour.PlayerBehaviour;
@@ -48,7 +47,6 @@ public class Player extends Creature implements Camera
         setWalkBehaviour(new KeyboardWalk());
         setBehaviour(new PlayerBehaviour());
         addGeneralFeature(new KeyboardGeneral());
-        setCloseCombatBehaviour(new KeyboardFight());
         //TODO Singleton?
     }
     

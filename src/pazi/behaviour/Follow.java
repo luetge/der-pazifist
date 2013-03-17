@@ -52,7 +52,7 @@ public class Follow implements IBehaviour<Monster> {
 		if(monster.hasActed() || target == null)
 			return;
 
-		dist = monster.world().getActor(Player.class).pos().distance(monster.pos());
+		dist = target.pos().distance(monster.pos());
 		if (dist > radius || dist < minDistance)
 			return;
 		

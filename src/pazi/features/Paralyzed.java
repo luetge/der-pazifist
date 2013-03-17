@@ -13,7 +13,7 @@ public class Paralyzed implements IFeature<Creature> {
 	@Override
 	public void act(Creature creature) {
 		if (roundsToWait < 1)
-			creature.getFeatures(IFeature.class).remove(this);
+			creature.removeFeature(this);
 		else {
 			roundsToWait--;
 			creature.setHasActed(true);

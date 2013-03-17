@@ -9,6 +9,7 @@ import jade.util.datatype.MutableCoordinate;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Set;
 
@@ -65,8 +66,11 @@ public abstract class Actor extends Messenger
     public void act(){
     	setHasActed(false);
     	//allg features
-    	for(int i= generalFeatures.size()-1; i >= 0; i--)
-    		generalFeatures.get(i).act(this);
+    	Iterator<IFeature> it = generalFeatures.descendingIterator();
+    	while (it.hasNext())
+    	{
+    		it.next().act(this);
+    	}
 
     	//verhaltensfeature ausführen
     	if (getBehaviour() != null) 			

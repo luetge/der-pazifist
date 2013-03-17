@@ -46,8 +46,10 @@ public class CreatureFactory {
 	
 		} else if (identifier.equals("sniper1")){
 			ColoredChar faces[] = new ColoredChar[9];
-			for (int i = 0; i < 9; i++)
-				faces[i] = ColoredChar.create('ø', Color.ORANGE);
+			for (int i : new int[]{0,2,3,7,8})
+				faces[i] = ColoredChar.create('ø', new Color(0xFFFFFE));
+			for (int i : new int[]{1,4,5,6})
+				faces[i] = ColoredChar.create('ø', new Color(0xFFFFFF));
 			creature = new Monster(faces, "Mr. Sniper");
 			creature.setBehaviour(new DefaultRandomBehaviour(1));
 			creature.setRangedCombatBehaviour(new DefaultRangedCombatBehaviour(5, 0.3, 10, 5));

@@ -4,6 +4,8 @@ import jade.util.datatype.ColoredChar;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.AbstractCollection;
 
 import rogue.creature.Creature;
 import rogue.creature.Player;
@@ -11,7 +13,7 @@ import rogue.creature.Player;
 public class DeadBehaviour implements IBehaviour<Creature> {
 	
 	// Achtung! In deadBodies sind nur die Toten mit Hirn!
-	public static ArrayList<Creature> deadBodies = new ArrayList<Creature>();
+	public static AbstractCollection<Creature> deadBodies = new LinkedHashSet<Creature>();
 	
 	/**
 	 * Singleton

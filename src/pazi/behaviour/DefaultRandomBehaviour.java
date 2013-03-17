@@ -1,6 +1,8 @@
 package pazi.behaviour;
 
+import rogue.creature.Creature;
 import rogue.creature.Monster;
+import rogue.creature.Player;
 
 public class DefaultRandomBehaviour implements IBehaviour<Monster> {
 
@@ -19,13 +21,14 @@ public class DefaultRandomBehaviour implements IBehaviour<Monster> {
 	
 	@Override
 	public void act(Monster monster) {
-		if(Math.random() < randFactor){
-			monster.fight();
+		Creature creat = monster.getAttackableCreature(Player.class);
+		if(creat != null && Math.random() < randFactor){
+			monster.fight(creat, true);
 			monster.walk();
 		}
 		else {
 			monster.walk();
-			monster.fight();
+			monster.fight(creat, true);
 		}
 	}
 

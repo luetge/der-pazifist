@@ -88,7 +88,6 @@ public abstract class Creature extends Actor
 	        		if(!actor.isPassable())
 	        			return;
 	    		super.setPos(x, y);
-	    		setHasActed(true);
 	        }
 	    }
     }
@@ -153,16 +152,23 @@ public abstract class Creature extends Actor
 	}
     
     public void fight(Creature creature, int hp, double chance, boolean melee) {
+    	if(creature == null || hasActed())
+    		return;
     	// FIGHT!!!
 		for(IBeforeAfterFeature<Creature> feature : fightFeatures)
 			feature.actBefore(this);
 		if(Math.random() <= chance)
 			creature.takeDamage(hp);
+		else
+			System.out.println("Ich habe verfehlt! Damn!");
+		setHasActed(true);
 		for(IBeforeAfterFeature<Creature> feature : fightFeatures)
 			feature.actAfter(this);
 	}
 
 	public void walk() {
+		if(hasActed())
+			return;
 		// Neue Position bestimmen
 		for(IBeforeAfterFeature<Creature> feature : walkFeatures)
 			feature.actBefore(this);
@@ -194,6 +200,8 @@ public abstract class Creature extends Actor
 	}
 
 	public void fight(Direction dir) {
+		if(dir == null || dir == Direction.ORIGIN)
+			return;
 		fight(world().getActorAt(Creature.class, pos().getTranslated(dir)), true);
 	}
 	
@@ -238,7 +246,7 @@ public abstract class Creature extends Actor
 			};
 		});
 		for(AttackableCreature creat : lst)
-			if(cls.isAssignableFrom(creat.getClass())
+			if(cls.isAssignableFrom(creat.creature.getClass()))
 					return creat.creature;
 		return null;
 	}

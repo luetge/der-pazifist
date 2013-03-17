@@ -66,11 +66,14 @@ public abstract class Actor extends Messenger
     public void act(){
     	setHasActed(false);
     	//allg features
-    	Iterator<IFeature> it = generalFeatures.descendingIterator();
+    	LinkedList<IFeature> features = new LinkedList<IFeature> ();
+    	features.addAll(generalFeatures);
+    	Iterator<IFeature> it = features.descendingIterator();
     	while (it.hasNext())
     	{
     		it.next().act(this);
     	}
+    	
 
     	//verhaltensfeature ausführen
     	if (getBehaviour() != null) 			

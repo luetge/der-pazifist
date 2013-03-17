@@ -122,8 +122,14 @@ public class World extends Messenger
         
     	// Alle Aktionen durchführen
         for(Class<? extends Actor> cls : actOrder)
+        {
             for(Actor actor : getActors(cls))
-                actor.act();  	       
+            {
+                actor.act();
+                if (getPlayer().expired())
+                	return null;
+            }
+        }
         
 //        Creature monster = getActorAt(Monster.class, getActor(Player.class).pos());
        // if(monster != null && monster.getFeatures(Death.class).isEmpty())

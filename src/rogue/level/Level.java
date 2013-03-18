@@ -76,7 +76,7 @@ public class Level
     			{
     				Door d = doors.get(coord);
     				d = new Door(d.getID(), d.getPosition(), d.getDestWorld(),
-    						d.getDestID(), Direction.SOUTH);
+    						d.getDestID(), d.getDirection());
     				w.addDoor(d.getPosition(), d);
     			}
     			movePlayerThroughDoor (w, door);

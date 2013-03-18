@@ -58,7 +58,11 @@ public class CreatureFactory {
 			creature.rcWeapon = (IRangedCombatWeapon) WeaponFactory.createWeapon("sniper", creature);
 		} else if (identifier.equals("priest")) {
 			creature = new Ally (ColoredChar.create('P'), "Priest", new Dialog ("res/dialogs/priest.txt"));
-		} else if (identifier.equals("hitler")) {
+			
+		} else if (identifier.equals("scientist")) {
+			creature = new Ally (ColoredChar.create('W'), "Scientist", new Dialog ("res/dialogs/scientist.txt"));
+		}	
+		else if (identifier.equals("hitler")) {
 			creature = new Monster(ColoredChar.create('H', Color.white), "Hitler");
 			creature.setWalkBehaviour(new RandomWalk());
 			creature.addGeneralFeature(new Braaaiiiiins("Arrrrrrr!", 10));

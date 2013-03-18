@@ -63,7 +63,7 @@ public class WeaponPrototype implements IWeapon {
 	}
 	
 	protected String getWeaponFiredText(Creature attacker, Creature victim){
-		return attacker.getName() + " greift an mit \"" + getName() + "\".";
+		return attacker.getName() + " greift an mit \"" + this.getName() + "\".";
 	}
 	
 

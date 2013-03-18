@@ -7,6 +7,17 @@ public class WeaponPrototype implements IWeapon {
 	protected int min_d, max_d;
 	protected double prob, range;
 	protected String name;
+	protected String weaponFiredTemp = "", weaponMissed = "Mist, daneben!", weaponHit = "";
+	Creature holder;	// Wer hält diese Waffe?
+	
+	public WeaponPrototype(int min_d, int max_d, double range, double prob, String name, Creature creature){
+		this.min_d = min_d;
+		this.max_d = max_d;
+		this.prob = prob;
+		this.range = range;
+		this.name = name;
+		setHolder(creature);
+	}
 	
 	public WeaponPrototype(int min_d, int max_d, double range, double prob, String name){
 		this.min_d = min_d;
@@ -14,6 +25,7 @@ public class WeaponPrototype implements IWeapon {
 		this.prob = prob;
 		this.range = range;
 		this.name = name;
+		setHolder(null);
 	}
 
 	@Override
@@ -29,18 +41,36 @@ public class WeaponPrototype implements IWeapon {
 	@Override
 	public void shoot(Creature attacker, Creature victim) {
 		if(attacker != null && victim != null)
+			weaponFiredTemp = getWeaponFiredText(attacker, victim);
+			if (weaponFiredTemp != "")
+				attacker.world().appendMessage(weaponFiredTemp);
 			if(Math.random() < getProb(attacker, victim)){
-				attacker.world().appendMessage(attacker.getName() + " greift an mit \"" + getName() + "\".");
 				victim.takeDamage(getDamage(attacker, victim));
+				if (weaponHit != "")
+					victim.world().appendMessage(weaponHit);
 			}
 			else
-				attacker.appendMessage("Mist, daneben!");
-
+				if (weaponMissed != "")
+					attacker.world().appendMessage(weaponMissed);
 	}
+	
+	public void setHolder(Creature creature){
+		holder = creature;
+	}
+	
+	public Creature getHolder(){
+		return holder;
+	}
+	
+	protected String getWeaponFiredText(Creature attacker, Creature victim){
+		return attacker.getName() + " greift an mit \"" + getName() + "\".";
+	}
+	
 
 	@Override
 	public String getName() {
 		return name;
 	}
+
 
 }

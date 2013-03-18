@@ -1,0 +1,4 @@
+//Lässt die Konfiguration einiger Monster aus dem Spiel zu. Das Format ist wie folgt (Features und Behaviours sind über ihre Klassennamen anzusprechen):
+//Identifier;Name;Zeichen;Farbe;HP;MIN_DAMAGE;MAX_DAMAGE;Behaviour;WalkingBehaviour;Features(Bindestrich separiert,Argumente in Klammern);MeleeWeapon;RCWeapon;WalkFeatures;FightFeatures
+//Hierbei sind Argumente für die Konstruktoren von Behaviours und Features in Klammern such Komma separiert anzugeben, einzelne Features und Behaviours sind per Bindestrich aufzulisten
+zombie1;Blutiger Zombie;Z;0x00FF00;100;35;45;DefaultBehaviour;Follow(¥Player,8,0.2);Braaaiiiiins;rottenFist;;EatBrains;

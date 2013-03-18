@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.List;
 
 import pazi.behaviour.DeadBehaviour;
 import pazi.behaviour.DoNothingBehaviour;
@@ -20,10 +21,10 @@ import pazi.features.IBeforeAfterFeature;
 import pazi.items.Gold;
 import pazi.items.Inventory;
 import pazi.items.Item;
-import rogue.weapons.Fist;
 import rogue.weapons.IMeleeWeapon;
 import rogue.weapons.IRangedCombatWeapon;
 import rogue.weapons.IWeapon;
+import rogue.weapons.WeaponFactory;
 
 public abstract class Creature extends Actor
 {
@@ -52,7 +53,7 @@ public abstract class Creature extends Actor
 
         walkBehaviour = DoNothingBehaviour.getInstance();
         setBehaviour(DoNothingBehaviour.getInstance());
-        meleeWeapon = new Fist();
+        meleeWeapon = (IMeleeWeapon) WeaponFactory.createWeapon("fist");
     }
     
     public void setFace (Direction dir, ColoredChar face)
@@ -122,7 +123,7 @@ public abstract class Creature extends Actor
     
     public void fight(Creature creature, boolean melee){
     	IWeapon weapon = melee ? meleeWeapon : rcWeapon;
-    	fight(creature, weapon.getDamage(creature), weapon.getProb(creature), melee);
+    	fight(creature, weapon.getDamage(this, creature), weapon.getProb(this, creature), melee);
     }    
     
     public void takeDamage(int d){
@@ -157,10 +158,7 @@ public abstract class Creature extends Actor
     	// FIGHT!!!
 		for(IBeforeAfterFeature<Creature> feature : fightFeatures)
 			feature.actBefore(this);
-		if(Math.random() <= chance)
-			creature.takeDamage(hp);
-		else
-			System.out.println("Ich habe verfehlt! Damn!");
+		(melee ? meleeWeapon : rcWeapon).shoot(this, creature);
 		setHasActed(true);
 		for(IBeforeAfterFeature<Creature> feature : fightFeatures)
 			feature.actAfter(this);
@@ -238,7 +236,7 @@ public abstract class Creature extends Actor
 		setHasActed(true);
 	}
 	
-	public Creature getAttackableCreature(Class cls){
+	public AttackableCreature getAttackableCreature(Class cls){
 		ArrayList<AttackableCreature> lst = getCreatures();
 		Collections.sort(lst, new Comparator<AttackableCreature>() {
 			public int compare(AttackableCreature o1, AttackableCreature o2) {
@@ -247,7 +245,7 @@ public abstract class Creature extends Actor
 		});
 		for(AttackableCreature creat : lst)
 			if(cls.isAssignableFrom(creat.creature.getClass()))
-					return creat.creature;
+					return creat;
 		return null;
 	}
 	
@@ -257,19 +255,33 @@ public abstract class Creature extends Actor
 		addAttackableCreature(list, getScore(pos().getTranslated(1, 0), true));
 		addAttackableCreature(list, getScore(pos().getTranslated(0, 1), true));
 		addAttackableCreature(list, getScore(pos().getTranslated(0, -1), true));
+		if(rcWeapon != null)
+			for(Coordinate coord : getRect(pos(), rcWeapon.getRange()))
+				addAttackableCreature(list, getScore(coord, false));
 		return list;
 	}
 	
+	private List<Coordinate> getRect(Coordinate pos, double range) {
+		ArrayList<Coordinate> coords = new ArrayList<Coordinate>();
+		int half = (int)(range/2);
+		for(int i=0; i<2*range; i++)
+			for(int j=0; j<2*range; j++)
+				coords.add(pos.getTranslated(i-half, j-half));
+		return coords;
+	}
+
 	protected void addAttackableCreature(ArrayList<AttackableCreature> list, AttackableCreature creature){
 		if(creature != null)
 			list.add(creature);
 	}
 	
 	protected AttackableCreature getScore(Coordinate coord, boolean melee){
+		if(!world().insideBounds(coord))
+			return null;
 		IWeapon weapon = melee ? meleeWeapon : rcWeapon;
 		for(Creature creature : world().getActorsAt(Creature.class, coord))
 			if(!creature.expired())
-				return new AttackableCreature(creature, weapon.getDamage(creature), weapon.getProb(creature), melee);
+				return new AttackableCreature(creature, weapon.getDamage(this, creature), weapon.getProb(this, creature), melee);
 		return null;
 	}
 	

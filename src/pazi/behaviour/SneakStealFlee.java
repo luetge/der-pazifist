@@ -11,6 +11,7 @@ public class SneakStealFlee implements IBehaviour<Monster> {
 	
 	Player player;
 	ColoredChar symbols[];
+	boolean isVisible = false;
 	
 	public SneakStealFlee(Player player, ColoredChar symbols[]) {
 		this.player = player;
@@ -20,7 +21,7 @@ public class SneakStealFlee implements IBehaviour<Monster> {
 	
 	@Override
 	public void act(Monster monster) {
-		if (monster.pos().distance(player.pos()) < 2){
+		if (monster.pos().distance(player.pos()) < 2 && !isVisible){
 			if(player.getInventory().getGold() > 0){
 				monster.appendMessage("OMZFG!! I stealz ur monneyz lols!");
 				int amount = player.getGold(-MONEY_AMOUNT);
@@ -32,18 +33,17 @@ public class SneakStealFlee implements IBehaviour<Monster> {
 			}
 			monster.setFaces(symbols);
 			monster.setFace(symbols[4]);
+			isVisible = true;
 			
+			monster.setWalkBehaviour(new Flee(player, 8, 0.1));		
 			monster.setHasActed(true);
-			monster.setBehaviour(new DefaultRandomBehaviour());
 		} else {
 			monster.walk();
 		}
 	}
 
 	@Override
-	public void exit(Monster monster) {
-		monster.setWalkBehaviour(new Flee(player, 8, 0.1));		
-	}
+	public void exit(Monster monster) { }
 
 	@Override
 	public void init(Monster monster) {

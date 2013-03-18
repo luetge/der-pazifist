@@ -1,3 +1,5 @@
 package rogue.weapons;
 
-public interface IRangedCombatWeapon extends IWeapon { }
+public interface IRangedCombatWeapon extends IWeapon {
+	double getRange();
+}

@@ -278,6 +278,16 @@ public class View {
 	
 	private static View view = null;
 	
+	public int tileHeight()
+	{
+		return tileHeight;
+	}
+	
+	public int tileWidth()
+	{
+		return tileWidth;
+	}
+	
 	public void setCenter (Coordinate center)
 	{
 		this.center_x = center.x();
@@ -394,7 +404,7 @@ public class View {
 		return view;
 	}
 	
-	private void clear ()
+	public void clear ()
 	{
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 	}

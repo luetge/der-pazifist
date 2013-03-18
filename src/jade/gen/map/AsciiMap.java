@@ -124,10 +124,10 @@ public class AsciiMap {
 	
 	public void render (View view, Coordinate pos)
 	{
-		for (Coordinate coord : characters.keySet())
-			view.drawTile(coord.getTranslated(pos),  characters.get(coord).ch());
 		for (Coordinate coord : backgrounds.keySet())
 			view.drawBackground(coord.getTranslated(pos), backgrounds.get(coord));
+		for (Coordinate coord : characters.keySet())
+			view.drawTile(coord.getTranslated(pos),  characters.get(coord).ch());
 	}
 	
 	public void render (View view, int posx, int posy)

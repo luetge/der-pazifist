@@ -17,6 +17,10 @@ Bisherige Befehle für die Escape-Sequenzen sind:
 
 ¥np¥			- macht die folgenden Zeichen unpassierbar (standard)
 
+¥brighten¥      - erhöht die Helligkeit aller Farben der folgenden Zeichen um eine Stufe
+
+¥dontbrighten¥  - belässt die Helligkeit bei ihrem normalen Wert (standard)
+
 ¥door:id,destworld,destname,n¥
 Definiert eine Tür am nächsten Zeichen.
 Die Tür bekommt die Bezeichnung "id" und führt in die

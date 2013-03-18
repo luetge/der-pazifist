@@ -57,4 +57,10 @@ Verdammt, ich will meine Ruhe haben!
 AAAAAAAAAAAAAAAH
 208:done
 
-209:end:200
+209:end:210
+
+210:text
+Ich brech zusammen...
+210:done
+
+211:end:200

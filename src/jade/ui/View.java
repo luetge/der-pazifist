@@ -436,11 +436,12 @@ public class View {
 			return;
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glColor4ub((byte)background.getRed(), (byte)background.getGreen(), (byte)background.getBlue(), (byte)background.getAlpha());
+		float dy = 2.0f/tileWidth;
 		GL11.glBegin(GL11.GL_QUADS);
-		GL11.glVertex3i(x, y, -1);
-		GL11.glVertex3i(x+1, y, -1);
-		GL11.glVertex3i(x+1, y+1, -1);
-		GL11.glVertex3i(x, y+1, -1);
+		GL11.glVertex3f(x, y+dy, -1);
+		GL11.glVertex3f(x+1, y+dy, -1);
+		GL11.glVertex3f(x+1, y+dy+1, -1);
+		GL11.glVertex3f(x, y+dy+1, -1);
 		GL11.glEnd();
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 	}
@@ -571,7 +572,7 @@ public class View {
             		List<ColoredChar> list = world.lookAll(worldx, worldy);
                 	Collections.reverse(list);
                 	int i = 0;
-                	int numchars = list.size();
+                	int numchars = list.size()+1;
                 	for (ColoredChar c : list)
                 	{
                 		if (c == null)

@@ -1,0 +1,149 @@
+Jeder Befehl in einer Dialogdatei hat eines der folgenden Formate:
+
+[id]:[Befehl]
+[id]:[Befehl]:[Argument1]:[Argument2]:[etc]
+
+"id" ist hierbei eine ganze Zahl (negative Werte und 0 sind erlaubt),
+wobei die niedrigste ID den ursprünglichen Eintrittspunkt für den Dialog
+festlegt (der erste Aufruf des Dialogs startet bei der kleinsten ID).
+Jeder Befehlsblog muss eine feste, eindeutige ID haben, allerdings können
+IDs in beliebiger Reihenfolge definiert werden und nicht jeder ID muss ein
+Befehl zugewiesen werden.
+Wenn nicht anders vermerkt springt der Dialog nach einem Befehl zum nächsten
+Befehl, d.h. dem Befehl mit einer um 1 höheren ID (dieser muss also auch
+existieren!).
+
+Der Befehl "done" nimmt eine Sonderrolle ein. Bei manchen Befehlen folgt
+auf die eigentliche Befehlszeile ein Textblock mit weiteren Daten. In
+diesem Fall muss der Textblock mit dem Befehl "[id]:done" abgeschlossen werden.
+
+Leerzeilen werden ignoriert, es sei denn sie befinden sich in einem Textblock
+(Leere Zeilen in einem Textblock werden mit ausgegeben/verwertet).
+
+Dem Dialog können Kommentare hinzugefügt werden: Jede Zeile außerhalb eines
+Textblocks, die mit einem # beginnt wird ignoriert.
+
+Folgende Befehle sind möglich:
+
+=====================
+0:text
+Beispieltext
+0:done
+---------------------
+0:text:Sprechername
+Beispieltext
+0:done
+=====================
+Der "text" Befehl gibt den Text im nachfolgenden Textblock aus. Hierbei wird
+entweder der Name des Sprechers, zu dem der Dialog gehört, verwendet, oder
+der explizit angegebene Sprechername. Nach Drücken der Leertaste wird zur
+nächsten ID gesprungen.
+
+=====================
+1:end:0
+=====================
+Der "end" Befehl beendet den Dialog. Das Argument bestimmt die ID,
+bei der der Dialog beim nächsten Aufruf starten soll.
+
+=====================
+2:question:Antwort1:10:Antwort2:20:Antwort3:30
+Fragetext
+2:done
+---------------------
+3:question:Antwort3:50:Antwort6:90
+3:done
+=====================
+Der "question" Befehl zeigt den Fragetext mit der als Argumente übergebenen
+Liste an Antwortmöglichkeiten an. Je nachdem welche Antwort gegeben wird
+springt der Dialog zur jeweils hiner der Antwortmöglichkeit als Argument
+gegebenen ID. Der Fragetext kann auch ausgelassen werden, allerdings ist
+immer noch ein "done" Befehl nötig, um den Befehl abzuschließen.
+
+=====================
+4:giveitem:Gold:40
+=====================
+Der "giveitem" Befehl bewirkt, dass der Pazifist dem Dialogpartner
+Items des im 1. Argument festgelegten Typs gibt. Die Menge der Items
+wird im 2. Argument festgelegt. Falls der Pazifist nicht genug solche
+Items hat, werden so viele Items wie möglich übergeben - es ist aber
+nicht möglich, abzufragen, wieviele Items das gewesen sind.
+Siehe "playerhasitem".
+
+=====================
+5:receiveitem:Gold:20
+=====================
+Der "receiveitem" Befehl bewirkt, dass der Pazifist vom Dialogpartner
+Items des im 1. Argument festgelegten Typs erhält. Die Menge der Items
+wird im 2. Argument festgelegt. Falls der Dialogpartner nicht genug
+solche Items hat, werden so viele Items wie möglich übergeben - es ist aber
+nicht möglich, abzufragen, wieviele Items das gewesen sind.
+Siehe "hasitem".
+
+=====================
+6:goto:99
+=====================
+Der "goto" Befehl springt zu der als Argument übergebenen ID.
+
+=====================
+7:hasitem:Gold:40:100:200
+=====================
+Der "hasitem" Befehl überprüft, ob der Dialogpartner des Pazifisten
+die im 2. Argument übergebene Menge an Items des im 1. Argument
+übergebenen Typs hat. Ist das der Fall, so springt der Dialog zur
+im 3. Argument angegebenen ID, ansonsten zur im 4. Argument angegebenen
+ID.
+
+=====================
+8:playerhasitem:Gold:80:3:0
+=====================
+Der "playerhasitem" Befehl überprüft, ob der Pazifist
+die im 2. Argument übergebene Menge an Items des im 1. Argument
+übergebenen Typs hat. Ist das der Fall, so springt der Dialog zur
+im 3. Argument angegebenen ID, ansonsten zur im 4. Argument angegebenen
+ID.
+
+=====================
+9:setstate:beispielstate:0
+=====================
+Der "setstate" Befehl setzt die im 1. Argument übergebene Statusvariable
+auf den im 2. Argument angegebenen Wert.
+
+=====================
+10:isstate:beispielstate:1:80:90
+=====================
+Der "isstate" Befehl überprüft, ob die im 1. Argument übergebene Statusvariable
+den im 2. Argument übergebenen Wert hat. Die Statusvariable muss existieren,
+d.h. ihr muss bereits vorher mit "setstate" ein Wert zugewiesen worden sein.
+Hat die Variable den richtigen Wert, so springt der Dialog zur im 3. Argument
+angegebenen ID, ansonsten zur im 4. Argument angegebenen ID.
+
+=====================
+11:statelarger:beispielstate:10:80:90
+=====================
+Der "statelarger" Befehl überprüft, ob die im 1. Argument übergebene
+Statusvariable einen größeren Wert enthält als der im 2. Argument
+übergebene Wert. Die Statusvariable muss existieren, d.h. ihr muss bereits
+vorher mit "setstate" ein Wert zugewiesen worden sein.
+Hat die Variable einen entsprechend großen Wert, so springt der Dialog
+zur im 3. Argument angegebenen ID, ansonsten zur im 4. Argument
+angegebenen ID.
+
+=====================
+11:statesmaller:beispielstate:10:80:90
+=====================
+Der "statesmaller" Befehl überprüft, ob die im 1. Argument übergebene
+Statusvariable einen kleineren Wert enthält als der im 2. Argument
+übergebene Wert. Die Statusvariable muss existieren, d.h. ihr muss bereits
+vorher mit "setstate" ein Wert zugewiesen worden sein.
+Hat die Variable einen entsprechend kleinen Wert, so springt der Dialog
+zur im 3. Argument angegebenen ID, ansonsten zur im 4. Argument
+angegebenen ID.
+
+=====================
+9:addstate:beispielstate:10
+=====================
+Der "addstate" Befehl erhöht die im 1. Argument übergebene Statusvariable
+um den im 2. Argument angegebenen Wert. Die Statusvariable muss existieren,
+d.h. ihr muss bereits vorher mit "setstate" ein Wert zugewiesen worden sein.
+Der im 2. Argument angegebene Wert kann positiv oder negativ sein.
+

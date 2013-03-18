@@ -249,6 +249,24 @@ public abstract class Creature extends Actor
 		return null;
 	}
 	
+	
+	public ArrayList<Creature> getCreaturesCloseby(){
+		ArrayList<Creature> list = new ArrayList<Creature>();
+
+		list.add(world().getActorAt(Creature.class, pos().getTranslated(1, -1)));
+		list.add(world().getActorAt(Creature.class, pos().getTranslated(1, 0)));
+		list.add(world().getActorAt(Creature.class, pos().getTranslated(1, 1)));
+		list.add(world().getActorAt(Creature.class, pos().getTranslated(0, -1)));
+		list.add(world().getActorAt(Creature.class, pos().getTranslated(0, 1)));
+		list.add(world().getActorAt(Creature.class, pos().getTranslated(-1, -1)));
+		list.add(world().getActorAt(Creature.class, pos().getTranslated(-1, 0)));
+		list.add(world().getActorAt(Creature.class, pos().getTranslated(-1, 1)));
+	
+		list.removeAll(Collections.singletonList(null));
+		System.out.println(list.toString());
+		return list;
+	}
+	
 	public ArrayList<AttackableCreature> getCreatures(){
 		ArrayList<AttackableCreature> list = new ArrayList<AttackableCreature>();
 		addAttackableCreature(list, getScore(pos().getTranslated(-1, 0), true));

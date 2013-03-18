@@ -1,22 +1,43 @@
 0:text:Der Pazifist
 Was gehtn hier ab?
 0:done
+
 1:text
 Uähh... was?
 Warum hängst du nicht am Kreuz? Hicks!
 1:done
+
 2:question:Bist du besoffen?:3:Halt dein Maul!:9
 2:done
+
 3:text
 Ja.
 3:done
-4:question:Ja:5:Halt dein Maul!:7
+
+4:question:Ja:5:Halt dein Maul!:12
 Hast du Gold?
 4:done
-5:giveitem:Gold:1
-6:goto:9
-7:question:Ja:8:Halt dein Maul!:9
-Willst du Gold?
-7:done
-8:receiveitem:Gold:1
-9:end:0
+
+5:playerhasitem:Gold:1:8:6
+
+6:text
+Verarsch mich nicht!
+6:done
+7:end:0
+
+8:giveitem:Gold:1
+
+9:text:Der Pazifist
+Da!
+9:done
+
+10:text
+Yeeha! Dann kann ich endlich neuen Messwein kaufen! Sau geil!
+10:done
+
+11:end:0
+
+12:text
+Dann verpiss dich aus meiner Kirche, du Penner!
+12:done
+13:end:0

@@ -2,6 +2,7 @@ package pazi.items;
 
 import jade.core.Actor;
 import jade.ui.Bagpack;
+import jade.ui.HUD;
 import jade.util.Guard;
 
 import java.util.ArrayList;
@@ -31,10 +32,60 @@ public class Inventory {
 		update();
 	}
 	
+	public boolean hasItem (String name, int amount)
+	{
+		// TODO: bessere Implementierung nötig
+		if (name.equals("Gold") || name.equals("gold"))
+			return getGold() >= amount;
+		int count = 0;
+		for (Item item : items)
+		{
+			if (item.getClass().getSimpleName().equals(name))
+			{
+				count++;
+				if (count >= amount)
+					return true;
+			}
+		}
+		return false;
+	}
+	
 	public void removeItem(Item item){
 		Guard.verifyState(items.contains(item));
 		items.remove(item);
 		update();
+	}
+	
+	public Item getItem (String name)
+	{
+		for (Item item : items)
+		{
+			if (item.getClass().getName().equals(name))
+				return item;
+		}
+		return null;
+	}
+	
+	public int giveItem(Creature recipient, String name, int amount)
+	{
+		if (name.equals("Gold")||name.equals("gold"))
+		{
+			int realamount = loseGold(amount);
+			recipient.getInventory().findGold(realamount);
+			return realamount;
+		}
+		int realamount = 0;
+		while (realamount < amount)
+		{
+			Item item = getItem (name);
+			if (item == null)
+				break;
+			removeItem (item);
+			recipient.getInventory().addItem(item);
+			realamount++;
+		}
+		update(); 
+		return realamount;
 	}
 	
 	public ArrayList<Item> getItems(){
@@ -49,6 +100,9 @@ public class Inventory {
 		Guard.argumentIsNonNegative(gold);
 		
 		this.gold += gold;
+		if(Player.class.isAssignableFrom(owner.getClass()))
+			HUD.setGold(this.gold);
+		
 	}
 	
 	/**
@@ -62,6 +116,8 @@ public class Inventory {
 		if(this.gold - gold < 0)
 			gold = this.gold;
 		this.gold -= gold;
+		if(Player.class.isAssignableFrom(owner.getClass()))
+			HUD.setGold(this.gold);
 		return gold;
 	}
 

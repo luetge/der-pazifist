@@ -8,8 +8,11 @@ import java.awt.Color;
 import java.io.IOException;
 
 import rogue.creature.Ally;
+import rogue.creature.Creature;
 import jade.ui.Log;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -23,7 +26,7 @@ public class Dialog {
 		public final int getID() {
 			return id;
 		}
-		public abstract int tick(World world, TiledTermPanel term, Ally speaker);
+		public abstract int tick(World world, TiledTermPanel term, Creature speaker);
 		public abstract void load(BufferedReader reader);
 		public ArrayList<String> loadText (BufferedReader reader)
 		{
@@ -42,6 +45,47 @@ public class Dialog {
 			return list;
 		}
 	}
+	private class HasItemNode extends Node {
+		private int yes_destination;
+		private int no_destination;
+		private int amount;
+		private String itemname;
+		public HasItemNode (int id, String args[])
+		{
+			super(id);
+			Guard.validateArgument(args.length == 6);
+			itemname = args[2];
+			amount = Integer.parseInt(args[3]);
+			yes_destination = Integer.parseInt(args[4]);
+			no_destination = Integer.parseInt(args[5]);
+		}
+		
+		@Override
+		public int tick (World world, TiledTermPanel term, Creature speaker)
+		{
+			if (speaker.getInventory().hasItem (itemname, amount))
+				return yes_destination;
+			else
+				return no_destination;
+		}
+		
+		@Override
+		public void load (BufferedReader reader)
+		{
+		}
+	}
+	private class PlayerHasItemNode extends HasItemNode {
+		public PlayerHasItemNode (int id, String args[])
+		{
+			super(id, args);
+		}
+		
+		@Override
+		public int tick (World world, TiledTermPanel term, Creature speaker)
+		{
+			return super.tick(world,  term, world.getPlayer());
+		}
+	}
 	private class GotoNode extends Node {
 		private int destination;
 		public GotoNode(int id, String args[])
@@ -52,7 +96,7 @@ public class Dialog {
 		}
 		
 		@Override
-		public int tick (World world, TiledTermPanel term, Ally speaker)
+		public int tick (World world, TiledTermPanel term, Creature speaker)
 		{
 			return destination;
 		}
@@ -75,7 +119,7 @@ public class Dialog {
 		}
 		
 		@Override
-		public int tick (World world, TiledTermPanel term, Ally speaker)
+		public int tick (World world, TiledTermPanel term, Creature speaker)
 		{
 			View.global().update(term, world);
 			
@@ -103,10 +147,11 @@ public class Dialog {
 		}
 		
 		@Override
-		public int tick (World world, TiledTermPanel term, Ally speaker)
+		public int tick (World world, TiledTermPanel term, Creature speaker)
 		{
 			Log.addMessage("Der Pazifist gibt " + speaker.getName() + " " + amount
 					+ " " + type + ".");
+			world.getPlayer().getInventory().giveItem (speaker, type, amount);
 			return getID() + 1;
 		}
 		
@@ -127,10 +172,11 @@ public class Dialog {
 		}
 		
 		@Override
-		public int tick (World world, TiledTermPanel term, Ally speaker)
+		public int tick (World world, TiledTermPanel term, Creature speaker)
 		{
 			Log.addMessage("Der Pazifist erhält " + amount
 					+ " " + type + " von " + speaker.getName() + ".");
+			speaker.getInventory().giveItem(world.getPlayer(), type, amount);
 			return getID() + 1;
 		}
 		
@@ -157,7 +203,7 @@ public class Dialog {
 		}
 		
 		@Override
-		public int tick (World world, TiledTermPanel term, Ally speaker)
+		public int tick (World world, TiledTermPanel term, Creature speaker)
 		{
 			View.global().update(term, world);
 
@@ -230,7 +276,7 @@ public class Dialog {
 		}
 		
 		@Override
-		public int tick (World world, TiledTermPanel term, Ally speaker)
+		public int tick (World world, TiledTermPanel term, Creature speaker)
 		{
 			return returnval;
 		}
@@ -240,11 +286,11 @@ public class Dialog {
 			return;
 		}
 	}
-	private ArrayList<Node> nodes;
+	private Map<Integer, Node> nodes;
 	private Ally speaker;
 	private int currentid;
 	public Dialog (String filename) {
-		this.nodes = new ArrayList<Node> ();
+		this.nodes = new HashMap<Integer, Node> ();
 		this.currentid = 0;
 		load (filename);
 	}
@@ -257,6 +303,8 @@ public class Dialog {
 			String str;
 			while((str = reader.readLine()) != null)
 			{
+				if (str.isEmpty())
+					continue;
 				String args[] = str.split(":");
 				
 				Guard.validateArgument(args.length >= 2);
@@ -268,17 +316,21 @@ public class Dialog {
 				
 				if (args[1].equals("text"))
 				{
-						node = new TextNode (id, args);
+					node = new TextNode (id, args);
 				} else if (args[1].equals("question")) {
-						node = new QuestionNode (id, args);
+					node = new QuestionNode (id, args);
 				} else if (args[1].equals("end")) {
-						node = new EndNode (id, args);
+					node = new EndNode (id, args);
 				} else if (args[1].equals("giveitem")) {
-						node = new GiveItemNode (id, args);
+					node = new GiveItemNode (id, args);
 				} else if (args[1].equals("receiveitem")) {
-						node = new ReceiveItemNode (id, args);
+					node = new ReceiveItemNode (id, args);
 				} else if (args[1].equals("goto")) {
-						node = new GotoNode (id, args);
+					node = new GotoNode (id, args);
+				} else if (args[1].equals("hasitem")) {
+					node = new HasItemNode (id, args);
+				} else if (args[1].equals("playerhasitem")) {
+					node = new PlayerHasItemNode (id, args);
 				} else {
 					System.out.println("Unknown dialog entry: " + args[1]);
 					throw new IllegalStateException();
@@ -286,7 +338,7 @@ public class Dialog {
 				
 				node.load(reader);
 				
-				nodes.add(id, node);
+				nodes.put(id, node);
 			}
 
 		} catch (IOException e) {

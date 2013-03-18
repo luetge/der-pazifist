@@ -49,7 +49,7 @@ public class Player extends Creature implements Camera
         setWalkBehaviour(new KeyboardWalk());
         setBehaviour(new PlayerBehaviour());
         addGeneralFeature(new KeyboardGeneral());
-        meleeWeapon = (IMeleeWeapon) WeaponFactory.createWeapon("fist");
+        meleeWeapon = (IMeleeWeapon) WeaponFactory.createWeapon("fist", this);
         //TODO Singleton?
     }
     

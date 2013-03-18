@@ -53,7 +53,7 @@ public abstract class Creature extends Actor
 
         walkBehaviour = DoNothingBehaviour.getInstance();
         setBehaviour(DoNothingBehaviour.getInstance());
-        meleeWeapon = (IMeleeWeapon) WeaponFactory.createWeapon("headnut");
+        meleeWeapon = (IMeleeWeapon) WeaponFactory.createWeapon("headnut", this);
     }
     
     public void setFace (Direction dir, ColoredChar face)
@@ -240,7 +240,7 @@ public abstract class Creature extends Actor
 		ArrayList<AttackableCreature> lst = getCreatures();
 		Collections.sort(lst, new Comparator<AttackableCreature>() {
 			public int compare(AttackableCreature o1, AttackableCreature o2) {
-				return (int)(o1.damage*o1.prob - o2.damage*o2.prob);
+				return (int)(-(o1.damage*o1.prob - o2.damage*o2.prob));
 			};
 		});
 		for(AttackableCreature creat : lst)

@@ -21,6 +21,8 @@ Doch Fragen?
 Rauchen ist ungesund! Gehen Sie an die frische Luft!
 21:done
 
+22:goto:100
+
 100:end:200
 
 101:end:3

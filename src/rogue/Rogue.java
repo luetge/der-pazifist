@@ -80,13 +80,14 @@ public class Rogue
             		Log.getLogFrame().getBounds().y + Log.getLogFrame().getBounds().height);
     	}
 
-    	view.drawWorld(level.world());
+		view.drawWorld(level.world());
+    	HUD.setCreatures(player.getCreaturesInViewfield());
+		showMessages();
     	while (!player.expired() && !view.closeRequested())
     	{
     		if (view.wasResized())
     			view.drawWorld(level.world());
     		view.update();
-        	HUD.setCreatures(player.getCreaturesInViewfield());
 
 			Dialog dialog = level.world().getActiveDialog();
 			if (dialog != null)
@@ -103,6 +104,7 @@ public class Rogue
     				if (door != null)
     					level.stepThroughDoor(door);
     				view.drawWorld(level.world());
+    	        	HUD.setCreatures(player.getCreaturesInViewfield());
     				showMessages();
     			}
 

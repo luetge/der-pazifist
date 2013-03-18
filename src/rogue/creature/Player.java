@@ -13,12 +13,13 @@ import jade.util.datatype.Door;
 import java.awt.Color;
 import java.util.Collection;
 
-import pazi.behaviour.KeyboardFight;
 import pazi.behaviour.KeyboardGeneral;
 import pazi.behaviour.KeyboardWalk;
 import pazi.behaviour.PlayerBehaviour;
 import pazi.items.HealingPotion;
 import pazi.items.Item;
+import pazi.weapons.IMeleeWeapon;
+import pazi.weapons.WeaponFactory;
 
 public class Player extends Creature implements Camera
 {
@@ -48,7 +49,7 @@ public class Player extends Creature implements Camera
         setWalkBehaviour(new KeyboardWalk());
         setBehaviour(new PlayerBehaviour());
         addGeneralFeature(new KeyboardGeneral());
-        setCloseCombatBehaviour(new KeyboardFight());
+        meleeWeapon = (IMeleeWeapon) WeaponFactory.createWeapon("fist");
         //TODO Singleton?
     }
     
@@ -102,7 +103,7 @@ public class Player extends Creature implements Camera
     @Override
     public void takeDamage(int d) {
     	super.takeDamage(d);
-    	setHP(getHP() - d);
+    	updateHP();
     }   
 
 	@Override
@@ -114,6 +115,10 @@ public class Player extends Creature implements Camera
 	
 	protected void setHP(int hp){
 		super.setHP(hp);
+		updateHP();
+	}
+	
+	protected void updateHP(){
 		HUD.setHP(getHP());
 	}
 

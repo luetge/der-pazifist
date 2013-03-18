@@ -14,6 +14,8 @@ import java.awt.event.ComponentListener;
 
 import pazi.Display;
 import pazi.items.HealingPotion;
+import pazi.items.Item;
+import pazi.weapons.WeaponFactory;
 import rogue.creature.CreatureFactory;
 import rogue.creature.Player;
 import rogue.level.Level;
@@ -44,7 +46,8 @@ public class Rogue implements ComponentListener
 			level.world().addActor(new HealingPotion());
 		}
 		for (int i = 0; i < 20; i++) {
-			level.world().addActor(CreatureFactory.createCreature("sniper1", level.world()));
+//			level.world().addActor(CreatureFactory.createCreature("sniper1", level.world()));
+			level.world().addActor((Item)WeaponFactory.createWeapon("knuckleduster"));
 		}
         
         term.addComponentListener(this);

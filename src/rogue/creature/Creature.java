@@ -109,6 +109,8 @@ public abstract class Creature extends Actor
     
     public void interact (Direction dir) {
     	Guard.verifyState(Player.class.isAssignableFrom(this.getClass()));
+    	if(dir == null)
+    		return;
     	Collection<Monster> monsters = world().getActorsAt(Monster.class, pos().getTranslated(dir));
     	for (Monster monster : monsters)
     		fight(monster, true);

@@ -17,11 +17,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import jade.ui.TiledTermPanel;
 import jade.gen.map.AsciiMap;
 
-public class AsciiMapEditor implements DocumentListener, WindowListener {
-	
+public class AsciiMapEditor /*implements DocumentListener, WindowListener*/ {
+/*	
 	private TiledTermPanel term;
 	private JTextArea textarea;
 	private JFrame frame;
@@ -213,9 +212,6 @@ public class AsciiMapEditor implements DocumentListener, WindowListener {
 		}
 	}
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		AsciiMapEditor asciimapeditor = new AsciiMapEditor ();
 		
@@ -264,5 +260,5 @@ public class AsciiMapEditor implements DocumentListener, WindowListener {
 		// TODO Auto-generated method stub
 		
 	}
-
+*/
 }

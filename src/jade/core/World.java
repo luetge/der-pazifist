@@ -412,10 +412,6 @@ public class World extends Messenger
                     look.add(actor.face());
             }
 
-        ColoredChar tile = tileAt(x, y);
-        if (tile != null)
-        	look.add(tile);
-
         return look;
     }
 

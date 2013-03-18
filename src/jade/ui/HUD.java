@@ -10,6 +10,7 @@ import java.awt.Panel;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
@@ -20,14 +21,15 @@ public class HUD {
 	protected static Label lblHP, lblAgil, lblFaith, lblRage, lblLevel, lblGold;
 	protected static JTextPane lblCreatures;
 	protected static int fontHeight;
-	protected static Panel hud;
+	protected static JFrame hud;
 	
-	private static void init() {
+	public static void init() {
 		try {
-			hud = new Panel();
+			hud = new JFrame("HUD");
 			hud.setPreferredSize(new Dimension(200,100));
 			hud.setMaximumSize(new Dimension(200,100000));
 			hud.setMinimumSize(new Dimension(200,0));
+			hud.setSize(new Dimension(200,100));
 			fontHeight = 16;
 			Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream ("res/DejaVuSansMono.ttf"));
 			hud.setFont(font.deriveFont(Font.PLAIN, fontHeight));
@@ -51,6 +53,8 @@ public class HUD {
 //			scrollpane.add(lblCreatures);
 			scrollpane.setForeground(Color.black);
 			hud.add(scrollpane, BorderLayout.CENTER);
+			hud.setFocusable(false);
+			hud.setFocusableWindowState(false);
 			hud.setVisible(false);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -58,15 +62,12 @@ public class HUD {
 		}
 	}
 	
-	public static Panel getPanel(){
-		if(hud == null)
-			init();
+	public static JFrame getFrame(){
 		return hud;
 	}
 	
 	public static void setVisible(boolean visible){
 		hud.setVisible(visible);
-		hud.getParent().validate();
 	}
 	
 	private static void addLabels(JPanel pnl) {

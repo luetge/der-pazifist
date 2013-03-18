@@ -563,7 +563,7 @@ public class View {
             	if (insideviewfield)
             	{
             		if (background == Color.black)
-            			drawBackground (x, y, Color.darkGray);
+            			drawBackground (x, y, world.useViewfield()?Color.darkGray:Color.black);
             		else
             			drawBackground (x, y, background);
             		drawChar (x, y, 0, world.tileAt(worldx, worldy));

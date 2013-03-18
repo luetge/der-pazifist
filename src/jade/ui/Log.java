@@ -10,6 +10,9 @@ import java.io.FileInputStream;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 
@@ -17,8 +20,8 @@ public class Log {
 	protected static JPanel logPanel;
 	protected static JFrame logFrame;
 	protected static int fontHeight;
-	protected static ScrollPane scrollpane;
-	protected static JTextPane lblMessages;
+	protected static JScrollPane scrollpane;
+	protected static JTextArea lblMessages;
 	
 	public static JPanel getLogPanel(){
 		if(logPanel == null)
@@ -43,11 +46,11 @@ public class Log {
 			logPanel.setForeground(Color.white);
 			logPanel.setFocusable(false);
 			logPanel.setLayout(new BorderLayout());
-			lblMessages = new JTextPane();
-			scrollpane = new ScrollPane();
+			lblMessages = new JTextArea();
 			lblMessages.setBackground(Color.black);
 			lblMessages.setForeground(Color.white);
-			scrollpane.add(lblMessages);
+			scrollpane = new JScrollPane(lblMessages, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+					JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 			logPanel.add(scrollpane, BorderLayout.CENTER);
 			logPanel.setVisible(true);
 			logFrame = new JFrame("Log");
@@ -69,12 +72,8 @@ public class Log {
 	}
 	
 	public static void addMessage(String text){
-		try {
-			lblMessages.getDocument().insertString(lblMessages.getDocument().getLength(), text + "\n", null);
-		} catch (BadLocationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		scrollpane.setScrollPosition(scrollpane.getScrollPosition().x, Integer.MAX_VALUE);
+		lblMessages.append (text+"\n");
+		JScrollBar scrollbar = scrollpane.getVerticalScrollBar();
+		scrollbar.setValue(scrollbar.getMaximum());
 	}
 }

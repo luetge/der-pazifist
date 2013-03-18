@@ -1,0 +1,32 @@
+#Test
+
+0:text:Der Pazifist
+Ich fühle mich schwummrig, was ist hier los?
+0:done
+
+1:text
+Sie sind Teil eines Experiments. Haben Sie Fragen?
+1:done
+
+2:question:Ich glaube, ich habe seit 2000 Jahren nicht geraucht. Haben Sie ne Kippe?:21:Keine Fragen:101
+2:done
+
+3:text
+Doch Fragen?
+3:done
+
+4:goto:2
+
+21:text
+Rauchen ist ungesund! Gehen Sie an die frische Luft!
+21:done
+
+100:end:200
+
+101:end:3
+
+200:text
+Lassen Sie mich forschen!
+200:done
+
+201:goto:100

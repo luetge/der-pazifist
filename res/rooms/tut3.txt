@@ -1,0 +1,20 @@
+bblack=bg:000000;bbrown=bg:996633;bbred=bg:C5000B;bred=bg:7E0021;bbgrey=bg:CCCCCC;bgrey=bg:999999;bdgrey=bg:666666;bdbrown=bg:663300;fdbrown=fg:663300;fblack=fg:000000;fwhite=fg:FFFFFF;
+╔════¥bbrown¥¥fblack¥↓↓↓¥fwhite¥¥bblack¥═════════════════════╗
+║¥bred¥    ¥bbred¥            ¥bred¥            ¥bbrown¥¥fblack¥→¥fwhite¥¥bblack¥
+║¥bred¥  ¥fdbrown¥__¥bbred¥________    ¥bred¥__________  ¥bbrown¥¥fblack¥→¥fwhite¥¥bblack¥
+║¥bred¥  ¥fdbrown¥I¥bbrown¥--------¥bred¥I¥bbred¥    ¥bred¥I¥bbrown¥--------¥bred¥I  ¥bblack¥¥fwhite¥║
+║¥bred¥  ¥fdbrown¥__________¥bbred¥    ¥bred¥__________  ¥bblack¥¥fwhite¥║
+║¥bred¥  ¥fdbrown¥I¥bbrown¥--------¥bred¥I¥bbred¥    ¥bred¥I¥bbrown¥--------¥bred¥I  ¥bblack¥¥fwhite¥║
+║¥bred¥  ¥fdbrown¥__________¥bbred¥    ¥bred¥__________  ¥bblack¥¥fwhite¥║
+║¥bred¥  ¥fdbrown¥I¥bbrown¥----☻---¥bred¥I¥bbred¥    ¥bred¥I¥bbrown¥--☻☻----¥bred¥I  ¥bblack¥¥fwhite¥║
+║¥bred¥  ¥fdbrown¥__________¥bbred¥    ¥bred¥__________  ¥bblack¥¥fwhite¥║
+║¥bred¥  ¥fdbrown¥I¥bbrown¥-☻-☻--☻☻¥bred¥I¥bbred¥    ¥bred¥I¥bbrown¥☻☻-☻☻-☻-¥bred¥I  ¥bblack¥¥fwhite¥║
+║¥bred¥  ¥fdbrown¥__________¥bbred¥    ¥bred¥__________  ¥bblack¥¥fwhite¥║
+║¥bred¥  ¥fdbrown¥I¥bbrown¥☻☻-☻-☻☻☻¥bred¥I¥bbred¥    ¥bred¥I¥bbrown¥☻-☻☻☻☻-☻¥bred¥I  ¥bblack¥¥fwhite¥║
+║¥bred¥            ¥bbred¥¥fblack¥____¥bred¥            ¥bblack¥¥fwhite¥║
+║¥bred¥  ¥bbgrey¥          ¥bbred¥¥fblack¥____¥bbgrey¥          ¥bred¥  ¥bblack¥¥fwhite¥║
+║¥bred¥  ¥bbgrey¥  ¥bgrey¥        ¥bbred¥¥fblack¥____¥bgrey¥        ¥bbgrey¥  ¥bred¥  ¥bblack¥¥fwhite¥║
+║¥bred¥  ¥bbgrey¥  ¥bgrey¥  ¥bdgrey¥                ¥bgrey¥  ¥bbgrey¥  ¥bred¥  ¥bblack¥║
+║¥bred¥  ¥bbgrey¥  ¥bgrey¥  ¥bdgrey¥      ¥bdbrown¥    ¥bdgrey¥      ¥bgrey¥  ¥bbgrey¥  ¥bred¥  ¥bblack¥║
+║¥bred¥  ¥bbgrey¥  ¥bgrey¥  ¥bdgrey¥       ¥fblack¥♛        ¥bgrey¥  ¥bbgrey¥  ¥bred¥  ¥bblack¥¥fwhite¥║
+╚════════════════════════════╝

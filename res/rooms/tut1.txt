@@ -1,17 +1,17 @@
-bwhite=bg:FFFFFF;bblack=bg:000000;bred=bg:800000;bdgrey=bg:666666;bbeige=bg:FFFFCC;bgreen=bg:B0CF00;bbrown=bg:996633;bgrey=bg:CCCCCC;fblack=fg:000000;fgreen=fg:004A4A;fyell=fg:FFFF00;fbrown=fg:663300;fwhite=fg:FFFFFF
-¥bblack¥╔═══════════╦══════════════════════╦═╗¥bblack¥
-║¥bdgrey¥¥fblack¥__¥bbeige¥      ʗ¥bgrey¥☎¥bbeige¥ ¥bblack¥¥fwhite¥║      ┌─────┬─────┬───┘ ║
-║¥bdgrey¥¥fblack¥__¥bbeige¥      ʗ¥bgrey¥  ¥bblack¥¥fwhite¥║     ¥bgreen¥¥fgreen¥┌┴─┐¥bblack¥  ¥bgreen¥┌┴─┐¥bblack¥  ¥bgreen¥┌┴─┐¥bblack¥   ¥fwhite¥║
-║¥bdgrey¥¥fblack¥__¥bbeige¥      ʗ¥bgrey¥  ¥bblack¥¥fwhite¥║     ¥bgreen¥¥fgreen¥└──┘¥bblack¥  ¥bgreen¥└──┘¥bblack¥  ¥bgreen¥└──┘¥bblack¥   ¥fwhite¥║
-║¥bdgrey¥  ¥bbeige¥         ¥bblack¥¥fyell¥☢                        ¥fwhite¥║
-║¥bbeige¥¥fblack¥◷          ¥bblack¥                         ¥fwhite¥║
-║¥bbeige¥        ¥fblack¥ʗ¥bgrey¥ ¥bbeige¥ ¥bblack¥¥fwhite¥║     ¥bgreen¥¥fgreen¥┌──┐¥bblack¥  ¥bgreen¥┌──┐¥bblack¥  ¥bgreen¥┌──┐¥bblack¥   ¥fwhite¥║
-║¥bbeige¥        ¥fblack¥ʗ¥bgrey¥ ¥bbeige¥ ¥bblack¥¥fwhite¥║     ¥bgreen¥¥fgreen¥└┬─┘¥bblack¥  ¥bgreen¥└┬─┘¥bblack¥  ¥bgreen¥└┬─┘¥bblack¥   ¥fwhite¥║
-║¥bbeige¥        ¥fblack¥ʗ¥bgrey¥ ¥bbeige¥ ¥bblack¥¥fwhite¥║      └─────┴─────┴───┐ ║
-╠═══¥fbrown¥▬▬▬¥fwhite¥═════╩══════════════════════╩═╣
-║¥bgrey¥                                    ¥bblack¥║
-║¥bgrey¥     ¥bred¥                          ¥bgrey¥     ¥bblack¥║
-║¥bgrey¥     ¥bred¥                          ¥bgrey¥     ¥bblack¥║
-║¥bgrey¥     ¥bred¥                          ¥bgrey¥     ¥bbrown¥¥fbrown¥→¥bblack¥¥fwhite¥
-║¥bgrey¥                                    ¥bbrown¥¥fbrown¥→¥bblack¥¥fwhite¥
-╚════════════════════════════════════╝
+t0=door:tut1entry0,church0,tut1entry0,e;t1=door:tut1entry1,church0,tut1entry1,e;bwhite=bg:FFFFFF;bblack=bg:000000;bred=bg:800000;bdgrey=bg:666666;bbeige=bg:FFFFCC;bgreen=bg:B0CF00;bbrown=bg:996633;bgrey=bg:CCCCCC;fblack=fg:000000;fgreen=fg:004A4A;fyell=fg:FFFF00;fbrown=fg:663300;fwhite=fg:FFFFFF
+¥bblack¥¥np¥╔═══════════╦══════════════════════╦═╗¥bblack¥
+║¥bdgrey¥¥fblack¥__¥p¥¥bbeige¥   ¥creature:scientist¥   ¥np¥ʗ¥bgrey¥☎¥bbeige¥ ¥p¥¥bblack¥¥fwhite¥¥np¥║¥p¥      ┌─────┬─────┬───┘ ¥np¥║
+║¥bdgrey¥¥fblack¥__¥p¥¥bbeige¥      ¥np¥ʗ¥bgrey¥  ¥p¥¥bblack¥¥fwhite¥¥np¥║¥p¥     ¥bgreen¥¥fgreen¥¥np¥┌┴─┐¥p¥¥bblack¥  ¥bgreen¥¥np¥┌┴─┐¥p¥¥bblack¥  ¥bgreen¥¥np¥┌┴─┐¥p¥¥bblack¥   ¥fwhite¥¥np¥║
+║¥bdgrey¥¥fblack¥__¥p¥¥bbeige¥      ¥np¥ʗ¥bgrey¥  ¥p¥¥bblack¥¥fwhite¥¥np¥║¥p¥     ¥bgreen¥¥fgreen¥¥np¥└──┘¥p¥¥bblack¥  ¥bgreen¥¥np¥└──┘¥p¥¥bblack¥  ¥bgreen¥¥np¥└──┘¥p¥¥bblack¥   ¥fwhite¥¥np¥║
+║¥bdgrey¥  ¥p¥¥bbeige¥         ¥bblack¥¥fyell¥☢                        ¥fwhite¥¥np¥║
+║¥bbeige¥¥fblack¥◷¥p¥          ¥bblack¥                         ¥fwhite¥¥np¥║
+║¥bbeige¥¥p¥        ¥fblack¥¥np¥ʗ¥bgrey¥ ¥bbeige¥ ¥p¥¥bblack¥¥fwhite¥¥np¥║¥p¥     ¥bgreen¥¥fgreen¥¥np¥┌──┐¥p¥¥bblack¥  ¥bgreen¥¥np¥┌──┐¥p¥¥bblack¥  ¥bgreen¥¥np¥┌¥p¥  ¥np¥┐¥p¥¥bblack¥   ¥fwhite¥¥np¥║
+║¥p¥¥bbeige¥        ¥fblack¥¥np¥ʗ¥bgrey¥ ¥bbeige¥ ¥p¥¥bblack¥¥fwhite¥¥np¥║¥p¥     ¥bgreen¥¥fgreen¥¥np¥└┬─┘¥p¥¥bblack¥  ¥bgreen¥¥np¥└┬─┘¥p¥¥bblack¥  ¥bgreen¥¥np¥└┬─┘¥p¥¥bblack¥   ¥fwhite¥¥np¥║
+║¥p¥¥bbeige¥        ¥fblack¥¥np¥ʗ¥bgrey¥ ¥bbeige¥¥p¥ ¥bblack¥¥fwhite¥¥np¥║¥p¥      └─────┴─────┴───┐ ¥np¥║
+╠═══¥fbrown¥¥p¥▬▬▬¥np¥¥fwhite¥═════╩══════════════════════╩═╣
+║¥p¥¥bgrey¥                                    ¥bblack¥¥np¥║
+║¥p¥¥bgrey¥     ¥bred¥                          ¥bgrey¥     ¥bblack¥¥np¥║
+║¥p¥¥bgrey¥     ¥bred¥                          ¥bgrey¥     ¥bblack¥¥np¥║
+║¥p¥¥bgrey¥     ¥bred¥                          ¥bgrey¥     ¥bbrown¥¥fbrown¥¥t0¥¥np¥→¥bblack¥¥fwhite¥
+¥np¥║¥p¥¥bgrey¥                                    ¥bbrown¥¥fbrown¥¥t1¥¥np¥→¥bblack¥¥fwhite¥
+¥np¥╚════════════════════════════════════╝

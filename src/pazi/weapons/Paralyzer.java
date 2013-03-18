@@ -1,4 +1,4 @@
-package rogue.weapons;
+package pazi.weapons;
 
 import pazi.features.Paralyzed;
 import rogue.creature.Creature;

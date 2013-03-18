@@ -1,4 +1,4 @@
-package rogue.weapons;
+package pazi.weapons;
 
 import rogue.creature.Creature;
 

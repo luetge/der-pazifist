@@ -11,11 +11,11 @@ import pazi.behaviour.Follow;
 import pazi.behaviour.SneakStealFlee;
 import pazi.features.Braaaiiiiins;
 import pazi.features.EatBrains;
+import pazi.weapons.IMeleeWeapon;
+import pazi.weapons.IRangedCombatWeapon;
+import pazi.weapons.Paralyzer;
+import pazi.weapons.WeaponFactory;
 import rogue.behaviour.RandomWalk;
-import rogue.weapons.IMeleeWeapon;
-import rogue.weapons.IRangedCombatWeapon;
-import rogue.weapons.Paralyzer;
-import rogue.weapons.WeaponFactory;
 
 public class CreatureFactory {
 	public static Creature createCreature(String identifier, World world){
@@ -29,7 +29,7 @@ public class CreatureFactory {
 	        creature.getWalkFeatures().add(new EatBrains());
 			creature.setWalkBehaviour(new Follow(world.getPlayer(), 8, 0.2));
 			creature.setBehaviour(new DefaultBehaviour());
-			creature.meleeWeapon = (IMeleeWeapon) WeaponFactory.createWeapon("rottenFist");
+//			creature.meleeWeapon = (IMeleeWeapon) WeaponFactory.createWeapon("rottenFist");
 		} else if (identifier.equals("bandit2")){
 				creature = new Monster(ColoredChar.create(' ', Color.red), "El Bandido");
 				//creature.addGeneralFeature(Braaaiiiiins.getInstance());
@@ -45,6 +45,7 @@ public class CreatureFactory {
 			creature = new Monster(faces, "Schleimiges Alien");
 			creature.setWalkBehaviour(new Follow(world.getPlayer(), 8, 0.5));
 			creature.meleeWeapon = new Paralyzer(world.getPlayer(), 20);	
+			creature.setBehaviour(new DefaultBehaviour());
 		} else if (identifier.equals("sniper1")){
 			ColoredChar faces[] = new ColoredChar[9];
 			for (int i = 0; i < 9; i++)

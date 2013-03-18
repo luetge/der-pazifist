@@ -1,4 +1,4 @@
-package rogue.weapons;
+package pazi.weapons;
 
 public interface IRangedCombatWeapon extends IWeapon {
 	double getRange();

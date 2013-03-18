@@ -1,3 +1,3 @@
-package rogue.weapons; 
+package pazi.weapons; 
 
 public interface IMeleeWeapon extends IWeapon { }

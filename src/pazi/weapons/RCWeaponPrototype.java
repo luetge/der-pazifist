@@ -1,4 +1,4 @@
-package rogue.weapons;
+package pazi.weapons;
 
 public class RCWeaponPrototype extends WeaponPrototype implements IRangedCombatWeapon {
 

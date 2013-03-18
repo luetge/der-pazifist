@@ -1,4 +1,4 @@
-package rogue.weapons;
+package pazi.weapons;
 
 import rogue.creature.Creature;
 
@@ -29,8 +29,10 @@ public class WeaponPrototype implements IWeapon {
 	@Override
 	public void shoot(Creature attacker, Creature victim) {
 		if(attacker != null && victim != null)
-			if(Math.random() < getProb(attacker, victim))
+			if(Math.random() < getProb(attacker, victim)){
+				attacker.world().appendMessage(attacker.getName() + " greift an mit \"" + getName() + "\".");
 				victim.takeDamage(getDamage(attacker, victim));
+			}
 			else
 				attacker.appendMessage("Mist, daneben!");
 

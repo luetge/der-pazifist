@@ -1,4 +1,4 @@
-package rogue.weapons;
+package pazi.weapons;
 
 
 public class MeleeWeaponPrototype extends WeaponPrototype implements IMeleeWeapon {

@@ -18,6 +18,8 @@ import pazi.behaviour.KeyboardWalk;
 import pazi.behaviour.PlayerBehaviour;
 import pazi.items.HealingPotion;
 import pazi.items.Item;
+import pazi.weapons.IMeleeWeapon;
+import pazi.weapons.WeaponFactory;
 
 public class Player extends Creature implements Camera
 {
@@ -47,6 +49,7 @@ public class Player extends Creature implements Camera
         setWalkBehaviour(new KeyboardWalk());
         setBehaviour(new PlayerBehaviour());
         addGeneralFeature(new KeyboardGeneral());
+        meleeWeapon = (IMeleeWeapon) WeaponFactory.createWeapon("fist");
         //TODO Singleton?
     }
     

@@ -19,9 +19,15 @@ import java.io.FileReader;
 
 public class Dialog {
 	private abstract class Node {
+		private Dialog parent;
 		private int id;
-		Node (int id) {
+		protected Node (Dialog parent, int id) {
+			this.parent = parent;
 			this.id = id;
+		}
+		protected Dialog parent ()
+		{
+			return parent;
 		}
 		public final int getID() {
 			return id;
@@ -45,14 +51,126 @@ public class Dialog {
 			return list;
 		}
 	}
+	private abstract class StateNode extends Node {
+		protected String statename;
+		protected StateNode (Dialog parent, int id, String args[])
+		{
+			super(parent, id);
+			Guard.validateArgument(args.length >= 3);
+			statename = args[2];
+		}
+		
+		@Override
+		public void load (BufferedReader reader)
+		{
+		}
+	}
+	private class StateLargerNode extends StateNode {
+		private int value;
+		private int yes_destination;
+		private int no_destination;
+		public StateLargerNode (Dialog parent, int id, String args[])
+		{
+			super (parent, id, args);
+			Guard.validateArgument(args.length == 6);
+			value = Integer.parseInt(args[3]);
+			yes_destination = Integer.parseInt(args[4]);
+			no_destination = Integer.parseInt(args[5]);
+		}
+		
+		@Override
+		public int tick (World world, TiledTermPanel term, Creature speaker)
+		{
+			if (parent().getState(statename) > value)
+				return yes_destination;
+			else
+				return no_destination;
+		}
+	}
+	private class StateSmallerNode extends StateNode {
+		private int value;
+		private int yes_destination;
+		private int no_destination;
+		public StateSmallerNode (Dialog parent, int id, String args[])
+		{
+			super (parent, id, args);
+			Guard.validateArgument(args.length == 6);
+			value = Integer.parseInt(args[3]);
+			yes_destination = Integer.parseInt(args[4]);
+			no_destination = Integer.parseInt(args[5]);
+		}
+		
+		@Override
+		public int tick (World world, TiledTermPanel term, Creature speaker)
+		{
+			if (parent().getState(statename) < value)
+				return yes_destination;
+			else
+				return no_destination;
+		}
+	}
+	private class IsStateNode extends StateNode {
+		private int value;
+		private int yes_destination;
+		private int no_destination;
+		public IsStateNode (Dialog parent, int id, String args[])
+		{
+			super (parent, id, args);
+			Guard.validateArgument(args.length == 6);
+			value = Integer.parseInt(args[3]);
+			yes_destination = Integer.parseInt(args[4]);
+			no_destination = Integer.parseInt(args[5]);
+		}
+		
+		@Override
+		public int tick (World world, TiledTermPanel term, Creature speaker)
+		{
+			if (parent().getState(statename) == value)
+				return yes_destination;
+			else
+				return no_destination;
+		}
+	}
+	private class AddStateNode extends StateNode {
+		private int value;
+		public AddStateNode (Dialog parent, int id, String args[])
+		{
+			super (parent, id, args);
+			Guard.validateArgument(args.length == 4);
+			value = Integer.parseInt(args[3]);
+		}
+		
+		@Override
+		public int tick (World world, TiledTermPanel term, Creature speaker)
+		{
+			parent().setState(statename, parent().getState(statename) + value);
+			return getID()+1;
+		}
+	}
+	private class SetStateNode extends StateNode {
+		private int value;
+		public SetStateNode (Dialog parent, int id, String args[])
+		{
+			super (parent, id, args);
+			Guard.validateArgument(args.length == 4);
+			value = Integer.parseInt(args[3]);
+		}
+		
+		@Override
+		public int tick (World world, TiledTermPanel term, Creature speaker)
+		{
+			parent().setState(statename, value);
+			return getID()+1;
+		}
+	}
 	private class HasItemNode extends Node {
 		private int yes_destination;
 		private int no_destination;
 		private int amount;
 		private String itemname;
-		public HasItemNode (int id, String args[])
+		public HasItemNode (Dialog parent, int id, String args[])
 		{
-			super(id);
+			super(parent, id);
 			Guard.validateArgument(args.length == 6);
 			itemname = args[2];
 			amount = Integer.parseInt(args[3]);
@@ -75,9 +193,9 @@ public class Dialog {
 		}
 	}
 	private class PlayerHasItemNode extends HasItemNode {
-		public PlayerHasItemNode (int id, String args[])
+		public PlayerHasItemNode (Dialog parent, int id, String args[])
 		{
-			super(id, args);
+			super(parent, id, args);
 		}
 		
 		@Override
@@ -88,9 +206,9 @@ public class Dialog {
 	}
 	private class GotoNode extends Node {
 		private int destination;
-		public GotoNode(int id, String args[])
+		public GotoNode(Dialog parent, int id, String args[])
 		{
-			super(id);
+			super(parent, id);
 			Guard.validateArgument(args.length == 3);
 			destination = Integer.parseInt(args[2]);
 		}
@@ -109,9 +227,9 @@ public class Dialog {
 	private class TextNode extends Node {
 		private ArrayList<String> text;
 		private String speakeroverride;
-		public TextNode(int id, String args[])
+		public TextNode(Dialog parent, int id, String args[])
 		{
-			super(id);
+			super(parent, id);
 			if (args.length > 2)
 				speakeroverride = new String(args[2]);
 			else
@@ -138,9 +256,9 @@ public class Dialog {
 	private class GiveItemNode extends Node {
 		String type;
 		int amount;
-		public GiveItemNode(int id, String args[])
+		public GiveItemNode(Dialog parent, int id, String args[])
 		{
-			super(id);
+			super(parent, id);
 			Guard.validateArgument(args.length == 4);
 			type = new String (args[2]);
 			amount = Integer.parseInt(args[3]);
@@ -163,9 +281,9 @@ public class Dialog {
 	private class ReceiveItemNode extends Node {
 		String type;
 		int amount;
-		public ReceiveItemNode(int id, String args[])
+		public ReceiveItemNode(Dialog parent, int id, String args[])
 		{
-			super(id);
+			super(parent, id);
 			Guard.validateArgument(args.length == 4);
 			type = new String (args[2]);
 			amount = Integer.parseInt(args[3]);
@@ -189,9 +307,9 @@ public class Dialog {
 		private ArrayList<String> text;
 		private String choices[];
 		private int destinations[];
-		public QuestionNode(int id, String args[])
+		public QuestionNode(Dialog parent, int id, String args[])
 		{
-			super(id);
+			super(parent, id);
 			Guard.validateArgument((args.length&1)==0);
 			choices = new String[(args.length>>1)-1];
 			destinations = new int[(args.length>>1)-1];
@@ -269,9 +387,9 @@ public class Dialog {
 	}
 	private class EndNode extends Node {
 		int returnval;
-		public EndNode(int id, String args[])
+		public EndNode(Dialog parent, int id, String args[])
 		{
-			super(id);
+			super(parent, id);
 			returnval = Integer.parseInt(args[2]);
 		}
 		
@@ -287,12 +405,25 @@ public class Dialog {
 		}
 	}
 	private Map<Integer, Node> nodes;
+	private Map<String, Integer> state;
 	private Ally speaker;
 	private int currentid;
 	public Dialog (String filename) {
 		this.nodes = new HashMap<Integer, Node> ();
+		this.state = new HashMap<String, Integer> ();
 		this.currentid = 0;
 		load (filename);
+	}
+	
+	public void setState (String name, int value)
+	{
+		state.put(name,  value);
+	}
+	
+	public int getState (String name)
+	{
+		Guard.verifyState(state.containsKey(name));
+		return state.get(name);
 	}
 	
 	void load (String filename)
@@ -303,34 +434,45 @@ public class Dialog {
 			String str;
 			while((str = reader.readLine()) != null)
 			{
-				if (str.isEmpty())
+				if (str.isEmpty() || str.trim().startsWith("#"))
 					continue;
 				String args[] = str.split(":");
 				
 				Guard.validateArgument(args.length >= 2);
 					
 				int id = Integer.parseInt(args[0]);
-				Guard.validateArgument(id >= 0);
+				if (id < currentid)
+					currentid = id;
 				
 				Node node;
 				
 				if (args[1].equals("text"))
 				{
-					node = new TextNode (id, args);
+					node = new TextNode (this, id, args);
 				} else if (args[1].equals("question")) {
-					node = new QuestionNode (id, args);
+					node = new QuestionNode (this, id, args);
 				} else if (args[1].equals("end")) {
-					node = new EndNode (id, args);
+					node = new EndNode (this, id, args);
 				} else if (args[1].equals("giveitem")) {
-					node = new GiveItemNode (id, args);
+					node = new GiveItemNode (this, id, args);
 				} else if (args[1].equals("receiveitem")) {
-					node = new ReceiveItemNode (id, args);
+					node = new ReceiveItemNode (this, id, args);
 				} else if (args[1].equals("goto")) {
-					node = new GotoNode (id, args);
+					node = new GotoNode (this, id, args);
 				} else if (args[1].equals("hasitem")) {
-					node = new HasItemNode (id, args);
+					node = new HasItemNode (this, id, args);
 				} else if (args[1].equals("playerhasitem")) {
-					node = new PlayerHasItemNode (id, args);
+					node = new PlayerHasItemNode (this, id, args);
+				} else if (args[1].equals("setstate")) {
+					node = new SetStateNode (this, id, args);
+				} else if (args[1].equals("isstate")) {
+					node = new IsStateNode (this, id, args);
+				} else if (args[1].equals("statelarger")) {
+					node = new StateLargerNode (this, id, args);
+				} else if (args[1].equals("statesmaller")) {
+					node = new StateSmallerNode (this, id, args);
+				} else if (args[1].equals("addstate")) {
+					node = new AddStateNode (this, id, args);
 				} else {
 					System.out.println("Unknown dialog entry: " + args[1]);
 					throw new IllegalStateException();
@@ -426,7 +568,7 @@ public class Dialog {
 	public void tick (World world, TiledTermPanel term)
 	{ 
 		Guard.argumentIsNotNull(speaker);
-		Guard.argumentInsideBound(currentid, nodes.size());
+		Guard.verifyState(nodes.containsKey(currentid));
 		
 		Node node;
 		do

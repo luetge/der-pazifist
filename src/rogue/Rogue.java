@@ -86,6 +86,8 @@ public class Rogue
     		if (view.wasResized())
     			view.drawWorld(level.world());
     		view.update();
+        	HUD.setCreatures(player.getCreaturesInViewfield());
+
 			Dialog dialog = level.world().getActiveDialog();
 			if (dialog != null)
 			{

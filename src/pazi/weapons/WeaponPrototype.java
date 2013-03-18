@@ -45,7 +45,7 @@ public class WeaponPrototype implements IWeapon {
 			if (weaponFiredTemp != "")
 				attacker.world().appendMessage(weaponFiredTemp);
 			if(Math.random() < getProb(attacker, victim)){
-				victim.takeDamage(getDamage(attacker, victim));
+				victim.takeDamage(getDamage(attacker, victim), attacker);
 				if (weaponHit != "")
 					victim.world().appendMessage(weaponHit);
 			}

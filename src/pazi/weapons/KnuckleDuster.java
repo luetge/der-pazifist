@@ -34,7 +34,7 @@ public class KnuckleDuster extends Item implements IMeleeWeapon {
 		if(attacker == null || victim == null)
 			return;
 		attacker.world().appendMessage(attacker.getName() + " greift an mit \"" + getName() + "\".");
-		victim.takeDamage(getDamage(attacker, victim));
+		victim.takeDamage(getDamage(attacker, victim), attacker);
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package rogue.creature;
 
 import jade.core.Actor;
 import jade.core.Messenger;
+import jade.ui.HUD;
 import jade.util.Guard;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
@@ -20,8 +21,12 @@ import pazi.items.Item;
 
 public abstract class Creature extends Actor
 {
-	private int hp = 100;
+	protected int hp = 100;
+	protected int maxHp = 100;
 	protected int min_d, max_d;
+	protected int givenXp = 25;
+    protected int xp=0;
+    protected int lvl=1;
 	protected Coordinate nextCoordinate;
 	protected LinkedList<IBeforeAfterFeature> walkFeatures = new LinkedList<IBeforeAfterFeature>();
 	protected IBehaviour walkBehaviour;
@@ -118,24 +123,24 @@ public abstract class Creature extends Actor
     public void fight(Creature creature){
     	if(creature == null || getClass() == creature.getClass())
     		return;
-    	creature.takeDamage((int)Math.floor(Math.random()* (max_d - min_d) + min_d));
+    	creature.takeDamage((int)Math.floor(Math.random()* (max_d - min_d) + min_d),this);
     }
     
     
     public void fight(Creature creature, int max_d, int min_d){
     	if(creature == null || getClass() == creature.getClass())
     		return;
-    	creature.takeDamage((int)Math.floor(Math.random()* (max_d - min_d) + min_d));
+    	creature.takeDamage((int)Math.floor(Math.random()* (max_d - min_d) + min_d),this);
     }
     
     
-    public void takeDamage(int d){
+    public void takeDamage(int d,Creature source){
     	if(getBehaviour().getClass() == DeadBehaviour.class)
     		return;
     	setHP(Math.max(0, hp-d));
     	appendMessage("Ich habe " + d + " Schaden erlitten! Ahhhh Poopoo!", true);
     	if(hp == 0)
-    		setBehaviour(new DeadBehaviour(this));
+    		setBehaviour(new DeadBehaviour(this,source));
     }
     
     public void addHP(int hp){
@@ -223,8 +228,8 @@ public abstract class Creature extends Actor
 	
 	protected void setHP(int hp){
 		this.hp = hp;
-		if(this.hp > 100)
-			this.hp = 100;
+		if(this.hp > this.maxHp)
+			this.hp = maxHp;
 	}
 	
 	protected int getHP(){
@@ -252,5 +257,15 @@ public abstract class Creature extends Actor
 		item.interact(this);
 		getInventory().removeItem(item);
 		setHasActed(true);
+	}
+	
+	public int getXp(){
+		return this.givenXp;
+	}
+	
+	public void gainXp(int xp){		
+	}
+
+	public void levelUp(){
 	}
 }

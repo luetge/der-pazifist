@@ -11,6 +11,7 @@ import java.io.FileInputStream;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
+import javax.swing.text.BadLocationException;
 
 public class Log {
 	protected static JPanel logPanel;
@@ -68,7 +69,12 @@ public class Log {
 	}
 	
 	public static void addMessage(String text){
-		lblMessages.setText(lblMessages.getText() + text + "\n");
+		try {
+			lblMessages.getDocument().insertString(lblMessages.getDocument().getLength(), text + "\n", null);
+		} catch (BadLocationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		scrollpane.setScrollPosition(scrollpane.getScrollPosition().x, Integer.MAX_VALUE);
 	}
 }

@@ -2,6 +2,7 @@ package rogue.creature;
 
 import jade.core.Actor;
 import jade.core.Messenger;
+import jade.ui.HUD;
 import jade.util.Guard;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
@@ -28,8 +29,12 @@ import pazi.weapons.WeaponFactory;
 
 public abstract class Creature extends Actor
 {
-	private int hp = 100;
+	protected int hp = 100;
+	protected int maxHp = 100;
 	protected int min_d, max_d;
+	protected int givenXp = 25;
+    protected int xp=0;
+    protected int lvl=1;
 	protected Coordinate nextCoordinate;
 	protected LinkedList<IBeforeAfterFeature> walkFeatures = new LinkedList<IBeforeAfterFeature>();
 	protected IBehaviour walkBehaviour;
@@ -129,13 +134,13 @@ public abstract class Creature extends Actor
     	fight(creature, weapon.getDamage(this, creature), weapon.getProb(this, creature), melee);
     }    
     
-    public void takeDamage(int d){
+    public void takeDamage(int d,Creature source){
     	if(getBehaviour().getClass() == DeadBehaviour.class)
     		return;
     	setHP(Math.max(0, hp-d));
     	appendMessage("Ich habe " + d + " Schaden erlitten! Ahhhh Poopoo!", true);
     	if(hp == 0)
-    		setBehaviour(new DeadBehaviour(this));
+    		setBehaviour(new DeadBehaviour(this,source));
     }
     
     public void addHP(int hp){
@@ -208,8 +213,8 @@ public abstract class Creature extends Actor
 	
 	protected void setHP(int hp){
 		this.hp = hp;
-		if(this.hp > 100)
-			this.hp = 100;
+		if(this.hp > this.maxHp)
+			this.hp = maxHp;
 	}
 	
 	public int getHP(){
@@ -326,5 +331,15 @@ public abstract class Creature extends Actor
 	
 	public void setRCWeapon(IRangedCombatWeapon weapon) {
 		rcWeapon = weapon;
+	}
+	
+	public int getXp(){
+		return this.givenXp;
+	}
+	
+	public void gainXp(int xp){		
+	}
+
+	public void levelUp(){
 	}
 }

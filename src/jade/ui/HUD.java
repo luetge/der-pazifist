@@ -70,7 +70,7 @@ public class HUD {
 	}
 	
 	private static void addLabels(JPanel pnl) {
-		lblHP = new Label("100%");
+		lblHP = new Label("100/100");
 		lblAgil = new Label("0%");
 		lblFaith = new Label("100%");
 		lblRage = new Label("?%");
@@ -90,8 +90,8 @@ public class HUD {
 		pnl.add(lblGold);	
 	}
 
-	public static void setHP(int hp){
-		lblHP.setText(hp + "%");
+	public static void setHP(int hp,int maxHp){
+		lblHP.setText(hp + "/" + maxHp);
 	}
 	
 	public static void setAgil(int agil){

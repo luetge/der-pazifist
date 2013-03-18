@@ -120,8 +120,8 @@ public class Player extends Creature implements Camera
     }
     
     @Override
-    public void takeDamage(int d) {
-    	super.takeDamage(d);
+    public void takeDamage(int d, Creature source) {
+    	super.takeDamage(d, source);
     	updateHP();
     }   
 
@@ -138,7 +138,7 @@ public class Player extends Creature implements Camera
 	}
 	
 	protected void updateHP(){
-		HUD.setHP(getHP());
+		HUD.setHP(getHP(), this.maxHp);
 	}
 	
 	protected void updateFaith(){
@@ -164,6 +164,13 @@ public class Player extends Creature implements Camera
 			return;
 		}
 		appendMessage("Ich habe leider keine Tränke mehr! :(");
+	}
+	
+	public void gainXp(int xp){
+		this.xp += xp;
+		if (this.xp>=lvl*100)
+			levelUp();
+			
 	}
 
 	public Iterable<Creature> getCreaturesInViewfield() {
@@ -225,5 +232,15 @@ public class Player extends Creature implements Camera
 		else if (rage < 0)
 			rage = 0;
 		updateRage();
+	}
+		
+	public void levelUp(){
+		this.lvl += 1;
+		HUD.setLevel(this.lvl);
+		this.maxHp += 10;
+		this.hp=this.maxHp;
+		HUD.setHP(getHP(),this.maxHp);
+		this.min_d += 5;
+		this.max_d += 5;
 	}
 }

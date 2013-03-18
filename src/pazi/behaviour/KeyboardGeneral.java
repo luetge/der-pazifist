@@ -11,7 +11,6 @@ public class KeyboardGeneral implements IFeature<Player> {
 	public void act(Player player) {
 		if(player.hasActed())
 			return;
-		System.out.println(player.world().getCurrentKey());
 		switch(player.world().getCurrentKey()) {
 			case KeyEvent.VK_H:
 				player.drinkHealingPotion();

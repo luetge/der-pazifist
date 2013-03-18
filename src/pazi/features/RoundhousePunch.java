@@ -12,9 +12,7 @@ public class RoundhousePunch implements IFeature {
 	public void punch(Creature creature){
 		for (Creature victim : creature.getCreaturesCloseby()){
 			if(victim != null){
-				System.out.println(victim.toString());
 				victim.takeDamage(100);
-				System.out.println("BÄM");
 			}
 		}
 			

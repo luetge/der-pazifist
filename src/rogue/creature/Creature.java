@@ -168,7 +168,7 @@ public abstract class Creature extends Actor
 	}
 
 	public void walk() {
-		if(hasActed())
+		if(hasActed() || walkBehaviour == null)
 			return;
 		// Neue Position bestimmen
 		for(IBeforeAfterFeature<Creature> feature : walkFeatures)

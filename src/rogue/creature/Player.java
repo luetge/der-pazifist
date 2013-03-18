@@ -5,12 +5,14 @@ import jade.fov.ViewField;
 import jade.ui.Camera;
 import jade.ui.HUD;
 import jade.util.Lambda;
+import jade.util.Lambda.FilterFunc;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
 import jade.util.datatype.Door;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import pazi.behaviour.KeyboardGeneral;
@@ -138,6 +140,16 @@ public class Player extends Creature implements Camera
 			return;
 		}
 		appendMessage("Ich habe leider keine Tränke mehr! :(");
+	}
+
+	public Iterable<Creature> getCreaturesInViewfield() {
+		final Collection<Coordinate> coords = fov.getViewField(world(), pos(), radius);
+		return Lambda.filter(world().getActors(Creature.class), new FilterFunc<Creature>() {
+			@Override
+			public boolean filter(Creature element) {
+				return element.getHP() > 0 && element.getFace().ch() != ' ' && !Player.class.isAssignableFrom(element.getClass()) && coords.contains(element.pos());
+			}
+		});
 	}
 
 }

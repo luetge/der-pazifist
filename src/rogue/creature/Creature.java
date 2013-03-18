@@ -209,7 +209,7 @@ public abstract class Creature extends Actor
 			this.hp = 100;
 	}
 	
-	protected int getHP(){
+	public int getHP(){
 		return hp;
 	}
 	

@@ -11,10 +11,21 @@ public class KeyboardGeneral implements IFeature<Player> {
 	public void act(Player player) {
 		if(player.hasActed())
 			return;
+		System.out.println(player.world().getCurrentKey());
 		switch(player.world().getCurrentKey()) {
 			case KeyEvent.VK_H:
 				player.drinkHealingPotion();
-				return;
+				break;
+			case KeyEvent.VK_F:
+				player.increaseFOV();
+				break;
+			case KeyEvent.VK_R:
+				player.roundhousePunch();
+				break;
+			case KeyEvent.VK_M:
+				System.out.println("what");
+				player.meditate();
+				break;
 			default:
 				return;
 		}

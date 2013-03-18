@@ -27,8 +27,34 @@ Rauchen ist ungesund! Gehen Sie an die frische Luft!
 
 101:end:3
 
+
+
 200:text
 Lassen Sie mich forschen!
 200:done
 
-201:goto:100
+201:end:202
+
+202:text
+Gehen Sie weg!
+202:done
+
+203:end:204
+
+204:text
+Hören Sie auf, mich anzufassen!
+204:done
+
+205:end:206
+
+206:text
+Verdammt, ich will meine Ruhe haben!
+206:done
+
+207:end:208
+
+208:text
+AAAAAAAAAAAAAAAH
+208:done
+
+209:end:200

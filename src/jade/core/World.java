@@ -119,11 +119,13 @@ public class World extends Messenger
 //        		for(Actor actor : getActors(cls))
 //        			((Creature)actor).walk();
 //        } 
+        Player player = getPlayer();
         
     	// Alle Aktionen durchführen
         for(Class<? extends Actor> cls : actOrder)
             for(Actor actor : getActors(cls))
-                actor.act();  	       
+                if(player.pos().distance(actor.pos()) < 2*player.getViewFieldRadius())
+                	actor.act();  	       
         
 //        Creature monster = getActorAt(Monster.class, getActor(Player.class).pos());
        // if(monster != null && monster.getFeatures(Death.class).isEmpty())

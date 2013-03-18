@@ -231,9 +231,9 @@ public abstract class Creature extends Actor
 	}
 	
 	public void useItem(Item item){
+		setHasActed(true);
 		item.interact(this);
 		getInventory().removeItem(item);
-		setHasActed(true);
 	}
 	
 	public AttackableCreature getAttackableCreature(Class cls){
@@ -297,5 +297,13 @@ public abstract class Creature extends Actor
 			this.prob = prob;
 			this.melee = melee;
 		}
+	}
+
+	public void setMeleeWeapon(IMeleeWeapon weapon) {
+		meleeWeapon = weapon;
+	}
+	
+	public void setRCWeapon(IRangedCombatWeapon weapon) {
+		rcWeapon = weapon;
 	}
 }

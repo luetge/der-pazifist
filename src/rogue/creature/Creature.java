@@ -53,7 +53,7 @@ public abstract class Creature extends Actor
 
         walkBehaviour = DoNothingBehaviour.getInstance();
         setBehaviour(DoNothingBehaviour.getInstance());
-        meleeWeapon = (IMeleeWeapon) WeaponFactory.createWeapon("headnut");
+        meleeWeapon = (IMeleeWeapon) WeaponFactory.createWeapon("headnut", this);
     }
     
     public void setFace (Direction dir, ColoredChar face)
@@ -108,6 +108,7 @@ public abstract class Creature extends Actor
     }
     
     public void interact (Direction dir) {
+    	Guard.verifyState(Player.class.isAssignableFrom(this.getClass()));
     	Collection<Monster> monsters = world().getActorsAt(Monster.class, pos().getTranslated(dir));
     	for (Monster monster : monsters)
     		fight(monster, true);
@@ -240,13 +241,31 @@ public abstract class Creature extends Actor
 		ArrayList<AttackableCreature> lst = getCreatures();
 		Collections.sort(lst, new Comparator<AttackableCreature>() {
 			public int compare(AttackableCreature o1, AttackableCreature o2) {
-				return (int)(o1.damage*o1.prob - o2.damage*o2.prob);
+				return (int)(-(o1.damage*o1.prob - o2.damage*o2.prob));
 			};
 		});
 		for(AttackableCreature creat : lst)
 			if(cls.isAssignableFrom(creat.creature.getClass()))
 					return creat;
 		return null;
+	}
+	
+	
+	public ArrayList<Creature> getCreaturesCloseby(){
+		ArrayList<Creature> list = new ArrayList<Creature>();
+
+		list.add(world().getActorAt(Creature.class, pos().getTranslated(1, -1)));
+		list.add(world().getActorAt(Creature.class, pos().getTranslated(1, 0)));
+		list.add(world().getActorAt(Creature.class, pos().getTranslated(1, 1)));
+		list.add(world().getActorAt(Creature.class, pos().getTranslated(0, -1)));
+		list.add(world().getActorAt(Creature.class, pos().getTranslated(0, 1)));
+		list.add(world().getActorAt(Creature.class, pos().getTranslated(-1, -1)));
+		list.add(world().getActorAt(Creature.class, pos().getTranslated(-1, 0)));
+		list.add(world().getActorAt(Creature.class, pos().getTranslated(-1, 1)));
+	
+		list.removeAll(Collections.singletonList(null));
+		System.out.println(list.toString());
+		return list;
 	}
 	
 	public ArrayList<AttackableCreature> getCreatures(){

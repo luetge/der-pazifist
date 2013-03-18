@@ -154,6 +154,7 @@ public class AsciiMap {
 		private Color background;
 		private Color foreground;
 		private boolean passable;
+		private boolean brighten;
 		private Map<String, String> aliases;
 
 		private void processEscape (Coordinate coord, String input)
@@ -173,6 +174,18 @@ public class AsciiMap {
 			else if (esc.startsWith("creature:"))
 			{
 				creatures.put(coord.copy(), esc.substring(9));
+			}
+			else if (esc.equals("brighten"))
+			{
+				brighten = true;
+			}
+			else if (esc.equals("brighten"))
+			{
+				brighten = true;
+			}
+			else if (esc.equals("dontbrighten"))
+			{
+				brighten = false;
 			}
 			else if (esc.startsWith("door:"))
 			{
@@ -236,7 +249,7 @@ public class AsciiMap {
 					height = coord.y();
 				if (!background.equals(Color.black))
 				{
-					backgrounds.put(coord.copy(), background.brighter());
+					backgrounds.put(coord.copy(), brighten?background.brighter():background);
 					if (width < coord.x())
 						width = coord.x();
 					if (height < coord.y())
@@ -268,6 +281,7 @@ public class AsciiMap {
 				foreground = Color.white;
 				background = Color.black;
 				passable = false;
+				brighten = false;
 				MutableCoordinate coord = new MutableCoordinate (0,0);
 				aliases = new HashMap<String,String>();
 				parseAliases(reader.readLine());

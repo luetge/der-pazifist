@@ -372,6 +372,7 @@ public class Dialog {
 						}
 					}
 				}
+				Log.addMessage(world.getPlayer().getName() + ": " + choices[currentchoice]);
 				return destinations[currentchoice];
 			} catch (InterruptedException e) {
 				e.printStackTrace();

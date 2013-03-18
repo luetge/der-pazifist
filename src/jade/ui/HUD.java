@@ -73,7 +73,7 @@ public class HUD {
 		lblHP = new Label("100%");
 		lblAgil = new Label("0%");
 		lblFaith = new Label("100%");
-		lblRage = new Label("10%");
+		lblRage = new Label("?%");
 		lblLevel = new Label("1");
 		lblGold = new Label("0");
 		pnl.add(new Label("HP:"));
@@ -100,6 +100,10 @@ public class HUD {
 	
 	public static void setFaith(int faith){
 		lblFaith.setText(faith + "%");
+	}
+	
+	public static void setRage(int rage){
+		lblRage.setText(rage + "%");
 	}
 	
 	public static void setLevel(int level){

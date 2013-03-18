@@ -12,12 +12,13 @@ import jade.util.datatype.Direction;
 import jade.util.datatype.Door;
 
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.Collection;
 
 import pazi.behaviour.KeyboardGeneral;
 import pazi.behaviour.KeyboardWalk;
 import pazi.behaviour.PlayerBehaviour;
+import pazi.features.RoundhousePunch;
+import pazi.features.VisionFeature;
 import pazi.items.HealingPotion;
 import pazi.items.Item;
 import pazi.weapons.IMeleeWeapon;
@@ -28,8 +29,9 @@ public class Player extends Creature implements Camera
     private ViewField fov;
     int counter = 0;
     int faith, rage;
+    int maxFaith, maxRage;
     private int radius;
-    
+	RoundhousePunch roundhousePunch;
     ColoredChar facesets[][];
     int currentfaceset;
 
@@ -48,11 +50,21 @@ public class Player extends Creature implements Camera
         min_d = 40;
         max_d = 70;
         radius = 10;
+        faith = 100;
+        maxRage = 100;
+        rage = 0;
+        maxFaith = 100;
+        updateFaith();
+        updateRage();
+        updateHP();
         setWalkBehaviour(new KeyboardWalk());
         setBehaviour(new PlayerBehaviour());
         addGeneralFeature(new KeyboardGeneral());
-        meleeWeapon = (IMeleeWeapon) WeaponFactory.createWeapon("fist");
+        meleeWeapon = (IMeleeWeapon) WeaponFactory.createWeapon("fist", this);
         //TODO Singleton?
+        
+        roundhousePunch = new RoundhousePunch();
+        this.addGeneralFeature(roundhousePunch);
     }
     
     @Override
@@ -91,7 +103,12 @@ public class Player extends Creature implements Camera
          {
         	 setFace (facesets[currentfaceset][4]);
          }
-         
+         double rand = Math.random();
+         if (rand < 0.5){
+        	 increaseRage(-1);
+        	 if (rand < 0.05)
+        		 increaseFaith(1);
+         }
     };
 
     @Override
@@ -123,7 +140,14 @@ public class Player extends Creature implements Camera
 	protected void updateHP(){
 		HUD.setHP(getHP());
 	}
-
+	
+	protected void updateFaith(){
+		HUD.setFaith(faith);
+	}
+	
+	protected void updateRage(){
+		HUD.setRage(rage);
+	}
 
 	public void setViewFieldRadius(int radius) {
 		this.radius = radius;
@@ -152,4 +176,54 @@ public class Player extends Creature implements Camera
 		});
 	}
 
+	public void increaseFOV() {
+		if (!this.getFeatures(VisionFeature.class).isEmpty())
+			return;
+		if (faith >= 20){
+			this.addGeneralFeature(new VisionFeature(this, 5, 20));
+			increaseFaith(-20);
+		setHasActed(true);
+		}
+	}
+	
+	
+	public void roundhousePunch(){
+		if (rage >= 80){
+			roundhousePunch.punch(this);
+			increaseRage(-80);
+			setHasActed(true);
+			this.appendMessage("roooOOAAAARRR!!!!");
+		}
+	}
+	
+
+	public void killedSomeone(Creature creature) {
+		increaseRage(20);
+		increaseFaith(-20);
+	}
+
+	public void meditate() {
+		increaseFaith(10);
+		increaseRage(-10);
+		this.appendMessage("Ooooooommmmmmmmm. Die Meditation stärkt meinen Glauben.");
+		setHasActed(true);
+	}
+
+	private void increaseFaith(int i) {
+		faith += i;
+		if (faith > maxFaith)
+			faith = maxFaith;
+		else if (faith < 0)
+			faith = 0;
+		updateFaith();
+	}
+
+	private void increaseRage(int i) {
+		rage += i;
+		if (rage > maxRage)
+			rage = maxRage;
+		else if (rage < 0)
+			rage = 0;
+		updateRage();
+	}
 }

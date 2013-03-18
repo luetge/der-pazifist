@@ -34,7 +34,7 @@ public class Rogue implements ComponentListener
 		term = TiledTermPanel.getFramedTerminal("Der PaziFist");
 
         player = new Player();
-        level = new Level(256, 196, player, "mainworld");
+        level = new Level(256, 192, player, "mainworld");
         
         view = new View (player.pos ());
         View.setGlobalView(view);

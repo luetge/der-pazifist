@@ -14,6 +14,9 @@ import java.util.Map;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.InputStreamReader;
+
+import org.newdawn.slick.util.ResourceLoader;
 
 import org.lwjgl.input.Keyboard;
 
@@ -234,8 +237,16 @@ public class Dialog {
 				speakeroverride = new String(args[2]);
 			else
 				speakeroverride = null;
+			text = null;
 		}
-		
+
+		public TextNode (Dialog parent, int id, String speakeroverride, ArrayList<String> text)
+		{
+			super (parent, id);
+			this.speakeroverride = speakeroverride;
+			this.text = text;
+		}
+
 		@Override
 		public int tick (World world, Creature speaker)
 		{
@@ -410,6 +421,12 @@ public class Dialog {
 			returnval = Integer.parseInt(args[2]);
 		}
 		
+		public EndNode (Dialog parent, int id, int returnval)
+		{
+			super(parent, id);
+			this.returnval = returnval;
+		}
+		
 		@Override
 		public int tick (World world, Creature speaker)
 		{
@@ -426,10 +443,13 @@ public class Dialog {
 	private Ally speaker;
 	private int currentid;
 	public Dialog (String filename) {
-		this.nodes = new HashMap<Integer, Node> ();
-		this.state = new HashMap<String, Integer> ();
-		this.currentid = 0;
+		super();
 		load (filename);
+	}
+	private Dialog () {
+			this.nodes = new HashMap<Integer, Node> ();
+			this.state = new HashMap<String, Integer> ();
+			this.currentid = 0;
 	}
 	
 	public void setState (String name, int value)
@@ -443,10 +463,25 @@ public class Dialog {
 		return state.get(name);
 	}
 	
+	public static Dialog createSimpleTextDialog (String speaker, String line)
+	{
+		ArrayList<String> text = new ArrayList<String> ();
+		text.add(line);
+		return createSimpleTextDialog(speaker, text);
+	}
+	
+	public static Dialog createSimpleTextDialog (String speaker, ArrayList<String> text)
+	{
+		Dialog dialog = new Dialog();
+		dialog.nodes.put(0, dialog.new TextNode(dialog, 0, speaker, text));
+		dialog.nodes.put(1, dialog.new EndNode(dialog, 1, 0));
+		return dialog;
+	}
+	
 	void load (String filename)
 	{
 		try {
-			BufferedReader reader = new BufferedReader (new FileReader (filename));
+			BufferedReader reader = new BufferedReader (new InputStreamReader (ResourceLoader.getResourceAsStream(filename)));
 
 			String str;
 			while((str = reader.readLine()) != null)
@@ -584,7 +619,6 @@ public class Dialog {
 	
 	public void tick (World world)
 	{ 
-		Guard.argumentIsNotNull(speaker);
 		Guard.verifyState(nodes.containsKey(currentid));
 		
 		Node node;

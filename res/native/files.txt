@@ -1,0 +1,17 @@
+jinput-dx8_64.dll
+jinput-dx8.dll
+jinput-raw_64.dll
+jinput-raw.dll
+libjinput-linux64.so
+libjinput-linux.so
+libjinput-osx.jnilib
+liblwjgl64.so
+liblwjgl.jnilib
+liblwjgl.so
+libopenal64.so
+libopenal.so
+lwjgl64.dll
+lwjgl.dll
+OpenAL32.dll
+OpenAL64.dll
+openal.dylib

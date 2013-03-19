@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import org.newdawn.slick.util.ResourceLoader;
+
 import pazi.items.Item;
 import pazi.weapons.IMeleeWeapon;
 import pazi.weapons.IRangedCombatWeapon;
@@ -42,7 +44,7 @@ public class HUD {
 			hud.setMinimumSize(new Dimension(200,0));
 			hud.setSize(new Dimension(200,100));
 			fontHeight = 16;
-			Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream ("res/DejaVuSansMono.ttf"));
+			Font font = Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream("res/DejaVuSansMono.ttf"));
 			hud.setFont(font.deriveFont(Font.PLAIN, fontHeight));
 			hud.setBackground(Color.black);
 			hud.setForeground(Color.white);

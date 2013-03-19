@@ -2,7 +2,24 @@ package rogue;
 
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLDecoder;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
+
+import org.lwjgl.input.Keyboard;
+import org.newdawn.slick.util.ResourceLoader;
 
 import jade.core.Dialog;
 import jade.core.Messenger.Message;
@@ -56,7 +73,7 @@ public class Rogue
         
 		waitForSpace();
 		
-		view.loadTiles("res/tiles");
+		view.loadTiles();
 	}
 	
     public void run () throws InterruptedException
@@ -86,7 +103,7 @@ public class Rogue
     	{
     		view.drawWorld(level.world());
     		view.update();
-
+    		
 			Dialog dialog = level.world().getActiveDialog();
 			if (dialog != null)
 			{
@@ -134,16 +151,76 @@ public class Rogue
         waitForSpace();
 	}
 	
+	public static File createTmpDir() {
+		File basedir = new File(System.getProperty("java.io.tmpdir"));
+		String baseName = System.currentTimeMillis() + "-";
+		for (int counter = 0; counter < 1000; counter++)
+		{
+			File tempDir = new File (basedir, baseName + counter);
+			if(tempDir.mkdir())
+				return tempDir;
+		}
+		throw new IllegalStateException("Failed to create temporary directory.");
+	}
+	
+	public static void deleteDir(File dir)
+	{
+		if (dir == null)
+			return;
+		for (File file : dir.listFiles())
+		{
+			if (file.isDirectory())
+				deleteDir(file);
+			file.delete();
+		}
+		dir.delete();
+	}
+	
+	public static void extract_native_lib (String name, File dir) throws IOException
+	{
+		InputStream input = ResourceLoader.getResourceAsStream("res/native/" + name);
+		File file = new File(dir, name);
+		if (!file.createNewFile())
+			throw new IllegalStateException("Failed to extract native library.");
+		FileOutputStream output = new FileOutputStream(file);
+		byte[] buffer = new byte[4096];
+		int len;
+		while ((len = input.read(buffer)) != -1)
+		{
+			output.write(buffer, 0, len);
+		}
+	}
+
+	public static void extract_native_libs (File dir)
+	{
+		try {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(ResourceLoader.getResourceAsStream("res/native/files.txt")));
+			String str;
+			while ((str = reader.readLine()) != null)
+			{
+				extract_native_lib (str, dir);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
     public static void main(String[] args)
     {
+    	File tmpdir = null;
         try {
-        	System.setProperty("org.lwjgl.librarypath", new File("res/native").getAbsolutePath());
+        	tmpdir = createTmpDir();
+        	extract_native_libs (tmpdir);
+        	System.setProperty("org.lwjgl.librarypath", tmpdir.getAbsolutePath());//new File("res/native").getAbsolutePath());
         	Rogue rogue = new Rogue ();
         	rogue.run ();
         	rogue.finish ();
+        	deleteDir(tmpdir);
         
         	System.exit(0);
-		} catch (InterruptedException e) {
+		} catch (Exception e) {
+			deleteDir(tmpdir);
 			e.printStackTrace();
 		}
     }

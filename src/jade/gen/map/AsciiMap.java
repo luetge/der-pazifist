@@ -3,6 +3,7 @@ package jade.gen.map;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.Reader;
 import java.io.IOException;
@@ -19,6 +20,8 @@ import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Door;
 import jade.util.Guard;
 import java.awt.Color;
+
+import org.newdawn.slick.util.ResourceLoader;
 
 import rogue.creature.CreatureFactory;
 import jade.core.World;
@@ -81,12 +84,8 @@ public class AsciiMap {
 	
 	private void loadFromFile (String filename)
 	{
-		try {
-			Loader l = new Loader();
-			l.load(new FileReader(filename));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		Loader l = new Loader();
+		l.load(new InputStreamReader (ResourceLoader.getResourceAsStream(filename)));
 	}
 	
 	private void loadFromString (String str)

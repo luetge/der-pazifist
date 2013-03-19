@@ -1,8 +1,8 @@
 t10=door:tut1entry0,tut1,tut1exit0,w;t11=door:tut1entry1,tut1,tut1exit1,w;t20=door:tut2exit0,tut3,tut2entry0,s;t21=door:tut2exit1,tut3,tut2entry1,s;t22=door:tut2exit2,tut3,tut2entry2,s;bblack=bg:000000;bbrown=bg:996633;bgreen=bg:5D8526;bgrey=bg:cccccc;bdgreen=bg:355E00;fgreen=fg:33a743;fblack=fg:000000;fbrown=fg:4c1800;fwhite=fg:ffffff
 ╔═════════════════════════════════╗
 ║¥bbrown¥¥fbrown¥       l¥p¥¥bgreen¥          ¥bgrey¥ ¥bgreen¥¥fblack¥_ _ _ _ _ _ _¥fwhite¥¥np¥⌻¥bblack¥║
-║¥bbrown¥¥fbrown¥       l¥p¥¥bgreen¥          ¥bgrey¥ ¥bgreen¥¥fblack¥_ _ _ _ _ _ _¥fwhite¥¥np¥⌻¥bblack¥║
-║¥bbrown¥¥fbrown¥       l¥p¥¥bgreen¥          ¥bgrey¥ ¥bgreen¥¥fblack¥_ _ _ _ _ _ _¥fwhite¥¥np¥⌻¥bblack¥║
+║¥bbrown¥¥fbrown¥     ¥creature:dog¥  l¥p¥¥bgreen¥          ¥bgrey¥ ¥bgreen¥¥fblack¥_ _ _ _ _ _ _¥fwhite¥¥np¥⌻¥bblack¥║
+║¥bbrown¥¥fbrown¥  ¥creature:dog¥     l¥p¥¥bgreen¥          ¥bgrey¥ ¥bgreen¥¥fblack¥_ _ _ _ _ _ _¥fwhite¥¥np¥⌻¥bblack¥║
 ║¥bbrown¥¥fbrown¥IIIIIIII¥p¥¥bgreen¥          ¥bgrey¥ ¥bgreen¥¥fblack¥_ _ _ _ _ _ _¥fwhite¥¥np¥⌻¥bblack¥║
 ║¥p¥¥bgreen¥                  ¥bgrey¥ ¥bgreen¥¥fgreen¥_ ¥fblack¥_____¥fgreen¥_¥fblack¥_____¥fwhite¥¥np¥⌻¥bblack¥║
 ║¥p¥¥bgreen¥                  ¥bdgreen¥¥fgreen¥¥np¥( )¥p¥¥bgreen¥  _ ¥bdgreen¥¥np¥( )¥p¥¥bgreen¥     ¥bblack¥¥fwhite¥¥np¥║

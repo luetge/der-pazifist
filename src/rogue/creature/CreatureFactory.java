@@ -21,6 +21,7 @@ import pazi.behaviour.SneakStealFlee;
 import pazi.features.Braaaiiiiins;
 import pazi.features.IBeforeAfterFeature;
 import pazi.features.IFeature;
+import pazi.items.Item;
 import pazi.weapons.IMeleeWeapon;
 import pazi.weapons.IRangedCombatWeapon;
 import pazi.weapons.Paralyzer;
@@ -80,9 +81,20 @@ public class CreatureFactory {
 		} else if (identifier.equals("priest")) {
 			creature = new Ally (ColoredChar.create('P'), "Priest", new Dialog ("res/dialogs/priest.txt"));
 			
-		} else if (identifier.equals("scientist")) {
-			creature = new Ally (ColoredChar.create('W'), "Scientist", new Dialog ("res/dialogs/scientist.txt"));
-		}	
+		} else if (identifier.equals("scientist0")) {
+			creature = new Ally (ColoredChar.create('W'), "Scientist", new Dialog ("res/dialogs/scientist0.txt"));
+			creature.getInventory().addItem((Item)WeaponFactory.createWeapon("knuckleduster", creature));
+		}
+		else if (identifier.equals("door")){
+			creature = new Monster (ColoredChar.create('═', new Color(0x663300)), "Tür");
+			creature.setHP(500);
+			creature.setBehaviour(new DefaultBehaviour());
+		}
+		else if (identifier.equals("dog")){
+			creature = new Monster (ColoredChar.create('d', new Color(0x000000)), "Hund");
+			creature.setWalkBehaviour(new RandomWalk());
+			//creature.addGeneralFeature(Wuff.getInstance());
+		}
 		else if (identifier.equals("hitler")) {
 			creature = new Monster(ColoredChar.create('H', Color.white), "Hitler");
 			creature.setWalkBehaviour(new RandomWalk());

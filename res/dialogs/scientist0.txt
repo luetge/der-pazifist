@@ -1,0 +1,76 @@
+#Test
+
+
+
+0:text:Der Pazifist
+Ich fühle mich schwummrig, was ist hier los?
+0:done
+
+1:text
+Sie sind Teil eines Experiments. Haben Sie Fragen?
+1:done
+
+2:question:Ich glaube, ich habe seit 2000 Jahren nicht geraucht. Haben Sie ne Kippe?:21:Keine Fragen:101
+2:done
+
+3:text
+Doch Fragen?
+3:done
+
+4:goto:2
+
+21:text
+Rauchen ist ungesund! Gehen Sie an die frische Luft!
+21:done
+
+22:goto:100
+
+100:end:200
+
+101:end:3
+
+
+
+200:text
+Lassen Sie mich forschen!
+200:done
+
+201:end:202
+
+202:text
+Gehen Sie weg!
+202:done
+
+203:end:204
+
+204:text
+Hören Sie auf, mich anzufassen!
+204:done
+
+205:end:206
+
+206:text
+Verdammt, ich will meine Ruhe haben!
+206:done
+
+207:end:208
+
+208:text
+AAAAAAAAAAAAAAAH
+208:done
+
+209:end:210
+
+210:text
+Ich brech zusammen...
+210:done
+
+211:hasitem:Schlagring des Grauens:1:212:214
+
+212:text
+Hier, nimm diesen Schlagring des Grauens und lass mich in Ruhe!
+212:done
+
+213:receiveitem:Schlagring des Grauens:1
+
+214:end:200

@@ -20,7 +20,6 @@ import java.awt.Graphics;
 import java.awt.color.ColorSpace;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
@@ -367,20 +366,6 @@ public class View {
 		gltiles.clear();
 	}
 	
-    static Map<Integer, Integer> keytranslatemap = createKeyTranslateMap();
-    
-    private static Map<Integer, Integer> createKeyTranslateMap()
-    {
-    	Map<Integer, Integer> map = new HashMap<Integer, Integer> ();
-    	map.put(Keyboard.KEY_SPACE, (int) ' ');
-    	map.put(Keyboard.KEY_H, (int) 'H');
-    	map.put(Keyboard.KEY_LEFT, KeyEvent.VK_LEFT);
-    	map.put(Keyboard.KEY_RIGHT, KeyEvent.VK_RIGHT);
-    	map.put(Keyboard.KEY_UP, KeyEvent.VK_UP);
-    	map.put(Keyboard.KEY_DOWN, KeyEvent.VK_DOWN);
-    	return map;
-    }
-	
 	public boolean nextKey ()
 	{
 		boolean state = Keyboard.next();
@@ -393,10 +378,7 @@ public class View {
 	
 	public int getKeyEvent()
 	{
-    	Integer event = keytranslatemap.get(Keyboard.getEventKey());
-    	if (event == null)
-    		return -1;
-    	return event;
+    	return Keyboard.getEventKey();
 	}
 	
 	public static void create (String title)

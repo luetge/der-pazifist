@@ -15,6 +15,8 @@ import java.util.Map;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
+import org.lwjgl.input.Keyboard;
+
 public class Dialog {
 	private abstract class Node {
 		private Dialog parent;
@@ -367,7 +369,7 @@ public class Dialog {
 				while (view.nextKey())
 				{
 					int key = view.getKeyEvent();
-					if (key == ' ')
+					if (key == Keyboard.KEY_SPACE)
 					{
 						answerselected = true;
 						break;
@@ -572,7 +574,7 @@ public class Dialog {
 		View.get().update();
 		while (View.get().nextKey())
 		{
-			if (View.get().getKeyEvent() == ' ')
+			if (View.get().getKeyEvent() == Keyboard.KEY_SPACE)
 			{
 				return true;
 			}

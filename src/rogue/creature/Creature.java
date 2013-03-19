@@ -26,6 +26,7 @@ import pazi.weapons.IMeleeWeapon;
 import pazi.weapons.IRangedCombatWeapon;
 import pazi.weapons.IWeapon;
 import pazi.weapons.WeaponFactory;
+import pazi.weapons.WeaponPrototype;
 
 public abstract class Creature extends Actor
 {
@@ -342,5 +343,12 @@ public abstract class Creature extends Actor
 	}
 
 	public void levelUp(){
+	}
+
+	public void setWeapon(WeaponPrototype weapon) {
+		if(IMeleeWeapon.class.isAssignableFrom(weapon.getClass()))
+			setMeleeWeapon((IMeleeWeapon) weapon);
+		else
+			setRCWeapon((IRangedCombatWeapon) weapon);
 	}
 }

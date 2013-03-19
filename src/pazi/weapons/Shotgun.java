@@ -1,15 +1,18 @@
 package pazi.weapons;
 
+import java.awt.Color;
+
 import jade.core.Actor;
 import jade.util.datatype.ColoredChar;
 import pazi.items.Item;
 import rogue.creature.Creature;
 
-public class Shotgun extends Item implements IRangedCombatWeapon {
+public class Shotgun extends RCWeaponPrototype {
 
-	public Shotgun(ColoredChar face, String name) {
-		super(face, name);
-		// TODO Auto-generated constructor stub
+	public Shotgun() {
+		
+		super(new ColoredChar('p', Color.lightGray), "Shotgun der Erlösung");
+		description = "Eine Waffe mit kurzer Reichweite und großer Streuung.";
 	}
 
 	@Override
@@ -20,8 +23,7 @@ public class Shotgun extends Item implements IRangedCombatWeapon {
 
 	@Override
 	public double getProb(Creature attacker, Creature victim) {
-		// TODO Auto-generated method stub
-		return 0;
+		return 1;
 	}
 
 	@Override
@@ -32,14 +34,22 @@ public class Shotgun extends Item implements IRangedCombatWeapon {
 
 	@Override
 	public double getRange() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 4;
 	}
 
 	@Override
 	public void interact(Actor actor) {
-		// TODO Auto-generated method stub
-
+		if(Creature.class.isAssignableFrom(actor.getClass())){
+			((Creature)actor).setRCWeapon(this);
+			actor.appendMessage("Die Welt gehört mir!!");
+			setHasActed(false);
+		}
+	}
+	
+	@Override
+	public void getPickedUp(Creature creature) {
+		super.getPickedUp(creature);
+		creature.appendMessage("Eine Shotgun, die hätte ich gegen die Römer damals gebraucht!");
 	}
 
 }

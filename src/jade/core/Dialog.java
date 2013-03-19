@@ -589,6 +589,16 @@ public class Dialog {
 	{
 		say (speaker, t, 0);
 	}
+	
+	public static void sayTop (String speaker, ArrayList<String> t)
+	{
+		say (speaker, t, t.size()/2 - View.get().rows()/2 + 2);
+	}
+
+	public static void sayTop (String speaker, ArrayList<String> t, int dy)
+	{
+		say (speaker, t, t.size()/2 - View.get().rows()/2 + dy);
+	}
 
 	public static void say (String speaker, ArrayList<String> t, int dy)
 	{

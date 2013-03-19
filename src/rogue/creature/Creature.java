@@ -168,6 +168,8 @@ public abstract class Creature extends Actor
 	}
     
     public void fight(Creature creature, int hp, double chance, boolean melee) {
+    	if (creature.isPassable())
+    		return;
     	if(hasActed())
     		return;
     	// FIGHT!!!
@@ -211,26 +213,17 @@ public abstract class Creature extends Actor
 	public LinkedList<IBeforeAfterFeature> getFightFeatures(){
 		return fightFeatures;
 	}
-
-	public void fight(Direction dir) {
-		if(dir == null || dir == Direction.ORIGIN)
-			return;
-		Creature target = null;
-		for (Creature creature : world().getActorsAt(Creature.class, pos().getTranslated(dir))){
-			if (!creature.isPassable()){
-				target = creature;
-				break;
-			}
-		}
-		if (target == null)
-			return;
-		fight(target, true);
+	
+	protected void gainHP(int raise){
+		setHP(hp + raise);
 	}
 	
 	protected void setHP(int hp){
 		this.hp = hp;
 		if(this.hp > this.maxHp)
 			this.hp = maxHp;
+		if(this.hp < 0)
+			this.hp = 0;
 	}
 	
 	public int getHP(){

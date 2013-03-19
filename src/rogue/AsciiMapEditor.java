@@ -4,6 +4,8 @@ import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.text.BadLocationException;
 
+import org.newdawn.slick.util.ResourceLoader;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,17 +20,20 @@ import java.io.IOException;
 
 import jade.gen.map.AsciiMap;
 import jade.ui.GLView;
+import jade.ui.LegacyView;
 import jade.ui.View;
 
 public class AsciiMapEditor implements DocumentListener, WindowListener {
 	
 	private JTextArea textarea;
 	private JFrame frame;
+	private boolean redraw = false;
 	
 	private boolean changed;
 	
 	void setChanged (boolean changed)
 	{
+		redraw = true;
 		this.changed = changed;
 		if (changed)
 			frame.setTitle("AsciiMapEditor*");
@@ -106,12 +111,17 @@ public class AsciiMapEditor implements DocumentListener, WindowListener {
 
 	public AsciiMapEditor ()
 	{
-		View.set(GLView.create ("AsciiMapEditor view", 128, 48, 10, 16));
+		try {
+		    View.set(GLView.create ("AsciiMapEditor view", 128, 48, 10, 16));
+		} catch (Exception e) {
+			System.err.println("Konnte kein GLView erzeugen und falle zurück auf LegacyView.");
+			View.set(LegacyView.create ("AsciiMapEditor view", 128, 48, 10, 16));
+		}
 		View view = View.get();
 		view.loadTiles();
 		textarea = new JTextArea();
 		try {
-			Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream ("res/DejaVuSansMono.ttf"));
+			Font font = Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream("res/DejaVuSansMono.ttf"));
 	        textarea.setFont(font.deriveFont(Font.PLAIN, view.tileHeight()));
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -189,6 +199,10 @@ public class AsciiMapEditor implements DocumentListener, WindowListener {
 	
 	public void updateTermPanel()
 	{
+		if (!redraw)
+			return;
+		if (LegacyView.class.isAssignableFrom(View.get().getClass()))
+		    redraw = false;
 		View view = View.get();
 		try {
 		String content;
@@ -210,10 +224,17 @@ public class AsciiMapEditor implements DocumentListener, WindowListener {
 		}
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
+		Rogue.prepareLWJGL();
+		try {
 		AsciiMapEditor asciimapeditor = new AsciiMapEditor ();
 		
 		asciimapeditor.run();
+		Rogue.cleanupLWJGL();
+		} catch (Exception e) {
+			Rogue.cleanupLWJGL();
+			throw e;
+		}
 
 	}
 

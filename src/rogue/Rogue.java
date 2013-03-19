@@ -230,21 +230,32 @@ public class Rogue
 		}
 	}
 	
+	private static File tmpdir = null;
+
+	public static void prepareLWJGL()
+	{
+    	tmpdir = createTmpDir();
+    	extract_native_libs (tmpdir);
+    	System.setProperty("org.lwjgl.librarypath", tmpdir.getAbsolutePath());
+	}
+	
+	public static void cleanupLWJGL()
+	{
+    	deleteDir(tmpdir);
+	}
+	
     public static void main(String[] args)
     {
-    	File tmpdir = null;
         try {
-        	tmpdir = createTmpDir();
-        	extract_native_libs (tmpdir);
-        	System.setProperty("org.lwjgl.librarypath", tmpdir.getAbsolutePath());//new File("res/native").getAbsolutePath());
+        	prepareLWJGL();
         	Rogue rogue = new Rogue ();
         	rogue.run ();
         	rogue.finish ();
-        	deleteDir(tmpdir);
+        	cleanupLWJGL();
         
         	System.exit(0);
 		} catch (Exception e) {
-			deleteDir(tmpdir);
+        	cleanupLWJGL();
 			e.printStackTrace();
 		}
     }

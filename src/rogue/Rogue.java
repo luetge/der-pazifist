@@ -4,8 +4,6 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.io.File;
 
-import javax.xml.stream.Location;
-
 import jade.core.Dialog;
 import jade.core.Messenger.Message;
 import jade.gen.map.AsciiMap;

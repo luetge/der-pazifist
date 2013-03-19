@@ -147,14 +147,14 @@ public class View {
 
 			if (ch == '|')
 			{
-				System.out.println("Hae: " + charwidth);
+				// TODO: Dirty fix for some MacOS versions....
 				g.setColor(Color.white);
-				g.drawLine(charwidth/2, 0, charwidth/2, fm.getAscent());
+				g.drawLine(charwidth/2, fm.getDescent()-1,charwidth/2, fm.getAscent()+fm.getDescent()-1);
 			}
 			else
 			{
-	        g.setColor(Color.white);
-			g.drawString(ch.toString(), 0, fm.getAscent());
+				g.setColor(Color.white);
+				g.drawString(ch.toString(), 0, fm.getAscent());
 			}
 			
 			byte data[] = ((DataBufferByte)image.getRaster().getDataBuffer()).getData();

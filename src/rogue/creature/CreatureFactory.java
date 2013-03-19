@@ -200,18 +200,20 @@ public class CreatureFactory {
 			Constructor<?>[] constructors = ClassLoader.getSystemClassLoader().loadClass(cls).getConstructors();
 			String[] sArgs = argumente.split(",");
 			for(Constructor<?> constructor : constructors){
-				if(constructor.getParameterTypes().length == sArgs.length){
-					ArrayList<Object> parameter = new ArrayList<Object>();
-					Class<?>[] classes = constructor.getParameterTypes();
-					for(int i=0; i<classes.length; i++)
-						if(sArgs[i].equals("¥Player"))
-							parameter.add(world.getPlayer());
-						else if(sArgs[i].startsWith("¥"))
-							parameter.add(World.class.getDeclaredField(sArgs[i].substring(1)));
-						else
-							parameter.add(getWrapped(classes[i]).getConstructor(new Class<?>[] {String.class}).newInstance(sArgs[i]));
-					return (T)constructor.newInstance(parameter.toArray());
-				}
+				try {
+					if(constructor.getParameterTypes().length == sArgs.length){
+						ArrayList<Object> parameter = new ArrayList<Object>();
+						Class<?>[] classes = constructor.getParameterTypes();
+						for(int i=0; i<classes.length; i++)
+							if(sArgs[i].equals("¥Player"))
+								parameter.add(world.getPlayer());
+							else if(sArgs[i].startsWith("¥"))
+								parameter.add(World.class.getDeclaredField(sArgs[i].substring(1)));
+							else
+								parameter.add(getWrapped(classes[i]).getConstructor(new Class<?>[] {String.class}).newInstance(sArgs[i]));
+						return (T)constructor.newInstance(parameter.toArray());
+					}
+				} catch (Exception e) {	}
 			}
 			return null;
 		} catch (Exception e) {

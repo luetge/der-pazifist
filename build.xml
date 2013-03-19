@@ -9,7 +9,7 @@
 
   <path id="classpath">
     <fileset dir="src/lib/" includes="*.jar" />
-    <fileset dir="src/lib/lwjgl-2.8.5/" includes="*.jar" />
+    <fileset dir="src/lib/lwjgl/" includes="*.jar" />
   </path>
 
   <target name="init">

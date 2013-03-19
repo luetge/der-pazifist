@@ -2,6 +2,7 @@ package rogue;
 
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.io.File;
 
 import javax.xml.stream.Location;
 
@@ -139,6 +140,7 @@ public class Rogue
     public static void main(String[] args)
     {
         try {
+        	System.setProperty("org.lwjgl.librarypath", new File("res/native").getAbsolutePath());
         	Rogue rogue = new Rogue ();
         	rogue.run ();
         	rogue.finish ();

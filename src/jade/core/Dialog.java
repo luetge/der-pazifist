@@ -448,7 +448,7 @@ public class Dialog {
 	private Ally speaker;
 	private int currentid;
 	public Dialog (String filename) {
-		super();
+		this();
 		load (filename);
 	}
 	private Dialog () {

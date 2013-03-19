@@ -26,6 +26,7 @@ import jade.core.Dialog;
 import jade.core.Messenger.Message;
 import jade.gen.map.AsciiMap;
 import jade.ui.Bagpack;
+import jade.ui.GLView;
 import jade.ui.HUD;
 import jade.ui.Log;
 import jade.ui.View;
@@ -49,7 +50,7 @@ public class Rogue
 	{
 		running = false;
 
-        View.create("Der Pazifist");
+        View.set(GLView.create("Der Pazifist"));
         view = view.get();
         HUD.init();
 

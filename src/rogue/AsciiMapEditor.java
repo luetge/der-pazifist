@@ -17,6 +17,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import jade.gen.map.AsciiMap;
+import jade.ui.GLView;
 import jade.ui.View;
 
 public class AsciiMapEditor implements DocumentListener, WindowListener {
@@ -105,9 +106,8 @@ public class AsciiMapEditor implements DocumentListener, WindowListener {
 
 	public AsciiMapEditor ()
 	{
-		View view;
-		View.create ("AsciiMapEditor view", 128, 48, 10, 16);
-		view = View.get();
+		View.set(GLView.create ("AsciiMapEditor view", 128, 48, 10, 16));
+		View view = View.get();
 		view.loadTiles();
 		textarea = new JTextArea();
 		try {

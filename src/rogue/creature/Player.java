@@ -1,5 +1,6 @@
 package rogue.creature;
 
+import jade.core.Dialog;
 import jade.fov.RayCaster;
 import jade.fov.ViewField;
 import jade.ui.Camera;
@@ -35,7 +36,7 @@ public class Player extends Creature implements Camera
 	RoundhousePunch roundhousePunch;
     ColoredChar facesets[][];
     int currentfaceset;
-    boolean canUseVisionFeature, canUseRoundhousePunch, canUseMeditate;
+    boolean canUseVisionFeature, canUseRoundhousePunch, canUseMeditate, canUseRedemption;
 
     public Player()
     {
@@ -71,6 +72,7 @@ public class Player extends Creature implements Camera
         canUseMeditate = false;
         canUseRoundhousePunch = false;
         canUseVisionFeature = false;
+        canUseRedemption = false;
     }
     
     @Override
@@ -243,6 +245,11 @@ public class Player extends Creature implements Camera
 		this.appendMessage("Ooooooommmmmmmmm. Die Meditation stärkt meinen Glauben.", true);
 		setHasActed(true);
 	}
+	
+	public void redeem() {
+		world().getActorsAt(Creature.class, this.pos());
+		
+	}
 
 	private void increaseFaith(int i) {
 		faith += i;
@@ -272,19 +279,29 @@ public class Player extends Creature implements Camera
 		this.max_d += 5;
 		if (lvl == 2){
 			canUseVisionFeature = true;
-			this.appendMessage("Ich habe gerade die göttliche Sicht erlernt, Papa sei Dank! ('F')", true);
+			String str = "Ich habe gerade die göttliche Sicht erlernt, Papa sei Dank! ('F')";
+			world().setActiveDialog(Dialog.createSimpleTextDialog("Der PaziFist", str));
+			this.appendMessage(str);
 		}
-		
 		if (lvl == 4){
 			canUseMeditate = true;
-			this.appendMessage("Ich kann nun meditieren. Zur Beruhigung und Stärkung meines Glaubens. ('M')", true);
+			String str = "Ich kann nun meditieren. Zur Beruhigung und Stärkung meines Glaubens. ('M')";
+			world().setActiveDialog(Dialog.createSimpleTextDialog("Der PaziFist", str));
+			this.appendMessage(str);
 		}
-		
+		if (lvl == 5){
+			canUseRedemption = true;
+			String str = "Mein Glaube ist nun so gefestigt, dass ich arme Seelen retten kann! ('4')";
+			world().setActiveDialog(Dialog.createSimpleTextDialog("Der PaziFist", str));
+			this.appendMessage(str);
+		}
 		if (lvl == 6){
 			canUseRoundhousePunch = true;
-			this.appendMessage("AAAAAHHHHHHHH! ROUNDHOUSEPUNCH freigeschaltet (bei mind. 80% Rage: 'R')", true);
-			
+			String str = "AAAAAHHHHHHHH! ROUNDHOUSEPUNCH freigeschaltet (bei mind. 80% Rage: 'R')";
+			world().setActiveDialog(Dialog.createSimpleTextDialog("Der PaziFist", str));
+			this.appendMessage(str);
 		}
 		
 	}
+
 }

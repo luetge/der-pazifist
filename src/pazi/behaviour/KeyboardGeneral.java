@@ -24,6 +24,9 @@ public class KeyboardGeneral implements IFeature<Player> {
 			case Keyboard.KEY_M:
 				player.meditate();
 				break;
+			case Keyboard.KEY_5:
+				player.redeem();
+				break;
 			default:
 				return;
 		}

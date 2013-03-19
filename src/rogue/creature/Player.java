@@ -65,6 +65,7 @@ public class Player extends Creature implements Camera
         
         roundhousePunch = new RoundhousePunch();
         this.addGeneralFeature(roundhousePunch);
+        HUD.setWeaponLbl(meleeWeapon, rcWeapon);
     }
     
     @Override

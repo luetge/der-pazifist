@@ -14,11 +14,15 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 
+import pazi.items.Item;
+import pazi.weapons.IMeleeWeapon;
+import pazi.weapons.IRangedCombatWeapon;
+
 import rogue.creature.Creature;
 
 public class HUD {
 	protected static Label lblHP, lblAgil, lblFaith, lblRage, lblLevel, lblGold;
-	protected static JTextPane lblCreatures;
+	protected static JTextPane lblCreatures, lblEquip;
 	protected static int fontHeight;
 	protected static Panel hud;
 	
@@ -48,9 +52,14 @@ public class HUD {
 			lblCreatures.setForeground(Color.white);
 			scrollpane.getViewport().setBackground(Color.black);
 			scrollpane.setBorder(null);
-//			scrollpane.add(lblCreatures);
 			scrollpane.setForeground(Color.black);
 			hud.add(scrollpane, BorderLayout.CENTER);
+			
+			lblEquip = new JTextPane();
+			lblEquip.setBackground(Color.black);
+			lblEquip.setForeground(Color.white);
+			hud.add(lblEquip, BorderLayout.SOUTH);
+
 			hud.setVisible(false);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -118,5 +127,18 @@ public class HUD {
 		lblCreatures.setText("");
 		for(Creature creature : creatures)
 			lblCreatures.setText(lblCreatures.getText() + "\n" + creature.getName() + " (" + creature.getHP() + " HP)");
+	}
+	
+	public static void setWeaponLbl(IMeleeWeapon melee, IRangedCombatWeapon rcWeapon) {
+		String meleeName, rcWeaponName;
+		if (melee == null)
+			meleeName = "Keine Nahkampfwaffe";
+		else
+			meleeName = melee.getName();
+		if (rcWeapon == null)
+			rcWeaponName = "Keine Fernkampfwaffe";
+		else
+			rcWeaponName = rcWeapon.getName();
+		lblEquip.setText(meleeName + "\n" + rcWeaponName);
 	}
 }

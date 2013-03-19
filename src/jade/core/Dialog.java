@@ -250,13 +250,18 @@ public class Dialog {
 		@Override
 		public int tick (World world, Creature speaker)
 		{
+			String speakername;
+			if (speaker != null)
+				speakername = speaker.getName();
+			else
+				speakername = null;
 			for (String t : text)
-				Log.addMessage((speakeroverride == null ? speaker.getName() : speakeroverride) + ": " + t);
+				Log.addMessage((speakeroverride == null ? speakername : speakeroverride) + ": " + t);
 			do
 			{
 				View.get().drawWorld(world);
 			
-				Dialog.say(speakeroverride == null ? speaker.getName() : speakeroverride,
+				Dialog.say(speakeroverride == null ? speakername : speakeroverride,
 						text);
 			}
 			while(!Dialog.checkforspace());
@@ -587,8 +592,11 @@ public class Dialog {
 
 	public static void say (String speaker, ArrayList<String> t, int dy)
 	{
+		int speakerlen = 0;
+		if (speaker != null)
+			speakerlen = speaker.length() + 2;
 		View view = View.get();
-		int width = getMaxWidth(t) + speaker.length() + 2;
+		int width = getMaxWidth(t) + speakerlen;
 		int height = t.size();
 		int posx = view.columns()/2 - width/2;
 		int posy = view.rows()/2 - height/2 + dy;
@@ -597,9 +605,10 @@ public class Dialog {
 		
 		for (int i = 0; i < t.size(); i++)
 		{
-			view.drawString(view.columns()/2 - width/2, posy + i, 1.0f, speaker + ": ",
-					Color.green);
-			view.drawString(view.columns()/2 - width/2 + speaker.length() + 2,
+			if (speaker != null)
+				view.drawString(view.columns()/2 - width/2, posy + i, 1.0f, speaker + ": ",
+						Color.green);
+			view.drawString(view.columns()/2 - width/2 + speakerlen,
 					posy + i, 1.0f, t.get(i), Color.white);
 		}
 	}

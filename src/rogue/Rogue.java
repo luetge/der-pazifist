@@ -205,6 +205,7 @@ public class Rogue
 		{
 			output.write(buffer, 0, len);
 		}
+		output.close();
 	}
 
 	public static void extract_native_libs (File dir)

@@ -35,6 +35,7 @@ public class Player extends Creature implements Camera
 	RoundhousePunch roundhousePunch;
     ColoredChar facesets[][];
     int currentfaceset;
+    boolean canUseVisionFeature, canUseRoundhousePunch, canUseMeditate;
 
     public Player()
     {
@@ -67,6 +68,9 @@ public class Player extends Creature implements Camera
         roundhousePunch = new RoundhousePunch();
         this.addGeneralFeature(roundhousePunch);
         HUD.setWeaponLbl(meleeWeapon, rcWeapon);
+        canUseMeditate = false;
+        canUseRoundhousePunch = false;
+        canUseVisionFeature = false;
     }
     
     @Override
@@ -186,6 +190,8 @@ public class Player extends Creature implements Camera
 	}
 
 	public void increaseFOV() {
+		if (!canUseVisionFeature)
+			return;
 		if (!this.getFeatures(VisionFeature.class).isEmpty())
 			return;
 		if (faith >= 20){
@@ -197,6 +203,8 @@ public class Player extends Creature implements Camera
 	
 	
 	public void roundhousePunch(){
+		if (!canUseRoundhousePunch)
+			return;
 		if (rage >= 80){
 			roundhousePunch.punch(this);
 			increaseRage(-80);
@@ -224,6 +232,8 @@ public class Player extends Creature implements Camera
 	}
 
 	public void meditate() {
+		if (!canUseMeditate)
+			return;
 		increaseFaith(10);
 		increaseRage(-10);
 		this.appendMessage("Ooooooommmmmmmmm. Die Meditation stärkt meinen Glauben.");
@@ -256,5 +266,10 @@ public class Player extends Creature implements Camera
 		HUD.setHP(getHP(),this.maxHp);
 		this.min_d += 5;
 		this.max_d += 5;
+		if (lvl == 3){
+			canUseVisionFeature = true;
+			this.appendMessage("Ich habe gerade die göttliche Sicht erlernt (Press F)");
+		}
+		
 	}
 }

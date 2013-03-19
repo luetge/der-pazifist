@@ -2,7 +2,6 @@ package rogue.creature;
 
 import jade.path.AStar;
 import jade.util.datatype.ColoredChar;
-import pazi.behaviour.DefaultFightBehaviour;
 
 public class Monster extends Creature
 {
@@ -13,7 +12,6 @@ public class Monster extends Creature
 		super(faces, Name);
         min_d = 0;
         max_d = 5;
-        setCloseCombatBehaviour(DefaultFightBehaviour.getInstance());
         //getWalkFeatures().add(new EatBrains());
 	}
 	

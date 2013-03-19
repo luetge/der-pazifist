@@ -27,7 +27,10 @@ public class VisionFeature implements IFeature<Player> {
 	 */
 	public VisionFeature(Player player, int rounds, int radius){
 		this.roundsLeft = rounds;
-		oldViewFieldRadius = player.getViewFieldRadius();
+		if (player.getFeatures(VisionFeature.class) != null)
+			oldViewFieldRadius = player.getViewFieldRadius();
+		else
+			oldViewFieldRadius = 0;
 		player.setViewFieldRadius(radius);
 		seeAll = false;
 	}
@@ -41,7 +44,8 @@ public class VisionFeature implements IFeature<Player> {
 			if (seeAll) 
 				player.world().useViewfield(true);
 			else
-				player.setViewFieldRadius(oldViewFieldRadius);
+				if (oldViewFieldRadius > 0)
+					player.setViewFieldRadius(oldViewFieldRadius);
 			player.removeFeature(this);
 		}
 		

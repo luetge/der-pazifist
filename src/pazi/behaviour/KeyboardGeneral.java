@@ -14,7 +14,17 @@ public class KeyboardGeneral implements IFeature<Player> {
 		switch(player.world().getCurrentKey()) {
 			case KeyEvent.VK_H:
 				player.drinkHealingPotion();
-				return;
+				break;
+			case KeyEvent.VK_F:
+				player.increaseFOV();
+				break;
+			case KeyEvent.VK_R:
+				player.roundhousePunch();
+				break;
+			case KeyEvent.VK_M:
+				System.out.println("what");
+				player.meditate();
+				break;
 			default:
 				return;
 		}

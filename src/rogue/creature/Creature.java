@@ -2,13 +2,18 @@ package rogue.creature;
 
 import jade.core.Actor;
 import jade.core.Messenger;
+import jade.ui.HUD;
 import jade.util.Guard;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.List;
 
 import pazi.behaviour.DeadBehaviour;
 import pazi.behaviour.DoNothingBehaviour;
@@ -17,18 +22,26 @@ import pazi.features.IBeforeAfterFeature;
 import pazi.items.Gold;
 import pazi.items.Inventory;
 import pazi.items.Item;
+import pazi.weapons.IMeleeWeapon;
+import pazi.weapons.IRangedCombatWeapon;
+import pazi.weapons.IWeapon;
+import pazi.weapons.WeaponFactory;
 
 public abstract class Creature extends Actor
 {
-	private int hp = 100;
+	protected int hp = 100;
+	protected int maxHp = 100;
 	protected int min_d, max_d;
+	protected int givenXp = 25;
+    protected int xp=0;
+    protected int lvl=1;
 	protected Coordinate nextCoordinate;
 	protected LinkedList<IBeforeAfterFeature> walkFeatures = new LinkedList<IBeforeAfterFeature>();
 	protected IBehaviour walkBehaviour;
     protected LinkedList<IBeforeAfterFeature> fightFeatures = new LinkedList<IBeforeAfterFeature>();
     protected Inventory inventory = new Inventory(this);
-    protected IBehaviour closeCombatBehaviour;
-    protected IBehaviour rangedCombatBehaviour;
+    protected IMeleeWeapon meleeWeapon;
+    protected IRangedCombatWeapon rcWeapon;
     
     private ColoredChar faces[];
     
@@ -44,9 +57,8 @@ public abstract class Creature extends Actor
     	this.faces = faces;
 
         walkBehaviour = DoNothingBehaviour.getInstance();
-        closeCombatBehaviour = DoNothingBehaviour.getInstance();
-        rangedCombatBehaviour = DoNothingBehaviour.getInstance();
         setBehaviour(DoNothingBehaviour.getInstance());
+        meleeWeapon = (IMeleeWeapon) WeaponFactory.createWeapon("headnut", this);
     }
     
     public void setFace (Direction dir, ColoredChar face)
@@ -82,7 +94,6 @@ public abstract class Creature extends Actor
 	        		if(!actor.isPassable())
 	        			return;
 	    		super.setPos(x, y);
-	    		setHasActed(true);
 	        }
 	    }
     }
@@ -96,15 +107,20 @@ public abstract class Creature extends Actor
     public void interact(Actor actor) {
     	Guard.verifyState(Player.class.isAssignableFrom(this.getClass()));
     	if(Creature.class.isAssignableFrom(actor.getClass()))
-    		this.fight((Creature)actor);
+    		this.fight((Creature)actor, true);
     	/*else if (Ally.class.isAssignableFrom(actor.getClass()))
     		this.talk((Ally)actor);*/
     }
     
     public void interact (Direction dir) {
+    	if (dir == null || dir == Direction.ORIGIN)
+    		return;
+    	Guard.verifyState(Player.class.isAssignableFrom(this.getClass()));
+    	if(dir == null)
+    		return;
     	Collection<Monster> monsters = world().getActorsAt(Monster.class, pos().getTranslated(dir));
     	for (Monster monster : monsters)
-    		fight(monster);
+    		fight(monster, true);
     	Collection<Ally> allies = world().getActorsAt(Ally.class, pos().getTranslated(dir));
     	for (Ally ally : allies)
     		talkto(ally);
@@ -115,27 +131,18 @@ public abstract class Creature extends Actor
     	
     }
     
-    public void fight(Creature creature){
-    	if(creature == null || getClass() == creature.getClass())
-    		return;
-    	creature.takeDamage((int)Math.floor(Math.random()* (max_d - min_d) + min_d));
-    }
+    public void fight(Creature creature, boolean melee){
+    	IWeapon weapon = melee ? meleeWeapon : rcWeapon;
+    	fight(creature, weapon.getDamage(this, creature), weapon.getProb(this, creature), melee);
+    }    
     
-    
-    public void fight(Creature creature, int max_d, int min_d){
-    	if(creature == null || getClass() == creature.getClass())
-    		return;
-    	creature.takeDamage((int)Math.floor(Math.random()* (max_d - min_d) + min_d));
-    }
-    
-    
-    public void takeDamage(int d){
+    public void takeDamage(int d,Creature source){
     	if(getBehaviour().getClass() == DeadBehaviour.class)
     		return;
     	setHP(Math.max(0, hp-d));
     	appendMessage("Ich habe " + d + " Schaden erlitten! Ahhhh Poopoo!", true);
     	if(hp == 0)
-    		setBehaviour(new DeadBehaviour(this));
+    		setBehaviour(new DeadBehaviour(this,source));
     }
     
     public void addHP(int hp){
@@ -155,17 +162,21 @@ public abstract class Creature extends Actor
 		nextCoordinate = coordinate;
 	}
     
-    public void fight() {
+    public void fight(Creature creature, int hp, double chance, boolean melee) {
+    	if(creature == null || hasActed())
+    		return;
     	// FIGHT!!!
 		for(IBeforeAfterFeature<Creature> feature : fightFeatures)
 			feature.actBefore(this);
-		closeCombatBehaviour.act(this);
-		rangedCombatBehaviour.act(this);
+		(melee ? meleeWeapon : rcWeapon).shoot(this, creature);
+		setHasActed(true);
 		for(IBeforeAfterFeature<Creature> feature : fightFeatures)
 			feature.actAfter(this);
 	}
 
 	public void walk() {
+		if(hasActed() || walkBehaviour == null)
+			return;
 		// Neue Position bestimmen
 		for(IBeforeAfterFeature<Creature> feature : walkFeatures)
 			feature.actBefore(this);
@@ -188,27 +199,6 @@ public abstract class Creature extends Actor
 		return walkBehaviour;
 	}
 	
-	public void setCloseCombatBehaviour(IBehaviour closeCombatBehaviour){
-		if(this.closeCombatBehaviour != null)
-			this.closeCombatBehaviour.exit(this);
-		this.closeCombatBehaviour = closeCombatBehaviour;
-		if(closeCombatBehaviour != null)
-			closeCombatBehaviour.init(this);
-	}
-	
-	public void setRangedCombatBehaviour(IBehaviour rangedCombatBehaviour){
-		if(this.closeCombatBehaviour != null)
-			this.closeCombatBehaviour.exit(this);
-		this.closeCombatBehaviour = rangedCombatBehaviour;
-		if(rangedCombatBehaviour != null)
-			rangedCombatBehaviour.init(this);
-	}
-
-	
-	public IBehaviour getCloseCombatBehaviour(){
-		return closeCombatBehaviour;
-	}
-	
 	public LinkedList<IBeforeAfterFeature> getWalkFeatures(){
 		return walkFeatures;
 	}
@@ -218,16 +208,18 @@ public abstract class Creature extends Actor
 	}
 
 	public void fight(Direction dir) {
-		fight(world().getActorAt(Creature.class, pos().getTranslated(dir)));
+		if(dir == null || dir == Direction.ORIGIN)
+			return;
+		fight(world().getActorAt(Creature.class, pos().getTranslated(dir)), true);
 	}
 	
 	protected void setHP(int hp){
 		this.hp = hp;
-		if(this.hp > 100)
-			this.hp = 100;
+		if(this.hp > this.maxHp)
+			this.hp = maxHp;
 	}
 	
-	protected int getHP(){
+	public int getHP(){
 		return hp;
 	}
 	
@@ -249,8 +241,106 @@ public abstract class Creature extends Actor
 	}
 	
 	public void useItem(Item item){
+		setHasActed(true);
 		item.interact(this);
 		getInventory().removeItem(item);
-		setHasActed(true);
+	}
+	
+	public AttackableCreature getAttackableCreature(Class cls){
+		ArrayList<AttackableCreature> lst = getCreatures();
+		Collections.sort(lst, new Comparator<AttackableCreature>() {
+			public int compare(AttackableCreature o1, AttackableCreature o2) {
+				return (int)(-(o1.damage*o1.prob - o2.damage*o2.prob));
+			};
+		});
+		for(AttackableCreature creat : lst)
+			if(cls.isAssignableFrom(creat.creature.getClass()))
+					return creat;
+		return null;
+	}
+	
+	
+	public ArrayList<Creature> getCreaturesCloseby(){
+		ArrayList<Creature> list = new ArrayList<Creature>();
+
+		list.add(world().getActorAt(Creature.class, pos().getTranslated(1, -1)));
+		list.add(world().getActorAt(Creature.class, pos().getTranslated(1, 0)));
+		list.add(world().getActorAt(Creature.class, pos().getTranslated(1, 1)));
+		list.add(world().getActorAt(Creature.class, pos().getTranslated(0, -1)));
+		list.add(world().getActorAt(Creature.class, pos().getTranslated(0, 1)));
+		list.add(world().getActorAt(Creature.class, pos().getTranslated(-1, -1)));
+		list.add(world().getActorAt(Creature.class, pos().getTranslated(-1, 0)));
+		list.add(world().getActorAt(Creature.class, pos().getTranslated(-1, 1)));
+	
+		list.removeAll(Collections.singletonList(null));
+		return list;
+	}
+	
+	public ArrayList<AttackableCreature> getCreatures(){
+		ArrayList<AttackableCreature> list = new ArrayList<AttackableCreature>();
+		addAttackableCreature(list, getScore(pos().getTranslated(-1, 0), true));
+		addAttackableCreature(list, getScore(pos().getTranslated(1, 0), true));
+		addAttackableCreature(list, getScore(pos().getTranslated(0, 1), true));
+		addAttackableCreature(list, getScore(pos().getTranslated(0, -1), true));
+		if(rcWeapon != null)
+			for(Coordinate coord : getRect(pos(), rcWeapon.getRange()))
+				addAttackableCreature(list, getScore(coord, false));
+		return list;
+	}
+	
+	private List<Coordinate> getRect(Coordinate pos, double range) {
+		ArrayList<Coordinate> coords = new ArrayList<Coordinate>();
+		int half = (int)(range/2);
+		for(int i=0; i<2*range; i++)
+			for(int j=0; j<2*range; j++)
+				coords.add(pos.getTranslated(i-half, j-half));
+		return coords;
+	}
+
+	protected void addAttackableCreature(ArrayList<AttackableCreature> list, AttackableCreature creature){
+		if(creature != null)
+			list.add(creature);
+	}
+	
+	protected AttackableCreature getScore(Coordinate coord, boolean melee){
+		if(!world().insideBounds(coord))
+			return null;
+		IWeapon weapon = melee ? meleeWeapon : rcWeapon;
+		for(Creature creature : world().getActorsAt(Creature.class, coord))
+			if(!creature.expired())
+				return new AttackableCreature(creature, weapon.getDamage(this, creature), weapon.getProb(this, creature), melee);
+		return null;
+	}
+	
+	public class AttackableCreature {
+		public final Creature creature;
+		public final int damage;
+		public final double prob;
+		public final boolean melee;
+		
+		public AttackableCreature(Creature creature, int damage, double prob, boolean melee) {
+			this.creature = creature;
+			this.damage = damage;
+			this.prob = prob;
+			this.melee = melee;
+		}
+	}
+
+	public void setMeleeWeapon(IMeleeWeapon weapon) {
+		meleeWeapon = weapon;
+	}
+	
+	public void setRCWeapon(IRangedCombatWeapon weapon) {
+		rcWeapon = weapon;
+	}
+	
+	public int getXp(){
+		return this.givenXp;
+	}
+	
+	public void gainXp(int xp){		
+	}
+
+	public void levelUp(){
 	}
 }

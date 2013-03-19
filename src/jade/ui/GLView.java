@@ -498,7 +498,6 @@ public class GLView extends View {
 		GL11.glViewport(0,  height - viewport_height, viewport_width, viewport_height);
 	}
 
-	
 	public void drawWorld (World world)
 	{
 		Player player = world.getPlayer();

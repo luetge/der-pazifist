@@ -1,6 +1,6 @@
 package jade.util.datatype;
 
-import java.awt.event.KeyEvent;
+import org.lwjgl.input.Keyboard;
 
 /**
  * A cardinal direction as a 2-dimensional integer vector.
@@ -74,20 +74,20 @@ public enum Direction
     {
         switch(key)
         {
-        	case KeyEvent.VK_6:
-        	case KeyEvent.VK_RIGHT:
-                return EAST;
-        	case KeyEvent.VK_4:
-        	case KeyEvent.VK_LEFT:
-                return WEST;
-        	case KeyEvent.VK_8:
-        	case KeyEvent.VK_UP:
+        	case Keyboard.KEY_NUMPAD6:
+        	case Keyboard.KEY_RIGHT:
+        		return EAST;
+        	case Keyboard.KEY_NUMPAD4:
+        	case Keyboard.KEY_LEFT:
+        		return WEST;
+        	case Keyboard.KEY_NUMPAD8:
+        	case Keyboard.KEY_UP:
                 return NORTH;
-        	case KeyEvent.VK_2:
-        	case KeyEvent.VK_DOWN:
+        	case Keyboard.KEY_NUMPAD2:
+        	case Keyboard.KEY_DOWN:
                 return SOUTH;
-            case '5':
-            case '.':
+            case Keyboard.KEY_NUMPAD5:
+            case Keyboard.KEY_COLON:
                 return ORIGIN;
             default:
                 return null;

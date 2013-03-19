@@ -28,6 +28,7 @@ import jade.gen.map.AsciiMap;
 import jade.ui.Bagpack;
 import jade.ui.GLView;
 import jade.ui.HUD;
+import jade.ui.LegacyView;
 import jade.ui.Log;
 import jade.ui.View;
 import jade.util.datatype.Door;
@@ -50,7 +51,12 @@ public class Rogue
 	{
 		running = false;
 
-        View.set(GLView.create("Der Pazifist"));
+		try {
+            View.set(GLView.create("Der Pazifist"));
+		} catch (Exception e) {
+			System.err.println("Konnte kein GLView erzeugen und falle zurück auf LegacyView.");
+            View.set(LegacyView.create("Der Pazifist"));
+		}
         view = view.get();
         HUD.init();
 

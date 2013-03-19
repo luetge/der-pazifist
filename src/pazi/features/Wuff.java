@@ -16,9 +16,11 @@ public class Wuff implements IFeature<Monster> {
 	
 	@Override
 	public void act(Monster monster) {
-		
 		if(Math.random() < 0.20)
+		{
+			monster.world().setMessage(text);
 			monster.appendMessage(text);
+		}
 	}
 	
 }

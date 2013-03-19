@@ -8,6 +8,7 @@ res/tiles/zombie/zombieNE.txt
 res/tiles/zombie/zombieSE.txt
 res/tiles/zombie/zombie.txt
 res/tiles/zombie/zombieSW.txt
+res/tiles/scientist0/scientist0.txt
 res/tiles/alien1/alien1.txt
 res/tiles/alien1/alien1SW.txt
 res/tiles/alien1/alien1S.txt
@@ -21,6 +22,16 @@ res/tiles/alien1/alien1NW.txt
 res/tiles/scientist/scientist.txt
 res/tiles/items/trank.txt
 res/tiles/items/gold.txt
+res/tiles/dog1/dog1E.txt
+res/tiles/dog1/dog1N.txt
+res/tiles/dog1/dog1NE.txt
+res/tiles/dog1/dog1SE.txt
+res/tiles/dog1/dog1NW.txt
+res/tiles/dog1/dog1SW.txt
+res/tiles/dog1/dog1S.txt
+res/tiles/dog1/dog1W.txt
+res/tiles/dog1/dog1dead.txt
+res/tiles/dog1/dog1.txt
 res/tiles/braindead/braindead.txt
 res/tiles/jesus/jesusNW0.txt
 res/tiles/jesus/jesusN0.txt
@@ -51,6 +62,7 @@ res/tiles/bandit2/bandit2NW.txt
 res/tiles/bandit2/bandit2E.txt
 res/tiles/bandit2/bandit2W.txt
 res/tiles/sniper1/sniper1E.txt
+res/tiles/sniper1/sniper1dead.txt
 res/tiles/sniper1/sniper1W.txt
 res/tiles/hitler/hitler.txt
 res/tiles/priest/priest.txt

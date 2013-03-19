@@ -20,7 +20,7 @@ public class Shotgun extends RCWeaponPrototype {
 
 	@Override
 	public int getDamage(Creature attacker, Creature victim) {
-		if(attacker.pos().x() != victim.x() && attacker.pos().y() != victim.pos().y() || attacker.pos().distance(victim.pos()) > getRange())
+		if(attacker == null || victim == null || attacker.pos().x() != victim.x() && attacker.pos().y() != victim.pos().y() || attacker.pos().distance(victim.pos()) > getRange())
 			return 0;
 		return 10;
 	}

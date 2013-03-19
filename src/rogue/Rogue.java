@@ -189,6 +189,10 @@ public class Rogue
 	
 	public static void extract_native_lib (String name, File dir) throws IOException
 	{
+		if (name.equals("lwjgl.dll"))
+		{
+			name = new StringBuffer(name).insert(5, System.getProperty("sun.arch.data.model")).toString();
+		}
 		InputStream input = ResourceLoader.getResourceAsStream("res/native/" + name);
 		File file = new File(dir, name);
 		if (!file.createNewFile())

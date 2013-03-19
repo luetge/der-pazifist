@@ -246,6 +246,8 @@ public class View {
 			}
 			
 			this.canvas.setFont(font);
+		
+			this.frame.setVisible(true);
 			
 			Display.setDisplayMode(new DisplayMode (canvas.getWidth(), canvas.getHeight()));
 			Display.setLocation(0, 0);
@@ -257,7 +259,6 @@ public class View {
 			
 			Keyboard.enableRepeatEvents(true);
 			
-			this.frame.setVisible(true);
 			
 			GL11.glClearColor(0, 0, 0, 1);
 
@@ -411,10 +412,10 @@ public class View {
 	
 	public void displayScreen (AsciiMap screen)
 	{
-		clear();
-		screen.render(view, new Coordinate (0,0));
 		while (Keyboard.getEventCharacter () != ' ')
 		{
+			clear();
+			screen.render(view, new Coordinate (0,0));
 			Display.update();
 			Keyboard.next();
 		}

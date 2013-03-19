@@ -86,8 +86,7 @@ public class Rogue
 		showMessages();
     	while (!player.expired() && !view.closeRequested())
     	{
-    		if (view.wasResized())
-    			view.drawWorld(level.world());
+    		view.drawWorld(level.world());
     		view.update();
 
 			Dialog dialog = level.world().getActiveDialog();

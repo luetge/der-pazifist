@@ -237,11 +237,16 @@ public class Dialog {
 		@Override
 		public int tick (World world, Creature speaker)
 		{
-			View.get().drawWorld(world);
+			for (String t : text)
+				Log.addMessage((speakeroverride == null ? speaker.getName() : speakeroverride) + ": " + t);
+			do
+			{
+				View.get().drawWorld(world);
 			
-			Dialog.say(speakeroverride == null ? speaker.getName() : speakeroverride,
-					text);
-			Dialog.waitforspace();
+				Dialog.say(speakeroverride == null ? speaker.getName() : speakeroverride,
+						text);
+			}
+			while(!Dialog.checkforspace());
 			return getID() + 1;
 		}
 		
@@ -333,7 +338,13 @@ public class Dialog {
 			int currentchoice = 0;
 			
 			boolean answerselected = false;
-
+			
+			if (text.size() > 0)
+			{
+				for (String t : text)
+					Log.addMessage(speaker.getName() + ": " + t);
+			}
+			
 			while (!answerselected)
 			{
 				view.drawWorld(world);
@@ -351,38 +362,30 @@ public class Dialog {
 				
 					view.drawString(posx, posy+i, 1.0f, choices[i], color);
 				}
-				
-				boolean waitforinput = true;
-				while (waitforinput)
+
+				view.update();
+				while (view.nextKey())
 				{
-					view.update();
-					// TODO: handle window resize/close
-					while (view.nextKey())
+					int key = view.getKeyEvent();
+					if (key == ' ')
 					{
-						int key = view.getKeyEvent();
-						if (key == ' ')
+						answerselected = true;
+						break;
+					}
+					Direction dir = Direction.keyToDir(key);
+					if (dir != null)
+					{
+						if (dir == Direction.NORTH)
 						{
-							waitforinput = false;
-							answerselected = true;
-							break;
+							currentchoice--;
+							if (currentchoice < 0)
+								currentchoice = 0;
 						}
-						Direction dir = Direction.keyToDir(key);
-						if (dir != null)
+						else
 						{
-							if (dir == Direction.NORTH)
-							{
-								waitforinput = false;
-								currentchoice--;
-								if (currentchoice < 0)
-									currentchoice = 0;
-							}
-							else
-							{
-								waitforinput = false;
-								currentchoice++;
-								if (currentchoice >= choices.length)
-									currentchoice = choices.length - 1;
-							}
+							currentchoice++;
+							if (currentchoice >= choices.length)
+								currentchoice = choices.length - 1;
 						}
 					}
 				}
@@ -561,26 +564,20 @@ public class Dialog {
 					Color.green);
 			view.drawString(view.columns()/2 - width/2 + speaker.length() + 2,
 					posy + i, 1.0f, t.get(i), Color.white);
-			Log.addMessage(speaker + ": " + t.get(i));
 		}
 	}
 	
-	public static void waitforspace ()
+	public static boolean checkforspace ()
 	{
-		// TODO: handle window resize
-		boolean waiting = true;
-		while (waiting)
+		View.get().update();
+		while (View.get().nextKey())
 		{
-			View.get().update();
-			while (View.get().nextKey())
+			if (View.get().getKeyEvent() == ' ')
 			{
-			    if (View.get().getKeyEvent() == ' ')
-			    {
-			    	waiting = false;				
-			    	break;
-			    }
+				return true;
 			}
 		}
+		return false;
 	}
 	
 	public void tick (World world)

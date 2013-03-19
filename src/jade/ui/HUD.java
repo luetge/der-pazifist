@@ -139,6 +139,6 @@ public class HUD {
 			rcWeaponName = "Keine Fernkampfwaffe";
 		else
 			rcWeaponName = rcWeapon.getName();
-		lblEquip.setText(meleeName + "\n" + rcWeaponName);
+		lblEquip.setText("Deine Waffenwahl: " + "\n" + meleeName + "\n" + rcWeaponName);
 	}
 }

@@ -328,12 +328,10 @@ public abstract class Creature extends Actor
 
 	public void setMeleeWeapon(IMeleeWeapon weapon) {
 		meleeWeapon = weapon;
-		HUD.setWeaponLbl(meleeWeapon, rcWeapon);
 	}
 	
 	public void setRCWeapon(IRangedCombatWeapon weapon) {
 		rcWeapon = weapon;
-		HUD.setWeaponLbl(meleeWeapon, rcWeapon);
 	}
 	
 	public int getXp(){

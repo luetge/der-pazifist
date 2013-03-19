@@ -22,6 +22,7 @@ import pazi.features.VisionFeature;
 import pazi.items.HealingPotion;
 import pazi.items.Item;
 import pazi.weapons.IMeleeWeapon;
+import pazi.weapons.IRangedCombatWeapon;
 import pazi.weapons.WeaponFactory;
 
 public class Player extends Creature implements Camera
@@ -202,6 +203,18 @@ public class Player extends Creature implements Camera
 			setHasActed(true);
 			this.appendMessage("roooOOAAAARRR!!!!");
 		}
+	}
+	
+	@Override
+	public void setMeleeWeapon(IMeleeWeapon weapon) {
+		super.setMeleeWeapon(weapon);
+		HUD.setWeaponLbl(meleeWeapon, rcWeapon);
+	}
+	
+	@Override
+	public void setRCWeapon(IRangedCombatWeapon weapon) {
+		super.setRCWeapon(weapon);
+		HUD.setWeaponLbl(meleeWeapon, rcWeapon);
 	}
 	
 

@@ -113,6 +113,8 @@ public abstract class Creature extends Actor
     }
     
     public void interact (Direction dir) {
+    	if (dir == null || dir == Direction.ORIGIN)
+    		return;
     	Guard.verifyState(Player.class.isAssignableFrom(this.getClass()));
     	if(dir == null)
     		return;

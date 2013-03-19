@@ -273,7 +273,6 @@ public abstract class Creature extends Actor
 		list.add(world().getActorAt(Creature.class, pos().getTranslated(-1, 1)));
 	
 		list.removeAll(Collections.singletonList(null));
-		System.out.println(list.toString());
 		return list;
 	}
 	

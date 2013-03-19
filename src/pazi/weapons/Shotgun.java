@@ -1,10 +1,16 @@
 package pazi.weapons;
 
 import jade.core.Actor;
+import jade.util.datatype.ColoredChar;
 import pazi.items.Item;
 import rogue.creature.Creature;
 
 public class Shotgun extends Item implements IRangedCombatWeapon {
+
+	public Shotgun(ColoredChar face, String name) {
+		super(face, name);
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public int getDamage(Creature attacker, Creature victim) {

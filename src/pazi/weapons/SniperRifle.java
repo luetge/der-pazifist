@@ -8,9 +8,8 @@ import rogue.creature.Creature;
 
 public class SniperRifle extends RCWeaponPrototype {
 
-	
 	public SniperRifle(int minD, int maxD, double range, double prob, String name, Creature holder) {
-		super(minD, maxD, range, prob, name, new ColoredChar('I', Color.cyan), holder);
+		super(minD, maxD, range, prob, name, new ColoredChar('I', Color.cyan), holder, 20);
 	}
 	
 	@Override

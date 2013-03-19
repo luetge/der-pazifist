@@ -7,7 +7,7 @@ public class SniperRifle extends RCWeaponPrototype {
 	
 	public SniperRifle(int minD, int maxD, double range, double prob,
 			String name, Creature holder) {
-		super(minD, maxD, range, prob, name);
+		super(minD, maxD, range, prob, name, holder, 20);
 		weaponMissed = "...schießt meilenweit daneben. Du lachst ihn aus.";
 		weaponHit = "...trifft. Autsch!";
 		setHolder(holder);

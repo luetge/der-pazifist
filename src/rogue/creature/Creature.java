@@ -356,6 +356,13 @@ public abstract class Creature extends Actor
 	public void levelUp(){
 	}
 
+	public void setWeapon(WeaponPrototype weapon) {
+		if(IMeleeWeapon.class.isAssignableFrom(weapon.getClass()))
+			setMeleeWeapon((IMeleeWeapon) weapon);
+		else
+			setRCWeapon((IRangedCombatWeapon) weapon);
+	}
+
 	public void killedSomeone(Creature creature) {}
 
 	public void expireWeapon(WeaponPrototype weapon) {

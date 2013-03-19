@@ -1,17 +1,21 @@
 package pazi.weapons;
 
+import jade.core.Actor;
+import jade.core.Messenger;
+import jade.util.datatype.ColoredChar;
+import pazi.items.Item;
 import rogue.creature.Creature;
 
-public class WeaponPrototype implements IWeapon {
+public class WeaponPrototype extends Item implements IWeapon {
 	
 	protected int min_d, max_d;
 	protected double prob, range;
 	protected String name;
-	protected String weaponFiredTemp = "", weaponMissed = "Mist, daneben!", weaponHit = "";
 	protected Creature holder;	// Wer hält diese Waffe?
 	protected int ammoLeft;
 	
-	public WeaponPrototype(int min_d, int max_d, double range, double prob, String name, Creature holder, int ammo){
+	public WeaponPrototype(int min_d, int max_d, double range, double prob, String name, ColoredChar face, Creature creature, int ammo){
+		super(face, name);
 		this.min_d = min_d;
 		this.max_d = max_d;
 		this.prob = prob;
@@ -21,13 +25,13 @@ public class WeaponPrototype implements IWeapon {
 		ammoLeft = ammo;
 	}
 
-	public WeaponPrototype(int min_d, int max_d, double range, double prob, String name, Creature holder){
-		this(min_d, max_d, range, prob, name, holder, -1);
+	public WeaponPrototype(int min_d, int max_d, double range, double prob, String name, ColoredChar face, Creature holder){
+		this(min_d, max_d, range, prob, name, face, holder, -1);
 	}
 	
-	public WeaponPrototype(int min_d, int max_d, double range, double prob, String name){
-		this(min_d, max_d, range, prob, name, null, -1);
-	}
+	public WeaponPrototype(int min_d, int max_d, double range, double prob, String name, ColoredChar face){
+		this(min_d, max_d, range, prob, name, face, null);
+}
 	
 
 	@Override
@@ -45,17 +49,13 @@ public class WeaponPrototype implements IWeapon {
 		if (ammoLeft > 0)
 			reduceAmmo();
 		if(attacker != null && victim != null)
-			weaponFiredTemp = getWeaponFiredText(attacker, victim);
-			if (weaponFiredTemp != "")
-				attacker.world().appendMessage(weaponFiredTemp);
+			appendMessage(attacker.world(), getWeaponFiredText(attacker, victim));
 			if(Math.random() < getProb(attacker, victim)){
 				victim.takeDamage(getDamage(attacker, victim), attacker);
-				if (weaponHit != "")
-					victim.world().appendMessage(weaponHit);
+				appendMessage(victim.world(), getHitText(attacker, victim));
 			}
 			else
-				if (weaponMissed != "")
-					attacker.world().appendMessage(weaponMissed);
+				appendMessage(attacker.world(), getMissedText(attacker, victim));
 	}
 	
 	private void reduceAmmo() {
@@ -67,8 +67,11 @@ public class WeaponPrototype implements IWeapon {
 	/**
 	 * if ammo is depleted, lose weapon.
 	 */
-	private void expire() {
-		holder.expireWeapon(this);
+	@Override
+	public void expire() {
+		super.expire();
+		if(holder != null)
+			holder.expireWeapon(this);
 	}
 
 	public void setHolder(Creature creature){
@@ -83,6 +86,41 @@ public class WeaponPrototype implements IWeapon {
 		return attacker.getName() + " greift an mit \"" + this.getName() + "\".";
 	}
 	
+	@Override
+	public void interact(Actor actor) {
+		if(Creature.class.isAssignableFrom(actor.getClass())){
+			((Creature)actor).setWeapon(this);
+			appendMessage(actor, getEquipText());
+			setHasActed(false);
+		}
+	}
+
+	@Override
+	public void getPickedUp(Creature creature) {
+		super.getPickedUp(creature);
+		appendMessage(creature, getPickupText());
+	}
+	
+	protected String getPickupText() {
+		return "";
+	}
+	
+	protected String getMissedText(Creature attacker, Creature victim) {
+		return "";
+	}
+
+	protected String getHitText(Creature attacker, Creature victim) {
+		return "";
+	}
+	
+	protected String getEquipText() {
+		return "";
+	}
+
+	protected void appendMessage(Messenger messenger, String message) {
+		if(message != null && !message.isEmpty())
+			messenger.appendMessage(message);
+	}
 
 	@Override
 	public String getName() {

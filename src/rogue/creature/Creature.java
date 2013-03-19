@@ -339,7 +339,10 @@ public abstract class Creature extends Actor
 	}
 
 	public void setMeleeWeapon(IMeleeWeapon weapon) {
-		meleeWeapon = weapon;
+		if (weapon == null)
+			meleeWeapon = (IMeleeWeapon) WeaponFactory.createWeapon("headnut");
+		else
+			meleeWeapon = weapon;
 	}
 	
 	public void setRCWeapon(IRangedCombatWeapon weapon) {
@@ -361,16 +364,17 @@ public abstract class Creature extends Actor
 			setMeleeWeapon((IMeleeWeapon) weapon);
 		else
 			setRCWeapon((IRangedCombatWeapon) weapon);
+		weapon.setHolder(this);
 	}
 
 	public void killedSomeone(Creature creature) {}
 
 	public void expireWeapon(WeaponPrototype weapon) {
-		if (weapon.getClass() == MeleeWeaponPrototype.class){
-			this.setMeleeWeapon(null);
+		if (IMeleeWeapon.class.isAssignableFrom(weapon.getClass())){
+			setMeleeWeapon(null);
 			this.appendMessage(weapon.getName() + " ist zerbrochen. Shit!");
 		} else{
-			this.setRCWeapon(null);
+			setRCWeapon(null);
 			this.appendMessage(weapon.getName() + " hat keine Muni mehr. Weg damit!");
 		}
 	}

@@ -22,7 +22,6 @@ public class KeyboardGeneral implements IFeature<Player> {
 				player.roundhousePunch();
 				break;
 			case Keyboard.KEY_M:
-				System.out.println("what");
 				player.meditate();
 				break;
 			default:

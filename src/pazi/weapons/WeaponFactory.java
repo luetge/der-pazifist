@@ -11,7 +11,7 @@ public class WeaponFactory {
 		IWeapon weapon = null;
 		if(identifier.equals("fist")) 
 
-			weapon = new Fist(holder);
+			weapon = new Fist();
 		else if(identifier.equals("rottenFist"))
 			weapon = new MeleeWeaponPrototype(5, 10, 0.9, "Verrottete Zombiefaust", new ColoredChar(' ', Color.black), holder);
 		else if(identifier.equals("sniper"))

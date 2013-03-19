@@ -14,7 +14,7 @@ public class KnuckleDuster extends MeleeWeaponPrototype {
 	}
 	
 	public KnuckleDuster(Creature holder) {
-		super(100, 200, 1, "Schlagring des Grauens", new ColoredChar('B', Color.magenta), holder);
+		super(100, 200, 1, "Schlagring des Grauens", new ColoredChar('B', Color.magenta), holder, 2);
 	}
 	
 	/*protected static final int min_d = 100;

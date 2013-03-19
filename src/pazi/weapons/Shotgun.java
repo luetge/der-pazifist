@@ -14,7 +14,7 @@ import rogue.creature.Player;
 public class Shotgun extends RCWeaponPrototype {
 
 	public Shotgun() {
-		super(0, 0, 3, 1, "Shotgun der Erlösung", new ColoredChar('p', Color.lightGray));
+		super(0, 0, 3, 1, "Shotgun der Erlösung", new ColoredChar('p', Color.lightGray), 50);
 		description = "Eine Waffe mit kurzer Reichweite und großer Streuung.";
 	}
 

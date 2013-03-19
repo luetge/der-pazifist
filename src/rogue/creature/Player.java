@@ -197,6 +197,7 @@ public class Player extends Creature implements Camera
 		if (faith >= 20){
 			this.addGeneralFeature(new VisionFeature(this, 5, 20));
 			increaseFaith(-20);
+			this.appendMessage("Ich, ich.. ich kann sehen!", true);
 		setHasActed(true);
 		}
 	}
@@ -209,13 +210,16 @@ public class Player extends Creature implements Camera
 			roundhousePunch.punch(this);
 			increaseRage(-80);
 			setHasActed(true);
-			this.appendMessage("roooOOAAAARRR!!!!");
+			this.appendMessage("roooOOAAAARRR!!!!", true);
 		}
 	}
 	
 	@Override
 	public void setMeleeWeapon(IMeleeWeapon weapon) {
-		super.setMeleeWeapon(weapon);
+		if (weapon == null)
+			super.setMeleeWeapon((IMeleeWeapon) WeaponFactory.createWeapon("fist"));
+		else
+			super.setMeleeWeapon(weapon);
 		HUD.setWeaponLbl(meleeWeapon, rcWeapon);
 	}
 	
@@ -236,7 +240,7 @@ public class Player extends Creature implements Camera
 			return;
 		increaseFaith(10);
 		increaseRage(-10);
-		this.appendMessage("Ooooooommmmmmmmm. Die Meditation stärkt meinen Glauben.");
+		this.appendMessage("Ooooooommmmmmmmm. Die Meditation stärkt meinen Glauben.", true);
 		setHasActed(true);
 	}
 

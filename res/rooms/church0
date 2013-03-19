@@ -1,4 +1,4 @@
-t0=door:tut1entry0,tut1,tut1entry0,w;t1=door:tut1entry1,tut1,tut1entry1,w;e0=door:church0entry0,mainworld,church0entry0,s;e1=door:church0entry1,mainworld,church0entry1,s;e2=door:church0entry2,mainworld,church0entry2,s
+t0=door:tut3entry0,tut3,tut3exit0,w;t1=door:tut3entry1,tut3,tut3exit1,w;e0=door:church0entry0,mainworld,church0entry0,s;e1=door:church0entry1,mainworld,church0entry1,s;e2=door:church0entry2,mainworld,church0entry2,s
 ╔═════════════════════════════════╗
 ¥t0¥║¥p¥    ¥np¥¥fg:0091EA¥♨¥fg:FFFFFF¥¥p¥  ¥bg:A30000¥  ¥np¥¥bg:9A5E01¥  †  ¥bg:A30000¥¥p¥  ¥bg:000000¥      ¥np¥¥fg:000000¥¥bg:834200¥¥box¥┐¥fg:FFFFFF¥¥bg:000000¥¥p¥          ¥np¥║
 ¥t1¥║¥p¥       ¥bg:A30000¥  ¥np¥¥bg:9A5E01¥     ¥bg:A30000¥¥p¥  ¥bg:000000¥¥fg:FFFFFF¥                 ¥bg:000000¥¥np¥║

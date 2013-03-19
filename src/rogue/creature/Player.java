@@ -5,6 +5,7 @@ import jade.fov.ViewField;
 import jade.ui.Camera;
 import jade.ui.HUD;
 import jade.util.Lambda;
+import jade.util.Lambda.FilterFunc;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
@@ -16,7 +17,6 @@ import java.util.Collection;
 import pazi.behaviour.KeyboardGeneral;
 import pazi.behaviour.KeyboardWalk;
 import pazi.behaviour.PlayerBehaviour;
-import pazi.features.IFeature;
 import pazi.features.RoundhousePunch;
 import pazi.features.VisionFeature;
 import pazi.items.HealingPotion;
@@ -120,8 +120,8 @@ public class Player extends Creature implements Camera
     }
     
     @Override
-    public void takeDamage(int d) {
-    	super.takeDamage(d);
+    public void takeDamage(int d, Creature source) {
+    	super.takeDamage(d, source);
     	updateHP();
     }   
 
@@ -138,7 +138,7 @@ public class Player extends Creature implements Camera
 	}
 	
 	protected void updateHP(){
-		HUD.setHP(getHP());
+		HUD.setHP(getHP(), this.maxHp);
 	}
 	
 	protected void updateFaith(){
@@ -164,6 +164,23 @@ public class Player extends Creature implements Camera
 			return;
 		}
 		appendMessage("Ich habe leider keine Tränke mehr! :(");
+	}
+	
+	public void gainXp(int xp){
+		this.xp += xp;
+		if (this.xp>=lvl*100)
+			levelUp();
+			
+	}
+
+	public Iterable<Creature> getCreaturesInViewfield() {
+		final Collection<Coordinate> coords = fov.getViewField(world(), pos(), radius);
+		return Lambda.filter(world().getActors(Creature.class), new FilterFunc<Creature>() {
+			@Override
+			public boolean filter(Creature element) {
+				return element.getHP() > 0 && element.getFace().ch() != ' ' && !Player.class.isAssignableFrom(element.getClass()) && coords.contains(element.pos());
+			}
+		});
 	}
 
 	public void increaseFOV() {
@@ -215,5 +232,15 @@ public class Player extends Creature implements Camera
 		else if (rage < 0)
 			rage = 0;
 		updateRage();
+	}
+		
+	public void levelUp(){
+		this.lvl += 1;
+		HUD.setLevel(this.lvl);
+		this.maxHp += 10;
+		this.hp=this.maxHp;
+		HUD.setHP(getHP(),this.maxHp);
+		this.min_d += 5;
+		this.max_d += 5;
 	}
 }

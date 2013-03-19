@@ -34,7 +34,7 @@ public class Rogue implements ComponentListener
 		term = TiledTermPanel.getFramedTerminal("Der PaziFist");
 
         player = new Player();
-        level = new Level(256, 196, player, "mainworld");
+        level = new Level(256, 192, player, "mainworld");
         
         view = new View (player.pos ());
         View.setGlobalView(view);
@@ -44,10 +44,10 @@ public class Rogue implements ComponentListener
 			level.world().addActor(CreatureFactory.createCreature("bandit2", level.world()));
 			level.world().addActor(CreatureFactory.createCreature("alien1", level.world()));
 			level.world().addActor(new HealingPotion());
+			level.world().addActor((Item)WeaponFactory.createWeapon("knuckleduster"));
 		}
 		for (int i = 0; i < 20; i++) {
-//			level.world().addActor(CreatureFactory.createCreature("sniper1", level.world()));
-			level.world().addActor((Item)WeaponFactory.createWeapon("knuckleduster"));
+			level.world().addActor(CreatureFactory.createCreature("sniper1", level.world()));
 		}
         
         term.addComponentListener(this);
@@ -81,6 +81,7 @@ public class Rogue implements ComponentListener
         while(!player.expired())
         {
         	view.update (term, level.world(), player);
+        	HUD.setCreatures(player.getCreaturesInViewfield());
         	
         	Dialog dialog = level.world().getActiveDialog();
         	

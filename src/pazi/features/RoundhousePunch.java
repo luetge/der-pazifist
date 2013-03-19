@@ -1,8 +1,7 @@
 package pazi.features;
 
-import rogue.creature.Creature;
-import rogue.creature.Creature.AttackableCreature;
 import jade.core.Actor;
+import rogue.creature.Creature;
 
 public class RoundhousePunch implements IFeature {
 
@@ -12,7 +11,9 @@ public class RoundhousePunch implements IFeature {
 	public void punch(Creature creature){
 		for (Creature victim : creature.getCreaturesCloseby()){
 			if(victim != null){
-				victim.takeDamage(100);
+				System.out.println(victim.toString());
+				victim.takeDamage(100, creature);
+				System.out.println("BÄM");
 			}
 		}
 			

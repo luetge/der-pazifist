@@ -11,21 +11,28 @@ public class WeaponPrototype extends Item implements IWeapon {
 	protected int min_d, max_d;
 	protected double prob, range;
 	protected String name;
-	Creature holder;	// Wer hält diese Waffe?
+	protected Creature holder;	// Wer hält diese Waffe?
+	protected int ammoLeft;
 	
-	public WeaponPrototype(int min_d, int max_d, double range, double prob, String name, ColoredChar face, Creature creature){
+	public WeaponPrototype(int min_d, int max_d, double range, double prob, String name, ColoredChar face, Creature creature, int ammo){
 		super(face, name);
 		this.min_d = min_d;
 		this.max_d = max_d;
 		this.prob = prob;
 		this.range = range;
 		this.name = name;
-		setHolder(creature);
+		setHolder(holder);
+		ammoLeft = ammo;
+	}
+
+	public WeaponPrototype(int min_d, int max_d, double range, double prob, String name, ColoredChar face, Creature holder){
+		this(min_d, max_d, range, prob, name, face, holder, -1);
 	}
 	
 	public WeaponPrototype(int min_d, int max_d, double range, double prob, String name, ColoredChar face){
 		this(min_d, max_d, range, prob, name, face, null);
-	}
+}
+	
 
 	@Override
 	public int getDamage(Creature attacker, Creature victim) {
@@ -39,6 +46,8 @@ public class WeaponPrototype extends Item implements IWeapon {
 
 	@Override
 	public void shoot(Creature attacker, Creature victim) {
+		if (ammoLeft > 0)
+			reduceAmmo();
 		if(attacker != null && victim != null)
 			appendMessage(attacker.world(), getWeaponFiredText(attacker, victim));
 			if(Math.random() < getProb(attacker, victim)){
@@ -47,6 +56,22 @@ public class WeaponPrototype extends Item implements IWeapon {
 			}
 			else
 				appendMessage(attacker.world(), getMissedText(attacker, victim));
+	}
+	
+	private void reduceAmmo() {
+		ammoLeft -= 1;
+		if (ammoLeft <= 0)
+			this.expire();
+	}
+
+	/**
+	 * if ammo is depleted, lose weapon.
+	 */
+	@Override
+	public void expire() {
+		super.expire();
+		if(holder != null)
+			holder.expireWeapon(this);
 	}
 
 	public void setHolder(Creature creature){

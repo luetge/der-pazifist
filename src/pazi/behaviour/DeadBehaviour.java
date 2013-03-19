@@ -34,7 +34,7 @@ public class DeadBehaviour implements IBehaviour<Creature> {
 		creature.setFace(new ColoredChar(creature.face().ch(), Color.gray));
 		creature.setPassable(true);
 		creature.dropInventory();
-		creature.world().getPlayer().killedSomeone(creature);
+		source.killedSomeone(creature);
 		if(Player.class.isAssignableFrom(creature.getClass()))
 			creature.expire();
 		deadBodies.add(creature);

@@ -200,10 +200,11 @@ public class MonsterEditor {
 	private static void loadMonster() {
 		if(monster.size() == 0)
 			newMonster();
-		if(monster.size() < current+1 || current < 0)
+		if(current >= monster.size())
+			current = monster.size() - 1;
+		if(current < 0)
 			current = 0;
 		String[] lst = monster.get(current).split(";");
-		System.out.println(monster.get(current));
 		if(lst.length < FIELDS - 1) {
 			monster.remove(current);
 			loadMonster();

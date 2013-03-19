@@ -1,0 +1,57 @@
+<project name="Der Pazifist" default="dist" basedir=".">
+    <description>
+        Build "Der Pazifist"
+    </description>
+
+  <property name="src" location="src"/>
+  <property name="build" location="build"/>
+  <property name="dist"  location="dist"/>
+
+  <path id="classpath">
+    <fileset dir="src/lib/" includes="*.jar" />
+    <fileset dir="src/lib/lwjgl/" includes="*.jar" />
+  </path>
+
+  <target name="init">
+    <mkdir dir="${build}"/>
+  </target>
+
+  <target name="compile" depends="init"
+        description="compile the source " >
+
+    <!-- Compile the java code from ${src} into ${build} -->
+    <javac srcdir="${src}" destdir="${build}" includeantruntime="false">
+    <classpath refid="classpath" />
+    </javac>
+  </target>
+
+  <target name="dist" depends="compile"
+        description="generate the distribution" >
+
+    <jar destfile="${dist}/Der-Pazifist.jar">
+       <fileset dir="${build}" />
+       <restrict>
+         <name name="**/*.class" />
+         <archives>
+            <zips>
+              <fileset dir="src/lib" includes="**/*.jar" />
+            </zips>
+         </archives>
+       </restrict>
+       <manifest>
+         <attribute name="Main-Class" value="rogue.Rogue" />
+       </manifest>
+    </jar>
+
+    <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+<!--    <jar jarfile="${dist}/Der-Pazifist-${DSTAMP}.jar" basedir="${build}"/>
+//-->
+  </target>
+
+  <target name="clean"
+        description="clean up" >
+    <!-- Delete the ${build} and ${dist} directory trees -->
+    <delete dir="${build}"/>
+    <delete dir="${dist}"/>
+  </target>
+</project>

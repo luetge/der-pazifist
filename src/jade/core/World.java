@@ -119,12 +119,14 @@ public class World extends Messenger
 //        		for(Actor actor : getActors(cls))
 //        			((Creature)actor).walk();
 //        } 
+        Player player = getPlayer();
         
     	// Alle Aktionen durchführen
         for(Class<? extends Actor> cls : actOrder)
         {
             for(Actor actor : getActors(cls))
             {
+                if(player.pos().distance(actor.pos()) < 2*player.getViewFieldRadius())
                 actor.act();
                 if (getPlayer().expired())
                 	return null;
@@ -409,10 +411,6 @@ public class World extends Messenger
                 if(face != null)
                     look.add(actor.face());
             }
-
-        ColoredChar tile = tileAt(x, y);
-        if (tile != null)
-        	look.add(tile);
 
         return look;
     }

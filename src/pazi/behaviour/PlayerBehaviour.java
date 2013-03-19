@@ -1,19 +1,21 @@
 package pazi.behaviour;
 
-import rogue.creature.Player;
+import jade.util.datatype.Direction;
+import rogue.creature.Creature;
 
-public class PlayerBehaviour implements IBehaviour<Player> {
+public class PlayerBehaviour implements IBehaviour<Creature> {
 	@Override
-	public void act(Player player) {
-		if(player.hasActed())
+	public void act(Creature creature) {
+		if(creature.hasActed())
 			return;
-		player.fight();
-		player.walk();
+		Direction dir = Direction.keyToDir(creature.world().getCurrentKey());
+		creature.interact(dir);
+		creature.walk();
 	}
 
 	@Override
-	public void exit(Player actor) {}
+	public void exit(Creature actor) {}
 
 	@Override
-	public void init(Player actor) {}
+	public void init(Creature actor) {}
 }

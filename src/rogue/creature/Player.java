@@ -5,6 +5,7 @@ import jade.fov.ViewField;
 import jade.ui.Camera;
 import jade.ui.HUD;
 import jade.util.Lambda;
+import jade.util.Lambda.FilterFunc;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
@@ -13,22 +14,28 @@ import jade.util.datatype.Door;
 import java.awt.Color;
 import java.util.Collection;
 
-import pazi.behaviour.KeyboardFight;
 import pazi.behaviour.KeyboardGeneral;
 import pazi.behaviour.KeyboardWalk;
 import pazi.behaviour.PlayerBehaviour;
+import pazi.features.RoundhousePunch;
+import pazi.features.VisionFeature;
 import pazi.items.HealingPotion;
 import pazi.items.Item;
+import pazi.weapons.IMeleeWeapon;
+import pazi.weapons.IRangedCombatWeapon;
+import pazi.weapons.WeaponFactory;
 
 public class Player extends Creature implements Camera
 {
     private ViewField fov;
     int counter = 0;
     int faith, rage;
+    int maxFaith, maxRage;
     private int radius;
-    
+	RoundhousePunch roundhousePunch;
     ColoredChar facesets[][];
     int currentfaceset;
+    boolean canUseVisionFeature, canUseRoundhousePunch, canUseMeditate;
 
     public Player()
     {
@@ -45,11 +52,25 @@ public class Player extends Creature implements Camera
         min_d = 40;
         max_d = 70;
         radius = 10;
+        faith = 100;
+        maxRage = 100;
+        rage = 0;
+        maxFaith = 100;
+        updateFaith();
+        updateRage();
+        updateHP();
         setWalkBehaviour(new KeyboardWalk());
         setBehaviour(new PlayerBehaviour());
         addGeneralFeature(new KeyboardGeneral());
-        setCloseCombatBehaviour(new KeyboardFight());
+        meleeWeapon = (IMeleeWeapon) WeaponFactory.createWeapon("fist", this);
         //TODO Singleton?
+        
+        roundhousePunch = new RoundhousePunch();
+        this.addGeneralFeature(roundhousePunch);
+        HUD.setWeaponLbl(meleeWeapon, rcWeapon);
+        canUseMeditate = false;
+        canUseRoundhousePunch = false;
+        canUseVisionFeature = false;
     }
     
     @Override
@@ -88,7 +109,12 @@ public class Player extends Creature implements Camera
          {
         	 setFace (facesets[currentfaceset][4]);
          }
-         
+         double rand = Math.random();
+         if (rand < 0.5){
+        	 increaseRage(-1);
+        	 if (rand < 0.05)
+        		 increaseFaith(1);
+         }
     };
 
     @Override
@@ -100,9 +126,9 @@ public class Player extends Creature implements Camera
     }
     
     @Override
-    public void takeDamage(int d) {
-    	super.takeDamage(d);
-    	setHP(getHP() - d);
+    public void takeDamage(int d, Creature source) {
+    	super.takeDamage(d, source);
+    	updateHP();
     }   
 
 	@Override
@@ -114,9 +140,20 @@ public class Player extends Creature implements Camera
 	
 	protected void setHP(int hp){
 		super.setHP(hp);
-		HUD.setHP(getHP());
+		updateHP();
 	}
-
+	
+	protected void updateHP(){
+		HUD.setHP(getHP(), this.maxHp);
+	}
+	
+	protected void updateFaith(){
+		HUD.setFaith(faith);
+	}
+	
+	protected void updateRage(){
+		HUD.setRage(rage);
+	}
 
 	public void setViewFieldRadius(int radius) {
 		this.radius = radius;
@@ -134,5 +171,116 @@ public class Player extends Creature implements Camera
 		}
 		appendMessage("Ich habe leider keine Tränke mehr! :(");
 	}
+	
+	public void gainXp(int xp){
+		this.xp += xp;
+		if (this.xp>=lvl*100)
+			levelUp();
+			
+	}
 
+	public Iterable<Creature> getCreaturesInViewfield() {
+		final Collection<Coordinate> coords = fov.getViewField(world(), pos(), radius);
+		return Lambda.filter(world().getActors(Creature.class), new FilterFunc<Creature>() {
+			@Override
+			public boolean filter(Creature element) {
+				return element.getHP() > 0 && element.getFace().ch() != ' ' && !Player.class.isAssignableFrom(element.getClass()) && coords.contains(element.pos());
+			}
+		});
+	}
+
+	public void increaseFOV() {
+		if (!canUseVisionFeature)
+			return;
+		if (!this.getFeatures(VisionFeature.class).isEmpty())
+			return;
+		if (faith >= 20){
+			this.addGeneralFeature(new VisionFeature(this, 5, 20));
+			increaseFaith(-20);
+		setHasActed(true);
+		}
+	}
+	
+	
+	public void roundhousePunch(){
+		if (!canUseRoundhousePunch)
+			return;
+		if (rage >= 80){
+			roundhousePunch.punch(this);
+			increaseRage(-80);
+			setHasActed(true);
+			this.appendMessage("roooOOAAAARRR!!!!");
+		}
+	}
+	
+	@Override
+	public void setMeleeWeapon(IMeleeWeapon weapon) {
+		super.setMeleeWeapon(weapon);
+		HUD.setWeaponLbl(meleeWeapon, rcWeapon);
+	}
+	
+	@Override
+	public void setRCWeapon(IRangedCombatWeapon weapon) {
+		super.setRCWeapon(weapon);
+		HUD.setWeaponLbl(meleeWeapon, rcWeapon);
+	}
+	
+	@Override
+	public void killedSomeone(Creature creature) {
+		increaseRage(20);
+		increaseFaith(-20);
+	}
+
+	public void meditate() {
+		if (!canUseMeditate)
+			return;
+		increaseFaith(10);
+		increaseRage(-10);
+		this.appendMessage("Ooooooommmmmmmmm. Die Meditation stärkt meinen Glauben.");
+		setHasActed(true);
+	}
+
+	private void increaseFaith(int i) {
+		faith += i;
+		if (faith > maxFaith)
+			faith = maxFaith;
+		else if (faith < 0)
+			faith = 0;
+		updateFaith();
+	}
+
+	private void increaseRage(int i) {
+		rage += i;
+		if (rage > maxRage)
+			rage = maxRage;
+		else if (rage < 0)
+			rage = 0;
+		updateRage();
+	}
+		
+	public void levelUp(){
+		this.lvl += 1;
+		HUD.setLevel(this.lvl);
+		this.maxHp += 10;
+		this.hp=this.maxHp;
+		HUD.setHP(getHP(),this.maxHp);
+		this.min_d += 5;
+		this.max_d += 5;
+		if (lvl == 2){
+			canUseVisionFeature = true;
+			this.appendMessage("Ich habe gerade die göttliche Sicht erlernt, Papa sei Dank! ('F')", true);
+		}
+		
+		if (lvl == 4){
+			canUseMeditate = true;
+			this.appendMessage("Ich kann nun meditieren. Zur Beruhigung und Stärkung meines Glaubens. ('M')", true);
+		}
+		
+		if (lvl == 6){
+			canUseRoundhousePunch = true;
+			this.appendMessage("AAAAAHHHHHHHH! ROUNDHOUSEPUNCH freigeschaltet (bei mind. 80% Rage: 'R')", true);
+			
+		}
+		
+	}
 }

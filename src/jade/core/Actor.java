@@ -391,5 +391,9 @@ public abstract class Actor extends Messenger
 	public IBehaviour<Actor> getBehaviour() {
 		return behaviour;
 	}
+	
+	public ColoredChar getFace() {
+		return face;
+	}
     
 }

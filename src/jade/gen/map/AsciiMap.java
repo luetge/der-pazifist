@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import jade.ui.TiledTermPanel;
+import jade.ui.View;
 import jade.util.datatype.MutableCoordinate;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
@@ -122,17 +122,17 @@ public class AsciiMap {
         }
 	}
 	
-	public void render (TiledTermPanel term, Coordinate pos)
+	public void render (View view, Coordinate pos)
 	{
-		for (Coordinate coord : characters.keySet())
-			term.bufferTile(coord.getTranslated(pos),  characters.get(coord).ch());
 		for (Coordinate coord : backgrounds.keySet())
-			term.bufferBackground(coord.getTranslated(pos), backgrounds.get(coord));
+			view.drawBackground(coord.getTranslated(pos), backgrounds.get(coord));
+		for (Coordinate coord : characters.keySet())
+			view.drawTile(coord.getTranslated(pos),  characters.get(coord).ch());
 	}
 	
-	public void render (TiledTermPanel term, int posx, int posy)
+	public void render (View view, int posx, int posy)
 	{
-		render(term, new Coordinate (posx, posy));
+		render(view, new Coordinate (posx, posy));
 	}
 	
 	public Set<Coordinate> getSpecial (String name)
@@ -154,6 +154,7 @@ public class AsciiMap {
 		private Color background;
 		private Color foreground;
 		private boolean passable;
+		private boolean brighten;
 		private Map<String, String> aliases;
 
 		private void processEscape (Coordinate coord, String input)
@@ -173,6 +174,18 @@ public class AsciiMap {
 			else if (esc.startsWith("creature:"))
 			{
 				creatures.put(coord.copy(), esc.substring(9));
+			}
+			else if (esc.equals("brighten"))
+			{
+				brighten = true;
+			}
+			else if (esc.equals("brighten"))
+			{
+				brighten = true;
+			}
+			else if (esc.equals("dontbrighten"))
+			{
+				brighten = false;
 			}
 			else if (esc.startsWith("door:"))
 			{
@@ -236,7 +249,7 @@ public class AsciiMap {
 					height = coord.y();
 				if (!background.equals(Color.black))
 				{
-					backgrounds.put(coord.copy(), background.brighter());
+					backgrounds.put(coord.copy(), brighten?background.brighter():background);
 					if (width < coord.x())
 						width = coord.x();
 					if (height < coord.y())
@@ -268,6 +281,7 @@ public class AsciiMap {
 				foreground = Color.white;
 				background = Color.black;
 				passable = false;
+				brighten = false;
 				MutableCoordinate coord = new MutableCoordinate (0,0);
 				aliases = new HashMap<String,String>();
 				parseAliases(reader.readLine());

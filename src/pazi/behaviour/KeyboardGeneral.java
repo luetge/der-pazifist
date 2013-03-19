@@ -1,6 +1,6 @@
 package pazi.behaviour;
 
-import java.awt.event.KeyEvent;
+import org.lwjgl.input.Keyboard;
 
 import pazi.features.IFeature;
 import rogue.creature.Player;
@@ -12,9 +12,19 @@ public class KeyboardGeneral implements IFeature<Player> {
 		if(player.hasActed())
 			return;
 		switch(player.world().getCurrentKey()) {
-			case KeyEvent.VK_H:
+			case Keyboard.KEY_H:
 				player.drinkHealingPotion();
-				return;
+				break;
+			case Keyboard.KEY_F:
+				player.increaseFOV();
+				break;
+			case Keyboard.KEY_R:
+				player.roundhousePunch();
+				break;
+			case Keyboard.KEY_M:
+				System.out.println("what");
+				player.meditate();
+				break;
 			default:
 				return;
 		}

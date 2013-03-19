@@ -40,7 +40,7 @@ public class Inventory {
 		int count = 0;
 		for (Item item : items)
 		{
-			if (item.getClass().getSimpleName().equals(name))
+			if (item.getName().equals(name))
 			{
 				count++;
 				if (count >= amount)
@@ -60,7 +60,7 @@ public class Inventory {
 	{
 		for (Item item : items)
 		{
-			if (item.getClass().getName().equals(name))
+			if (item.getName().equals(name))
 				return item;
 		}
 		return null;

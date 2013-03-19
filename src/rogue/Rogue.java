@@ -1,26 +1,27 @@
 package rogue;
 
+import java.awt.Point;
+import java.awt.Toolkit;
+import java.io.File;
+
 import jade.core.Dialog;
 import jade.core.Messenger.Message;
+import jade.gen.map.AsciiMap;
 import jade.ui.Bagpack;
 import jade.ui.HUD;
 import jade.ui.Log;
-import jade.ui.TiledTermPanel;
 import jade.ui.View;
 import jade.util.datatype.Door;
 
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-
-import pazi.Display;
 import pazi.items.HealingPotion;
+import pazi.items.Item;
+import pazi.weapons.WeaponFactory;
 import rogue.creature.CreatureFactory;
 import rogue.creature.Player;
 import rogue.level.Level;
 
-public class Rogue implements ComponentListener
+public class Rogue
 {
-	private TiledTermPanel term;
 	private Player player;
 	private Level level;
 	private View view;
@@ -29,80 +30,88 @@ public class Rogue implements ComponentListener
 	public Rogue () throws InterruptedException
 	{
 		running = false;
-		term = TiledTermPanel.getFramedTerminal("Der PaziFist");
+
+        View.create("Der Pazifist");
+        view = view.get();
+        HUD.init();
 
         player = new Player();
-        level = new Level(70, 70, player, "mainworld");
-        
-        view = new View (player.pos ());
-        View.setGlobalView(view);
+        level = new Level(256, 192, player, "mainworld");
+
+        view.setCenter(player.pos());
         
 		for (int i = 0; i < 100; i++){
-		/*	level.world().addActor(CreatureFactory.createCreature("zombie1", level.world()));
+			level.world().addActor(CreatureFactory.createCreature("zombie1", level.world()));
 			level.world().addActor(CreatureFactory.createCreature("bandit2", level.world()));
 			level.world().addActor(CreatureFactory.createCreature("alien1", level.world()));
 			level.world().addActor(new HealingPotion());
-		*/}
+			level.world().addActor((Item)WeaponFactory.createWeapon("knuckleduster"));
+		}
 		for (int i = 0; i < 20; i++) {
-		//	level.world().addActor(CreatureFactory.createCreature("sniper1", level.world()));
+			level.world().addActor(CreatureFactory.createCreature("sniper1", level.world()));
 		}
         
-        term.addComponentListener(this);
         
-		Display.printStartScreen(term);
+		view.displayScreen (new AsciiMap("res/start"));;
         
 		waitForSpace();
 		
-		term.loadTiles("res/tiles");
+		view.loadTiles("res/tiles");
 	}
 	
-	public void componentHidden(ComponentEvent e) {
-    }
-	
-    public void componentMoved(ComponentEvent e) {
-    }
-
-    public void componentResized(ComponentEvent e) {
-    	if (running)
-    		view.update (term, level.world(), player);
-    }
-
-    public void componentShown(ComponentEvent e) {
-    }
-
     public void run () throws InterruptedException
 	{
     	running = true;
     	Log.showLogFrame(true);
     	Bagpack.showBPFrame(true);
-        while(!player.expired())
-        {
-        	view.update (term, level.world(), player);
+    	HUD.setVisible(true);
+    	{
+    		Point loc = HUD.getFrame().getLocation();
+    		loc.x += HUD.getFrame().getWidth();
+        	view.getFrame().setLocation (loc);
+        	HUD.getFrame().setSize(HUD.getFrame().getWidth(), view.getFrame().getHeight());
         	
-        	Dialog dialog = level.world().getActiveDialog();
-        	
-        	if (dialog != null)
-        	{
-        		dialog.tick(level.world(), term);
-        	}
-        	else
-        	{
-        		showMessages();
-        		level.world().setCurrentKey(term.getKey());
-        		Door door = level.world().tick();
-        		if (door != null)
-        		{
-        			level.stepThroughDoor(door);
-        		}
-        	}
-        }
-        
-        showMessages();
+            Log.getLogFrame().setLocation(0, view.getFrame().getHeight()-4);
+            Log.getLogFrame().setSize(view.getFrame().getWidth() + HUD.getFrame().getWidth(), Log.getLogFrame().getPreferredSize().height);
+            Bagpack.getBPFrame().setLocation(view.getFrame().getWidth() + HUD.getFrame().getWidth(), 0);
+            int maxwidth = Toolkit.getDefaultToolkit().getScreenSize().width - view.getFrame().getWidth() - HUD.getFrame().getWidth();
+            Bagpack.getBPFrame().setSize(Math.min(maxwidth, 400),
+            		Log.getLogFrame().getBounds().y + Log.getLogFrame().getBounds().height);
+    	}
+
+		view.drawWorld(level.world());
+    	HUD.setCreatures(player.getCreaturesInViewfield());
+		showMessages();
+    	while (!player.expired() && !view.closeRequested())
+    	{
+    		view.drawWorld(level.world());
+    		view.update();
+
+			Dialog dialog = level.world().getActiveDialog();
+			if (dialog != null)
+			{
+				dialog.tick(level.world());
+				view.drawWorld(level.world());
+			}
+			else
+			{
+				while (view.nextKey())
+				{
+    				level.world().setCurrentKey(view.getKeyEvent());
+    				Door door = level.world().tick();
+    				if (door != null)
+    					level.stepThroughDoor(door);
+    				view.drawWorld(level.world());
+    	        	HUD.setCreatures(player.getCreaturesInViewfield());
+    				showMessages();
+    			}
+
+    		}
+    	}
         running = false;
 	}
         
     private void showMessages() throws InterruptedException {
-    	term.setCurrentConsoleText("");
     	while(level.world().hasNextMessage()){
     		Message m = level.world().getNextMessage();
     		String source = m.source.getName();
@@ -111,34 +120,25 @@ public class Rogue implements ComponentListener
     		else
     			source += ": ";
     		String sText = source + m.text;
-    		if(m.important)
-    			term.setCurrentConsoleText(sText);
-//    			term.setCurrentConsoleText(sText + (level.world().hasNextMessage() ? " (mehr)" : ""));
     		Log.addMessage(sText);
-    		term.refreshScreen();
-//    		if(m.important && level.world().hasNextMessage())
-//    			waitForSpace();
     	}
 	}
 
 	public void waitForSpace() throws InterruptedException{
-        	while(term.getKey() != ' ')
-        		term.refreshScreen();
-        }
+    }
 	
 	public void finish () throws InterruptedException
 	{
-		term.clearTiles();
-		HUD.setVisible(false);
-        Display.printEndScreen(term);
+		view.clearTiles();
+		view.displayScreen(new AsciiMap("res/end"));
         waitForSpace();
 	}
 	
     public static void main(String[] args)
     {
         try {
+        	System.setProperty("org.lwjgl.librarypath", new File("res/native").getAbsolutePath());
         	Rogue rogue = new Rogue ();
-        	HUD.setVisible(true);
         	rogue.run ();
         	rogue.finish ();
         

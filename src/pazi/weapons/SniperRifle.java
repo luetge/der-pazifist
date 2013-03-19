@@ -1,16 +1,15 @@
 package pazi.weapons;
 
+import jade.util.datatype.ColoredChar;
+
+import java.awt.Color;
+
 import rogue.creature.Creature;
 
 public class SniperRifle extends RCWeaponPrototype {
 
-	
-	public SniperRifle(int minD, int maxD, double range, double prob,
-			String name, Creature holder) {
-		super(minD, maxD, range, prob, name);
-		weaponMissed = "...schießt meilenweit daneben. Du lachst ihn aus.";
-		weaponHit = "...trifft. Autsch!";
-		setHolder(holder);
+	public SniperRifle(int minD, int maxD, double range, double prob, String name, Creature holder) {
+		super(minD, maxD, range, prob, name, new ColoredChar('I', Color.cyan), holder, 20);
 	}
 	
 	@Override
@@ -25,11 +24,14 @@ public class SniperRifle extends RCWeaponPrototype {
 	public double getProb(Creature attacker, Creature victim) {
 		return attacker == null || victim == null || attacker.pos().distance(victim.pos()) < 2 || attacker.pos().distance(victim.pos()) > range ? 0 : prob;
 	}
-
 	
+	@Override
+	protected String getMissedText(Creature attacker, Creature victim) {
+		return "...schießt meilenweit daneben. " + victim.getName() + " lacht ihn aus.";
+	}
 	
-	
-	
-	
-
+	@Override
+	protected String getHitText(Creature attacker, Creature victim) {
+		return "...trifft. Autsch!";
+	}
 }

@@ -9,10 +9,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import org.newdawn.slick.util.ResourceLoader;
 
 import pazi.behaviour.DefaultBehaviour;
 import pazi.behaviour.Follow;
@@ -120,7 +123,7 @@ public class CreatureFactory {
 		BufferedReader reader;
 		monsters = new HashMap<String, String>();
 		try {
-			reader = new BufferedReader(new FileReader(new File("res/monsters")));
+			reader = new BufferedReader(new InputStreamReader(ResourceLoader.getResourceAsStream("res/monsters")));
 			while(reader.ready())
 				addMonster(reader.readLine());
 			reader.close();

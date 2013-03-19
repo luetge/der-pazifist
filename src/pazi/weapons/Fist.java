@@ -1,7 +1,9 @@
 package pazi.weapons;
 
-import rogue.creature.Creature;
+import java.awt.Color;
 
-public class Fist extends MeleeWeaponPrototype implements IMeleeWeapon {
-	public Fist(Creature holder) { super(20, 60, 1, "Faust", holder); }
+import jade.util.datatype.ColoredChar;
+
+public class Fist extends MeleeWeaponPrototype {
+	public Fist() { super(20, 60, 1, "Faust", new ColoredChar(' ', Color.black), null); }
 }

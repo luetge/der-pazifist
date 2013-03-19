@@ -183,4 +183,8 @@ public class Coordinate
     {
         return String.format("(%d, %d)", x, y);
     }
+    
+    public Coordinate getSwapped() {
+    	return new Coordinate(y, x);
+    }
 }

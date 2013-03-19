@@ -16,6 +16,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 
+import org.newdawn.slick.util.ResourceLoader;
+
 public class Log {
 	protected static JPanel logPanel;
 	protected static JFrame logFrame;
@@ -40,7 +42,7 @@ public class Log {
 			logPanel = new JPanel();
 			fontHeight = 16;
 			logPanel.setPreferredSize(new Dimension(1000,fontHeight*10-2));
-			Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream ("res/DejaVuSansMono.ttf"));
+			Font font = Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream ("res/DejaVuSansMono.ttf"));
 			logPanel.setFont(font.deriveFont(Font.PLAIN, fontHeight));
 			logPanel.setBackground(Color.black);
 			logPanel.setForeground(Color.white);

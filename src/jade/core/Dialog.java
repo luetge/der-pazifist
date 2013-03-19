@@ -14,6 +14,9 @@ import java.util.Map;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.InputStreamReader;
+
+import org.newdawn.slick.util.ResourceLoader;
 
 public class Dialog {
 	private abstract class Node {
@@ -444,7 +447,7 @@ public class Dialog {
 	void load (String filename)
 	{
 		try {
-			BufferedReader reader = new BufferedReader (new FileReader (filename));
+			BufferedReader reader = new BufferedReader (new InputStreamReader (ResourceLoader.getResourceAsStream(filename)));
 
 			String str;
 			while((str = reader.readLine()) != null)

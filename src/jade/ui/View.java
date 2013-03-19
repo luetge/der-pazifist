@@ -37,6 +37,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.List;
@@ -241,7 +242,7 @@ public class View {
 			this.frame.pack();
 			
 			try {
-				this.font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream ("res/DejaVuSansMono.ttf"))
+				this.font = Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream("res/DejaVuSansMono.ttf"))
 						.deriveFont(Font.PLAIN, tileHeight);
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -310,45 +311,34 @@ public class View {
 		this.center_y = y;
 	}
 	
-	public void loadTiles(String dirname)
+	private void loadTile (String filename) throws IOException
 	{
-		File tiledir = new File(dirname);
-		Guard.verifyState(tiledir.isDirectory());
-		File dirs[] = tiledir.listFiles();
+		BufferedReader reader = new BufferedReader(new InputStreamReader(ResourceLoader.getResourceAsStream(filename)));
+		String ch = reader.readLine();
+		String color = reader.readLine();
+		reader.close();
 		
-		for (File dir : dirs)
-		{
-			if (!dir.isDirectory())
-				continue;
-			File files[] = dir.listFiles(new FilenameFilter() {
-				public boolean accept (File dir, String name) {
-					return name.endsWith(".txt");
-				}	
-			});	
-			for (File file : files)
+		Guard.argumentsAreNotNull(ch, color);
+
+		String pngfilename = filename.substring(0, filename.length()-4) + ".png";
+
+		gltiles.put(ColoredChar.create(ch.charAt(0), Color.decode("0x"+color)), new GLTile (pngfilename));
+
+	}
+	
+	public void loadTiles()
+	{
+		BufferedReader reader = new BufferedReader(new InputStreamReader(ResourceLoader.getResourceAsStream("res/tiles/list")));
+
+		String str;
+		try {
+			while ((str = reader.readLine()) != null)
 			{
-				String filename = file.getPath();
-				filename = filename.substring(0, filename.length()-4) + ".png";
-			
-				try {
-					BufferedReader reader; 
-					reader = new BufferedReader(new FileReader (file));
-					String ch = reader.readLine();
-					String color = reader.readLine();
-					reader.close();
-				
-					Guard.argumentsAreNotNull(ch, color);
-				
-					gltiles.put(ColoredChar.create(ch.charAt(0), Color.decode("0x"+color)), new GLTile (filename));
-				
-				} catch(FileNotFoundException e) {
-					e.printStackTrace();
-					continue;
-				} catch (IOException e) {
-					e.printStackTrace();
-					continue;
-				}
+				loadTile (str);
 			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	

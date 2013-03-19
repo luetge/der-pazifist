@@ -109,7 +109,7 @@ public class AsciiMapEditor implements DocumentListener, WindowListener {
 		View view;
 		View.create ("AsciiMapEditor view", 128, 48, 10, 16);
 		view = View.get();
-		view.loadTiles("res/tiles");
+		view.loadTiles();
 		textarea = new JTextArea();
 		try {
 			Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream ("res/DejaVuSansMono.ttf"));

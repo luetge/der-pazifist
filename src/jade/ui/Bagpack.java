@@ -20,6 +20,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 
+import org.newdawn.slick.util.ResourceLoader;
+
 import pazi.items.Inventory;
 import rogue.creature.Player;
 
@@ -49,7 +51,7 @@ public class Bagpack {
 			bpPanel = new JPanel();
 			fontHeight = 16;
 			bpPanel.setPreferredSize(new Dimension(1000,fontHeight*10-2));
-			Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream ("res/DejaVuSansMono.ttf"));
+			Font font = Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream ("res/DejaVuSansMono.ttf"));
 			bpPanel.setFont(font.deriveFont(Font.PLAIN, fontHeight));
 			bpPanel.setBackground(Color.black);
 			bpPanel.setForeground(Color.white);

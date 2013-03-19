@@ -131,10 +131,10 @@ public class View {
 		{
 			FontMetrics fm = canvas.getGraphics().getFontMetrics(font);
 			int charwidth = fm.charWidth(ch);
-			int charwidth_p2 = nextpowerof2(charwidth*2);
+			int charwidth_p2 = nextpowerof2(charwidth);
 			int charheight = fm.getHeight();
-			int charheight_p2 = nextpowerof2(charheight*2);
-			
+			int charheight_p2 = nextpowerof2(charheight);
+						
 			WritableRaster raster = Raster.createInterleavedRaster(DataBuffer.TYPE_BYTE,charwidth_p2,charheight_p2,4,null);
 			
 			ColorModel cm = new ComponentColorModel(ColorSpace.getInstance(ColorSpace.CS_sRGB),
@@ -145,8 +145,17 @@ public class View {
 	        g.setFont(font);
 	        fm = g.getFontMetrics();
 
+			if (ch == '|')
+			{
+				System.out.println("Hae: " + charwidth);
+				g.setColor(Color.white);
+				g.drawLine(charwidth/2, 0, charwidth/2, fm.getAscent());
+			}
+			else
+			{
 	        g.setColor(Color.white);
 			g.drawString(ch.toString(), 0, fm.getAscent());
+			}
 			
 			byte data[] = ((DataBufferByte)image.getRaster().getDataBuffer()).getData();
 			ByteBuffer imagebuffer = BufferUtils.createByteBuffer(data.length);

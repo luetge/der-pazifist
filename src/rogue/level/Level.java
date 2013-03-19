@@ -16,6 +16,8 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.newdawn.slick.util.ResourceLoader;
+
 import pazi.items.Gold;
 import rogue.creature.CreatureFactory;
 import rogue.creature.Player;
@@ -64,9 +66,7 @@ public class Level
     	World w = worlds.get(door.getDestWorld());
     	if (w == null)
     	{
-    		
-    		File f = new File("res/rooms/"+door.getDestWorld());
-    		if (f.exists() && !f.isDirectory())
+    		if (ResourceLoader.resourceExists("res/rooms/"+door.getDestWorld()))
     		{
     			AsciiMap asciimap = new AsciiMap("res/rooms/"+door.getDestWorld());
         		w = new World (asciimap.width(), asciimap.height(), door.getDestWorld());

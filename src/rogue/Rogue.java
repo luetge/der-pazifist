@@ -63,6 +63,7 @@ public class Rogue
 			level.world().addActor(CreatureFactory.createCreature("alien1", level.world()));
 			level.world().addActor(new HealingPotion());
 			level.world().addActor((Item)WeaponFactory.createWeapon("knuckleduster"));
+			level.world().addActor((Item)WeaponFactory.createWeapon("shotgun"));
 		}
 		for (int i = 0; i < 20; i++) {
 			level.world().addActor(CreatureFactory.createCreature("sniper1", level.world()));

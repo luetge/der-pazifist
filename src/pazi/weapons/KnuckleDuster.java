@@ -1,17 +1,23 @@
 package pazi.weapons;
 
+import jade.util.datatype.ColoredChar;
+
 import java.awt.Color;
 
-import jade.core.Actor;
-import jade.util.datatype.ColoredChar;
-import pazi.items.Item;
-import pazi.weapons.IMeleeWeapon;
 import rogue.creature.Creature;
 
 
-public class KnuckleDuster extends Item implements IMeleeWeapon {
+public class KnuckleDuster extends MeleeWeaponPrototype {
 
-	protected static final int min_d = 100;
+	public KnuckleDuster() {
+		this(null);
+	}
+	
+	public KnuckleDuster(Creature holder) {
+		super(100, 200, 1, "Schlagring des Grauens", new ColoredChar('B', Color.magenta), holder);
+	}
+	
+	/*protected static final int min_d = 100;
 	protected static final int max_d = 200;
 	
 	public KnuckleDuster() {
@@ -50,6 +56,6 @@ public class KnuckleDuster extends Item implements IMeleeWeapon {
 	public void getPickedUp(Creature creature) {
 		super.getPickedUp(creature);
 		creature.appendMessage("Der Schlagring den mir meine Jünger zum Namenstag geschenkt haben, er fühlt sich an wie neu!");
-	}
+	}*/
 
 }

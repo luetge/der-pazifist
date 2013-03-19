@@ -20,9 +20,6 @@ import test.path.BresenhamTest;
 import test.path.PathFinderTest;
 import test.story.prob.CategoricalTest;
 import test.story.prob.MixtureCategoricalTest;
-import test.ui.CameraTest;
-import test.ui.TermPanelTest;
-import test.ui.TerminalTest;
 import test.util.DiceTest;
 import test.util.GuardTest;
 import test.util.LambdaTest;
@@ -35,8 +32,7 @@ import test.util.datatypes.DirectionTest;
         ShadowCasterTests.class, ViewFieldTest.class, GeneratorTest.class, FenceTest.class,
         SprinklerTest.class, CellularTest.class, MazeTest.class, TerrainTest.class,
         TraditionalTest.class, AStarTest.class, BresenhamTest.class, PathFinderTest.class,
-        CategoricalTest.class, MixtureCategoricalTest.class, TerminalTest.class,
-        TermPanelTest.class, CameraTest.class, ColoredCharTest.class, CoordinateTest.class,
+        CategoricalTest.class, MixtureCategoricalTest.class, ColoredCharTest.class, CoordinateTest.class,
         DiceTest.class, DirectionTest.class, GuardTest.class, LambdaTest.class})
 public class AllTests
 {}

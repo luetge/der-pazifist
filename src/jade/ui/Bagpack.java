@@ -10,7 +10,6 @@ import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Robot;
 import java.awt.ScrollPane;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.FileInputStream;
@@ -19,6 +18,8 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
+
+import org.lwjgl.input.Keyboard;
 
 import pazi.items.Inventory;
 import rogue.creature.Player;
@@ -106,8 +107,8 @@ public class Bagpack {
 	protected static void sendDeadAcuteKey(){
 		try {
 			Robot robot = new Robot();
-			robot.keyPress(KeyEvent.VK_SPACE);
-			robot.keyRelease(KeyEvent.VK_SPACE);
+			robot.keyPress(Keyboard.KEY_SPACE);
+			robot.keyRelease(Keyboard.KEY_SPACE);
 		} catch (AWTException e) {
 			e.printStackTrace();
 		}

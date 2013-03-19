@@ -7,7 +7,6 @@ import javax.swing.text.BadLocationException;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.BufferedReader;
@@ -17,12 +16,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import jade.ui.TiledTermPanel;
 import jade.gen.map.AsciiMap;
+import jade.ui.View;
 
 public class AsciiMapEditor implements DocumentListener, WindowListener {
 	
-	private TiledTermPanel term;
 	private JTextArea textarea;
 	private JFrame frame;
 	
@@ -107,33 +105,28 @@ public class AsciiMapEditor implements DocumentListener, WindowListener {
 
 	public AsciiMapEditor ()
 	{
-		term = new TiledTermPanel(256,256,TiledTermPanel.DEFAULT_TILESIZE);
-		term.loadTiles("res/tiles");
+		View view;
+		View.create ("AsciiMapEditor view", 128, 48, 10, 16);
+		view = View.get();
+		view.loadTiles("res/tiles");
 		textarea = new JTextArea();
 		try {
 			Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream ("res/DejaVuSansMono.ttf"));
-	        textarea.setFont(font.deriveFont(Font.PLAIN, term.tileHeight()));
+	        textarea.setFont(font.deriveFont(Font.PLAIN, view.tileHeight()));
 		} catch(IOException e) {
 			e.printStackTrace();
 		} catch(FontFormatException e) {
 			e.printStackTrace();
 		}
 		
-		JScrollPane tascroll = new JScrollPane(textarea);
-		
-		JScrollPane termscroll = new JScrollPane(term.panel());
-		termscroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		termscroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		
 		frame = new JFrame("AsciiMapEditor");
 		frame.setDefaultCloseOperation (JFrame.DO_NOTHING_ON_CLOSE);
 		frame.addWindowListener(this);
-		JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-		split.setLeftComponent(tascroll);
-		split.setRightComponent(termscroll);
-		frame.add(split);
+		frame.add(textarea);
 		setChanged (false);
 
+		view.getFrame().setFocusableWindowState(false);
+		view.getFrame().setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
 		MenuBar menubar = new MenuBar ();
 		Menu menu = new Menu ("File");
@@ -168,31 +161,35 @@ public class AsciiMapEditor implements DocumentListener, WindowListener {
 		frame.setSize(800,400);
 		frame.setVisible(true);
 
-		split.setDividerLocation(0.5);
-
 		textarea.getDocument().addDocumentListener(this);
+	}
+	
+	void run()
+	{
+		while (frame.isEnabled())
+		{
+			updateTermPanel();
+		}
 	}
 	
 	public void changedUpdate(DocumentEvent e)
 	{
-		updateTermPanel();
 		setChanged (true);
 	}
 	
 	public void removeUpdate(DocumentEvent e)
 	{
-		updateTermPanel();
 		setChanged (true);
 	}
 	
 	public void insertUpdate(DocumentEvent e)
 	{
-		updateTermPanel();
 		setChanged (true);
 	}
 	
 	public void updateTermPanel()
 	{
+		View view = View.get();
 		try {
 		String content;
 		content = textarea.getDocument().getText(0, textarea.getDocument().getLength());
@@ -200,25 +197,23 @@ public class AsciiMapEditor implements DocumentListener, WindowListener {
 		try {
 		 asciimap = AsciiMap.createFromString (content);
 		} catch (Exception e) {
-	        term.clearBuffer();
-	        term.bufferString(0,  0, "Invalid input");
-	        term.refreshScreen();
+			view.clear();
+			view.drawString(0, 0, 0, "Invalid input", Color.red);
+			view.update();
 			return;
 		}
-        term.clearBuffer();
-		asciimap.render (term, 0, 0);
-        term.refreshScreen();
+		view.clear();
+		asciimap.render (view, 0, 0);
+		view.update();
         } catch(BadLocationException e) {
 			e.printStackTrace();
 		}
 	}
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		AsciiMapEditor asciimapeditor = new AsciiMapEditor ();
 		
+		asciimapeditor.run();
 
 	}
 
@@ -264,5 +259,4 @@ public class AsciiMapEditor implements DocumentListener, WindowListener {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

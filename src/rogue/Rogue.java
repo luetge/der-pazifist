@@ -12,6 +12,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Set;
@@ -103,11 +104,20 @@ public class Rogue
     	while (!player.expired() && !view.closeRequested())
     	{
     		view.drawWorld(level.world());
+    		String message = level.world().getMessage();
+    		if (message != null)
+    		{
+    			ArrayList<String> text = new ArrayList<String>();
+    			text.add(message);
+    			Dialog.sayTop (null, text);
+    		}
+    		
     		view.update();
     		
 			Dialog dialog = level.world().getActiveDialog();
 			if (dialog != null)
 			{
+				level.world().setMessage(null);
 				dialog.tick(level.world());
 				view.drawWorld(level.world());
 			}
@@ -115,6 +125,7 @@ public class Rogue
 			{
 				while (view.nextKey())
 				{
+					level.world().setMessage(null);
     				level.world().setCurrentKey(view.getKeyEvent());
     				Door door = level.world().tick();
     				if (door != null)
@@ -123,7 +134,6 @@ public class Rogue
     	        	HUD.setCreatures(player.getCreaturesInViewfield());
     				showMessages();
     			}
-
     		}
     	}
         running = false;

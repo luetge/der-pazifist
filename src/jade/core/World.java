@@ -39,6 +39,7 @@ public class World extends Messenger
 	private Door activedoor;
 	private boolean useViewfield;
 	private Dialog activedialog;
+	String message;
 	
 	public World(int width, int height, String name){
 		this(width, height);
@@ -87,6 +88,7 @@ public class World extends Messenger
         this.width = width;
         this.height = height;
         this.activedoor = null;
+        this.message = null;
         grid = new Tile[width][height];
         for(int x = 0; x < width; x++)
             for(int y = 0; y < height; y++)
@@ -145,6 +147,16 @@ public class World extends Messenger
         	return d;
         }
         return null;
+    }
+    
+    public String getMessage ()
+    {
+    	return message;
+    }
+    
+    public void setMessage (String str)
+    {
+    	message = str;
     }
 
     /**

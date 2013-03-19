@@ -31,8 +31,7 @@ public class WeaponPrototype extends Item implements IWeapon {
 	
 	public WeaponPrototype(int min_d, int max_d, double range, double prob, String name, ColoredChar face){
 		this(min_d, max_d, range, prob, name, face, null);
-}
-	
+	}
 
 	@Override
 	public int getDamage(Creature attacker, Creature victim) {

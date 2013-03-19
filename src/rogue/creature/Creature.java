@@ -214,10 +214,16 @@ public abstract class Creature extends Actor
 		return fightFeatures;
 	}
 	
+	protected void gainHP(int raise){
+		setHP(hp + raise);
+	}
+	
 	protected void setHP(int hp){
 		this.hp = hp;
 		if(this.hp > this.maxHp)
 			this.hp = maxHp;
+		if(this.hp < 0)
+			this.hp = 0;
 	}
 	
 	public int getHP(){

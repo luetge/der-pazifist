@@ -247,7 +247,17 @@ public class Player extends Creature implements Camera
 	}
 	
 	public void redeem() {
-		world().getActorsAt(Creature.class, this.pos());
+		if (faith <30)
+			return;
+		Monster target = world().getActorAt(Monster.class, this.pos());
+		if (target == null)
+			return;
+		if (target.isPassable()){
+			target.expire();
+			gainHP(10);
+			increaseFaith(30);
+			this.appendMessage("Ich nehme deine Sünden auf mich. Deine Seele wird nun Frieden finden.");
+		}
 		
 	}
 
@@ -291,7 +301,7 @@ public class Player extends Creature implements Camera
 		}
 		if (lvl == 5){
 			canUseRedemption = true;
-			String str = "Mein Glaube ist nun so gefestigt, dass ich arme Seelen retten kann! ('4')";
+			String str = "Mein Glaube ist nun so gefestigt, dass ich arme Seelen retten kann! ('3')";
 			world().setActiveDialog(Dialog.createSimpleTextDialog("Der PaziFist", str));
 			this.appendMessage(str);
 		}

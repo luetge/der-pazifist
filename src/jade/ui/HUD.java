@@ -5,29 +5,42 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Label;
-import java.awt.Panel;
 import java.io.FileInputStream;
-import java.util.ArrayList;
 
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
+import javax.swing.JTextArea;
+
+import pazi.items.Item;
+import pazi.weapons.IMeleeWeapon;
+import pazi.weapons.IRangedCombatWeapon;
 
 import rogue.creature.Creature;
 
 public class HUD {
-	protected static Label lblHP, lblAgil, lblFaith, lblRage, lblLevel, lblGold;
-	protected static JTextPane lblCreatures;
+	private static class MyLabel extends JLabel {
+		private static final long serialVersionUID = -4347093470689854347L;
+
+		MyLabel(String str)
+		{
+			super(str);
+			setForeground(Color.white);
+		}
+	}
+	protected static JLabel lblHP, lblAgil, lblFaith, lblRage, lblLevel, lblGold;
+	protected static JTextArea taCreatures, taEquip;
 	protected static int fontHeight;
-	protected static Panel hud;
+	protected static JFrame hud;
 	
-	private static void init() {
+	public static void init() {
 		try {
-			hud = new Panel();
+			hud = new JFrame("HUD");
 			hud.setPreferredSize(new Dimension(200,100));
 			hud.setMaximumSize(new Dimension(200,100000));
 			hud.setMinimumSize(new Dimension(200,0));
+			hud.setSize(new Dimension(200,100));
 			fontHeight = 16;
 			Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream ("res/DejaVuSansMono.ttf"));
 			hud.setFont(font.deriveFont(Font.PLAIN, fontHeight));
@@ -41,16 +54,21 @@ public class HUD {
 			pnlStats.setLayout(new GridLayout(7,2));
 			hud.add(pnlStats, BorderLayout.NORTH);
 			addLabels(pnlStats);
-			JPanel pnlCreatures = new JPanel();
-			lblCreatures = new JTextPane();
-			JScrollPane scrollpane = new JScrollPane(lblCreatures);
-			lblCreatures.setBackground(Color.black);
-			lblCreatures.setForeground(Color.white);
+			taCreatures = new JTextArea();
+			JScrollPane scrollpane = new JScrollPane(taCreatures);
+			taCreatures.setBackground(Color.black);
+			taCreatures.setForeground(Color.white);
 			scrollpane.getViewport().setBackground(Color.black);
 			scrollpane.setBorder(null);
-//			scrollpane.add(lblCreatures);
 			scrollpane.setForeground(Color.black);
 			hud.add(scrollpane, BorderLayout.CENTER);
+			hud.setFocusable(false);
+			hud.setFocusableWindowState(false);
+			taEquip = new JTextArea();
+			taEquip.setBackground(Color.black);
+			taEquip.setForeground(Color.white);
+			hud.add(taEquip, BorderLayout.SOUTH);
+
 			hud.setVisible(false);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -58,35 +76,32 @@ public class HUD {
 		}
 	}
 	
-	public static Panel getPanel(){
-		if(hud == null)
-			init();
+	public static JFrame getFrame(){
 		return hud;
 	}
 	
 	public static void setVisible(boolean visible){
 		hud.setVisible(visible);
-		hud.getParent().validate();
 	}
 	
 	private static void addLabels(JPanel pnl) {
-		lblHP = new Label("100/100");
-		lblAgil = new Label("0%");
-		lblFaith = new Label("100%");
-		lblRage = new Label("?%");
-		lblLevel = new Label("1");
-		lblGold = new Label("0");
-		pnl.add(new Label("HP:"));
+		lblHP = new MyLabel("100/100");
+		lblAgil = new MyLabel("0%");
+		lblFaith = new MyLabel("100%");
+		lblRage = new MyLabel("?%");
+		lblLevel = new MyLabel("1");
+		lblGold = new MyLabel("0");
+		pnl.add(new MyLabel("HP:"));
 		pnl.add(lblHP);
-		pnl.add(new Label("Agil:"));
+		pnl.add(new MyLabel("Agil:"));
 		pnl.add(lblAgil);
-		pnl.add(new Label("Faith:"));
+		pnl.add(new MyLabel("Faith:"));
 		pnl.add(lblFaith);
-		pnl.add(new Label("Rage:"));
+		pnl.add(new MyLabel("Rage:"));
 		pnl.add(lblRage);
-		pnl.add(new Label("Level:"));
+		pnl.add(new MyLabel("Level:"));
 		pnl.add(lblLevel);	
-		pnl.add(new Label("Gold:"));
+		pnl.add(new MyLabel("Gold:"));
 		pnl.add(lblGold);	
 	}
 
@@ -115,8 +130,21 @@ public class HUD {
 	}
 	
 	public static void setCreatures(Iterable<Creature> creatures) {
-		lblCreatures.setText("");
+		taCreatures.setText("");
 		for(Creature creature : creatures)
-			lblCreatures.setText(lblCreatures.getText() + "\n" + creature.getName() + " (" + creature.getHP() + " HP)");
+			taCreatures.append("\n" + creature.getName() + " (" + creature.getHP() + " HP)");
+	}
+	
+	public static void setWeaponLbl(IMeleeWeapon melee, IRangedCombatWeapon rcWeapon) {
+		String meleeName, rcWeaponName;
+		if (melee == null)
+			meleeName = "Keine Nahkampfwaffe";
+		else
+			meleeName = melee.getName();
+		if (rcWeapon == null)
+			rcWeaponName = "Keine Fernkampfwaffe";
+		else
+			rcWeaponName = rcWeapon.getName();
+		taEquip.setText("Deine Waffenwahl: " + "\n" + meleeName + "\n" + rcWeaponName);
 	}
 }

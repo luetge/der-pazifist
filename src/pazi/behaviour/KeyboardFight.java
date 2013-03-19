@@ -1,6 +1,9 @@
 package pazi.behaviour;
 
 import jade.util.datatype.Direction;
+
+import org.lwjgl.input.Keyboard;
+
 import rogue.creature.Creature;
 
 public class KeyboardFight implements IBehaviour<Creature> {	
@@ -11,6 +14,8 @@ public class KeyboardFight implements IBehaviour<Creature> {
 		Direction dir = Direction.keyToDir(creature.world().getCurrentKey());
 		if(dir != null)
 			creature.interact(dir);
+		else if(creature.world().getCurrentKey() == Keyboard.KEY_SPACE)
+			creature.fight(null, false);
 	}
 
 	@Override

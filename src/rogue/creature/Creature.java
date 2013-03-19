@@ -211,7 +211,16 @@ public abstract class Creature extends Actor
 	public void fight(Direction dir) {
 		if(dir == null || dir == Direction.ORIGIN)
 			return;
-		fight(world().getActorAt(Creature.class, pos().getTranslated(dir)), true);
+		Creature target = null;
+		for (Creature creature : world().getActorsAt(Creature.class, pos().getTranslated(dir))){
+			if (!creature.isPassable()){
+				target = creature;
+				break;
+			}
+		}
+		if (target == null)
+			return;
+		fight(target, true);
 	}
 	
 	protected void setHP(int hp){
@@ -351,4 +360,6 @@ public abstract class Creature extends Actor
 		else
 			setRCWeapon((IRangedCombatWeapon) weapon);
 	}
+
+	public void killedSomeone(Creature creature) {}
 }

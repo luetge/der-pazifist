@@ -1,12 +1,12 @@
 package pazi.weapons;
 
-import jade.core.Actor;
+import jade.ui.View;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 
 import java.awt.Color;
 
-import com.sun.corba.se.impl.encoding.CodeSetConversion.BTCConverter;
+import org.lwjgl.input.Keyboard;
 
 import rogue.creature.Creature;
 import rogue.creature.Player;
@@ -14,7 +14,7 @@ import rogue.creature.Player;
 public class Shotgun extends RCWeaponPrototype {
 
 	public Shotgun() {
-		super(new ColoredChar('p', Color.lightGray), "Shotgun der Erlösung");
+		super(0, 0, 3, 1, "Shotgun der Erlösung", new ColoredChar('p', Color.lightGray));
 		description = "Eine Waffe mit kurzer Reichweite und großer Streuung.";
 	}
 
@@ -24,16 +24,17 @@ public class Shotgun extends RCWeaponPrototype {
 			return 0;
 		return 10;
 	}
-
-	@Override
-	public double getProb(Creature attacker, Creature victim) {
-		return 1;
-	}
-
+	
 	@Override
 	public void shoot(Creature attacker, Creature victim) {
 		if(Player.class.isAssignableFrom(attacker.getClass())) {
 			// Player-Verhalten
+			while(View.get().nextKey())
+			{
+				if (View.get().getKeyEvent() == Keyboard.KEY_0)
+					System.out.println("hALLO");
+			}
+				return;
 		}
 	}
 	
@@ -65,23 +66,12 @@ public class Shotgun extends RCWeaponPrototype {
 	}
 	
 	@Override
-	public double getRange() {
-		return 3;
-	}
-
-	@Override
-	public void interact(Actor actor) {
-		if(Creature.class.isAssignableFrom(actor.getClass())){
-			((Creature)actor).setRCWeapon(this);
-			actor.appendMessage("Die Welt gehört mir!!");
-			setHasActed(false);
-		}
+	protected String getEquipText() {
+		return "Die Welt gehört mir!!";
 	}
 	
 	@Override
-	public void getPickedUp(Creature creature) {
-		super.getPickedUp(creature);
-		creature.appendMessage("Eine Shotgun, die hätte ich gegen die Römer damals gebraucht!");
+	protected String getPickupText() {
+		return "Eine Shotgun, die hätte ich gegen die Römer damals gebraucht!";
 	}
-
 }

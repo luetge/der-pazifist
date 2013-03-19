@@ -1,8 +1,6 @@
 package jade.core;
-import jade.ui.TiledTermPanel;
 import jade.ui.View;
 import jade.util.Guard;
-import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Direction;
 import java.awt.Color;
 import java.io.IOException;
@@ -32,7 +30,7 @@ public class Dialog {
 		public final int getID() {
 			return id;
 		}
-		public abstract int tick(World world, TiledTermPanel term, Creature speaker);
+		public abstract int tick(World world, Creature speaker);
 		public abstract void load(BufferedReader reader);
 		public ArrayList<String> loadText (BufferedReader reader)
 		{
@@ -79,7 +77,7 @@ public class Dialog {
 		}
 		
 		@Override
-		public int tick (World world, TiledTermPanel term, Creature speaker)
+		public int tick (World world, Creature speaker)
 		{
 			if (parent().getState(statename) > value)
 				return yes_destination;
@@ -101,7 +99,7 @@ public class Dialog {
 		}
 		
 		@Override
-		public int tick (World world, TiledTermPanel term, Creature speaker)
+		public int tick (World world, Creature speaker)
 		{
 			if (parent().getState(statename) < value)
 				return yes_destination;
@@ -123,7 +121,7 @@ public class Dialog {
 		}
 		
 		@Override
-		public int tick (World world, TiledTermPanel term, Creature speaker)
+		public int tick (World world, Creature speaker)
 		{
 			if (parent().getState(statename) == value)
 				return yes_destination;
@@ -141,7 +139,7 @@ public class Dialog {
 		}
 		
 		@Override
-		public int tick (World world, TiledTermPanel term, Creature speaker)
+		public int tick (World world, Creature speaker)
 		{
 			parent().setState(statename, parent().getState(statename) + value);
 			return getID()+1;
@@ -157,7 +155,7 @@ public class Dialog {
 		}
 		
 		@Override
-		public int tick (World world, TiledTermPanel term, Creature speaker)
+		public int tick (World world, Creature speaker)
 		{
 			parent().setState(statename, value);
 			return getID()+1;
@@ -179,7 +177,7 @@ public class Dialog {
 		}
 		
 		@Override
-		public int tick (World world, TiledTermPanel term, Creature speaker)
+		public int tick (World world, Creature speaker)
 		{
 			if (speaker.getInventory().hasItem (itemname, amount))
 				return yes_destination;
@@ -199,9 +197,9 @@ public class Dialog {
 		}
 		
 		@Override
-		public int tick (World world, TiledTermPanel term, Creature speaker)
+		public int tick (World world, Creature speaker)
 		{
-			return super.tick(world,  term, world.getPlayer());
+			return super.tick(world,  world.getPlayer());
 		}
 	}
 	private class GotoNode extends Node {
@@ -214,7 +212,7 @@ public class Dialog {
 		}
 		
 		@Override
-		public int tick (World world, TiledTermPanel term, Creature speaker)
+		public int tick (World world, Creature speaker)
 		{
 			return destination;
 		}
@@ -237,13 +235,18 @@ public class Dialog {
 		}
 		
 		@Override
-		public int tick (World world, TiledTermPanel term, Creature speaker)
+		public int tick (World world, Creature speaker)
 		{
-			View.global().update(term, world);
+			for (String t : text)
+				Log.addMessage((speakeroverride == null ? speaker.getName() : speakeroverride) + ": " + t);
+			do
+			{
+				View.get().drawWorld(world);
 			
-			Dialog.say(term, speakeroverride == null ? speaker.getName() : speakeroverride,
-					text);
-			Dialog.waitforspace(term);
+				Dialog.say(speakeroverride == null ? speaker.getName() : speakeroverride,
+						text);
+			}
+			while(!Dialog.checkforspace());
 			return getID() + 1;
 		}
 		
@@ -265,7 +268,7 @@ public class Dialog {
 		}
 		
 		@Override
-		public int tick (World world, TiledTermPanel term, Creature speaker)
+		public int tick (World world, Creature speaker)
 		{
 			Log.addMessage("Der Pazifist gibt " + speaker.getName() + " " + amount
 					+ " " + type + ".");
@@ -290,7 +293,7 @@ public class Dialog {
 		}
 		
 		@Override
-		public int tick (World world, TiledTermPanel term, Creature speaker)
+		public int tick (World world, Creature speaker)
 		{
 			Log.addMessage("Der Pazifist erhält " + amount
 					+ " " + type + " von " + speaker.getName() + ".");
@@ -321,40 +324,54 @@ public class Dialog {
 		}
 		
 		@Override
-		public int tick (World world, TiledTermPanel term, Creature speaker)
+		public int tick (World world, Creature speaker)
 		{
-			View.global().update(term, world);
-
-			if (text.size() > 0)
-				Dialog.say(term, speaker.getName(), text, -choices.length/2-1);
-
+			View view = View.get();
+		
 			int width = Dialog.getMaxWidth(choices);
 			int height = text.size();
-			int posx = term.width()/2 - width/2;
-			int posy = term.height()/2 + height/2 + choices.length/2 + 1;
+			int posx = view.columns()/2 - width/2;
+			int posy = view.rows()/2 + height/2 + choices.length/2 + 1;
 			if (text.size() == 0)
 				posy -= choices.length;
 			
 			int currentchoice = 0;
+			
+			boolean answerselected = false;
+			
+			if (text.size() > 0)
+			{
+				for (String t : text)
+					Log.addMessage(speaker.getName() + ": " + t);
+			}
+			
+			while (!answerselected)
+			{
+				view.drawWorld(world);
 
-			Dialog.clearRect(term, posx-1, posy, width+2, destinations.length);
-			try {
-				while (true)
+				if (text.size() > 0)
+					Dialog.say(speaker.getName(), text, -choices.length/2-1);
+
+				Dialog.clearRect(posx-1, posy-1, width+2, destinations.length+2);
+
+				for (int i = 0; i < choices.length; i++)
 				{
-					for (int i = 0; i < choices.length; i++)
-					{
-						Color color = Color.white;
-						if (i == currentchoice)
-							color = Color.yellow;
+					Color color = Color.white;
+					if (i == currentchoice)
+						color = Color.yellow;
 				
-						term.bufferString(posx, posy+i, choices[i], color);
-				
-					}
-					term.refreshScreen();
-				
-					int key = term.getKey();
+					view.drawString(posx, posy+i, 1.0f, choices[i], color);
+				}
+
+				view.update();
+				while (view.nextKey())
+				{
+					int key = view.getKeyEvent();
 					if (key == ' ')
+					{
+						answerselected = true;
 						break;
+					}
 					Direction dir = Direction.keyToDir(key);
 					if (dir != null)
 					{
@@ -372,12 +389,9 @@ public class Dialog {
 						}
 					}
 				}
-				Log.addMessage(world.getPlayer().getName() + ": " + choices[currentchoice]);
-				return destinations[currentchoice];
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-				return -1;
 			}
+			Log.addMessage(world.getPlayer().getName() + ": " + choices[currentchoice]);
+			return destinations[currentchoice];
 		}
 		@Override
 		public void load (BufferedReader reader)
@@ -395,7 +409,7 @@ public class Dialog {
 		}
 		
 		@Override
-		public int tick (World world, TiledTermPanel term, Creature speaker)
+		public int tick (World world, Creature speaker)
 		{
 			return returnval;
 		}
@@ -517,56 +531,56 @@ public class Dialog {
 		return maxlen;
 	}
 	
-	public static void clearRect (TiledTermPanel term, int posx, int posy,
-			int width, int height)
+	public static void clearRect (int posx, int posy, int width, int height)
 	{
+		Color color = new Color(0, 0, 0, 200);
 		for (int y = posy; y < posy + height; y++)
 		{
 			for (int x = posx; x < posx + width; x++)
 			{
-				term.bufferBackground(x, y, Color.black);
-				term.unbuffer(x,y);
-				term.bufferTile(x,y,ColoredChar.create(' '));
+				View.get().drawBackground(x, y, color);
 			}
 		}
 	}
 	
-	public static void say (TiledTermPanel term, String speaker, ArrayList<String> t)
+	public static void say (String speaker, ArrayList<String> t)
 	{
-		say (term, speaker, t, 0);
+		say (speaker, t, 0);
 	}
 
-	public static void say (TiledTermPanel term, String speaker, ArrayList<String> t, int dy)
+	public static void say (String speaker, ArrayList<String> t, int dy)
 	{
+		View view = View.get();
 		int width = getMaxWidth(t) + speaker.length() + 2;
 		int height = t.size();
-		int posx = term.width()/2 - width/2;
-		int posy = term.height()/2 - height/2 + dy;
+		int posx = view.columns()/2 - width/2;
+		int posy = view.rows()/2 - height/2 + dy;
 		
-		clearRect (term, posx-1, posy-1, width+2, height+2);
+		clearRect (posx-1, posy-1, width+2, height+2);
 		
 		for (int i = 0; i < t.size(); i++)
 		{
-			term.bufferString(term.width()/2 - width/2, posy + i, speaker + ": ",
+			view.drawString(view.columns()/2 - width/2, posy + i, 1.0f, speaker + ": ",
 					Color.green);
-			term.bufferString(term.width()/2 - width/2 + speaker.length() + 2,
-					posy + i, t.get(i));
-			Log.addMessage(speaker + ": " + t.get(i));
+			view.drawString(view.columns()/2 - width/2 + speaker.length() + 2,
+					posy + i, 1.0f, t.get(i), Color.white);
 		}
 	}
 	
-	public static void waitforspace (TiledTermPanel term)
+	public static boolean checkforspace ()
 	{
-		try {
-			do {
-				term.refreshScreen();
-			} while (term.getKey() != ' ');
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		View.get().update();
+		while (View.get().nextKey())
+		{
+			if (View.get().getKeyEvent() == ' ')
+			{
+				return true;
+			}
 		}
+		return false;
 	}
 	
-	public void tick (World world, TiledTermPanel term)
+	public void tick (World world)
 	{ 
 		Guard.argumentIsNotNull(speaker);
 		Guard.verifyState(nodes.containsKey(currentid));
@@ -575,7 +589,7 @@ public class Dialog {
 		do
 		{
 			node = nodes.get(currentid);
-			currentid = node.tick(world, term, speaker);
+			currentid = node.tick(world, speaker);
 		} while (!node.getClass().isAssignableFrom(EndNode.class));
 		
 		world.setActiveDialog(null);

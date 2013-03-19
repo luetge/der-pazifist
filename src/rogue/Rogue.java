@@ -18,6 +18,7 @@ import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.util.ResourceLoader;
 
 import jade.core.Dialog;
@@ -102,7 +103,7 @@ public class Rogue
     	{
     		view.drawWorld(level.world());
     		view.update();
-
+    		
 			Dialog dialog = level.world().getActiveDialog();
 			if (dialog != null)
 			{

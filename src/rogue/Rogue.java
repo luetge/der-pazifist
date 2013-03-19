@@ -38,8 +38,8 @@ public class Rogue implements ComponentListener
         
         view = new View (player.pos ());
         View.setGlobalView(view);
-        
-		/*for (int i = 0; i < 100; i++){
+        /*
+		for (int i = 0; i < 100; i++){
 			level.world().addActor(CreatureFactory.createCreature("zombie1", level.world()));
 			level.world().addActor(CreatureFactory.createCreature("bandit2", level.world()));
 			level.world().addActor(CreatureFactory.createCreature("alien1", level.world()));

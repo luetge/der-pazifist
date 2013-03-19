@@ -21,6 +21,7 @@ import pazi.behaviour.SneakStealFlee;
 import pazi.features.Braaaiiiiins;
 import pazi.features.IBeforeAfterFeature;
 import pazi.features.IFeature;
+import pazi.features.Wuff;
 import pazi.items.Item;
 import pazi.weapons.IMeleeWeapon;
 import pazi.weapons.IRangedCombatWeapon;
@@ -91,9 +92,13 @@ public class CreatureFactory {
 			creature.setBehaviour(new DefaultBehaviour());
 		}
 		else if (identifier.equals("dog")){
-			creature = new Monster (ColoredChar.create('d', new Color(0x000000)), "Hund");
-			creature.setWalkBehaviour(new RandomWalk());
-			//creature.addGeneralFeature(Wuff.getInstance());
+			ColoredChar faces[] = new ColoredChar[9];
+			for (int i = 0; i < 9; i++)
+				faces[i] = ColoredChar.create('d', new Color(0x000000+i));
+			creature = new Monster (faces, "Hund");
+			creature.setWalkBehaviour(new Follow(world.getPlayer(), 8, 0.5));
+			creature.setBehaviour(new DefaultBehaviour());
+			creature.addGeneralFeature(new Wuff());
 		}
 		else if (identifier.equals("hitler")) {
 			creature = new Monster(ColoredChar.create('H', Color.white), "Hitler");

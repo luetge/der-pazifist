@@ -30,7 +30,7 @@
 
     <jar destfile="${dist}/Der-Pazifist.jar">
        <fileset dir="${build}" />
-       <fileset dir="." includes="res/**" />
+       <fileset dir="resources" />
        <restrict>
          <name name="**/*.class" />
          <archives>

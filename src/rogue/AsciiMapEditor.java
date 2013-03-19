@@ -111,13 +111,13 @@ public class AsciiMapEditor implements DocumentListener, WindowListener {
 
 	public AsciiMapEditor ()
 	{
-		try {
-		    View.set(GLView.create ("AsciiMapEditor view", 128, 48, 10, 16));
-		} catch (Exception e) {
+		View view = GLView.create("AsciiMapEditor view", 128, 48, 10, 16);
+		if (view == null)
+		{
 			System.err.println("Konnte kein GLView erzeugen und falle zurück auf LegacyView.");
-			View.set(LegacyView.create ("AsciiMapEditor view", 128, 48, 10, 16));
+			view = LegacyView.create("AsciiMapEditor view", 128, 48, 10, 16);
 		}
-		View view = View.get();
+		View.set(view);
 		view.loadTiles();
 		textarea = new JTextArea();
 		try {

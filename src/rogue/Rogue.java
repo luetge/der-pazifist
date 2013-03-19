@@ -51,13 +51,13 @@ public class Rogue
 	{
 		running = false;
 
-		try {
-            View.set(GLView.create("Der Pazifist"));
-		} catch (Exception e) {
+		view = GLView.create("Der Pazifist");
+		if (view == null)
+		{
 			System.err.println("Konnte kein GLView erzeugen und falle zurück auf LegacyView.");
-            View.set(LegacyView.create("Der Pazifist"));
+			view = LegacyView.create("Der Pazifist");
 		}
-        view = view.get();
+		View.set(view);
         HUD.init();
 
         player = new Player();

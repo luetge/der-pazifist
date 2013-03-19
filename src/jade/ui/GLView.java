@@ -198,7 +198,7 @@ public class GLView extends View {
 	
 	private final AtomicReference<Dimension> newCanvasSize = new AtomicReference<Dimension> ();
 	
-	private GLView (String title, int columns, int rows, int tileWidth, int tileHeight)
+	private GLView (String title, int columns, int rows, int tileWidth, int tileHeight) throws LWJGLException
 	{
 		this.center_x = 0;
 		this.center_y = 0;
@@ -210,80 +210,74 @@ public class GLView extends View {
 		this.gltiles = new HashMap<ColoredChar, GLTile> ();
 		this.glchars = new HashMap<Character, GLChar> ();
 	
-		try {
+		this.frame = new JFrame (title);
+		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.frame.setLocation(0,0);
+		this.canvas = new Canvas();
+		this.canvas.setSize(this.columns * this.tileWidth, this.rows * this.tileHeight);
 			
-			this.frame = new JFrame (title);
-			this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			this.frame.setLocation(0,0);
-			this.canvas = new Canvas();
-			this.canvas.setSize(this.columns * this.tileWidth, this.rows * this.tileHeight);
-			
-			this.canvas.addComponentListener(new ComponentAdapter(){
-				@Override
-				public void componentResized(ComponentEvent e) {
-					newCanvasSize.set(canvas.getSize());
-				}
-			});
-			this.frame.addWindowFocusListener(new WindowAdapter(){
-				@Override
-				public void windowGainedFocus (WindowEvent e) {
-					canvas.requestFocusInWindow();
-				}
-			});
-			this.frame.addWindowListener(new WindowAdapter() {
-				@Override
-				public void windowClosing (WindowEvent e) {
-					closeRequested = true;
-				}
-			});
-			
-			this.frame.add(this.canvas, BorderLayout.CENTER);
-			this.frame.pack();
-			
-			try {
-				this.font = Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream("res/DejaVuSansMono.ttf"))
-						.deriveFont(Font.PLAIN, tileHeight);
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (FontFormatException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		this.canvas.addComponentListener(new ComponentAdapter(){
+			@Override
+			public void componentResized(ComponentEvent e) {
+				newCanvasSize.set(canvas.getSize());
 			}
+		});
+		this.frame.addWindowFocusListener(new WindowAdapter(){
+			@Override
+			public void windowGainedFocus (WindowEvent e) {
+				canvas.requestFocusInWindow();
+			}
+		});
+		this.frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing (WindowEvent e) {
+				closeRequested = true;
+			}
+		});
 			
-			this.canvas.setFont(font);
-		
-			this.frame.setVisible(true);
+		this.frame.add(this.canvas, BorderLayout.CENTER);
+		this.frame.pack();
 			
-			Display.setDisplayMode(new DisplayMode (canvas.getWidth(), canvas.getHeight()));
-			Display.setLocation(0, 0);
-			Display.setTitle(title);
-			Display.setVSyncEnabled(true);
-			Display.setResizable(true);
-			Display.setParent (this.canvas);
-			Display.create();
-			
-			Keyboard.enableRepeatEvents(true);
-			
-			
-			GL11.glClearColor(0, 0, 0, 1);
-
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-
-			GL11.glMatrixMode(GL11.GL_PROJECTION);
-			GL11.glLoadIdentity();
-			GL11.glOrtho(0, columns, rows, 0, -1, 1);
-			GL11.glMatrixMode(GL11.GL_MODELVIEW);
-			
-    		GL11.glEnable(GL11.GL_TEXTURE_2D);
-		} catch (LWJGLException e) {
+		try {
+			this.font = Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream("res/DejaVuSansMono.ttf"))
+					.deriveFont(Font.PLAIN, tileHeight);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.exit(-1);
+		} catch (FontFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+			
+		this.canvas.setFont(font);
+		
+		this.frame.setVisible(true);
+			
+		Display.setDisplayMode(new DisplayMode (canvas.getWidth(), canvas.getHeight()));
+		Display.setLocation(0, 0);
+		Display.setTitle(title);
+		Display.setVSyncEnabled(true);
+		Display.setResizable(true);
+		Display.setParent (this.canvas);
+		Display.create();
+			
+		Keyboard.enableRepeatEvents(true);
+			
+			
+		GL11.glClearColor(0, 0, 0, 1);
+
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+
+		GL11.glMatrixMode(GL11.GL_PROJECTION);
+		GL11.glLoadIdentity();
+		GL11.glOrtho(0, columns, rows, 0, -1, 1);
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+		
+   		GL11.glEnable(GL11.GL_TEXTURE_2D);
 	}
 	
 	public int tileHeight()
@@ -376,7 +370,11 @@ public class GLView extends View {
 	
 	public static View create (String title, int columns, int rows, int tileWidth, int tileHeight)
 	{
-		return new GLView (title, columns, rows, tileWidth, tileHeight);
+		try {
+			return new GLView (title, columns, rows, tileWidth, tileHeight);
+		} catch (LWJGLException e) {
+			return null;
+		}
 	}
 	
 	public void clear ()

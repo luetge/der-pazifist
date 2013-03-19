@@ -1,20 +1,20 @@
-bblack=bg:000000;bbrown=bg:996633;bbred=bg:C5000B;bred=bg:7E0021;bbgrey=bg:CCCCCC;bgrey=bg:999999;bdgrey=bg:666666;bdbrown=bg:663300;fdbrown=fg:663300;fblack=fg:000000;fwhite=fg:FFFFFF;
-╔════¥bbrown¥¥fblack¥↓↓↓¥fwhite¥¥bblack¥═════════════════════╗
-║¥bred¥    ¥bbred¥            ¥bred¥            ¥bbrown¥¥fblack¥→¥fwhite¥¥bblack¥
-║¥bred¥  ¥fdbrown¥__¥bbred¥________    ¥bred¥__________  ¥bbrown¥¥fblack¥→¥fwhite¥¥bblack¥
-║¥bred¥  ¥fdbrown¥I¥bbrown¥--------¥bred¥I¥bbred¥    ¥bred¥I¥bbrown¥--------¥bred¥I  ¥bblack¥¥fwhite¥║
-║¥bred¥  ¥fdbrown¥__________¥bbred¥    ¥bred¥__________  ¥bblack¥¥fwhite¥║
-║¥bred¥  ¥fdbrown¥I¥bbrown¥--------¥bred¥I¥bbred¥    ¥bred¥I¥bbrown¥--------¥bred¥I  ¥bblack¥¥fwhite¥║
-║¥bred¥  ¥fdbrown¥__________¥bbred¥    ¥bred¥__________  ¥bblack¥¥fwhite¥║
-║¥bred¥  ¥fdbrown¥I¥bbrown¥----☻---¥bred¥I¥bbred¥    ¥bred¥I¥bbrown¥--☻☻----¥bred¥I  ¥bblack¥¥fwhite¥║
-║¥bred¥  ¥fdbrown¥__________¥bbred¥    ¥bred¥__________  ¥bblack¥¥fwhite¥║
-║¥bred¥  ¥fdbrown¥I¥bbrown¥-☻-☻--☻☻¥bred¥I¥bbred¥    ¥bred¥I¥bbrown¥☻☻-☻☻-☻-¥bred¥I  ¥bblack¥¥fwhite¥║
-║¥bred¥  ¥fdbrown¥__________¥bbred¥    ¥bred¥__________  ¥bblack¥¥fwhite¥║
-║¥bred¥  ¥fdbrown¥I¥bbrown¥☻☻-☻-☻☻☻¥bred¥I¥bbred¥    ¥bred¥I¥bbrown¥☻-☻☻☻☻-☻¥bred¥I  ¥bblack¥¥fwhite¥║
-║¥bred¥            ¥bbred¥¥fblack¥____¥bred¥            ¥bblack¥¥fwhite¥║
-║¥bred¥  ¥bbgrey¥          ¥bbred¥¥fblack¥____¥bbgrey¥          ¥bred¥  ¥bblack¥¥fwhite¥║
-║¥bred¥  ¥bbgrey¥  ¥bgrey¥        ¥bbred¥¥fblack¥____¥bgrey¥        ¥bbgrey¥  ¥bred¥  ¥bblack¥¥fwhite¥║
-║¥bred¥  ¥bbgrey¥  ¥bgrey¥  ¥bdgrey¥                ¥bgrey¥  ¥bbgrey¥  ¥bred¥  ¥bblack¥║
-║¥bred¥  ¥bbgrey¥  ¥bgrey¥  ¥bdgrey¥      ¥bdbrown¥    ¥bdgrey¥      ¥bgrey¥  ¥bbgrey¥  ¥bred¥  ¥bblack¥║
-║¥bred¥  ¥bbgrey¥  ¥bgrey¥  ¥bdgrey¥       ¥fblack¥♛        ¥bgrey¥  ¥bbgrey¥  ¥bred¥  ¥bblack¥¥fwhite¥║
+t20=door:tut2entry0,tut2,tut2exit0,n;t21=door:tut2entry1,tut2,tut2exit1,n;t22=door:tut2entry2,tut2,tut2exit2,n;tutexit0=door:tut3exit0,church0,tut3entry0,e;tutexit1=door:tut3exit1,church0,tut3entry1,e;bblack=bg:000000;bbrown=bg:834100;bbred=bg:C5000B;bred=bg:7E0021;bbgrey=bg:CCCCCC;bgrey=bg:999999;bdgrey=bg:666666;bdbrown=bg:663300;fdbrown=fg:996600;fblack=fg:000000;fwhite=fg:FFFFFF;
+╔════¥bbrown¥¥fblack¥¥t20¥↓¥t21¥↓¥t22¥↓¥fwhite¥¥bblack¥═════════════════════╗
+║¥p¥¥bred¥    ¥bbred¥            ¥bred¥            ¥bbrown¥¥fblack¥¥np¥¥tutexit0¥→¥fwhite¥¥bblack¥
+║¥p¥¥bred¥  ¥fdbrown¥__¥bbred¥________    ¥bred¥__________  ¥bbrown¥¥fblack¥¥np¥¥tutexit1¥→¥fwhite¥¥bblack¥
+║¥p¥¥bred¥  ¥fdbrown¥I¥bbrown¥--------¥bred¥I¥bbred¥    ¥bred¥I¥bbrown¥--------¥bred¥I  ¥bblack¥¥fwhite¥¥np¥║
+║¥p¥¥bred¥  ¥fdbrown¥__________¥bbred¥    ¥bred¥__________  ¥bblack¥¥fwhite¥¥np¥║
+║¥p¥¥bred¥  ¥fdbrown¥I¥bbrown¥--------¥bred¥I¥bbred¥    ¥bred¥I¥bbrown¥--------¥bred¥I  ¥bblack¥¥fwhite¥¥np¥║
+║¥p¥¥bred¥  ¥fdbrown¥__________¥bbred¥    ¥bred¥__________  ¥bblack¥¥fwhite¥¥np¥║
+║¥p¥¥bred¥  ¥fdbrown¥I¥bbrown¥--------¥bred¥I¥bbred¥    ¥bred¥I¥bbrown¥--------¥bred¥I  ¥bblack¥¥fwhite¥¥np¥║
+║¥p¥¥bred¥  ¥fdbrown¥__________¥bbred¥    ¥bred¥__________  ¥bblack¥¥fwhite¥¥np¥║
+║¥p¥¥bred¥  ¥fdbrown¥I¥bbrown¥--------¥bred¥I¥bbred¥    ¥bred¥I¥bbrown¥--------¥bred¥I  ¥bblack¥¥fwhite¥¥np¥║
+║¥p¥¥bred¥  ¥fdbrown¥__________¥bbred¥    ¥bred¥__________  ¥bblack¥¥fwhite¥¥np¥║
+║¥p¥¥bred¥  ¥fdbrown¥I¥bbrown¥--------¥bred¥I¥bbred¥    ¥bred¥I¥bbrown¥--------¥bred¥I  ¥bblack¥¥fwhite¥¥np¥║
+║¥p¥¥bred¥            ¥bbred¥¥fblack¥____¥bred¥            ¥bblack¥¥fwhite¥¥np¥║
+║¥p¥¥bred¥  ¥bbgrey¥          ¥bbred¥¥fblack¥____¥bbgrey¥          ¥bred¥  ¥bblack¥¥fwhite¥¥np¥║
+║¥p¥¥bred¥  ¥bbgrey¥  ¥bgrey¥        ¥bbred¥¥fblack¥____¥bgrey¥        ¥bbgrey¥  ¥bred¥  ¥bblack¥¥fwhite¥¥np¥║
+║¥p¥¥bred¥  ¥bbgrey¥  ¥bgrey¥  ¥bdgrey¥                ¥bgrey¥  ¥bbgrey¥  ¥bred¥  ¥bblack¥¥np¥║
+║¥p¥¥bred¥  ¥bbgrey¥  ¥bgrey¥  ¥bdgrey¥      ¥bdbrown¥¥np¥    ¥p¥¥bdgrey¥      ¥bgrey¥  ¥bbgrey¥  ¥bred¥  ¥bblack¥¥np¥║
+║¥p¥¥bred¥  ¥bbgrey¥  ¥bgrey¥  ¥bdgrey¥       ¥fblack¥♛        ¥bgrey¥  ¥bbgrey¥  ¥bred¥  ¥bblack¥¥fwhite¥¥np¥║
 ╚════════════════════════════╝

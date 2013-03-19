@@ -8,25 +8,27 @@ public class WeaponPrototype implements IWeapon {
 	protected double prob, range;
 	protected String name;
 	protected String weaponFiredTemp = "", weaponMissed = "Mist, daneben!", weaponHit = "";
-	Creature holder;	// Wer hält diese Waffe?
+	protected Creature holder;	// Wer hält diese Waffe?
+	protected int ammoLeft;
 	
-	public WeaponPrototype(int min_d, int max_d, double range, double prob, String name, Creature creature){
+	public WeaponPrototype(int min_d, int max_d, double range, double prob, String name, Creature holder, int ammo){
 		this.min_d = min_d;
 		this.max_d = max_d;
 		this.prob = prob;
 		this.range = range;
 		this.name = name;
-		setHolder(creature);
+		setHolder(holder);
+		ammoLeft = ammo;
+	}
+
+	public WeaponPrototype(int min_d, int max_d, double range, double prob, String name, Creature holder){
+		this(min_d, max_d, range, prob, name, holder, -1);
 	}
 	
 	public WeaponPrototype(int min_d, int max_d, double range, double prob, String name){
-		this.min_d = min_d;
-		this.max_d = max_d;
-		this.prob = prob;
-		this.range = range;
-		this.name = name;
-		setHolder(null);
+		this(min_d, max_d, range, prob, name, null, -1);
 	}
+	
 
 	@Override
 	public int getDamage(Creature attacker, Creature victim) {
@@ -40,6 +42,8 @@ public class WeaponPrototype implements IWeapon {
 
 	@Override
 	public void shoot(Creature attacker, Creature victim) {
+		if (ammoLeft > 0)
+			reduceAmmo();
 		if(attacker != null && victim != null)
 			weaponFiredTemp = getWeaponFiredText(attacker, victim);
 			if (weaponFiredTemp != "")
@@ -54,6 +58,19 @@ public class WeaponPrototype implements IWeapon {
 					attacker.world().appendMessage(weaponMissed);
 	}
 	
+	private void reduceAmmo() {
+		ammoLeft -= 1;
+		if (ammoLeft <= 0)
+			this.expire();
+	}
+
+	/**
+	 * if ammo is depleted, lose weapon.
+	 */
+	private void expire() {
+		holder.expireWeapon(this);
+	}
+
 	public void setHolder(Creature creature){
 		holder = creature;
 	}

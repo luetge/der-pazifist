@@ -25,7 +25,10 @@ import pazi.items.Item;
 import pazi.weapons.IMeleeWeapon;
 import pazi.weapons.IRangedCombatWeapon;
 import pazi.weapons.IWeapon;
+import pazi.weapons.MeleeWeaponPrototype;
+import pazi.weapons.RCWeaponPrototype;
 import pazi.weapons.WeaponFactory;
+import pazi.weapons.WeaponPrototype;
 
 public abstract class Creature extends Actor
 {
@@ -354,4 +357,14 @@ public abstract class Creature extends Actor
 	}
 
 	public void killedSomeone(Creature creature) {}
+
+	public void expireWeapon(WeaponPrototype weapon) {
+		if (weapon.getClass() == MeleeWeaponPrototype.class){
+			this.setMeleeWeapon(null);
+			this.appendMessage(weapon.getName() + " ist zerbrochen. Shit!");
+		} else{
+			this.setRCWeapon(null);
+			this.appendMessage(weapon.getName() + " hat keine Muni mehr. Weg damit!");
+		}
+	}
 }

@@ -14,7 +14,7 @@ public class PaziFistApplet extends Applet {
 
 	public PaziFistApplet() throws HeadlessException {
 		try {
-        	Rogue rogue = new Rogue ();
+        	Rogue rogue = new Rogue (false);
         	rogue.run ();
         	rogue.finish ();
         

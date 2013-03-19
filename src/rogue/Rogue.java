@@ -47,11 +47,13 @@ public class Rogue
 	private View view;
 	boolean running;
 	
-	public Rogue () throws InterruptedException
+	public Rogue (boolean useGLView) throws InterruptedException
 	{
 		running = false;
 
-		view = GLView.create("Der Pazifist");
+		view = null;
+		if (useGLView)
+		    view = GLView.create("Der Pazifist");
 		if (view == null)
 		{
 			System.err.println("Konnte kein GLView erzeugen und falle zurück auf LegacyView.");
@@ -247,8 +249,11 @@ public class Rogue
     public static void main(String[] args)
     {
         try {
+        	boolean useGLview = true;
+        	if (args.length == 1 && args[0].equals("-noglview"))
+        		useGLview = false;
         	prepareLWJGL();
-        	Rogue rogue = new Rogue ();
+        	Rogue rogue = new Rogue (useGLview);
         	rogue.run ();
         	rogue.finish ();
         	cleanupLWJGL();

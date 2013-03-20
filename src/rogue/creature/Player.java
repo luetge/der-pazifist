@@ -87,7 +87,7 @@ public class Player extends Creature implements Camera
     public void setGodMode(boolean godmode)
     {
     	this.godmode = godmode;
-    	if (godmode)
+    	if (this.godmode)
     		world().setMessage("GOD MODE ACTIVATED");
     	else
     		world().setMessage("GOD MODE DEACTIVATED");

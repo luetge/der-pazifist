@@ -89,11 +89,8 @@ public class CreatureFactory {
 			creature = new Ally (ColoredChar.create('W'), "Scientist", new Dialog ("res/dialogs/scientist0.txt"));
 			creature.getInventory().addItem((Item)WeaponFactory.createWeapon("knuckleduster", creature));
 		}
-		else if (identifier.equals("door")){
-			creature = new Monster (ColoredChar.create('═', new Color(0x663300)), "Tür");
-			creature.setHP(500);
-			creature.setBehaviour(new DefaultBehaviour());
-		}
+		else if (identifier.equals("door"))
+			creature = new Door();
 		else if (identifier.equals("dog")){
 			ColoredChar faces[] = new ColoredChar[9];
 			for (int i = 0; i < 9; i++)

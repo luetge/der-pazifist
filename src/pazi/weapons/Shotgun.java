@@ -27,7 +27,7 @@ public class Shotgun extends RCWeaponPrototype {
 	
 	@Override
 	public void shoot(Creature attacker, Creature victim) {
-		if(Player.class.isAssignableFrom(attacker.getClass())) {
+		if(attacker.isPlayer()) {
 			// Player-Verhalten
 			while(View.get().nextKey())
 			{

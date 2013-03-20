@@ -98,7 +98,7 @@ public class Bagpack {
 	protected static void useItem() {
 		if(lstItems.getSelectedIndex() == -1)
 			return;
-		Guard.validateArgument(Player.class.isAssignableFrom(inventory.getOwner().getClass()));
+		Guard.validateArgument(inventory.getOwner().isPlayer());
 		Guard.validateArgument(inventory.getItems().size() > lstItems.getSelectedIndex());
 		
 		((Player)inventory.getOwner()).useItem(inventory.getItems().get(lstItems.getSelectedIndex()));

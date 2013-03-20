@@ -24,6 +24,7 @@ import pazi.items.HealingPotion;
 import pazi.items.Item;
 import pazi.weapons.IMeleeWeapon;
 import pazi.weapons.IRangedCombatWeapon;
+import pazi.weapons.KnuckleDuster;
 import pazi.weapons.WeaponFactory;
 
 public class Player extends Creature implements Camera
@@ -186,7 +187,7 @@ public class Player extends Creature implements Camera
 		return Lambda.filter(world().getActors(Creature.class), new FilterFunc<Creature>() {
 			@Override
 			public boolean filter(Creature element) {
-				return element.getHP() > 0 && element.getFace().ch() != ' ' && !Player.class.isAssignableFrom(element.getClass()) && coords.contains(element.pos());
+				return element.getHP() > 0 && element.getFace().ch() != ' ' && !element.isPlayer() && coords.contains(element.pos());
 			}
 		});
 	}

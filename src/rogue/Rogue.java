@@ -33,6 +33,7 @@ import jade.util.datatype.Door;
 
 import pazi.items.HealingPotion;
 import pazi.items.Item;
+import pazi.weapons.KnuckleDuster;
 import pazi.weapons.WeaponFactory;
 import rogue.creature.CreatureFactory;
 import rogue.creature.Player;
@@ -71,7 +72,7 @@ public class Rogue
 			level.world().addActor(CreatureFactory.createCreature("sniper1", level.world()));
 		}
         */
-        
+        player.setMeleeWeapon(new KnuckleDuster());
 		view.displayScreen (new AsciiMap("res/start"));;
         
 		waitForSpace();

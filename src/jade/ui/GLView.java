@@ -42,6 +42,7 @@ import java.nio.ByteOrder;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import org.lwjgl.BufferUtils;
@@ -218,6 +219,9 @@ public class GLView extends View {
 				closeRequested = true;
 			}
 		});
+		
+		this.frame.setIconImage(getIcon());
+		
 		this.canvas = new Canvas();
 		this.canvas.setSize(this.columns * this.tileWidth, this.rows * this.tileHeight);
 			

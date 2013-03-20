@@ -223,6 +223,8 @@ public class LegacyView extends View {
 				closeRequested = true;
 			}
 		});
+		
+		this.frame.setIconImage(getIcon());
 			
 		this.frame.add(this.screen, BorderLayout.CENTER);
 		this.frame.pack();

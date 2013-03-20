@@ -17,6 +17,7 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.color.ColorSpace;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -42,6 +43,7 @@ import java.nio.ByteOrder;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import org.lwjgl.BufferUtils;
@@ -62,6 +64,16 @@ import rogue.creature.Player;
 public abstract class View {
 	
 	private static View view = null;
+	private static Image image = null;
+	
+	public static Image getIcon () {
+		if (image == null)
+			try {
+				image = ImageIO.read(ResourceLoader.getResourceAsStream("res/icon.png"));
+			} catch (IOException e) {
+			}
+		return image;
+	}
 	
 	public abstract int tileHeight();
 	

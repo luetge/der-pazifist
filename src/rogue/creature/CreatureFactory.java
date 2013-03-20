@@ -21,6 +21,7 @@ import pazi.behaviour.DefaultBehaviour;
 import pazi.behaviour.Follow;
 import pazi.behaviour.IBehaviour;
 import pazi.behaviour.SneakStealFlee;
+import pazi.behaviour.ZombieWhispererBehaviour;
 import pazi.features.Braaaiiiiins;
 import pazi.features.IBeforeAfterFeature;
 import pazi.features.IFeature;
@@ -54,6 +55,12 @@ public class CreatureFactory {
 //			creature.setWalkBehaviour(new Follow(world.getPlayer(), 8, 0.2));
 //			creature.setBehaviour(new DefaultBehaviour());
 //			creature.meleeWeapon = (IMeleeWeapon) WeaponFactory.createWeapon("rottenFist");
+		} else if (identifier.equals("necro")){
+			creature = new Monster(ColoredChar.create('W', Color.GREEN), "Zombieflüsterer");
+			//creature.addGeneralFeature(Braaaiiiiins.getInstance());
+			creature.setAllFaces(new ColoredChar('W', Color.GREEN));
+			creature.setBehaviour(new ZombieWhispererBehaviour(world.getPlayer()));
+			
 		} else if (identifier.equals("bandit2")){
 				creature = new Monster(ColoredChar.create(' ', Color.red), "El Bandido");
 				//creature.addGeneralFeature(Braaaiiiiins.getInstance());
@@ -62,6 +69,7 @@ public class CreatureFactory {
 					faces[i] = ColoredChar.create('B', new Color(0xFF0000+i));
 				creature.setBehaviour(new SneakStealFlee(world.getPlayer(), faces));
 				creature.getGold(5);
+				
 		} else if (identifier.equals("alien1")){
 			ColoredChar faces[] = new ColoredChar[9];
 			for (int i = 0; i < 9; i++)

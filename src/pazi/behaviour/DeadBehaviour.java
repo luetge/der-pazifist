@@ -54,7 +54,8 @@ public class DeadBehaviour implements IBehaviour<Creature> {
 
 	@Override
 	public void init(Creature actor) {
-		deadBodies.add(actor);
+		//TODO nötig? wird das nicht schon im Constructor gemacht?
+//		deadBodies.add(actor);
 	}
 
 }

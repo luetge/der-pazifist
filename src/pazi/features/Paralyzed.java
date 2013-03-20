@@ -1,6 +1,7 @@
 package pazi.features;
 
 import rogue.creature.Creature;
+import rogue.creature.Player;
 
 public class Paralyzed implements IFeature<Creature> {
 
@@ -10,6 +11,8 @@ public class Paralyzed implements IFeature<Creature> {
 		this.roundsToWait = roundsToWait;
 		creature.world().setMessage(creature.getName() + " wurde paralysiert! Für " + roundsToWait + " Runden!");
 		creature.appendMessage("Oh Nein! Ich kann mich nicht mehr bewegen! :O ");
+		if (creature.getClass() == Player.class)
+			creature.addGeneralFeature(new VisionFeature((Player)creature, roundsToWait, 2));
 	}
 
 	@Override
@@ -21,5 +24,4 @@ public class Paralyzed implements IFeature<Creature> {
 			creature.setHasActed(true);
 		}
 	}
-
 }

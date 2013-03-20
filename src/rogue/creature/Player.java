@@ -14,6 +14,7 @@ import jade.util.datatype.Direction;
 import jade.util.datatype.Door;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import pazi.behaviour.KeyboardGeneral;
@@ -177,9 +178,9 @@ public class Player extends Creature implements Camera
 	
 	public void gainXp(int xp){
 		this.xp += xp;
-		if (this.xp>=lvl*100)
+		if (this.xp>=100*lvl)
 			levelUp();
-			
+		HUD.setXP(this.xp);	
 	}
 
 	public Iterable<Creature> getCreaturesInViewfield() {
@@ -234,6 +235,7 @@ public class Player extends Creature implements Camera
 	
 	@Override
 	public void killedSomeone(Creature creature) {
+		this.gainXp(creature.getXp());
 		increaseRage(20);
 		increaseFaith(-20);
 		String id = creature.getIdentifier();
@@ -265,10 +267,9 @@ public class Player extends Creature implements Camera
 		if (target.isPassable()){
 			target.expire();
 			gainHP(10);
-			increaseFaith(30);
+			increaseFaith(-30);
 			this.appendMessage("Ich nehme deine Sünden auf mich. Deine Seele wird nun Frieden finden.");
 		}
-		
 	}
 
 	private void increaseFaith(int i) {
@@ -293,19 +294,21 @@ public class Player extends Creature implements Camera
 		this.lvl += 1;
 		HUD.setLevel(this.lvl);
 		this.maxHp += 10;
-		this.hp=this.maxHp;
+		setHP(getHP() + 10);
 		HUD.setHP(getHP(),this.maxHp);
 		this.min_d += 5;
 		this.max_d += 5;
+		world().setMessage("Du has Level " + this.lvl + " erreicht.");
+		world().appendMessage("Du has Level " + this.lvl + " erreicht.");
 		if (lvl == 2){
 			canUseVisionFeature = true;
-			String str = "Ich habe gerade die göttliche Sicht erlernt, Papa sei Dank! ('F')";
+			String str = "Ich habe gerade die göttliche Sicht erlernt, Papa sei Dank! ('1')";
 			world().setActiveDialog(Dialog.createSimpleTextDialog("Der PaziFist", str));
 			this.appendMessage(str);
 		}
 		if (lvl == 4){
 			canUseMeditate = true;
-			String str = "Ich kann nun meditieren. Zur Beruhigung und Stärkung meines Glaubens. ('M')";
+			String str = "Ich kann nun meditieren. Zur Beruhigung und Stärkung meines Glaubens. ('2')";
 			world().setActiveDialog(Dialog.createSimpleTextDialog("Der PaziFist", str));
 			this.appendMessage(str);
 		}
@@ -317,10 +320,30 @@ public class Player extends Creature implements Camera
 		}
 		if (lvl == 6){
 			canUseRoundhousePunch = true;
-			String str = "AAAAAHHHHHHHH! ROUNDHOUSEPUNCH freigeschaltet (bei mind. 80% Rage: 'R')";
+			String str = "AAAAAHHHHHHHH! ROUNDHOUSEPUNCH freigeschaltet (bei mind. 80% Rage: '4')";
 			world().setActiveDialog(Dialog.createSimpleTextDialog("Der PaziFist", str));
 			this.appendMessage(str);
 		}
+		
+	}
+
+	public void showHelp() {
+		ArrayList<String> helpList = new ArrayList<String>();
+		helpList.add("Bewegen mit Pfeiltasten");
+		helpList.add("Angreifen oder reden mit Gegenlaufen");
+		helpList.add("Heiltrank benutzen: 'H'");
+		if (canUseVisionFeature){
+			helpList.add("Göttliche Sicht: '1' (20 Faith)");
+				if (canUseMeditate){
+					helpList.add("Meditation: '2'");
+						if (canUseRedemption){
+							helpList.add("Seele eines Toten erlösen: Auf seiner Leiche stehen und '3' (30 Faith)");
+							if (canUseRoundhousePunch)
+								helpList.add("Roundhousepunch: '4' (80 Rage)");
+						}
+				}
+		}
+		world().setActiveDialog(Dialog.createSimpleTextDialog(null, helpList));		
 		
 	}
 

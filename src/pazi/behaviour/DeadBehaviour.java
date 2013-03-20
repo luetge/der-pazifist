@@ -1,5 +1,6 @@
 package pazi.behaviour;
 
+import jade.ui.EndScreen;
 import jade.util.datatype.ColoredChar;
 
 import java.awt.Color;
@@ -35,7 +36,10 @@ public class DeadBehaviour implements IBehaviour<Creature> {
 		creature.dropInventory();
 		source.killedSomeone(creature);
 		if(Player.class.isAssignableFrom(creature.getClass()))
+		{
 			creature.expire();
+			EndScreen.SetKiller(source.getIdentifier());
+		}
 		deadBodies.add(creature);
 	}
 	

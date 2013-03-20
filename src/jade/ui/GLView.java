@@ -211,8 +211,13 @@ public class GLView extends View {
 		this.glchars = new HashMap<Character, GLChar> ();
 	
 		this.frame = new JFrame (title);
-		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.frame.setLocation(0,0);
+		this.frame.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				closeRequested = true;
+			}
+		});
 		this.canvas = new Canvas();
 		this.canvas.setSize(this.columns * this.tileWidth, this.rows * this.tileHeight);
 			

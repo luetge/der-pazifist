@@ -20,7 +20,7 @@ public class EndScreen {
 	private static String killerid = null;
 	
 	private static String nokillerstr = "Gott";
-	private static String nokillactionstr = "erschlagen";
+	private static String nokillactionstr = "erschlagen, weil er aufgegeben hat.";
 
 	private static String zombiekillerstr = "einem verrottenden Zombie";
 	private static String zombiekillactionstr = "gefressen";

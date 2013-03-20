@@ -205,8 +205,13 @@ public class LegacyView extends View {
 		this.backgroundbuffer = new HashMap<Coordinate, Color>();
 	
 		this.frame = new JFrame (title);
-		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.frame.setLocation(0,0);
+		this.frame.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				closeRequested = true;
+			}
+		});
 		this.screen = new Screen(this.tileWidth, this.tileHeight);
 		this.screen.setPreferredSize(new Dimension(this.columns * this.tileWidth, this.rows * this.tileHeight));
 		this.screen.setBackground(Color.black);

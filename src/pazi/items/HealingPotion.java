@@ -13,11 +13,11 @@ public class HealingPotion extends Item {
 
 	private int HP;
 	
-	public HealingPotion() {
+	protected HealingPotion() {
 		this(Dice.global.nextInt(49)+1);
 	}
 	
-	public HealingPotion(int HP){
+	protected HealingPotion(int HP){
 		super(new ColoredChar('T', Color.green), "Heiltrank (" + HP + " HP)");
 		this.HP = HP;
 		description = "Ein Heiltrank, der maximal " + HP + " HP wiederherstellt.";

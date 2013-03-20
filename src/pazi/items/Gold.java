@@ -11,11 +11,11 @@ public class Gold extends Item {
 	
 	protected int amount;
 
-	public Gold() {
+	protected Gold() {
 		this((int) (Math.random()*100));
 	}
 	
-	public Gold(int amount) {
+	protected Gold(int amount) {
 		super(ColoredChar.create('o', Color.yellow), "Gold");
 		this.amount = amount;
 	}

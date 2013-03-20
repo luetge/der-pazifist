@@ -14,6 +14,9 @@ public class KeyboardGeneral implements IFeature<Player> {
 		if(player.hasActed())
 			return;
 		switch(player.world().getCurrentKey()) {
+		    case Keyboard.KEY_G:
+		    	player.setGodMode(!player.getGodMode());
+		    	break;
 			case Keyboard.KEY_H:
 				player.drinkHealingPotion();
 				break;

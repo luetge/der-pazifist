@@ -29,14 +29,24 @@ public class ItemFactory {
 			weapon = new KnuckleDuster();
 		else if(identifier.equals("shotgun"))
 			weapon = new Shotgun();
+		((Item)weapon).setIdentifier(identifier);
 		return weapon;
 	}
 	
-	public static Item createItem(String identifier, Creature holder){
-		
-		
-		
-		return (Item)createWeapon (identifier, holder);
+	public static Item createItem(String identifier){
+		Item item;
+		if (identifier.equals("gold"))
+			item = new Gold();
+		else if (identifier.equals("healingpotion"))
+			item = new HealingPotion();
+		else
+			return (Item)createWeapon (identifier, null);
+		item.setIdentifier(identifier);
+		return item;
+	}
+	
+	public static Item createGold (int amount) {
+		return new Gold(amount);
 	}
 
 	

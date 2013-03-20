@@ -39,6 +39,7 @@ public class Player extends Creature implements Camera
     ColoredChar facesets[][];
     int currentfaceset;
     boolean canUseVisionFeature, canUseRoundhousePunch, canUseMeditate, canUseRedemption;
+    boolean godmode;
 
     public Player()
     {
@@ -75,6 +76,21 @@ public class Player extends Creature implements Camera
         canUseRoundhousePunch = false;
         canUseVisionFeature = false;
         canUseRedemption = false;
+        godmode = false;
+    }
+    
+    public boolean getGodMode()
+    {
+    	return godmode;
+    }
+    
+    public void setGodMode(boolean godmode)
+    {
+    	this.godmode = godmode;
+    	if (this.godmode)
+    		world().setMessage("GOD MODE ACTIVATED");
+    	else
+    		world().setMessage("GOD MODE DEACTIVATED");
     }
     
     @Override
@@ -131,6 +147,8 @@ public class Player extends Creature implements Camera
     
     @Override
     public void takeDamage(int d, Creature source) {
+    	if (godmode)
+    		return;
     	super.takeDamage(d, source);
     	updateHP();
     }   

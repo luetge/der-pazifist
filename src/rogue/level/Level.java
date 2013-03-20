@@ -19,6 +19,7 @@ import java.util.Map;
 import org.newdawn.slick.util.ResourceLoader;
 
 import pazi.items.Gold;
+import pazi.items.ItemFactory;
 import rogue.creature.CreatureFactory;
 import rogue.creature.Player;
 
@@ -104,10 +105,41 @@ public class Level
     			}
     			else
     			{
-    				for (int i = 0; i < 5; i++){
-    					w.addActor(CreatureFactory.createCreature("zombie1", w));
-    					Gold g = new Gold();
-    					w.addActor(g);
+
+    				for (int i = 0; i < 8; i++)
+    				{
+    					if (Dice.global.chance(30))
+    						continue;
+    					
+    					if (Dice.global.chance(80))
+    						w.addActor(CreatureFactory.createCreature("zombie1", w));
+    					else
+    						w.addActor(CreatureFactory.createCreature("alien1", w));
+    				}
+
+    				for (int i = 0; i < 8; i++){
+    					if (Dice.global.chance(70))
+    						continue;
+        				switch(Dice.global.nextInt(9))
+        				{
+        				case 0:
+        				case 1:
+        				case 2:
+        					w.addActor(ItemFactory.createItem("healingpotion"));
+        					break;
+        				case 3:
+        				case 4:
+        				case 5:
+        				case 6:
+        					w.addActor(ItemFactory.createItem("gold"));
+        					break;
+        				case 7:
+        					w.addActor(ItemFactory.createItem("knuckleduster"));
+        					break;
+        				case 8:
+        					w.addActor(ItemFactory.createItem("shotgun"));
+        					break;
+        				}
     				}
     			}
     		}

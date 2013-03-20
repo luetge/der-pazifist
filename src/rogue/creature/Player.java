@@ -314,4 +314,9 @@ public class Player extends Creature implements Camera
 		
 	}
 
+	public void showHelp() {
+		
+		
+	}
+
 }

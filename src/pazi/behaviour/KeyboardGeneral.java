@@ -1,5 +1,7 @@
 package pazi.behaviour;
 
+import jade.core.Dialog;
+
 import org.lwjgl.input.Keyboard;
 
 import pazi.features.IFeature;
@@ -26,6 +28,9 @@ public class KeyboardGeneral implements IFeature<Player> {
 				break;
 			case Keyboard.KEY_3:
 				player.redeem();
+				break;
+			case Keyboard.KEY_F1:
+				player.showHelp();
 				break;
 			default:
 				return;

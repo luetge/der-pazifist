@@ -1,5 +1,6 @@
 #Der Wissenschaftler im zweiten Tutorialraum
 
+0:goto:1
 
 1:text
 Guten Morgen! Hier können Sie ein wenig ballern. Hehe

@@ -8,7 +8,7 @@ t0=door:tut1exit0,tut2,tut1entry0,e;t1=door:tut1exit1,tut2,tut1entry1,e;bwhite=b
 ║¥bbeige¥¥p¥        ¥fblack¥¥np¥ʗ¥bgrey¥ ¥bbeige¥¥p¥ ¥bblack¥¥fwhite¥¥np¥║¥p¥     ¥bgreen¥¥fgreen¥¥np¥┌──┐¥p¥¥bblack¥  ¥bgreen¥¥np¥┌──┐¥p¥¥bblack¥  ¥bgreen¥¥np¥┌¥p¥  ¥np¥┐¥p¥¥bblack¥   ¥fwhite¥¥np¥║
 ║¥p¥¥bbeige¥        ¥fblack¥¥np¥ʗ¥bgrey¥ ¥bbeige¥¥p¥ ¥bblack¥¥fwhite¥¥np¥║¥p¥     ¥bgreen¥¥fgreen¥¥np¥└┬─┘¥p¥¥bblack¥  ¥bgreen¥¥np¥└┬─┘¥p¥¥bblack¥  ¥bgreen¥¥np¥└┬─┘¥p¥¥bblack¥   ¥fwhite¥¥np¥║
 ║¥p¥¥bbeige¥        ¥fblack¥¥np¥ʗ¥bgrey¥ ¥bbeige¥¥p¥ ¥bblack¥¥fwhite¥¥np¥║¥p¥      └─────┴─────┴───┐ ¥np¥║
-╠═══¥fbrown¥¥p¥¥creature:door¥▬¥creature:door¥▬¥creature:door¥▬¥np¥¥fwhite¥═════╩══════════════════════╩═╣
+╠═══¥fbrown¥¥p¥▬▬▬¥np¥¥fwhite¥═════╩══════════════════════╩═╣
 ║¥p¥¥bgrey¥                                    ¥bblack¥¥np¥║
 ║¥p¥¥bgrey¥     ¥bred¥                          ¥bgrey¥     ¥bblack¥¥np¥║
 ║¥p¥¥bgrey¥     ¥bred¥                          ¥bgrey¥     ¥bblack¥¥np¥║

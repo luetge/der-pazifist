@@ -60,7 +60,7 @@ gegebenen ID. Der Fragetext kann auch ausgelassen werden, allerdings ist
 immer noch ein "done" Befehl nötig, um den Befehl abzuschließen.
 
 =====================
-4:giveitem:Gold:40
+4:giveitem:gold:40
 =====================
 Der "giveitem" Befehl bewirkt, dass der Pazifist dem Dialogpartner
 Items des im 1. Argument festgelegten Typs gibt. Die Menge der Items
@@ -70,7 +70,7 @@ nicht möglich, abzufragen, wieviele Items das gewesen sind.
 Siehe "playerhasitem".
 
 =====================
-5:receiveitem:Gold:20
+5:receiveitem:gold:20
 =====================
 Der "receiveitem" Befehl bewirkt, dass der Pazifist vom Dialogpartner
 Items des im 1. Argument festgelegten Typs erhält. Die Menge der Items
@@ -80,12 +80,21 @@ nicht möglich, abzufragen, wieviele Items das gewesen sind.
 Siehe "hasitem".
 
 =====================
+50:spawnitem:gold:20
+=====================
+Der "spawnitem" Befehl bewirkt, dass der Pazifist vom Dialogpartner
+Items des im 1. Argument festgelegten Typs erhält. Die Menge der Items
+wird im 2. Argument festgelegt. Die Items werden aus dem nichts erzeugt,
+d.h. der Dialogpartner muss keine solchen Items besitzen ung behält
+eventuelle Items gleichen Typs.
+
+=====================
 6:goto:99
 =====================
 Der "goto" Befehl springt zu der als Argument übergebenen ID.
 
 =====================
-7:hasitem:Gold:40:100:200
+7:hasitem:gold:40:100:200
 =====================
 Der "hasitem" Befehl überprüft, ob der Dialogpartner des Pazifisten
 die im 2. Argument übergebene Menge an Items des im 1. Argument
@@ -94,7 +103,7 @@ im 3. Argument angegebenen ID, ansonsten zur im 4. Argument angegebenen
 ID.
 
 =====================
-8:playerhasitem:Gold:80:3:0
+8:playerhasitem:gold:80:3:0
 =====================
 Der "playerhasitem" Befehl überprüft, ob der Pazifist
 die im 2. Argument übergebene Menge an Items des im 1. Argument

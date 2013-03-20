@@ -8,8 +8,8 @@ public class Paralyzed implements IFeature<Creature> {
 	
 	public Paralyzed(int roundsToWait, Creature creature){
 		this.roundsToWait = roundsToWait;
-		creature.world().setMessage("Du wurdest paralysiert! Für " + roundsToWait + " Runden!");
-
+		creature.world().setMessage(creature.getName() + " wurde paralysiert! Für " + roundsToWait + " Runden!");
+		creature.appendMessage("Oh Nein! Ich kann mich nicht mehr bewegen! :O ");
 	}
 
 	@Override

@@ -3,11 +3,13 @@ package pazi.items;
 import java.awt.Color;
 
 import pazi.weapons.Fist;
+import pazi.weapons.FrostSword;
 import pazi.weapons.IWeapon;
 import pazi.weapons.KnuckleDuster;
 import pazi.weapons.MeleeWeaponPrototype;
 import pazi.weapons.Shotgun;
 import pazi.weapons.SniperRifle;
+import pazi.weapons.VampSword;
 
 import jade.util.datatype.ColoredChar;
 import rogue.creature.Creature;
@@ -29,6 +31,10 @@ public class ItemFactory {
 			weapon = new KnuckleDuster();
 		else if(identifier.equals("shotgun"))
 			weapon = new Shotgun();
+		else if(identifier.equals("frostsword"))
+			weapon = new FrostSword();
+		else if(identifier.equals("vampsword"))
+			weapon = new VampSword();
 		((Item)weapon).setIdentifier(identifier);
 		return weapon;
 	}

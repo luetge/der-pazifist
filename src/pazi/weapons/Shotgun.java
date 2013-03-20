@@ -13,92 +13,96 @@ import rogue.creature.Player;
 public class Shotgun extends RCWeaponPrototype {
 
 	public Shotgun() {
-		super(0, 0, 3, 1, "Shotgun der Erlösung", new ColoredChar('p', Color.lightGray), 50);
+		super(0, 0, 3, 1, "Shotgun der Erlösung", new ColoredChar('p',
+				Color.lightGray), 50);
 		description = "Eine Waffe mit kurzer Reichweite und großer Streuung.";
 	}
 
 	@Override
 	public int getDamage(Creature attacker, Creature victim) {
-		if(attacker == null || victim == null || attacker.pos().distance(victim.pos()) > getRange())
+		if (attacker == null || victim == null
+				|| attacker.pos().distance(victim.pos()) > getRange())
 			return 0;
-		return (int)(getRange()+1-attacker.pos().distance(victim.pos()))*10;
+		return (int) (getRange() + 1 - attacker.pos().distance(victim.pos())) * 10;
 	}
-	
+
 	@Override
 	public void shoot(Creature attacker, Creature victim) {
-		if(Player.class.isAssignableFrom(attacker.getClass())) {
+		if (Player.class.isAssignableFrom(attacker.getClass())) {
 			// Player-Verhalten
-			System.out.println("In welche Richtung soll geschossen werden?");
-			while(!View.get().nextKey())
+			while (!View.get().nextKey())
 				View.get().update();
 			Direction dir = Direction.keyToDir(View.get().getKeyEvent());
-			if(dir == null || Math.abs(dir.dx()) + Math.abs(dir.dy()) != 1) 
-				System.out.println("Dann eben nicht!");
+			if (dir == null || Math.abs(dir.dx()) + Math.abs(dir.dy()) != 1)
+				return;
 			else
 				shoot(attacker, dir);
-			
+
 			return;
 		}
 	}
-	
+
 	private void shoot(Creature attacker, Direction dir) {
 		Coordinate[] coords = getHitCoordinates(attacker.pos(), dir);
 		setHasActed(true);
-		if(coords == null)
+		if (coords == null)
 			return;
-		if(hitCoord(attacker, coords[0]))
+		if (hitCoord(attacker, coords[0]))
 			return;
-		if(!hitCoord(attacker, coords[1])) {
+		if (!hitCoord(attacker, coords[1])) {
 			hitCoord(attacker, coords[4]);
 			hitCoord(attacker, coords[5]);
 		}
-		if(!hitCoord(attacker, coords[2])) 
+		if (!hitCoord(attacker, coords[2]))
 			hitCoord(attacker, coords[6]);
-		if(!hitCoord(attacker, coords[3])) {
+		if (!hitCoord(attacker, coords[3])) {
 			hitCoord(attacker, coords[7]);
 			hitCoord(attacker, coords[8]);
 		}
 	}
-	
+
 	private boolean hitCoord(Creature attacker, Coordinate pos) {
-	for(Creature creature : attacker.world().getActorsAt(Creature.class, pos)){
-		if(!creature.isPassable()){
-			super.shoot(attacker, creature);
-			return true;
+		for (Creature creature : attacker.world().getActorsAt(Creature.class,
+				pos)) {
+			if (!creature.isPassable()) {
+				super.shoot(attacker, creature);
+				return true;
+			}
 		}
-	}
-	return false;
+		return false;
 	}
 
 	protected Coordinate[] getHitCoordinates(Creature attacker, Creature victim) {
-		return getHitCoordinates(attacker.pos(), attacker.pos().directionTo(victim.pos()));
+		return getHitCoordinates(attacker.pos(),
+				attacker.pos().directionTo(victim.pos()));
 	}
-	
+
 	protected Coordinate[] getHitCoordinates(Coordinate pos, Direction dir) {
-		
-		if(dir == null || Math.abs(dir.dx()) + Math.abs(dir.dy()) != 1 || pos == null) 
+
+		if (dir == null || Math.abs(dir.dx()) + Math.abs(dir.dy()) != 1
+				|| pos == null)
 			return null;
-		
+
 		Direction perpendicular = getPerpendicularDirection(dir);
-		
+
 		Coordinate[] coord = new Coordinate[9];
 		coord[0] = pos.getTranslated(dir);
-		
+
 		coord[1] = coord[0].getTranslated(dir);
 		coord[2] = coord[1].getTranslated(perpendicular);
 		coord[3] = coord[1].getTranslated(getOppositeDirection(perpendicular));
-		
+
 		coord[4] = coord[1].getTranslated(dir);
 		coord[5] = coord[4].getTranslated(perpendicular);
 		coord[6] = coord[5].getTranslated(perpendicular);
 		coord[7] = coord[4].getTranslated(getOppositeDirection(perpendicular));
 		coord[8] = coord[7].getTranslated(getOppositeDirection(perpendicular));
-		
+
 		return coord;
 	}
-	
+
 	protected Direction getPerpendicularDirection(Direction dir) {
-		switch(dir) {
+		switch (dir) {
 		case NORTH:
 			return Direction.EAST;
 		case SOUTH:
@@ -108,12 +112,12 @@ public class Shotgun extends RCWeaponPrototype {
 		case EAST:
 			return Direction.SOUTH;
 		default:
-				return null;
+			return null;
 		}
 	}
-	
+
 	protected Direction getOppositeDirection(Direction dir) {
-		switch(dir) {
+		switch (dir) {
 		case NORTH:
 			return Direction.SOUTH;
 		case SOUTH:
@@ -123,15 +127,15 @@ public class Shotgun extends RCWeaponPrototype {
 		case EAST:
 			return Direction.WEST;
 		default:
-				return null;
+			return null;
 		}
 	}
-	
+
 	@Override
 	protected String getEquipText() {
 		return "Die Welt gehört mir!!";
 	}
-	
+
 	@Override
 	protected String getPickupText() {
 		return "Eine Shotgun, die hätte ich gegen die Römer damals gebraucht!";

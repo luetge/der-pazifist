@@ -35,7 +35,7 @@ public class Inventory {
 	public boolean hasItem (String name, int amount)
 	{
 		// TODO: bessere Implementierung nötig
-		if (name.equals("Gold") || name.equals("gold"))
+		if (name.equals("gold"))
 			return getGold() >= amount;
 		int count = 0;
 		for (Item item : items)
@@ -68,7 +68,7 @@ public class Inventory {
 	
 	public int giveItem(Creature recipient, String name, int amount)
 	{
-		if (name.equals("Gold")||name.equals("gold"))
+		if (name.equals("gold"))
 		{
 			int realamount = loseGold(amount);
 			recipient.getInventory().findGold(realamount);

@@ -56,11 +56,11 @@ public class Inventory {
 		update();
 	}
 	
-	public Item getItem (String name)
+	public Item getItem (String id)
 	{
 		for (Item item : items)
 		{
-			if (item.getName().equals(name))
+			if (item.getIdentifier().equals(id))
 				return item;
 		}
 		return null;

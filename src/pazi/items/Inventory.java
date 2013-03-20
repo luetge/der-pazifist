@@ -1,7 +1,7 @@
 package pazi.items;
 
 import jade.core.Actor;
-import jade.ui.Bagpack;
+import jade.ui.Backpack;
 import jade.ui.HUD;
 import jade.util.Guard;
 
@@ -19,12 +19,12 @@ public class Inventory {
 	public Inventory(Creature owner) {
 		this.owner = owner;
 		if(Player.class.isAssignableFrom(owner.getClass()))
-			Bagpack.setInventory(this);
+			Backpack.setInventory(this);
 	}
 	
 	protected void update() {
 		if(Player.class.isAssignableFrom(owner.getClass()))
-			Bagpack.updateInventory();
+			Backpack.updateInventory();
 	}
 	
 	public void addItem(Item item){
@@ -35,7 +35,7 @@ public class Inventory {
 	public boolean hasItem (String name, int amount)
 	{
 		// TODO: bessere Implementierung nötig
-		if (name.equals("Gold") || name.equals("gold"))
+		if (name.equals("gold"))
 			return getGold() >= amount;
 		int count = 0;
 		for (Item item : items)
@@ -56,11 +56,11 @@ public class Inventory {
 		update();
 	}
 	
-	public Item getItem (String name)
+	public Item getItem (String id)
 	{
 		for (Item item : items)
 		{
-			if (item.getName().equals(name))
+			if (item.getIdentifier().equals(id))
 				return item;
 		}
 		return null;
@@ -68,7 +68,7 @@ public class Inventory {
 	
 	public int giveItem(Creature recipient, String name, int amount)
 	{
-		if (name.equals("Gold")||name.equals("gold"))
+		if (name.equals("gold"))
 		{
 			int realamount = loseGold(amount);
 			recipient.getInventory().findGold(realamount);

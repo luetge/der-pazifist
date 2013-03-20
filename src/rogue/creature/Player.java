@@ -4,6 +4,7 @@ import jade.core.Dialog;
 import jade.fov.RayCaster;
 import jade.fov.ViewField;
 import jade.ui.Camera;
+import jade.ui.EndScreen;
 import jade.ui.HUD;
 import jade.util.Lambda;
 import jade.util.Lambda.FilterFunc;
@@ -13,6 +14,7 @@ import jade.util.datatype.Direction;
 import jade.util.datatype.Door;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import pazi.behaviour.KeyboardGeneral;
@@ -22,9 +24,9 @@ import pazi.features.RoundhousePunch;
 import pazi.features.VisionFeature;
 import pazi.items.HealingPotion;
 import pazi.items.Item;
+import pazi.items.ItemFactory;
 import pazi.weapons.IMeleeWeapon;
 import pazi.weapons.IRangedCombatWeapon;
-import pazi.weapons.WeaponFactory;
 
 public class Player extends Creature implements Camera
 {
@@ -37,6 +39,7 @@ public class Player extends Creature implements Camera
     ColoredChar facesets[][];
     int currentfaceset;
     boolean canUseVisionFeature, canUseRoundhousePunch, canUseMeditate, canUseRedemption;
+    boolean godmode;
 
     public Player()
     {
@@ -63,8 +66,7 @@ public class Player extends Creature implements Camera
         setWalkBehaviour(new KeyboardWalk());
         setBehaviour(new PlayerBehaviour());
         addGeneralFeature(new KeyboardGeneral());
-        meleeWeapon = (IMeleeWeapon) WeaponFactory.createWeapon("fist", this);
-        //TODO Singleton?
+        meleeWeapon = (IMeleeWeapon) ItemFactory.createWeapon("fist", this);
         
         roundhousePunch = new RoundhousePunch();
         this.addGeneralFeature(roundhousePunch);
@@ -73,6 +75,21 @@ public class Player extends Creature implements Camera
         canUseRoundhousePunch = false;
         canUseVisionFeature = false;
         canUseRedemption = false;
+        godmode = false;
+    }
+    
+    public boolean getGodMode()
+    {
+    	return godmode;
+    }
+    
+    public void setGodMode(boolean godmode)
+    {
+    	this.godmode = godmode;
+    	if (this.godmode)
+    		world().setMessage("GOD MODE ACTIVATED");
+    	else
+    		world().setMessage("GOD MODE DEACTIVATED");
     }
     
     @Override
@@ -129,6 +146,8 @@ public class Player extends Creature implements Camera
     
     @Override
     public void takeDamage(int d, Creature source) {
+    	if (godmode)
+    		return;
     	super.takeDamage(d, source);
     	updateHP();
     }   
@@ -176,16 +195,17 @@ public class Player extends Creature implements Camera
 	
 	public void gainXp(int xp){
 		this.xp += xp;
-		if (this.xp>=lvl*100)
+		System.out.println(25*(lvl*lvl + 3*lvl));
+		if (this.xp>= 25*(lvl*lvl + 3*lvl))
 			levelUp();
-			
+		HUD.setXP(this.xp);	
 	}
 
-	public Iterable<Creature> getCreaturesInViewfield() {
+	public Iterable<Monster> getMonstersInViewfield() {
 		final Collection<Coordinate> coords = fov.getViewField(world(), pos(), radius);
-		return Lambda.filter(world().getActors(Creature.class), new FilterFunc<Creature>() {
+		return Lambda.filter(world().getActors(Monster.class), new FilterFunc<Monster>() {
 			@Override
-			public boolean filter(Creature element) {
+			public boolean filter(Monster element) {
 				return element.getHP() > 0 && element.getFace().ch() != ' ' && !Player.class.isAssignableFrom(element.getClass()) && coords.contains(element.pos());
 			}
 		});
@@ -219,7 +239,7 @@ public class Player extends Creature implements Camera
 	@Override
 	public void setMeleeWeapon(IMeleeWeapon weapon) {
 		if (weapon == null)
-			super.setMeleeWeapon((IMeleeWeapon) WeaponFactory.createWeapon("fist"));
+			super.setMeleeWeapon((IMeleeWeapon) ItemFactory.createWeapon("fist"));
 		else
 			super.setMeleeWeapon(weapon);
 		HUD.setWeaponLbl(meleeWeapon, rcWeapon);
@@ -233,8 +253,18 @@ public class Player extends Creature implements Camera
 	
 	@Override
 	public void killedSomeone(Creature creature) {
+		this.gainXp(creature.getXp());
 		increaseRage(20);
 		increaseFaith(-20);
+		String id = creature.getIdentifier();
+		if(id.startsWith("bandit"))
+			EndScreen.BanditKilled();
+		else if (id.startsWith("zombie"))
+			EndScreen.ZombieKilled();
+		else if (id.startsWith("alien"))
+			EndScreen.AlienKilled();
+		else if (id.startsWith("sniper"))
+			EndScreen.SniperKilled();
 	}
 
 	public void meditate() {
@@ -255,10 +285,9 @@ public class Player extends Creature implements Camera
 		if (target.isPassable()){
 			target.expire();
 			gainHP(10);
-			increaseFaith(30);
+			increaseFaith(-30);
 			this.appendMessage("Ich nehme deine Sünden auf mich. Deine Seele wird nun Frieden finden.");
 		}
-		
 	}
 
 	private void increaseFaith(int i) {
@@ -283,19 +312,21 @@ public class Player extends Creature implements Camera
 		this.lvl += 1;
 		HUD.setLevel(this.lvl);
 		this.maxHp += 10;
-		this.hp=this.maxHp;
+		setHP(getHP() + 10);
 		HUD.setHP(getHP(),this.maxHp);
 		this.min_d += 5;
 		this.max_d += 5;
+		world().setMessage("Du has Level " + this.lvl + " erreicht.");
+		world().appendMessage("Du has Level " + this.lvl + " erreicht.");
 		if (lvl == 2){
 			canUseVisionFeature = true;
-			String str = "Ich habe gerade die göttliche Sicht erlernt, Papa sei Dank! ('F')";
+			String str = "Ich habe gerade die göttliche Sicht erlernt, Papa sei Dank! ('1')";
 			world().setActiveDialog(Dialog.createSimpleTextDialog("Der PaziFist", str));
 			this.appendMessage(str);
 		}
 		if (lvl == 4){
 			canUseMeditate = true;
-			String str = "Ich kann nun meditieren. Zur Beruhigung und Stärkung meines Glaubens. ('M')";
+			String str = "Ich kann nun meditieren. Zur Beruhigung und Stärkung meines Glaubens. ('2')";
 			world().setActiveDialog(Dialog.createSimpleTextDialog("Der PaziFist", str));
 			this.appendMessage(str);
 		}
@@ -307,10 +338,31 @@ public class Player extends Creature implements Camera
 		}
 		if (lvl == 6){
 			canUseRoundhousePunch = true;
-			String str = "AAAAAHHHHHHHH! ROUNDHOUSEPUNCH freigeschaltet (bei mind. 80% Rage: 'R')";
+			String str = "AAAAAHHHHHHHH! ROUNDHOUSEPUNCH freigeschaltet (bei mind. 80% Rage: '4')";
 			world().setActiveDialog(Dialog.createSimpleTextDialog("Der PaziFist", str));
 			this.appendMessage(str);
 		}
+		
+	}
+
+	public void showHelp() {
+		ArrayList<String> helpList = new ArrayList<String>();
+		helpList.add("Bewegen mit Pfeiltasten");
+		helpList.add("Angreifen oder reden mit Gegenlaufen");
+		helpList.add("Heiltrank benutzen: 'H'");
+		helpList.add("Fernkampfwaffe: Leertaste + Richtung");
+		if (canUseVisionFeature){
+			helpList.add("Göttliche Sicht: '1' (20 Faith)");
+				if (canUseMeditate){
+					helpList.add("Meditation: '2'");
+						if (canUseRedemption){
+							helpList.add("Seele eines Toten erlösen: Auf seiner Leiche stehen und '3' (30 Faith)");
+							if (canUseRoundhousePunch)
+								helpList.add("Roundhousepunch: '4' (80 Rage)");
+						}
+				}
+		}
+		world().setActiveDialog(Dialog.createSimpleTextDialog(null, helpList));		
 		
 	}
 

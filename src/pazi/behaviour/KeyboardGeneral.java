@@ -1,5 +1,7 @@
 package pazi.behaviour;
 
+import jade.core.Dialog;
+
 import org.lwjgl.input.Keyboard;
 
 import pazi.features.IFeature;
@@ -12,20 +14,26 @@ public class KeyboardGeneral implements IFeature<Player> {
 		if(player.hasActed())
 			return;
 		switch(player.world().getCurrentKey()) {
+		    case Keyboard.KEY_G:
+		    	player.setGodMode(!player.getGodMode());
+		    	break;
 			case Keyboard.KEY_H:
 				player.drinkHealingPotion();
 				break;
-			case Keyboard.KEY_F:
+			case Keyboard.KEY_1:
 				player.increaseFOV();
 				break;
-			case Keyboard.KEY_R:
+			case Keyboard.KEY_4:
 				player.roundhousePunch();
 				break;
-			case Keyboard.KEY_M:
+			case Keyboard.KEY_2:
 				player.meditate();
 				break;
 			case Keyboard.KEY_3:
 				player.redeem();
+				break;
+			case Keyboard.KEY_F1:
+				player.showHelp();
 				break;
 			default:
 				return;

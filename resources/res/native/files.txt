@@ -10,7 +10,6 @@ liblwjgl.jnilib
 liblwjgl.so
 libopenal64.so
 libopenal.so
-lwjgl64.dll
 lwjgl.dll
 OpenAL32.dll
 OpenAL64.dll

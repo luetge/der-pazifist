@@ -38,6 +38,7 @@ public abstract class Actor extends Messenger
     protected LinkedList<IFeature> generalFeatures = new LinkedList<IFeature>();
     boolean passable;
 	protected IBehaviour behaviour;
+	private String identifier;
 	/**
 	 * Gibt an, ob im aktuellen Zug bereits eine Aktion durchgeführt wurde.
 	 */
@@ -56,7 +57,20 @@ public abstract class Actor extends Messenger
         expired = false;
         holds = new HashSet<Actor>();
         passable = false;
+        setIdentifier(name);
     }
+    
+    
+    public void setIdentifier (String id)
+    {
+    	identifier = id;
+    }
+    
+    public String getIdentifier ()
+    {
+    	return identifier;
+    }
+
 
     /**
      * Performs the actions of this {@code Actor}. Normally this would be called by the

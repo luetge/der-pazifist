@@ -30,7 +30,7 @@
 
     <jar destfile="${dist}/Der-Pazifist.jar">
        <fileset dir="${build}" />
-       <fileset dir="." includes="res/**" />
+       <fileset dir="resources" />
        <restrict>
          <name name="**/*.class" />
          <archives>
@@ -41,6 +41,22 @@
        </restrict>
        <manifest>
          <attribute name="Main-Class" value="rogue.Rogue" />
+       </manifest>
+    </jar>
+
+    <jar destfile="${dist}/Der-Pazifist-applet.jar">
+       <fileset dir="${build}" />
+       <fileset dir="resources" />
+       <restrict>
+         <name name="**/*.class" />
+         <archives>
+            <zips>
+              <fileset dir="src/lib" includes="**/*.jar" />
+            </zips>
+         </archives>
+       </restrict>
+       <manifest>
+         <attribute name="Main-Class" value="pazi.applet.PaziFistApplet" />
        </manifest>
     </jar>
 

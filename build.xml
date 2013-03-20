@@ -43,26 +43,20 @@
          <attribute name="Main-Class" value="rogue.Rogue" />
        </manifest>
     </jar>
+  </target>
 
-    <jar destfile="${dist}/Der-Pazifist-applet.jar">
-       <fileset dir="${build}" />
-       <fileset dir="resources" />
-       <restrict>
-         <name name="**/*.class" />
-         <archives>
-            <zips>
-              <fileset dir="src/lib" includes="**/*.jar" />
-            </zips>
-         </archives>
-       </restrict>
-       <manifest>
-         <attribute name="Main-Class" value="pazi.applet.PaziFistApplet" />
-       </manifest>
-    </jar>
 
-    <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-<!--    <jar jarfile="${dist}/Der-Pazifist-${DSTAMP}.jar" basedir="${build}"/>
-//-->
+  <target name="getdown" depends="dist" description="generate signatures for getdown">
+    <property file="keystore.prop" />
+    <copy file="${dist}/Der-Pazifist.jar" tofile="getdown/pazifist/Der-Pazifist.jar" />
+
+    <taskdef name="digest" classname="com.threerings.getdown.tools.DigesterTask"
+             classpath="util/getdown-tools-1.2.jar" />
+    <digest appdir="getdown/pazifist" keystore="getdown/keystore" storepass="${keystorepass}" alias="pazikey" />
+
+    <signjar keystore="getdown/keystore" alias="pazikey" storepass="${keystorepass}">
+       <fileset dir="getdown/pazifist" includes="getdown-client.jar" />
+    </signjar>
   </target>
 
   <target name="clean"

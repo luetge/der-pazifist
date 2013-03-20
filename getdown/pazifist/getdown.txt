@@ -1,0 +1,7 @@
+appbase = file:///home/bude/mokaga/dev/der-pazifist/getdown/pazifist/
+
+ui.name = Der Pazifist
+
+code = Der-Pazifist.jar
+
+class = rogue.Rogue

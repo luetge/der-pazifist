@@ -20,6 +20,7 @@ import pazi.weapons.IMeleeWeapon;
 import pazi.weapons.IRangedCombatWeapon;
 
 import rogue.creature.Creature;
+import rogue.creature.Monster;
 
 public class HUD {
 	private static class MyLabel extends JLabel {
@@ -32,7 +33,7 @@ public class HUD {
 		}
 	}
 	protected static JLabel lblHP, lblAgil, lblFaith, lblRage, lblLevel, lblGold, lblXP;
-	protected static JTextArea taCreatures, taEquip;
+	protected static JTextArea taMonsters, taEquip;
 	protected static int fontHeight;
 	protected static JFrame hud;
 	
@@ -56,10 +57,10 @@ public class HUD {
 			pnlStats.setLayout(new GridLayout(7,2));
 			hud.add(pnlStats, BorderLayout.NORTH);
 			addLabels(pnlStats);
-			taCreatures = new JTextArea();
-			JScrollPane scrollpane = new JScrollPane(taCreatures);
-			taCreatures.setBackground(Color.black);
-			taCreatures.setForeground(Color.white);
+			taMonsters = new JTextArea();
+			JScrollPane scrollpane = new JScrollPane(taMonsters);
+			taMonsters.setBackground(Color.black);
+			taMonsters.setForeground(Color.white);
 			scrollpane.getViewport().setBackground(Color.black);
 			scrollpane.setBorder(null);
 			scrollpane.setForeground(Color.black);
@@ -138,10 +139,10 @@ public class HUD {
 		lblGold.setText("" +amount);
 	}
 	
-	public static void setCreatures(Iterable<Creature> creatures) {
-		taCreatures.setText("");
-		for(Creature creature : creatures)
-			taCreatures.append("\n" + creature.getName() + " (" + creature.getHP() + " HP)");
+	public static void setMonsters(Iterable<Monster> monsters) {
+		taMonsters.setText("");
+		for(Monster monster: monsters)
+			taMonsters.append("\n" + monster.getName() + " (" + monster.getHP() + " HP)");
 	}
 	
 	public static void setWeaponLbl(IMeleeWeapon melee, IRangedCombatWeapon rcWeapon) {

@@ -202,11 +202,11 @@ public class Player extends Creature implements Camera
 		HUD.setXP(this.xp);	
 	}
 
-	public Iterable<Creature> getCreaturesInViewfield() {
+	public Iterable<Monster> getMonstersInViewfield() {
 		final Collection<Coordinate> coords = fov.getViewField(world(), pos(), radius);
-		return Lambda.filter(world().getActors(Creature.class), new FilterFunc<Creature>() {
+		return Lambda.filter(world().getActors(Monster.class), new FilterFunc<Monster>() {
 			@Override
-			public boolean filter(Creature element) {
+			public boolean filter(Monster element) {
 				return element.getHP() > 0 && element.getFace().ch() != ' ' && !Player.class.isAssignableFrom(element.getClass()) && coords.contains(element.pos());
 			}
 		});

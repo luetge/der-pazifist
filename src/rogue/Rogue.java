@@ -66,14 +66,18 @@ public class Rogue
 		}
 		
 
+	}
+	
+    public boolean run () throws InterruptedException
+	{
 		view.displayScreen (new AsciiMap("res/start"));
 		
 		view.loadTiles();
-	}
-	
-    public void run () throws InterruptedException
-	{
-    	running = true;
+		
+		if (view.closeRequested())
+			return false;
+
+		running = true;
     	Log.showLogFrame(true);
     	Backpack.showBPFrame(true);
     	HUD.setVisible(true);
@@ -130,6 +134,7 @@ public class Rogue
     		}
     	}
         running = false;
+        return true;
 	}
         
     private void showMessages() throws InterruptedException {
@@ -231,12 +236,15 @@ public class Rogue
     {
         try {
         	boolean useGLview = true;
-        	if (args.length == 1 && args[0].equals("-noglview"))
-        		useGLview = false;
+        	for (String arg : args)
+        	{
+        		if (arg.equals("-noglview"))
+        			useGLview = false;
+        	}
         	prepareLWJGL();
         	Rogue rogue = new Rogue (useGLview);
-        	rogue.run ();
-        	rogue.finish ();
+        	if (rogue.run ())
+        		rogue.finish ();
         	cleanupLWJGL();
         
         	System.exit(0);

@@ -586,6 +586,10 @@ public class LegacyView extends View {
 	public boolean closeRequested() {
 		return closeRequested;
 	}
+	
+	public void resetCloseRequested() {
+		closeRequested = false;
+	}
 
 	@Override
 	public void drawBackground(Coordinate coord, Color background) {

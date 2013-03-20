@@ -232,6 +232,7 @@ public abstract class View {
 	public abstract void displayScreen (AsciiMap screen);
 	
 	public abstract boolean closeRequested ();
+	public abstract void resetCloseRequested();
 	
 	public abstract void drawBackground (Coordinate coord, Color background);
 	

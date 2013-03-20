@@ -196,16 +196,17 @@ public class Player extends Creature implements Camera
 	
 	public void gainXp(int xp){
 		this.xp += xp;
-		if (this.xp>=100*lvl)
+		System.out.println(25*(lvl*lvl + 3*lvl));
+		if (this.xp>= 25*(lvl*lvl + 3*lvl))
 			levelUp();
 		HUD.setXP(this.xp);	
 	}
 
-	public Iterable<Creature> getCreaturesInViewfield() {
+	public Iterable<Monster> getMonstersInViewfield() {
 		final Collection<Coordinate> coords = fov.getViewField(world(), pos(), radius);
-		return Lambda.filter(world().getActors(Creature.class), new FilterFunc<Creature>() {
+		return Lambda.filter(world().getActors(Monster.class), new FilterFunc<Monster>() {
 			@Override
-			public boolean filter(Creature element) {
+			public boolean filter(Monster element) {
 				return element.getHP() > 0 && element.getFace().ch() != ' ' && !Player.class.isAssignableFrom(element.getClass()) && coords.contains(element.pos());
 			}
 		});

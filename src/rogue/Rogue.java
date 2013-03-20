@@ -104,7 +104,7 @@ public class Rogue
     	}
 
 		view.drawWorld(level.world());
-    	HUD.setCreatures(player.getCreaturesInViewfield());
+    	HUD.setMonsters(player.getMonstersInViewfield());
 		showMessages();
     	while (!player.expired() && !view.closeRequested())
     	{
@@ -136,7 +136,7 @@ public class Rogue
     				if (door != null)
     					level.stepThroughDoor(door);
     				view.drawWorld(level.world());
-    	        	HUD.setCreatures(player.getCreaturesInViewfield());
+    	        	HUD.setMonsters(player.getMonstersInViewfield());
     				showMessages();
     			}
     		}

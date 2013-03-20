@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.Reader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -318,6 +319,64 @@ public class AsciiMap {
 				this.aliases.put(s[0],s[1]);
 			}
 		}
+		
+		private class BlockParser
+		{
+			ArrayList<String> block;
+			public BlockParser(ArrayList<String> block)
+			{
+				this.block = block;  
+				
+			}
+			
+			public void execute (MutableCoordinate coord)
+			{
+				for (int i = 0; i < block.size(); i++)
+				{
+					String str = block.get(i);
+					if (str.startsWith("¥yrandom:"))
+					{
+						String params[] = str.trim().substring(9, str.length()-1).split(",");
+						Guard.verifyState(params.length == 3);
+						Integer randomnumber;
+						if (params[0].equals("new"))
+						{
+							randomnumber = Dice.global.nextInt(Integer.parseInt(params[1]),
+									Integer.parseInt(params[2]));
+						}
+						else
+						{
+							randomnumber = randomnumbers.get(params[0]);
+							if (randomnumber == null)
+							{
+								randomnumber = Dice.global.nextInt(Integer.parseInt(params[1]),
+										Integer.parseInt(params[2]));
+								randomnumbers.put(params[0], randomnumber);
+							}
+						}
+						
+						ArrayList<String> subblock = new ArrayList<String> ();
+						String endstr = "¥yrandomend:" + params[0] + "¥";
+						i++;
+						str = block.get(i);
+						while (!str.equals(endstr))
+						{
+							subblock.add(str);
+							i++;
+							str = block.get(i);
+						}
+						
+						for (int c = 0; c < randomnumber; c++)
+							new BlockParser(subblock).execute(coord);
+
+						continue;
+					}
+					LineParser lineparser = new LineParser(str);
+					lineparser.execute(coord);
+					coord.setXY(0,coord.y()+1);
+				}
+			}
+		}
 	
 		public void load(Reader r)
 		{
@@ -332,13 +391,15 @@ public class AsciiMap {
 				aliases = new HashMap<String,String>();
 				randomnumbers = new HashMap<String, Integer> ();
 				parseAliases(reader.readLine());
+				ArrayList<String> lines = new ArrayList<String>();
 				while ((str = reader.readLine ()) != null)
 				{
-					LineParser lineparser = new LineParser(str);
-					lineparser.execute(coord);
-					coord.setXY(0,coord.y()+1);
+					lines.add(str);
 				}
 				reader.close();
+
+				new BlockParser(lines).execute(coord);
+
 				width++;
 				height++;
 			} catch (IOException e) {

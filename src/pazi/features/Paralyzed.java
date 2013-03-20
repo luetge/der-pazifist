@@ -12,6 +12,7 @@ public class Paralyzed implements IFeature<Creature> {
 	}
 	
 	public Paralyzed(int roundsToWait, Creature source, Creature victim){
+		System.out.println(source.getIdentifier());
 		if (source != null && source.getIdentifier() == "alien1")
 			source.world().appendMessage(source.getName() + " bewirft " + victim.getName() + " mit Schleim.");
 		this.roundsToWait = roundsToWait;

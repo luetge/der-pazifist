@@ -4,6 +4,7 @@ import jade.core.Dialog;
 import jade.fov.RayCaster;
 import jade.fov.ViewField;
 import jade.ui.Camera;
+import jade.ui.EndScreen;
 import jade.ui.HUD;
 import jade.util.Lambda;
 import jade.util.Lambda.FilterFunc;
@@ -235,6 +236,15 @@ public class Player extends Creature implements Camera
 	public void killedSomeone(Creature creature) {
 		increaseRage(20);
 		increaseFaith(-20);
+		String id = creature.getIdentifier();
+		if(id.startsWith("bandit"))
+			EndScreen.BanditKilled();
+		else if (id.startsWith("zombie"))
+			EndScreen.ZombieKilled();
+		else if (id.startsWith("alien"))
+			EndScreen.AlienKilled();
+		else if (id.startsWith("sniper"))
+			EndScreen.SniperKilled();
 	}
 
 	public void meditate() {

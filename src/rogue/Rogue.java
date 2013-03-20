@@ -26,6 +26,7 @@ import jade.core.Dialog;
 import jade.core.Messenger.Message;
 import jade.gen.map.AsciiMap;
 import jade.ui.Bagpack;
+import jade.ui.EndScreen;
 import jade.ui.GLView;
 import jade.ui.HUD;
 import jade.ui.LegacyView;
@@ -80,9 +81,7 @@ public class Rogue
 		}
         
         
-		view.displayScreen (new AsciiMap("res/start"));;
-        
-		waitForSpace();
+		view.displayScreen (new AsciiMap("res/start"));
 		
 		view.loadTiles();
 	}
@@ -161,14 +160,11 @@ public class Rogue
     	}
 	}
 
-	public void waitForSpace() throws InterruptedException{
-    }
-	
 	public void finish () throws InterruptedException
 	{
 		view.clearTiles();
-		view.displayScreen(new AsciiMap("res/end"));
-        waitForSpace();
+		EndScreen endscreen = new EndScreen("res/end");
+		endscreen.display();
 	}
 	
 	public static File createTmpDir() {

@@ -99,6 +99,7 @@ public class CreatureFactory {
 			if(creature == null)
 				System.out.println("Konnte Kreatur \"" + identifier + "\" nicht laden!");
 		}
+		creature.setIdentifier(identifier);
 		return creature;
 	}
 	

@@ -16,7 +16,7 @@ public class FrostSword extends MeleeWeaponPrototype {
 	
 	public FrostSword(Creature holder) {
 		super(0, 0, 1, "Frostschwert", new ColoredChar('t', Color.CYAN), holder);
-		this.description = "Diese Klinge fügt zwar keinen Schaden zu, paralysiert aber für 5 Runden.";
+		this.description = "Fügt zwar keinen Schaden zu, paralysiert aber für 5 Runden.";
 	}
 
 

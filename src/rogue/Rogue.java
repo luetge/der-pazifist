@@ -74,13 +74,17 @@ public class Rogue
 			level.world().addActor(CreatureFactory.createCreature("zombie1", level.world()));
 			level.world().addActor(CreatureFactory.createCreature("bandit2", level.world()));
 			level.world().addActor(CreatureFactory.createCreature("alien1", level.world()));
+			level.world().addActor(ItemFactory.createItem("vampsword"));
+			level.world().addActor(ItemFactory.createItem("frostsword"));
+
+
 
 		}
 		for (int i = 0; i < 20; i++) {
 			level.world().addActor(CreatureFactory.createCreature("sniper1", level.world()));
 		}
 		
-        
+
 		view.displayScreen (new AsciiMap("res/start"));
 		
 		view.loadTiles();

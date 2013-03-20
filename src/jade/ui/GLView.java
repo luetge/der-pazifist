@@ -395,6 +395,11 @@ public class GLView extends View {
 	{
 		while (Keyboard.getEventCharacter () != ' ')
 		{
+			if (closeRequested())
+			{
+				closeRequested = true;
+				break;
+			}
 			clear();
 			screen.render(this, new Coordinate (0,0));
 			Display.update();
@@ -405,6 +410,11 @@ public class GLView extends View {
 	public boolean closeRequested ()
 	{
 		return Display.isCloseRequested() || closeRequested;
+	}
+	
+	public void resetCloseRequested()
+	{
+		closeRequested = false;
 	}
 	
 	public void drawBackground (Coordinate coord, Color background)

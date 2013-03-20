@@ -49,6 +49,7 @@
   <target name="getdown" depends="dist" description="generate signatures for getdown">
     <property file="keystore.prop" />
     <copy file="${dist}/Der-Pazifist.jar" tofile="getdown/pazifist/Der-Pazifist.jar" />
+    <copy file="util/getdown-client-1.2.jar" tofile="getdown/pazifist/getdown-client.jar" />
 
     <taskdef name="digest" classname="com.threerings.getdown.tools.DigesterTask"
              classpath="util/getdown-tools-1.2.jar" />

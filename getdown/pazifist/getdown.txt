@@ -1,7 +1,7 @@
-appbase = file:///home/bude/mokaga/dev/der-pazifist/getdown/pazifist/
-
+appbase = http://page.mi.fu-berlin.de/mokaga/pazifist/pazifist/
 ui.name = Der Pazifist
-
+ui.progress_bar = FF0000
+ui.progress_text = 000000
 code = Der-Pazifist.jar
-
 class = rogue.Rogue
+jvmarg = -Dfile.encoding=utf-8

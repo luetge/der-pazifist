@@ -4,3 +4,9 @@ bin/
 /export.xml
 /build
 /dist
+/keystore.prop
+/getdown/pazifist/Der-Pazifist.jar
+/getdown/pazifist/cert.crt
+/getdown/pazifist/digest.txt
+/getdown/pazifist/digest.txt.sig
+/getdown/pazifist/getdown-client.jar

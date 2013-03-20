@@ -60,6 +60,7 @@ public class Log {
 			logPanel.setForeground(Color.white);
 			logFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 			logFrame.pack();
+			logFrame.setIconImage(View.getIcon());
 			logFrame.setFocusable(false);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

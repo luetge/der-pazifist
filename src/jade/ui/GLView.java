@@ -42,6 +42,7 @@ import java.nio.ByteOrder;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import org.lwjgl.BufferUtils;
@@ -211,8 +212,16 @@ public class GLView extends View {
 		this.glchars = new HashMap<Character, GLChar> ();
 	
 		this.frame = new JFrame (title);
-		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.frame.setLocation(0,0);
+		this.frame.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				closeRequested = true;
+			}
+		});
+		
+		this.frame.setIconImage(getIcon());
+		
 		this.canvas = new Canvas();
 		this.canvas.setSize(this.columns * this.tileWidth, this.rows * this.tileHeight);
 			
@@ -386,6 +395,11 @@ public class GLView extends View {
 	{
 		while (Keyboard.getEventCharacter () != ' ')
 		{
+			if (closeRequested())
+			{
+				closeRequested = true;
+				break;
+			}
 			clear();
 			screen.render(this, new Coordinate (0,0));
 			Display.update();
@@ -396,6 +410,11 @@ public class GLView extends View {
 	public boolean closeRequested ()
 	{
 		return Display.isCloseRequested() || closeRequested;
+	}
+	
+	public void resetCloseRequested()
+	{
+		closeRequested = false;
 	}
 	
 	public void drawBackground (Coordinate coord, Color background)

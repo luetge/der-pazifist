@@ -17,6 +17,7 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.color.ColorSpace;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -42,6 +43,7 @@ import java.nio.ByteOrder;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import org.lwjgl.BufferUtils;
@@ -62,6 +64,16 @@ import rogue.creature.Player;
 public abstract class View {
 	
 	private static View view = null;
+	private static Image image = null;
+	
+	public static Image getIcon () {
+		if (image == null)
+			try {
+				image = ImageIO.read(ResourceLoader.getResourceAsStream("res/icon.png"));
+			} catch (IOException e) {
+			}
+		return image;
+	}
 	
 	public abstract int tileHeight();
 	
@@ -95,8 +107,113 @@ public abstract class View {
 		View.view = view;
 	}
 	
+ 
 /*	public static void create (String title)
+=======
+	public void setCenter (Coordinate center)
+	{ 
+		this.center_x = center.x();
+		this.center_y = center.y();
+	}
+	
+	public void setCenter (int x, int y)
 	{
+		this.center_x = x;
+		this.center_y = y;
+	}
+	
+	public void loadTiles(String dirname)
+	{
+		File tiledir = new File(dirname);
+		Guard.verifyState(tiledir.isDirectory());
+		File dirs[] = tiledir.listFiles();
+		
+		for (File dir : dirs)
+		{
+			if (!dir.isDirectory())
+				continue;
+			File files[] = dir.listFiles(new FilenameFilter() {
+				public boolean accept (File dir, String name) {
+					return name.endsWith(".txt");
+				}	
+			});	
+			for (File file : files)
+			{
+				String filename = file.getPath();
+				filename = filename.substring(0, filename.length()-4) + ".png";
+			
+				try {
+					BufferedReader reader; 
+					reader = new BufferedReader(new FileReader (file));
+					String ch = reader.readLine();
+					String color = reader.readLine();
+					reader.close();
+				
+					Guard.argumentsAreNotNull(ch, color);
+				
+					gltiles.put(ColoredChar.create(ch.charAt(0), Color.decode("0x"+color)), new GLTile (filename));
+				
+				} catch(FileNotFoundException e) {
+					e.printStackTrace();
+					continue;
+				} catch (IOException e) {
+					e.printStackTrace();
+					continue;
+				}
+			}
+		}
+	}
+	
+	public int columns()
+	{
+		return columns;
+	}
+	
+	public int rows()
+	{
+		return rows;
+	}
+	
+	public void clearTiles()
+	{
+		gltiles.clear();
+	}
+	
+    static Map<Integer, Integer> keytranslatemap = createKeyTranslateMap();
+    
+    private static Map<Integer, Integer> createKeyTranslateMap()
+    {
+    	Map<Integer, Integer> map = new HashMap<Integer, Integer> ();
+    	map.put(Keyboard.KEY_SPACE, (int) ' ');
+    	map.put(Keyboard.KEY_H, (int) 'H');
+    	map.put(Keyboard.KEY_LEFT, KeyEvent.VK_LEFT);
+    	map.put(Keyboard.KEY_RIGHT, KeyEvent.VK_RIGHT);
+    	map.put(Keyboard.KEY_UP, KeyEvent.VK_UP);
+    	map.put(Keyboard.KEY_DOWN, KeyEvent.VK_DOWN);
+    	map.put(Keyboard.KEY_ESCAPE, KeyEvent.VK_ESCAPE);
+    	return map;
+    }
+	
+	public boolean nextKey ()
+	{
+		boolean state = Keyboard.next();
+		while (state && !Keyboard.getEventKeyState())
+		{
+			state = Keyboard.next();
+		}
+		return state;
+	}
+	
+	public int getKeyEvent()
+	{
+    	Integer event = keytranslatemap.get(Keyboard.getEventKey());
+    	if (event == null)
+    		return -1;
+    	return event;
+	}
+	
+	public static void create (String title)
+ 	{
 		create (title, 90, 27, 10, 16);
 	}
 	
@@ -115,6 +232,7 @@ public abstract class View {
 	public abstract void displayScreen (AsciiMap screen);
 	
 	public abstract boolean closeRequested ();
+	public abstract void resetCloseRequested();
 	
 	public abstract void drawBackground (Coordinate coord, Color background);
 	

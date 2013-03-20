@@ -1,31 +1,9 @@
 package rogue;
 
-import java.awt.Point;
-import java.awt.Toolkit;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
-
-import org.lwjgl.input.Keyboard;
-import org.newdawn.slick.util.ResourceLoader;
-
 import jade.core.Dialog;
 import jade.core.Messenger.Message;
 import jade.gen.map.AsciiMap;
-import jade.ui.Bagpack;
+import jade.ui.Backpack;
 import jade.ui.EndScreen;
 import jade.ui.GLView;
 import jade.ui.HUD;
@@ -34,11 +12,18 @@ import jade.ui.Log;
 import jade.ui.View;
 import jade.util.datatype.Door;
 
-import pazi.items.HealingPotion;
-import pazi.items.Item;
-import pazi.items.ItemFactory;
-import pazi.weapons.FrostSword;
-import pazi.weapons.VampSword;
+import java.awt.Point;
+import java.awt.Toolkit;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
+import org.newdawn.slick.util.ResourceLoader;
+
 import rogue.creature.CreatureFactory;
 import rogue.creature.Player;
 import rogue.level.Level;
@@ -77,19 +62,24 @@ public class Rogue
 		}
 		for (int i = 0; i < 20; i++) {
 			level.world().addActor(CreatureFactory.createCreature("sniper1", level.world()));
+			level.world().addActor(CreatureFactory.createCreature("necro", level.world()));
 		}
 		
 
+	}
+	
+    public boolean run () throws InterruptedException
+	{
 		view.displayScreen (new AsciiMap("res/start"));
 		
 		view.loadTiles();
-	}
-	
-    public void run () throws InterruptedException
-	{
-    	running = true;
+		
+		if (view.closeRequested())
+			return false;
+
+		running = true;
     	Log.showLogFrame(true);
-    	Bagpack.showBPFrame(true);
+    	Backpack.showBPFrame(true);
     	HUD.setVisible(true);
     	{
     		Point loc = HUD.getFrame().getLocation();
@@ -99,9 +89,9 @@ public class Rogue
         	
             Log.getLogFrame().setLocation(0, view.getFrame().getHeight()-4);
             Log.getLogFrame().setSize(view.getFrame().getWidth() + HUD.getFrame().getWidth(), Log.getLogFrame().getPreferredSize().height);
-            Bagpack.getBPFrame().setLocation(view.getFrame().getWidth() + HUD.getFrame().getWidth(), 0);
+            Backpack.getBPFrame().setLocation(view.getFrame().getWidth() + HUD.getFrame().getWidth(), 0);
             int maxwidth = Toolkit.getDefaultToolkit().getScreenSize().width - view.getFrame().getWidth() - HUD.getFrame().getWidth();
-            Bagpack.getBPFrame().setSize(Math.min(maxwidth, 400),
+            Backpack.getBPFrame().setSize(Math.min(maxwidth, 400),
             		Log.getLogFrame().getBounds().y + Log.getLogFrame().getBounds().height);
     	}
 
@@ -144,6 +134,7 @@ public class Rogue
     		}
     	}
         running = false;
+        return true;
 	}
         
     private void showMessages() throws InterruptedException {
@@ -245,12 +236,15 @@ public class Rogue
     {
         try {
         	boolean useGLview = true;
-        	if (args.length == 1 && args[0].equals("-noglview"))
-        		useGLview = false;
+        	for (String arg : args)
+        	{
+        		if (arg.equals("-noglview"))
+        			useGLview = false;
+        	}
         	prepareLWJGL();
         	Rogue rogue = new Rogue (useGLview);
-        	rogue.run ();
-        	rogue.finish ();
+        	if (rogue.run ())
+        		rogue.finish ();
         	cleanupLWJGL();
         
         	System.exit(0);

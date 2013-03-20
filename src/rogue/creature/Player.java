@@ -67,7 +67,6 @@ public class Player extends Creature implements Camera
         setBehaviour(new PlayerBehaviour());
         addGeneralFeature(new KeyboardGeneral());
         meleeWeapon = (IMeleeWeapon) ItemFactory.createWeapon("fist", this);
-        //TODO Singleton?
         
         roundhousePunch = new RoundhousePunch();
         this.addGeneralFeature(roundhousePunch);
@@ -351,6 +350,7 @@ public class Player extends Creature implements Camera
 		helpList.add("Bewegen mit Pfeiltasten");
 		helpList.add("Angreifen oder reden mit Gegenlaufen");
 		helpList.add("Heiltrank benutzen: 'H'");
+		helpList.add("Fernkampfwaffe: Leertaste + Richtung");
 		if (canUseVisionFeature){
 			helpList.add("Göttliche Sicht: '1' (20 Faith)");
 				if (canUseMeditate){

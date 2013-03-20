@@ -20,7 +20,7 @@ public class EndScreen {
 	private static String killerid = null;
 	
 	private static String nokillerstr = "Gott";
-	private static String nokillactionstr = "erschlagen";
+	private static String nokillactionstr = "erschlagen, weil er aufgegeben hat.";
 
 	private static String zombiekillerstr = "einem verrottenden Zombie";
 	private static String zombiekillactionstr = "gefressen";
@@ -96,6 +96,7 @@ public class EndScreen {
 	{
 		boolean running = true;
 		View view = View.get();
+		view.resetCloseRequested();
 		while (running)
 		{
 			view.clear();
@@ -158,7 +159,7 @@ public class EndScreen {
 				}
 			}
 			view.update();
-			while (view.nextKey())
+			while (view.nextKey() && !view.closeRequested())
 			{
 				if (view.getKeyEvent() == Keyboard.KEY_SPACE)
 				{
@@ -166,6 +167,8 @@ public class EndScreen {
 					break;
 				}
 			}
+			if (view.closeRequested())
+				return;
 		}
 	}
 }

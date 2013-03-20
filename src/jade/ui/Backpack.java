@@ -25,7 +25,7 @@ import org.newdawn.slick.util.ResourceLoader;
 import pazi.items.Inventory;
 import rogue.creature.Player;
 
-public class Bagpack {
+public class Backpack {
 	protected static JPanel bpPanel;
 	protected static JFrame bpFrame;
 	protected static int fontHeight;
@@ -88,6 +88,7 @@ public class Bagpack {
 			bpPanel.setForeground(Color.white);
 			bpFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 			bpFrame.pack();
+			bpFrame.setIconImage(View.getIcon());
 			bpFrame.setFocusable(false);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -128,7 +129,7 @@ public class Bagpack {
 	}
 	
 	public static void setInventory(Inventory inventory){
-		Bagpack.inventory = inventory;
+		Backpack.inventory = inventory;
 	}
 	
 	public static void updateInventory() {

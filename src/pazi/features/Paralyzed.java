@@ -1,6 +1,7 @@
 package pazi.features;
 
 import rogue.creature.Creature;
+import rogue.creature.Player;
 
 public class Paralyzed implements IFeature<Creature> {
 
@@ -10,6 +11,13 @@ public class Paralyzed implements IFeature<Creature> {
 		this.roundsToWait = roundsToWait;
 		creature.world().setMessage(creature.getName() + " wurde paralysiert! Für " + roundsToWait + " Runden!");
 		creature.appendMessage("Oh Nein! Ich kann mich nicht mehr bewegen! :O ");
+		System.out.println(creature.getFeatures(VisionFeature.class));
+		if (creature.getClass() == Player.class)
+			if (!creature.getFeatures(VisionFeature.class).isEmpty()){
+				//remove old VisionFeature before applying new one!
+				creature.removeFeature(creature.getFeatures(VisionFeature.class).iterator().next());
+			}
+				creature.addGeneralFeature(new VisionFeature((Player)creature, roundsToWait, 2));
 	}
 
 	@Override
@@ -21,5 +29,4 @@ public class Paralyzed implements IFeature<Creature> {
 			creature.setHasActed(true);
 		}
 	}
-
 }

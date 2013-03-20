@@ -248,7 +248,7 @@ public abstract class Creature extends Actor
 
 	public void dropInventory() {
 		if(inventory.getGold() > 0)
-			world().addActor(new Gold(inventory.getGold()), pos());
+			world().addActor(ItemFactory.createGold(inventory.getGold()), pos());
 	}
 	
 	public int getGold(int amount) {

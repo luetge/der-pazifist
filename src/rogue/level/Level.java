@@ -19,6 +19,7 @@ import java.util.Map;
 import org.newdawn.slick.util.ResourceLoader;
 
 import pazi.items.Gold;
+import pazi.items.ItemFactory;
 import rogue.creature.CreatureFactory;
 import rogue.creature.Player;
 
@@ -106,8 +107,7 @@ public class Level
     			{
     				for (int i = 0; i < 5; i++){
     					w.addActor(CreatureFactory.createCreature("zombie1", w));
-    					Gold g = new Gold();
-    					w.addActor(g);
+    					w.addActor(ItemFactory.createItem("gold"));
     				}
     			}
     		}

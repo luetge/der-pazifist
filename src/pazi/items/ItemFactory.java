@@ -32,11 +32,18 @@ public class ItemFactory {
 		return weapon;
 	}
 	
-	public static Item createItem(String identifier, Creature holder){
+	public static Item createItem(String identifier){
 		
+		if (identifier.equals("gold"))
+			return new Gold();
+		else if (identifier.equals("healingpotion"))
+			return new HealingPotion();
 		
-		
-		return (Item)createWeapon (identifier, holder);
+		return (Item)createWeapon (identifier, null);
+	}
+	
+	public static Item createGold (int amount) {
+		return new Gold(amount);
 	}
 
 	

@@ -178,7 +178,8 @@ public class Player extends Creature implements Camera
 	
 	public void gainXp(int xp){
 		this.xp += xp;
-		if (this.xp>=100*lvl)
+		System.out.println(25*(lvl*lvl + 3*lvl));
+		if (this.xp>= 25*(lvl*lvl + 3*lvl))
 			levelUp();
 		HUD.setXP(this.xp);	
 	}

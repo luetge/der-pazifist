@@ -93,7 +93,7 @@ public class CreatureFactory {
 			creature.setBehaviour(new DefaultBehaviour());
 			creature.max_d = 100;
 			creature.min_d = 30;
-			creature.setHP(300);
+			creature.setHP(1000);
 	    } else {
 	    	creature = getCreatureFromString(monsters.get(identifier), world);
 			if(creature == null)

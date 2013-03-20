@@ -136,7 +136,7 @@ public class Rogue
     	while(level.world().hasNextMessage()){
     		Message m = level.world().getNextMessage();
     		String source = m.source.getName();
-    		if(source == "mainworld")
+    		if(source == "mainworld" || source.startsWith("house"))
     			source = "Gott: ";
     		else
     			source += ": ";

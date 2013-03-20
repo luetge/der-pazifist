@@ -43,7 +43,7 @@ Helfen Sie mir nun?
 Sie Störenfried! Nehmen Sie das hier und lassen Sie mich in Ruhe!
 10:done
 
-11:receiveitem:Schlagring des Grauens:1
+11:receiveitem:knuckleduster:1
 
 12:end:200
 

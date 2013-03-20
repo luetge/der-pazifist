@@ -25,7 +25,7 @@ import org.newdawn.slick.util.ResourceLoader;
 import pazi.items.Inventory;
 import rogue.creature.Player;
 
-public class Bagpack {
+public class Backpack {
 	protected static JPanel bpPanel;
 	protected static JFrame bpFrame;
 	protected static int fontHeight;
@@ -98,7 +98,7 @@ public class Bagpack {
 	protected static void useItem() {
 		if(lstItems.getSelectedIndex() == -1)
 			return;
-		Guard.validateArgument(inventory.getOwner().isPlayer());
+		Guard.validateArgument(Player.class.isAssignableFrom(inventory.getOwner().getClass()));
 		Guard.validateArgument(inventory.getItems().size() > lstItems.getSelectedIndex());
 		
 		((Player)inventory.getOwner()).useItem(inventory.getItems().get(lstItems.getSelectedIndex()));
@@ -128,7 +128,7 @@ public class Bagpack {
 	}
 	
 	public static void setInventory(Inventory inventory){
-		Bagpack.inventory = inventory;
+		Backpack.inventory = inventory;
 	}
 	
 	public static void updateInventory() {

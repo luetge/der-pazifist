@@ -1,5 +1,6 @@
 package pazi.behaviour;
 
+import jade.ui.EndScreen;
 import jade.util.datatype.ColoredChar;
 
 import java.awt.Color;
@@ -22,8 +23,10 @@ public class DeadBehaviour implements IBehaviour<Creature> {
 		creature.setPassable(true);
 		creature.dropInventory();
 		source.killedSomeone(creature);
-		if(creature.isPlayer())
+		if(creature.isPlayer()){
 			creature.expire();
+			EndScreen.SetKiller(source.getIdentifier());
+		}
 		deadBodies.add(creature);
 	}
 	
@@ -38,7 +41,8 @@ public class DeadBehaviour implements IBehaviour<Creature> {
 
 	@Override
 	public void init(Creature actor) {
-		deadBodies.add(actor);
+		//TODO nötig? wird das nicht schon im Constructor gemacht?
+//		deadBodies.add(actor);
 	}
 
 }

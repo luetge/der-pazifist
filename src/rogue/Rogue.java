@@ -1,5 +1,17 @@
 package rogue;
 
+import jade.core.Dialog;
+import jade.core.Messenger.Message;
+import jade.gen.map.AsciiMap;
+import jade.ui.Backpack;
+import jade.ui.EndScreen;
+import jade.ui.GLView;
+import jade.ui.HUD;
+import jade.ui.LegacyView;
+import jade.ui.Log;
+import jade.ui.View;
+import jade.util.datatype.Door;
+
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.io.BufferedReader;
@@ -8,34 +20,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLDecoder;
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
 
-import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.util.ResourceLoader;
 
-import jade.core.Dialog;
-import jade.core.Messenger.Message;
-import jade.gen.map.AsciiMap;
-import jade.ui.Bagpack;
-import jade.ui.HUD;
-import jade.ui.Log;
-import jade.ui.View;
-import jade.util.datatype.Door;
-
-import pazi.items.HealingPotion;
-import pazi.items.Item;
 import pazi.weapons.KnuckleDuster;
-import pazi.weapons.WeaponFactory;
-import rogue.creature.CreatureFactory;
 import rogue.creature.Player;
 import rogue.level.Level;
 
@@ -46,12 +35,19 @@ public class Rogue
 	private View view;
 	boolean running;
 	
-	public Rogue () throws InterruptedException
+	public Rogue (boolean useGLView) throws InterruptedException
 	{
 		running = false;
 
-        View.create("Der Pazifist");
-        view = view.get();
+		view = null;
+		if (useGLView)
+		    view = GLView.create("Der Pazifist");
+		if (view == null)
+		{
+			System.err.println("Konnte kein GLView erzeugen und falle zurück auf LegacyView.");
+			view = LegacyView.create("Der Pazifist");
+		}
+		View.set(view);
         HUD.init();
 
         player = new Player();
@@ -75,8 +71,6 @@ public class Rogue
         player.setMeleeWeapon(new KnuckleDuster());
 		view.displayScreen (new AsciiMap("res/start"));;
         
-		waitForSpace();
-		
 		view.loadTiles();
 	}
 	
@@ -84,7 +78,7 @@ public class Rogue
 	{
     	running = true;
     	Log.showLogFrame(true);
-    	Bagpack.showBPFrame(true);
+    	Backpack.showBPFrame(true);
     	HUD.setVisible(true);
     	{
     		Point loc = HUD.getFrame().getLocation();
@@ -94,14 +88,14 @@ public class Rogue
         	
             Log.getLogFrame().setLocation(0, view.getFrame().getHeight()-4);
             Log.getLogFrame().setSize(view.getFrame().getWidth() + HUD.getFrame().getWidth(), Log.getLogFrame().getPreferredSize().height);
-            Bagpack.getBPFrame().setLocation(view.getFrame().getWidth() + HUD.getFrame().getWidth(), 0);
+            Backpack.getBPFrame().setLocation(view.getFrame().getWidth() + HUD.getFrame().getWidth(), 0);
             int maxwidth = Toolkit.getDefaultToolkit().getScreenSize().width - view.getFrame().getWidth() - HUD.getFrame().getWidth();
-            Bagpack.getBPFrame().setSize(Math.min(maxwidth, 400),
+            Backpack.getBPFrame().setSize(Math.min(maxwidth, 400),
             		Log.getLogFrame().getBounds().y + Log.getLogFrame().getBounds().height);
     	}
 
 		view.drawWorld(level.world());
-    	HUD.setCreatures(player.getCreaturesInViewfield());
+    	HUD.setMonsters(player.getMonstersInViewfield());
 		showMessages();
     	while (!player.expired() && !view.closeRequested())
     	{
@@ -133,7 +127,7 @@ public class Rogue
     				if (door != null)
     					level.stepThroughDoor(door);
     				view.drawWorld(level.world());
-    	        	HUD.setCreatures(player.getCreaturesInViewfield());
+    	        	HUD.setMonsters(player.getMonstersInViewfield());
     				showMessages();
     			}
     		}
@@ -154,14 +148,11 @@ public class Rogue
     	}
 	}
 
-	public void waitForSpace() throws InterruptedException{
-    }
-	
 	public void finish () throws InterruptedException
 	{
 		view.clearTiles();
-		view.displayScreen(new AsciiMap("res/end"));
-        waitForSpace();
+		EndScreen endscreen = new EndScreen("res/end");
+		endscreen.display();
 	}
 	
 	public static File createTmpDir() {
@@ -191,7 +182,12 @@ public class Rogue
 	
 	public static void extract_native_lib (String name, File dir) throws IOException
 	{
-		InputStream input = ResourceLoader.getResourceAsStream("res/native/" + name);
+		String srcname = name;
+		if (srcname.equals("lwjgl.dll"))
+		{
+			srcname = new StringBuffer(srcname).insert(5, System.getProperty("sun.arch.data.model")).toString();
+		}
+		InputStream input = ResourceLoader.getResourceAsStream("res/native/" + srcname);
 		File file = new File(dir, name);
 		if (!file.createNewFile())
 			throw new IllegalStateException("Failed to extract native library.");
@@ -202,6 +198,7 @@ public class Rogue
 		{
 			output.write(buffer, 0, len);
 		}
+		output.close();
 	}
 
 	public static void extract_native_libs (File dir)
@@ -219,21 +216,35 @@ public class Rogue
 		}
 	}
 	
+	private static File tmpdir = null;
+
+	public static void prepareLWJGL()
+	{
+    	tmpdir = createTmpDir();
+    	extract_native_libs (tmpdir);
+    	System.setProperty("org.lwjgl.librarypath", tmpdir.getAbsolutePath());
+	}
+	
+	public static void cleanupLWJGL()
+	{
+    	deleteDir(tmpdir);
+	}
+	
     public static void main(String[] args)
     {
-    	File tmpdir = null;
         try {
-        	tmpdir = createTmpDir();
-        	extract_native_libs (tmpdir);
-        	System.setProperty("org.lwjgl.librarypath", tmpdir.getAbsolutePath());//new File("res/native").getAbsolutePath());
-        	Rogue rogue = new Rogue ();
+        	boolean useGLview = true;
+        	if (args.length == 1 && args[0].equals("-noglview"))
+        		useGLview = false;
+        	prepareLWJGL();
+        	Rogue rogue = new Rogue (useGLview);
         	rogue.run ();
         	rogue.finish ();
-        	deleteDir(tmpdir);
+        	cleanupLWJGL();
         
         	System.exit(0);
 		} catch (Exception e) {
-			deleteDir(tmpdir);
+        	cleanupLWJGL();
 			e.printStackTrace();
 		}
     }

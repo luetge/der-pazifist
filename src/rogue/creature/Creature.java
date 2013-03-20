@@ -18,13 +18,12 @@ import pazi.behaviour.DeadBehaviour;
 import pazi.behaviour.DoNothingBehaviour;
 import pazi.behaviour.IBehaviour;
 import pazi.features.IBeforeAfterFeature;
-import pazi.items.Gold;
 import pazi.items.Inventory;
 import pazi.items.Item;
+import pazi.items.ItemFactory;
 import pazi.weapons.IMeleeWeapon;
 import pazi.weapons.IRangedCombatWeapon;
 import pazi.weapons.IWeapon;
-import pazi.weapons.WeaponFactory;
 import pazi.weapons.WeaponPrototype;
 
 public abstract class Creature extends Actor
@@ -58,7 +57,7 @@ public abstract class Creature extends Actor
 
         walkBehaviour = DoNothingBehaviour.getInstance();
         setBehaviour(DoNothingBehaviour.getInstance());
-        meleeWeapon = (IMeleeWeapon) WeaponFactory.createWeapon("headnut", this);
+        meleeWeapon = (IMeleeWeapon) ItemFactory.createWeapon("headnut", this);
     }
     
     public void setFace (Direction dir, ColoredChar face)
@@ -165,9 +164,9 @@ public abstract class Creature extends Actor
 	}
     
     public void fight(Creature creature, int hp, double chance, boolean melee) {
-    	if (creature.isPassable())
+    	if (creature != null && creature.isPassable())
     		return;
-    	if(hasActed())
+     	if(hasActed())
     		return;
     	// FIGHT!!!
 		for(IBeforeAfterFeature<Creature> feature : fightFeatures)
@@ -233,7 +232,7 @@ public abstract class Creature extends Actor
 
 	public void dropInventory() {
 		if(inventory.getGold() > 0)
-			world().addActor(new Gold(inventory.getGold()), pos());
+			world().addActor(ItemFactory.createGold(inventory.getGold()), pos());
 	}
 	
 	public int getGold(int amount) {
@@ -332,12 +331,15 @@ public abstract class Creature extends Actor
 
 	public void setMeleeWeapon(IMeleeWeapon weapon) {
 		if (weapon == null)
-			meleeWeapon = (IMeleeWeapon) WeaponFactory.createWeapon("headnut");
-		else
+			meleeWeapon = (IMeleeWeapon) ItemFactory.createWeapon("headnut");
+		else{
+			inventory.addItem((Item)meleeWeapon);
 			meleeWeapon = weapon;
+		}
 	}
 	
 	public void setRCWeapon(IRangedCombatWeapon weapon) {
+		inventory.addItem((Item)rcWeapon);
 		rcWeapon = weapon;
 	}
 	

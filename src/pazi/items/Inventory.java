@@ -1,7 +1,7 @@
 package pazi.items;
 
 import jade.core.Actor;
-import jade.ui.Bagpack;
+import jade.ui.Backpack;
 import jade.ui.HUD;
 import jade.util.Guard;
 
@@ -19,12 +19,12 @@ public class Inventory {
 	public Inventory(Creature owner) {
 		this.owner = owner;
 		if(Player.class.isAssignableFrom(owner.getClass()))
-			Bagpack.setInventory(this);
+			Backpack.setInventory(this);
 	}
 	
 	protected void update() {
 		if(Player.class.isAssignableFrom(owner.getClass()))
-			Bagpack.updateInventory();
+			Backpack.updateInventory();
 	}
 	
 	public void addItem(Item item){

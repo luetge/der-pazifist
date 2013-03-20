@@ -3,10 +3,9 @@ package pazi.weapons;
 import jade.ui.View;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
+import jade.util.datatype.Direction;
 
 import java.awt.Color;
-
-import org.lwjgl.input.Keyboard;
 
 import rogue.creature.Creature;
 import rogue.creature.Player;
@@ -20,49 +19,112 @@ public class Shotgun extends RCWeaponPrototype {
 
 	@Override
 	public int getDamage(Creature attacker, Creature victim) {
-		if(attacker.pos().x() != victim.x() && attacker.pos().y() != victim.pos().y() || attacker.pos().distance(victim.pos()) > getRange())
+		if(attacker == null || victim == null || attacker.pos().distance(victim.pos()) > getRange())
 			return 0;
-		return 10;
+		return (int)(getRange()+1-attacker.pos().distance(victim.pos()))*10;
 	}
 	
 	@Override
 	public void shoot(Creature attacker, Creature victim) {
 		if(Player.class.isAssignableFrom(attacker.getClass())) {
 			// Player-Verhalten
-			while(View.get().nextKey())
-			{
-				if (View.get().getKeyEvent() == Keyboard.KEY_0)
-					System.out.println("hALLO");
-			}
-				return;
+			System.out.println("In welche Richtung soll geschossen werden?");
+			while(!View.get().nextKey())
+				View.get().update();
+			Direction dir = Direction.keyToDir(View.get().getKeyEvent());
+			if(dir == null || Math.abs(dir.dx()) + Math.abs(dir.dy()) != 1) 
+				System.out.println("Dann eben nicht!");
+			else
+				shoot(attacker, dir);
+			
+			return;
 		}
 	}
 	
+	private void shoot(Creature attacker, Direction dir) {
+		Coordinate[] coords = getHitCoordinates(attacker.pos(), dir);
+		setHasActed(true);
+		if(coords == null)
+			return;
+		if(hitCoord(attacker, coords[0]))
+			return;
+		if(!hitCoord(attacker, coords[1])) {
+			hitCoord(attacker, coords[4]);
+			hitCoord(attacker, coords[5]);
+		}
+		if(!hitCoord(attacker, coords[2])) 
+			hitCoord(attacker, coords[6]);
+		if(!hitCoord(attacker, coords[3])) {
+			hitCoord(attacker, coords[7]);
+			hitCoord(attacker, coords[8]);
+		}
+	}
+	
+	private boolean hitCoord(Creature attacker, Coordinate pos) {
+	for(Creature creature : attacker.world().getActorsAt(Creature.class, pos)){
+		if(!creature.isPassable()){
+			super.shoot(attacker, creature);
+			return true;
+		}
+	}
+	return false;
+	}
+
 	protected Coordinate[] getHitCoordinates(Creature attacker, Creature victim) {
-		boolean bHorizontal = attacker.pos().y() == victim.pos().y();
-		return getHitCoordinates(attacker.pos(), bHorizontal, bHorizontal ? attacker.pos().x() < victim.pos().x() : attacker.pos().y() < victim.pos().y());
+		return getHitCoordinates(attacker.pos(), attacker.pos().directionTo(victim.pos()));
 	}
 	
-	protected Coordinate[] getHitCoordinates(Coordinate pos, boolean bHorizontal, boolean toTopRight) {
+	protected Coordinate[] getHitCoordinates(Coordinate pos, Direction dir) {
+		
+		if(dir == null || Math.abs(dir.dx()) + Math.abs(dir.dy()) != 1 || pos == null) 
+			return null;
+		
+		Direction perpendicular = getPerpendicularDirection(dir);
+		
 		Coordinate[] coord = new Coordinate[9];
-		coord[0] = new Coordinate(1, 0);
+		coord[0] = pos.getTranslated(dir);
 		
-		coord[1] = new Coordinate(2, 1);
-		coord[2] = new Coordinate(2, 0);
-		coord[3] = new Coordinate(2, -1);
+		coord[1] = coord[0].getTranslated(dir);
+		coord[2] = coord[1].getTranslated(perpendicular);
+		coord[3] = coord[1].getTranslated(getOppositeDirection(perpendicular));
 		
-		coord[4] = new Coordinate(3, 2);
-		coord[5] = new Coordinate(3, 1);
-		coord[6] = new Coordinate(3, 0);
-		coord[7] = new Coordinate(3, -1);
-		coord[8] = new Coordinate(3, -2);
-		
-		for(int i=0; i < 8; i++) {
-			coord[i] = (toTopRight ? coord[i] : coord[i].getTranslated(-2*coord[i].x(), 0));
-			coord[i] = (bHorizontal ? coord[i] : coord[i].getSwapped()).getTranslated(pos); 
-		}
+		coord[4] = coord[1].getTranslated(dir);
+		coord[5] = coord[4].getTranslated(perpendicular);
+		coord[6] = coord[5].getTranslated(perpendicular);
+		coord[7] = coord[4].getTranslated(getOppositeDirection(perpendicular));
+		coord[8] = coord[7].getTranslated(getOppositeDirection(perpendicular));
 		
 		return coord;
+	}
+	
+	protected Direction getPerpendicularDirection(Direction dir) {
+		switch(dir) {
+		case NORTH:
+			return Direction.EAST;
+		case SOUTH:
+			return Direction.WEST;
+		case WEST:
+			return Direction.NORTH;
+		case EAST:
+			return Direction.SOUTH;
+		default:
+				return null;
+		}
+	}
+	
+	protected Direction getOppositeDirection(Direction dir) {
+		switch(dir) {
+		case NORTH:
+			return Direction.SOUTH;
+		case SOUTH:
+			return Direction.NORTH;
+		case WEST:
+			return Direction.EAST;
+		case EAST:
+			return Direction.WEST;
+		default:
+				return null;
+		}
 	}
 	
 	@Override

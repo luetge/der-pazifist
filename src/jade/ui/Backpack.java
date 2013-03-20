@@ -23,7 +23,7 @@ import javax.swing.JTextPane;
 import pazi.items.Inventory;
 import rogue.creature.Player;
 
-public class Bagpack {
+public class Backpack {
 	protected static JPanel bpPanel;
 	protected static JFrame bpFrame;
 	protected static int fontHeight;
@@ -106,8 +106,8 @@ public class Bagpack {
 	protected static void sendDeadAcuteKey(){
 		try {
 			Robot robot = new Robot();
-			robot.keyPress(KeyEvent.VK_SPACE);
-			robot.keyRelease(KeyEvent.VK_SPACE);
+			robot.keyPress(KeyEvent.VK_F10);
+			robot.keyRelease(KeyEvent.VK_F10);
 		} catch (AWTException e) {
 			e.printStackTrace();
 		}
@@ -126,7 +126,7 @@ public class Bagpack {
 	}
 	
 	public static void setInventory(Inventory inventory){
-		Bagpack.inventory = inventory;
+		Backpack.inventory = inventory;
 	}
 	
 	public static void updateInventory() {

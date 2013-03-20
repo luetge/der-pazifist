@@ -8,6 +8,8 @@ public class PlayerBehaviour implements IBehaviour<Creature> {
 	public void act(Creature creature) {
 		if(creature.hasActed())
 			return;
+		if(creature.world().getCurrentKey() == ' ')
+			creature.fight(null, false);
 		Direction dir = Direction.keyToDir(creature.world().getCurrentKey());
 		creature.interact(dir);
 		creature.walk();

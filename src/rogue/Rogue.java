@@ -7,7 +7,7 @@ import java.io.File;
 import jade.core.Dialog;
 import jade.core.Messenger.Message;
 import jade.gen.map.AsciiMap;
-import jade.ui.Bagpack;
+import jade.ui.Backpack;
 import jade.ui.HUD;
 import jade.ui.Log;
 import jade.ui.View;
@@ -64,7 +64,7 @@ public class Rogue
 	{
     	running = true;
     	Log.showLogFrame(true);
-    	Bagpack.showBPFrame(true);
+    	Backpack.showBPFrame(true);
     	HUD.setVisible(true);
     	{
     		Point loc = HUD.getFrame().getLocation();
@@ -74,9 +74,9 @@ public class Rogue
         	
             Log.getLogFrame().setLocation(0, view.getFrame().getHeight()-4);
             Log.getLogFrame().setSize(view.getFrame().getWidth() + HUD.getFrame().getWidth(), Log.getLogFrame().getPreferredSize().height);
-            Bagpack.getBPFrame().setLocation(view.getFrame().getWidth() + HUD.getFrame().getWidth(), 0);
+            Backpack.getBPFrame().setLocation(view.getFrame().getWidth() + HUD.getFrame().getWidth(), 0);
             int maxwidth = Toolkit.getDefaultToolkit().getScreenSize().width - view.getFrame().getWidth() - HUD.getFrame().getWidth();
-            Bagpack.getBPFrame().setSize(Math.min(maxwidth, 400),
+            Backpack.getBPFrame().setSize(Math.min(maxwidth, 400),
             		Log.getLogFrame().getBounds().y + Log.getLogFrame().getBounds().height);
     	}
 

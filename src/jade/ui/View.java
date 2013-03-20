@@ -378,6 +378,7 @@ public class View {
     	map.put(Keyboard.KEY_RIGHT, KeyEvent.VK_RIGHT);
     	map.put(Keyboard.KEY_UP, KeyEvent.VK_UP);
     	map.put(Keyboard.KEY_DOWN, KeyEvent.VK_DOWN);
+    	map.put(Keyboard.KEY_ESCAPE, KeyEvent.VK_ESCAPE);
     	return map;
     }
 	

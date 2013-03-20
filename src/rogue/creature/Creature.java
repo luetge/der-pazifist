@@ -134,6 +134,8 @@ public abstract class Creature extends Actor
     
     public void fight(Creature creature, boolean melee){
     	IWeapon weapon = melee ? meleeWeapon : rcWeapon;
+    	if(weapon == null)
+    		return;
     	fight(creature, weapon.getDamage(this, creature), weapon.getProb(this, creature), melee);
     }    
     
@@ -164,7 +166,7 @@ public abstract class Creature extends Actor
 	}
     
     public void fight(Creature creature, int hp, double chance, boolean melee) {
-    	if(creature == null || hasActed())
+    	if(hasActed())
     		return;
     	// FIGHT!!!
 		for(IBeforeAfterFeature<Creature> feature : fightFeatures)

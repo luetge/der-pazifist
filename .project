@@ -18,7 +18,7 @@
 		<link>
 			<name>src/res</name>
 			<type>2</type>
-			<locationURI>$%7BPROJECT_LOC%7D/resources/res</locationURI>
+			<locationURI>PROJECT_LOC/resources/res</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>

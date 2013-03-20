@@ -45,7 +45,6 @@ public abstract class Creature extends Actor
     protected Inventory inventory = new Inventory(this);
     protected IMeleeWeapon meleeWeapon;
     protected IRangedCombatWeapon rcWeapon;
-    private String identifier;
     
     private ColoredChar faces[];
     
@@ -59,7 +58,6 @@ public abstract class Creature extends Actor
     	super (faces[4], Name);
     	Guard.validateArgument(faces.length == 9);
     	this.faces = faces;
-    	this.identifier = Name;
 
         walkBehaviour = DoNothingBehaviour.getInstance();
         setBehaviour(DoNothingBehaviour.getInstance());
@@ -129,16 +127,6 @@ public abstract class Creature extends Actor
     	Collection<Ally> allies = world().getActorsAt(Ally.class, pos().getTranslated(dir));
     	for (Ally ally : allies)
     		talkto(ally);
-    }
-    
-    public void setIdentifier (String id)
-    {
-    	identifier = id;
-    }
-    
-    public String getIdentifier ()
-    {
-    	return identifier;
     }
     
     public void talkto (Ally ally)

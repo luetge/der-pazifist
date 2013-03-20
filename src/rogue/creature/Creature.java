@@ -168,9 +168,9 @@ public abstract class Creature extends Actor
 	}
     
     public void fight(Creature creature, int hp, double chance, boolean melee) {
-    	if (creature.isPassable())
+    	if (creature != null && creature.isPassable())
     		return;
-    	if(hasActed())
+     	if(hasActed())
     		return;
     	// FIGHT!!!
 		for(IBeforeAfterFeature<Creature> feature : fightFeatures)

@@ -31,7 +31,7 @@ public class HUD {
 			setForeground(Color.white);
 		}
 	}
-	protected static JLabel lblHP, lblAgil, lblFaith, lblRage, lblLevel, lblGold;
+	protected static JLabel lblHP, lblAgil, lblFaith, lblRage, lblLevel, lblGold, lblXP;
 	protected static JTextArea taCreatures, taEquip;
 	protected static int fontHeight;
 	protected static JFrame hud;
@@ -91,6 +91,7 @@ public class HUD {
 		lblAgil = new MyLabel("0%");
 		lblFaith = new MyLabel("100%");
 		lblRage = new MyLabel("?%");
+		lblXP = new MyLabel("0");
 		lblLevel = new MyLabel("1");
 		lblGold = new MyLabel("0");
 		pnl.add(new MyLabel("HP:"));
@@ -101,6 +102,8 @@ public class HUD {
 		pnl.add(lblFaith);
 		pnl.add(new MyLabel("Rage:"));
 		pnl.add(lblRage);
+		pnl.add(new MyLabel("Erfahrung:"));
+		pnl.add(lblXP);	
 		pnl.add(new MyLabel("Level:"));
 		pnl.add(lblLevel);	
 		pnl.add(new MyLabel("Gold:"));
@@ -126,7 +129,11 @@ public class HUD {
 	public static void setLevel(int level){
 		lblLevel.setText("" + level);
 	}
-	
+
+	public static void setXP(int xp){
+		lblXP.setText("" + xp);
+	}
+
 	public static void setGold(int amount){
 		lblGold.setText("" +amount);
 	}

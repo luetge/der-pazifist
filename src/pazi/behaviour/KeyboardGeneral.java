@@ -17,13 +17,13 @@ public class KeyboardGeneral implements IFeature<Player> {
 			case Keyboard.KEY_H:
 				player.drinkHealingPotion();
 				break;
-			case Keyboard.KEY_F:
+			case Keyboard.KEY_1:
 				player.increaseFOV();
 				break;
-			case Keyboard.KEY_R:
+			case Keyboard.KEY_4:
 				player.roundhousePunch();
 				break;
-			case Keyboard.KEY_M:
+			case Keyboard.KEY_2:
 				player.meditate();
 				break;
 			case Keyboard.KEY_3:

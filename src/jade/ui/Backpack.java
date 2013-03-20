@@ -10,7 +10,6 @@ import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Robot;
 import java.awt.ScrollPane;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.FileInputStream;
@@ -19,6 +18,9 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
+
+import org.lwjgl.input.Keyboard;
+import org.newdawn.slick.util.ResourceLoader;
 
 import pazi.items.Inventory;
 import rogue.creature.Player;
@@ -49,7 +51,7 @@ public class Backpack {
 			bpPanel = new JPanel();
 			fontHeight = 16;
 			bpPanel.setPreferredSize(new Dimension(1000,fontHeight*10-2));
-			Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream ("res/DejaVuSansMono.ttf"));
+			Font font = Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream ("res/DejaVuSansMono.ttf"));
 			bpPanel.setFont(font.deriveFont(Font.PLAIN, fontHeight));
 			bpPanel.setBackground(Color.black);
 			bpPanel.setForeground(Color.white);
@@ -106,8 +108,8 @@ public class Backpack {
 	protected static void sendDeadAcuteKey(){
 		try {
 			Robot robot = new Robot();
-			robot.keyPress(KeyEvent.VK_F10);
-			robot.keyRelease(KeyEvent.VK_F10);
+			robot.keyPress(Keyboard.KEY_SPACE);
+			robot.keyRelease(Keyboard.KEY_SPACE);
 		} catch (AWTException e) {
 			e.printStackTrace();
 		}

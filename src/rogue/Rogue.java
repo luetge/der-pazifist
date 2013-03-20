@@ -68,7 +68,7 @@ public class Rogue
 			level.world().addActor(CreatureFactory.createCreature("sniper1", level.world()));
 		}
         */
-        player.setMeleeWeapon(new KnuckleDuster());
+        
 		view.displayScreen (new AsciiMap("res/start"));;
         
 		view.loadTiles();

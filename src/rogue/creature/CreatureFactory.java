@@ -24,10 +24,10 @@ import pazi.behaviour.SneakStealFlee;
 import pazi.features.Braaaiiiiins;
 import pazi.features.IBeforeAfterFeature;
 import pazi.features.IFeature;
+import pazi.items.ItemFactory;
 import pazi.weapons.IMeleeWeapon;
 import pazi.weapons.IRangedCombatWeapon;
 import pazi.weapons.Paralyzer;
-import pazi.weapons.WeaponFactory;
 import rogue.behaviour.RandomWalk;
 
 public class CreatureFactory {
@@ -79,7 +79,7 @@ public class CreatureFactory {
 			creature = new Monster(faces, "Mr. Sniper");
 			creature.setBehaviour(new DefaultBehaviour());
 			creature.setWalkBehaviour(new Follow(world.getPlayer(), 13, 5, 0));
-			creature.rcWeapon = (IRangedCombatWeapon) WeaponFactory.createWeapon("sniper", creature);
+			creature.rcWeapon = (IRangedCombatWeapon) ItemFactory.createWeapon("sniper", creature);
 		} else if (identifier.equals("priest")) {
 			creature = new Ally (ColoredChar.create('P'), "Priest", new Dialog ("res/dialogs/priest.txt"));
 			
@@ -147,9 +147,9 @@ public class CreatureFactory {
 			for(String sFeature : lst[8].split("-"))
 				creature.addGeneralFeature(CreatureFactory.<IFeature>loadClass("pazi.features." + sFeature, world));
 			if(!lst[9].isEmpty())
-				creature.meleeWeapon = (IMeleeWeapon) WeaponFactory.createWeapon(lst[9], creature);
+				creature.meleeWeapon = (IMeleeWeapon) ItemFactory.createWeapon(lst[9], creature);
 			if(!lst[10].isEmpty())
-				creature.rcWeapon = (IRangedCombatWeapon) WeaponFactory.createWeapon(lst[10], creature);
+				creature.rcWeapon = (IRangedCombatWeapon) ItemFactory.createWeapon(lst[10], creature);
 			for(String sFeature : lst[11].split("-"))
 				addToList(creature.getWalkFeatures(), CreatureFactory.<IBeforeAfterFeature>loadClass("pazi.features." + sFeature, world));
 			for(String sFeature : lst[12].split("-"))

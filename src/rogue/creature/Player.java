@@ -24,9 +24,9 @@ import pazi.features.RoundhousePunch;
 import pazi.features.VisionFeature;
 import pazi.items.HealingPotion;
 import pazi.items.Item;
+import pazi.items.ItemFactory;
 import pazi.weapons.IMeleeWeapon;
 import pazi.weapons.IRangedCombatWeapon;
-import pazi.weapons.WeaponFactory;
 
 public class Player extends Creature implements Camera
 {
@@ -65,7 +65,7 @@ public class Player extends Creature implements Camera
         setWalkBehaviour(new KeyboardWalk());
         setBehaviour(new PlayerBehaviour());
         addGeneralFeature(new KeyboardGeneral());
-        meleeWeapon = (IMeleeWeapon) WeaponFactory.createWeapon("fist", this);
+        meleeWeapon = (IMeleeWeapon) ItemFactory.createWeapon("fist", this);
         //TODO Singleton?
         
         roundhousePunch = new RoundhousePunch();
@@ -221,7 +221,7 @@ public class Player extends Creature implements Camera
 	@Override
 	public void setMeleeWeapon(IMeleeWeapon weapon) {
 		if (weapon == null)
-			super.setMeleeWeapon((IMeleeWeapon) WeaponFactory.createWeapon("fist"));
+			super.setMeleeWeapon((IMeleeWeapon) ItemFactory.createWeapon("fist"));
 		else
 			super.setMeleeWeapon(weapon);
 		HUD.setWeaponLbl(meleeWeapon, rcWeapon);

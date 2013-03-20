@@ -36,7 +36,7 @@ import jade.util.datatype.Door;
 
 import pazi.items.HealingPotion;
 import pazi.items.Item;
-import pazi.weapons.WeaponFactory;
+import pazi.items.ItemFactory;
 import rogue.creature.CreatureFactory;
 import rogue.creature.Player;
 import rogue.level.Level;
@@ -73,8 +73,8 @@ public class Rogue
 			level.world().addActor(CreatureFactory.createCreature("bandit2", level.world()));
 			level.world().addActor(CreatureFactory.createCreature("alien1", level.world()));
 			level.world().addActor(new HealingPotion());
-			level.world().addActor((Item)WeaponFactory.createWeapon("knuckleduster"));
-			level.world().addActor((Item)WeaponFactory.createWeapon("shotgun"));
+			level.world().addActor((Item)ItemFactory.createWeapon("knuckleduster"));
+			level.world().addActor((Item)ItemFactory.createWeapon("shotgun"));
 		}
 		for (int i = 0; i < 20; i++) {
 			level.world().addActor(CreatureFactory.createCreature("sniper1", level.world()));

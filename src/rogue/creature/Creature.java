@@ -22,12 +22,12 @@ import pazi.features.IBeforeAfterFeature;
 import pazi.items.Gold;
 import pazi.items.Inventory;
 import pazi.items.Item;
+import pazi.items.ItemFactory;
 import pazi.weapons.IMeleeWeapon;
 import pazi.weapons.IRangedCombatWeapon;
 import pazi.weapons.IWeapon;
 import pazi.weapons.MeleeWeaponPrototype;
 import pazi.weapons.RCWeaponPrototype;
-import pazi.weapons.WeaponFactory;
 import pazi.weapons.WeaponPrototype;
 
 public abstract class Creature extends Actor
@@ -63,7 +63,7 @@ public abstract class Creature extends Actor
 
         walkBehaviour = DoNothingBehaviour.getInstance();
         setBehaviour(DoNothingBehaviour.getInstance());
-        meleeWeapon = (IMeleeWeapon) WeaponFactory.createWeapon("headnut", this);
+        meleeWeapon = (IMeleeWeapon) ItemFactory.createWeapon("headnut", this);
     }
     
     public void setFace (Direction dir, ColoredChar face)
@@ -347,7 +347,7 @@ public abstract class Creature extends Actor
 
 	public void setMeleeWeapon(IMeleeWeapon weapon) {
 		if (weapon == null)
-			meleeWeapon = (IMeleeWeapon) WeaponFactory.createWeapon("headnut");
+			meleeWeapon = (IMeleeWeapon) ItemFactory.createWeapon("headnut");
 		else{
 			if (meleeWeapon.getName() != "Faust")
 				inventory.addItem((Item)meleeWeapon);

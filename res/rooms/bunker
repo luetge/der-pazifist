@@ -1,0 +1,15 @@
+d0=door:worldentry0,mainworld,bunkerentry0,s;d1=door:worldentry1,mainworld,bunkerentry1,s;d2=door:worldentry2,mainworld,bunkerentry2,s;bblack=bg:000000;bgrey=bg:CDCDCD;bred=bg:7E0921;bbrown=bg:996633;fwhite=fg:FFFFFF;fbrown=fg:1E0000;
+╔═══════╦══════════════╦═══════════════╗
+║¥p¥¥bgrey¥       ¥bblack¥¥np¥║¥p¥¥bgrey¥              ¥bblack¥¥np¥║¥p¥¥bred¥               ¥bblack¥¥np¥║
+║¥p¥¥bgrey¥       ¥bblack¥¥np¥║¥p¥¥bgrey¥              ¥bblack¥ ¥bred¥     ¥creature:hitler¥          ¥bblack¥¥np¥║
+║¥p¥¥bgrey¥       ¥bblack¥¥np¥║¥p¥¥bgrey¥              ¥bblack¥ ¥bred¥               ¥bblack¥¥np¥║
+║¥p¥¥bgrey¥       ¥bblack¥¥np¥║¥p¥¥bgrey¥              ¥bblack¥¥np¥║¥p¥¥bred¥               ¥bblack¥¥np¥║
+╠══¥p¥  ¥np¥═══╩══¥p¥  ¥np¥══════════╣¥p¥¥bred¥               ¥bblack¥¥np¥║
+║¥p¥¥bgrey¥                      ¥bblack¥¥np¥║¥p¥¥bred¥               ¥bblack¥¥np¥║
+║¥p¥¥bgrey¥                      ¥bblack¥¥np¥║¥p¥¥bred¥               ¥bblack¥¥np¥║
+║¥p¥¥bgrey¥     ¥bblack¥¥np¥╔═══════╦═¥p¥  ¥np¥═════╣¥p¥¥bred¥               ¥bblack¥¥np¥║
+║¥p¥¥bgrey¥     ¥bblack¥¥np¥║¥p¥¥bgrey¥       ¥bblack¥¥np¥║¥p¥¥bgrey¥        ¥bblack¥¥np¥║¥bred¥               ¥bblack¥¥np¥║
+║¥p¥¥bgrey¥     ¥bblack¥¥np¥║¥p¥¥bgrey¥       ¥bblack¥¥np¥║¥p¥¥bgrey¥        ¥bblack¥¥np¥╚═══════════════╣
+║¥p¥¥bgrey¥     ¥bblack¥¥np¥║¥p¥¥bgrey¥       ¥bblack¥¥np¥║¥p¥¥bgrey¥                        ¥bblack¥¥np¥║
+║¥p¥¥bgrey¥     ¥bblack¥ ¥bgrey¥       ¥bblack¥¥np¥║¥p¥¥bgrey¥                        ¥bblack¥¥np¥║
+╚═¥bbrown¥¥fbrown¥¥d0¥↓¥d1¥↓¥d2¥↓¥fwhite¥¥bblack¥═╩═══════╩════════════════════════╝

@@ -1,5 +1,7 @@
 #Test
 
+
+
 0:text:Der Pazifist
 Ich fühle mich schwummrig, was ist hier los?
 0:done
@@ -63,4 +65,12 @@ AAAAAAAAAAAAAAAH
 Ich brech zusammen...
 210:done
 
-211:end:200
+211:hasitem:Schlagring des Grauens:1:212:214
+
+212:text
+Hier, nimm diesen Schlagring des Grauens und lass mich in Ruhe!
+212:done
+
+213:receiveitem:Schlagring des Grauens:1
+
+214:end:200

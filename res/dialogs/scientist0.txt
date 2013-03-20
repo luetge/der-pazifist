@@ -2,34 +2,58 @@
 
 
 
-0:text:Der Pazifist
-Ich fühle mich schwummrig, was ist hier los?
+0:text
+Ah, Sie sind endlich erwacht. Exzellent!
 0:done
 
-1:text
-Sie sind Teil eines Experiments. Haben Sie Fragen?
+1:text:Jesus
+Was mache ich hier?
 1:done
 
-2:question:Ich glaube, ich habe seit 2000 Jahren nicht geraucht. Haben Sie ne Kippe?:21:Keine Fragen:101
+2:text
+Sie werden die Hintergründe noch früh genug erfahren.
+Werden Sie wach und sehen Sie sich ruhig ein wenig um.
 2:done
 
-3:text
-Doch Fragen?
-3:done
+3:end:4
 
-4:goto:2
+4:text:Jesus
+Ich bekomme die Tür nicht auf. Ich bin wohl noch etwas schwach.
+Fühle mich, als hätte ich Jahrtausende geschlafen...
+4:done
 
-21:text
-Rauchen ist ungesund! Gehen Sie an die frische Luft!
-21:done
+5:text
+Ich bin sehr beschäftigt. Momentan kann ich mich darum nicht kümmern.
+5:done
 
-22:goto:100
+6:question:Kommen Sie, ich will hier raus.:7:Pah!:99
+6:done
 
-100:end:200
+7:text
+Ich sagte doch, dass ich beschäftigt bin!
+7:done
 
-101:end:3
+8:end:9
 
+9:text:Jesus
+Helfen Sie mir nun?
+9:done
 
+10:text
+Sie Störenfried! Nehmen Sie das hier und lassen Sie mich in Ruhe!
+10:done
+
+11:receiveitem:Schlagring des Grauens:1
+
+12:end:200
+
+99:end:100
+
+100:text:Jesus
+Sie müssen mir helfen!
+100:done
+
+101:goto:5
 
 200:text
 Lassen Sie mich forschen!
@@ -56,7 +80,7 @@ Verdammt, ich will meine Ruhe haben!
 207:end:208
 
 208:text
-AAAAAAAAAAAAAAAH
+AAAAAAAAAAAAAAAH!!!
 208:done
 
 209:end:210
@@ -65,12 +89,4 @@ AAAAAAAAAAAAAAAH
 Ich brech zusammen...
 210:done
 
-211:hasitem:Schlagring des Grauens:1:212:214
-
-212:text
-Hier, nimm diesen Schlagring des Grauens und lass mich in Ruhe!
-212:done
-
-213:receiveitem:Schlagring des Grauens:1
-
-214:end:200
+211:end:200

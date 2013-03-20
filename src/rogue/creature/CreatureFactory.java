@@ -86,8 +86,11 @@ public class CreatureFactory {
 			creature = new Ally (ColoredChar.create('P'), "Priest", new Dialog ("res/dialogs/priest.txt"));
 			
 		} else if (identifier.equals("scientist0")) {
-			creature = new Ally (ColoredChar.create('W'), "Scientist", new Dialog ("res/dialogs/scientist0.txt"));
+			creature = new Ally (ColoredChar.create('W'), "Wissenschaftler", new Dialog ("res/dialogs/scientist0.txt"));
 			creature.getInventory().addItem((Item)WeaponFactory.createWeapon("knuckleduster", creature));
+		} else if (identifier.equals("scientist1")) {
+			creature = new Ally (ColoredChar.create('W'), "Wissenschaftler", new Dialog ("res/dialogs/scientist1.txt"));
+			creature.getInventory().addItem((Item)WeaponFactory.createWeapon("shotgun", creature));
 		}
 		else if (identifier.equals("door")){
 			creature = new Monster (ColoredChar.create('═', new Color(0x663300)), "Tür");

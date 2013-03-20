@@ -28,11 +28,19 @@ public class AsciiMapEditor implements DocumentListener, WindowListener {
 	private JTextArea textarea;
 	private JFrame frame;
 	private boolean redraw = false;
-	
+	private AsciiMap asciimap;
+
 	private boolean changed;
 	
 	void setChanged (boolean changed)
 	{
+		try {
+			String content;
+			content = textarea.getDocument().getText(0, textarea.getDocument().getLength());
+			asciimap = AsciiMap.createFromString (content);
+		} catch (Exception e) {
+			asciimap = null;
+		}
 		redraw = true;
 		this.changed = changed;
 		if (changed)
@@ -111,6 +119,7 @@ public class AsciiMapEditor implements DocumentListener, WindowListener {
 
 	public AsciiMapEditor ()
 	{
+		this.asciimap = null;
 		View view = GLView.create("AsciiMapEditor view", 128, 48, 10, 16);
 		if (view == null)
 		{
@@ -204,24 +213,18 @@ public class AsciiMapEditor implements DocumentListener, WindowListener {
 		if (LegacyView.class.isAssignableFrom(View.get().getClass()))
 		    redraw = false;
 		View view = View.get();
-		try {
-		String content;
-		content = textarea.getDocument().getText(0, textarea.getDocument().getLength());
-		AsciiMap asciimap;
-		try {
-		 asciimap = AsciiMap.createFromString (content);
-		} catch (Exception e) {
+		view.clear();
+		if (asciimap == null)
+		{
 			view.clear();
 			view.drawString(0, 0, 0, "Invalid input", Color.red);
 			view.update();
-			return;
 		}
-		view.clear();
-		asciimap.render (view, 0, 0);
+		else
+		{
+			asciimap.render (view, 0, 0);
+		}
 		view.update();
-        } catch(BadLocationException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public static void main(String[] args) throws Exception {

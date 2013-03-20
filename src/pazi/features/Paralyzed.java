@@ -6,8 +6,10 @@ public class Paralyzed implements IFeature<Creature> {
 
 	int roundsToWait;
 	
-	public Paralyzed(int roundsToWait){
+	public Paralyzed(int roundsToWait, Creature creature){
 		this.roundsToWait = roundsToWait;
+		creature.world().setMessage("Du wurdest paralysiert! Für " + roundsToWait + " Runden!");
+
 	}
 
 	@Override

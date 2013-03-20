@@ -68,7 +68,7 @@ public class CreatureFactory {
 				faces[i] = ColoredChar.create('A', new Color(0xFFFF00+i));
 			creature = new Monster(faces, "Schleimiges Alien");
 			creature.setWalkBehaviour(new Follow(world.getPlayer(), 8, 0.5));
-			creature.meleeWeapon = new Paralyzer(world.getPlayer(), 20);	
+			creature.meleeWeapon = new Paralyzer(world.getPlayer(), 10);	
 			creature.setBehaviour(new DefaultBehaviour());
 		} else if (identifier.equals("sniper1")){
 			ColoredChar faces[] = new ColoredChar[9];

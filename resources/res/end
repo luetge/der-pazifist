@@ -5,18 +5,18 @@ w=fg:FFFFFF;r=fg:FF0000
               |      |
               |      |
      .========'      '========.
-     |   _      xxxx      _   |     Der PaziFist wurde von einem ¥r¥verrottenden Zombie¥w¥
-     |  /_;-.__ / _\  _.-;_\  |     gefressen 
+     |   _      xxxx      _   |     Der PaziFist wurde von ¥killer¥
+     |  /_;-.__ / _\  _.-;_\  |      ¥killaction¥
      |     `-._`'`_/'`.-'     |
      '========.`\   /`========'
               | |  / |
               |/-.(  |                                     Du hast...            
               |\_._\ |
-              | \ \`;|                       ... 20 Zombies
-              |  > |/|                           23 Aliens
-              | / // |                           3 Zivilisten
-              | |//  |                           99 Banditen
-              | \(\  |                           1 von 6 Diktatoren
+              | \ \`;|                       ... ¥numzombies:3¥    Zombies
+              |  > |/|                           ¥numaliens:3¥    Aliens
+              | / // |                           ¥numbandits:3¥    Banditen
+              | |//  |                           ¥numsnipers:3¥    Scharfschützen
+              | \(\  |                          
               |  ``  |
               |      |                                  zur ¥r¥Hölle¥w¥ geschickt.
               |      |

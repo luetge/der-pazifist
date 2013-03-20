@@ -1,27 +1,29 @@
 package pazi.applet;
 
-import java.applet.Applet;
-import java.awt.HeadlessException;
+import javax.swing.JApplet;
 
 import rogue.Rogue;
 
-public class PaziFistApplet extends Applet {
+public class PaziFistApplet extends JApplet {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	public void init ()
+	{
+		System.out.println("init");
+	}
 
-	public PaziFistApplet() throws HeadlessException {
-		try {
-        	Rogue rogue = new Rogue ();
-        	rogue.run ();
-        	rogue.finish ();
-        
-        	System.exit(0);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+	public void start ()
+	{
+		System.out.println("start");
+	}
+	
+	public void end ()
+	{
+		System.out.println("end");
 	}
 
 }

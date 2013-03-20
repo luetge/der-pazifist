@@ -21,15 +21,16 @@ import pazi.behaviour.DefaultBehaviour;
 import pazi.behaviour.Follow;
 import pazi.behaviour.IBehaviour;
 import pazi.behaviour.SneakStealFlee;
+import pazi.behaviour.ZombieWhispererBehaviour;
 import pazi.features.Braaaiiiiins;
 import pazi.features.IBeforeAfterFeature;
 import pazi.features.IFeature;
 import pazi.features.Wuff;
 import pazi.items.Item;
+import pazi.items.ItemFactory;
 import pazi.weapons.IMeleeWeapon;
 import pazi.weapons.IRangedCombatWeapon;
 import pazi.weapons.Paralyzer;
-import pazi.weapons.WeaponFactory;
 import rogue.behaviour.RandomWalk;
 
 public class CreatureFactory {
@@ -56,6 +57,12 @@ public class CreatureFactory {
 //			creature.setWalkBehaviour(new Follow(world.getPlayer(), 8, 0.2));
 //			creature.setBehaviour(new DefaultBehaviour());
 //			creature.meleeWeapon = (IMeleeWeapon) WeaponFactory.createWeapon("rottenFist");
+		} else if (identifier.equals("necro")){
+			creature = new Monster(ColoredChar.create('W', Color.GREEN), "Zombieflüsterer");
+			//creature.addGeneralFeature(Braaaiiiiins.getInstance());
+			creature.setAllFaces(new ColoredChar('W', Color.GREEN));
+			creature.setBehaviour(new ZombieWhispererBehaviour(world.getPlayer()));
+			
 		} else if (identifier.equals("bandit2")){
 				creature = new Monster(ColoredChar.create(' ', Color.red), "El Bandido");
 				//creature.addGeneralFeature(Braaaiiiiins.getInstance());
@@ -64,13 +71,14 @@ public class CreatureFactory {
 					faces[i] = ColoredChar.create('B', new Color(0xFF0000+i));
 				creature.setBehaviour(new SneakStealFlee(world.getPlayer(), faces));
 				creature.getGold(5);
+				
 		} else if (identifier.equals("alien1")){
 			ColoredChar faces[] = new ColoredChar[9];
 			for (int i = 0; i < 9; i++)
 				faces[i] = ColoredChar.create('A', new Color(0xFFFF00+i));
 			creature = new Monster(faces, "Schleimiges Alien");
 			creature.setWalkBehaviour(new Follow(world.getPlayer(), 8, 0.5));
-			creature.meleeWeapon = new Paralyzer(world.getPlayer(), 20);	
+			creature.meleeWeapon = new Paralyzer(world.getPlayer(), 10);	
 			creature.setBehaviour(new DefaultBehaviour());
 		} else if (identifier.equals("sniper1")){
 			ColoredChar faces[] = new ColoredChar[9];
@@ -81,13 +89,13 @@ public class CreatureFactory {
 			creature = new Monster(faces, "Mr. Sniper");
 			creature.setBehaviour(new DefaultBehaviour());
 			creature.setWalkBehaviour(new Follow(world.getPlayer(), 13, 5, 0));
-			creature.rcWeapon = (IRangedCombatWeapon) WeaponFactory.createWeapon("sniper", creature);
+			creature.rcWeapon = (IRangedCombatWeapon) ItemFactory.createWeapon("sniper", creature);
 		} else if (identifier.equals("priest")) {
 			creature = new Ally (ColoredChar.create('P'), "Priest", new Dialog ("res/dialogs/priest.txt"));
 			
 		} else if (identifier.equals("scientist0")) {
 			creature = new Ally (ColoredChar.create('W'), "Scientist", new Dialog ("res/dialogs/scientist0.txt"));
-			creature.getInventory().addItem((Item)WeaponFactory.createWeapon("knuckleduster", creature));
+			creature.getInventory().addItem((Item)ItemFactory.createWeapon("knuckleduster", creature));
 		}
 		else if (identifier.equals("door")){
 			creature = new Monster (ColoredChar.create('═', new Color(0x663300)), "Tür");
@@ -110,12 +118,13 @@ public class CreatureFactory {
 			creature.setBehaviour(new DefaultBehaviour());
 			creature.max_d = 100;
 			creature.min_d = 30;
-			creature.setHP(300);
+			creature.setHP(1000);
 	    } else {
 	    	creature = getCreatureFromString(monsters.get(identifier), world);
 			if(creature == null)
 				System.out.println("Konnte Kreatur \"" + identifier + "\" nicht laden!");
 		}
+		creature.setIdentifier(identifier);
 		return creature;
 	}
 	
@@ -163,9 +172,9 @@ public class CreatureFactory {
 			for(String sFeature : lst[8].split("-"))
 				creature.addGeneralFeature(CreatureFactory.<IFeature>loadClass("pazi.features." + sFeature, world));
 			if(!lst[9].isEmpty())
-				creature.meleeWeapon = (IMeleeWeapon) WeaponFactory.createWeapon(lst[9], creature);
+				creature.meleeWeapon = (IMeleeWeapon) ItemFactory.createWeapon(lst[9], creature);
 			if(!lst[10].isEmpty())
-				creature.rcWeapon = (IRangedCombatWeapon) WeaponFactory.createWeapon(lst[10], creature);
+				creature.rcWeapon = (IRangedCombatWeapon) ItemFactory.createWeapon(lst[10], creature);
 			for(String sFeature : lst[11].split("-"))
 				addToList(creature.getWalkFeatures(), CreatureFactory.<IBeforeAfterFeature>loadClass("pazi.features." + sFeature, world));
 			for(String sFeature : lst[12].split("-"))

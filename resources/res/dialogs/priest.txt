@@ -21,14 +21,14 @@ Ja.
 Hast du Gold?
 11:done
 
-20:playerhasitem:Gold:1:40:30
+20:playerhasitem:gold:1:40:30
 
 30:text
 Verarsch mich nicht!
 30:done
 31:end:0
 
-40:giveitem:Gold:1
+40:giveitem:gold:1
 
 41:text:Der Pazifist
 Da!

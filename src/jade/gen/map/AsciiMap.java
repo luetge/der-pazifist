@@ -134,7 +134,12 @@ public class AsciiMap {
 		render(view, new Coordinate (posx, posy));
 	}
 	
-	public Set<Coordinate> getSpecial (String name)
+	public Set<String> getSpecials ()
+	{
+		return specials.keySet();
+	}
+	
+	public Set<Coordinate> getSpecialCoords (String name)
 	{
 		return specials.get(name);
 	}

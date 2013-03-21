@@ -18,6 +18,7 @@ import org.newdawn.slick.util.ResourceLoader;
 
 import pazi.behaviour.AllyWalk;
 import pazi.behaviour.DefaultBehaviour;
+import pazi.behaviour.DoNothingBehaviour;
 import pazi.behaviour.Follow;
 import pazi.behaviour.HitlerBehaviour;
 import pazi.behaviour.IBehaviour;
@@ -130,15 +131,12 @@ public class CreatureFactory {
 		}
 		else if (identifier.equals("hitler")) {
 			creature = new Monster(ColoredChar.create('H', Color.white), "Hitler");
-			creature.setWalkBehaviour(new RandomWalk());
+			creature.setWalkBehaviour(DoNothingBehaviour.getInstance());
 			creature.addGeneralFeature(new Braaaiiiiins("Arrrrrrr!", 10));
-			creature.setBehaviour(new HitlerBehaviour());
+			creature.setBehaviour(new HitlerBehaviour(world));
 			creature.max_d = 100;
 			creature.min_d = 30;
 			creature.setHP(1000);
-//			CreatureTrigger ct = (CreatureTrigger)TriggerFactory.createTrigger("zombieguard", world);
-//			ct.attach(creature);
-//			world.getTrigger().add(ct);
 	    } else if (identifier.equals("nazi")){
 	    	ColoredChar faces[] = new ColoredChar[9];
 			for (int i = 0; i < 9; i++)

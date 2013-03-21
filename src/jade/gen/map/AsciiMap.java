@@ -27,6 +27,7 @@ import org.newdawn.slick.util.ResourceLoader;
 
 import pazi.items.Item;
 import pazi.items.ItemFactory;
+import pazi.trigger.ITrigger;
 import pazi.trigger.TriggerFactory;
 
 import rogue.creature.CreatureFactory;
@@ -155,8 +156,9 @@ public class AsciiMap {
 	{
         for (Coordinate coord : triggers.keySet())
         {
-        	Actor actor = (Actor) TriggerFactory.createTrigger(triggers.get(coord), world);
-        	world.addActor(actor, coord);
+        	ITrigger trigger = TriggerFactory.createTrigger(triggers.get(coord), world);
+        	world.addActor((Actor)trigger, coord);
+        	world.getTrigger().add(trigger);
         }
 	}
 

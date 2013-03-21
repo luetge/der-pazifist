@@ -88,6 +88,7 @@ public class Backpack {
 			bpPanel.setForeground(Color.white);
 			bpFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 			bpFrame.pack();
+			bpFrame.setIconImage(View.getIcon());
 			bpFrame.setFocusable(false);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

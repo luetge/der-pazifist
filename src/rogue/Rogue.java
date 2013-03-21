@@ -24,8 +24,6 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.util.ResourceLoader;
 
-import pazi.weapons.KnuckleDuster;
-import rogue.creature.CreatureFactory;
 import rogue.creature.Player;
 import rogue.level.Level;
 
@@ -67,6 +65,7 @@ public class Rogue
 		}
 		for (int i = 0; i < 20; i++) {
 			level.world().addActor(CreatureFactory.createCreature("sniper1", level.world()));
+			level.world().addActor(CreatureFactory.createCreature("zombienecro", level.world()));
 		}
         */
         //level.world().addActor(CreatureFactory.createCreature("necro", level.world()));
@@ -75,9 +74,16 @@ public class Rogue
 		view.loadTiles();
 	}
 	
-    public void run () throws InterruptedException
+    public boolean run () throws InterruptedException
 	{
-    	running = true;
+		view.displayScreen (new AsciiMap("res/start"));
+		
+		view.loadTiles();
+		
+		if (view.closeRequested())
+			return false;
+
+		running = true;
     	Log.showLogFrame(true);
     	Backpack.showBPFrame(true);
     	HUD.setVisible(true);
@@ -134,13 +140,14 @@ public class Rogue
     		}
     	}
         running = false;
+        return true;
 	}
         
     private void showMessages() throws InterruptedException {
     	while(level.world().hasNextMessage()){
     		Message m = level.world().getNextMessage();
     		String source = m.source.getName();
-    		if(source == "mainworld")
+    		if(source == "mainworld" || source.startsWith("house"))
     			source = "Gott: ";
     		else
     			source += ": ";
@@ -235,12 +242,15 @@ public class Rogue
     {
         try {
         	boolean useGLview = true;
-        	if (args.length == 1 && args[0].equals("-noglview"))
-        		useGLview = false;
+        	for (String arg : args)
+        	{
+        		if (arg.equals("-noglview"))
+        			useGLview = false;
+        	}
         	prepareLWJGL();
         	Rogue rogue = new Rogue (useGLview);
-        	rogue.run ();
-        	rogue.finish ();
+        	if (rogue.run ())
+        		rogue.finish ();
         	cleanupLWJGL();
         
         	System.exit(0);

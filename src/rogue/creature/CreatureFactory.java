@@ -1,13 +1,12 @@
 package rogue.creature;
 
+import jade.core.Actor;
 import jade.core.Dialog;
 import jade.core.World;
 import jade.util.datatype.ColoredChar;
 
 import java.awt.Color;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Constructor;
@@ -29,6 +28,8 @@ import pazi.features.IFeature;
 import pazi.features.Wuff;
 import pazi.items.Item;
 import pazi.items.ItemFactory;
+import pazi.trigger.CreatureTrigger;
+import pazi.trigger.TriggerFactory;
 import pazi.weapons.IMeleeWeapon;
 import pazi.weapons.IRangedCombatWeapon;
 import pazi.weapons.Paralyzer;
@@ -58,7 +59,7 @@ public class CreatureFactory {
 //			creature.setWalkBehaviour(new Follow(world.getPlayer(), 8, 0.2));
 //			creature.setBehaviour(new DefaultBehaviour());
 //			creature.meleeWeapon = (IMeleeWeapon) WeaponFactory.createWeapon("rottenFist");
-		} else if (identifier.equals("necro")){
+		} else if (identifier.equals("zombienecro")){
 			creature = new Monster(ColoredChar.create('W', Color.GREEN), "Zombieflüsterer");
 			//creature.addGeneralFeature(Braaaiiiiins.getInstance());
 			creature.setAllFaces(new ColoredChar('W', Color.GREEN));
@@ -132,6 +133,9 @@ public class CreatureFactory {
 			creature.max_d = 100;
 			creature.min_d = 30;
 			creature.setHP(1000);
+			CreatureTrigger ct = (CreatureTrigger)TriggerFactory.createTrigger("zombieguard", world);
+			ct.attach(creature);
+			world.getTrigger().add(ct);
 	    } else {
 	    	creature = getCreatureFromString(monsters.get(identifier), world);
 			if(creature == null)

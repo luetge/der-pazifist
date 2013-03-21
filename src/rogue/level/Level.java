@@ -1,26 +1,28 @@
 package rogue.level;
 
+import jade.core.Sequences;
 import jade.core.World;
 import jade.gen.Generator;
 import jade.gen.map.AsciiMap;
 import jade.gen.map.City;
 import jade.gen.map.House;
 import jade.util.Dice;
-import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
-import jade.util.datatype.Direction;
 import jade.util.datatype.Door;
 
-import java.awt.Color;
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.newdawn.slick.util.ResourceLoader;
 
-import pazi.items.Gold;
+import pazi.behaviour.SequenceBehaviour;
+import pazi.items.Item;
 import pazi.items.ItemFactory;
+import pazi.trigger.CreatureTrigger;
+import pazi.trigger.ICreatureEvent;
+import rogue.creature.Creature;
 import rogue.creature.CreatureFactory;
+import rogue.creature.Monster;
 import rogue.creature.Player;
 
 public class Level
@@ -82,6 +84,8 @@ public class Level
     			}
     			movePlayerThroughDoor (w, door);
     			asciimap.addCreatures(w);
+    			asciimap.addTriggers(w);
+    			asciimap.addItems(w);
     		}
     		else
     		{
@@ -105,7 +109,6 @@ public class Level
     			}
     			else
     			{
-
     				for (int i = 0; i < 8; i++)
     				{
     					if (Dice.global.chance(30))
@@ -125,7 +128,7 @@ public class Level
         				case 0:
         				case 1:
         				case 2:
-        					w.addActor(ItemFactory.createItem("healingpotion"));
+        					Item item = ItemFactory.createItem("healingpotion");
         					break;
         				case 3:
         				case 4:

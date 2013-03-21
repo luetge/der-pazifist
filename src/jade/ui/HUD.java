@@ -71,7 +71,7 @@ public class HUD {
 			taEquip.setBackground(Color.black);
 			taEquip.setForeground(Color.white);
 			hud.add(taEquip, BorderLayout.SOUTH);
-
+			hud.setIconImage(View.getIcon());
 			hud.setVisible(false);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

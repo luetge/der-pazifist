@@ -20,6 +20,7 @@ import java.util.Collection;
 import pazi.behaviour.KeyboardGeneral;
 import pazi.behaviour.KeyboardWalk;
 import pazi.behaviour.PlayerBehaviour;
+import pazi.features.RecordSteps;
 import pazi.features.RoundhousePunch;
 import pazi.features.VisionFeature;
 import pazi.items.HealingPotion;
@@ -66,6 +67,7 @@ public class Player extends Creature implements Camera
         setWalkBehaviour(new KeyboardWalk());
         setBehaviour(new PlayerBehaviour());
         addGeneralFeature(new KeyboardGeneral());
+        addGeneralFeature(new RecordSteps());
         meleeWeapon = (IMeleeWeapon) ItemFactory.createWeapon("fist", this);
         
         roundhousePunch = new RoundhousePunch();
@@ -195,7 +197,6 @@ public class Player extends Creature implements Camera
 	
 	public void gainXp(int xp){
 		this.xp += xp;
-		System.out.println(25*(lvl*lvl + 3*lvl));
 		if (this.xp>= 25*(lvl*lvl + 3*lvl))
 			levelUp();
 		HUD.setXP(this.xp);	
@@ -312,7 +313,7 @@ public class Player extends Creature implements Camera
 		this.lvl += 1;
 		HUD.setLevel(this.lvl);
 		this.maxHp += 10;
-		setHP(getHP() + 10);
+		this.addHP(20);
 		HUD.setHP(getHP(),this.maxHp);
 		this.min_d += 5;
 		this.max_d += 5;

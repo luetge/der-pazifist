@@ -26,6 +26,9 @@ public class TriggerFactory {
 				}
 			};
 			trigger = ct;
+		} else if (identifier.equals("tut3diag"))
+		{
+			System.out.println("CREATE TRIGGER");
 		}
 		return trigger;
 	}

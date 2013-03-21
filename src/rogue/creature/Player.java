@@ -28,6 +28,8 @@ import pazi.items.Item;
 import pazi.items.ItemFactory;
 import pazi.weapons.IMeleeWeapon;
 import pazi.weapons.IRangedCombatWeapon;
+import pazi.weapons.MeleeWeaponPrototype;
+import pazi.weapons.RCWeaponPrototype;
 
 public class Player extends Creature implements Camera
 {
@@ -290,7 +292,7 @@ public class Player extends Creature implements Camera
 			return;
 		if (target.isPassable()){
 			target.expire();
-			gainHP(10);
+			gainHP(2);
 			increaseFaith(-30);
 			this.appendMessage("Ich nehme deine Sünden auf mich. Deine Seele wird nun Frieden finden.");
 		}
@@ -324,27 +326,27 @@ public class Player extends Creature implements Camera
 		this.max_d += 5;
 		world().setMessage("Du has Level " + this.lvl + " erreicht.");
 		world().appendMessage("Du has Level " + this.lvl + " erreicht.");
-		if (lvl == 2){
+		if (lvl == 3){
 			canUseVisionFeature = true;
-			String str = "Ich habe gerade die göttliche Sicht erlernt, Papa sei Dank! ('1')";
-			world().setActiveDialog(Dialog.createSimpleTextDialog("Der PaziFist", str));
-			this.appendMessage(str);
-		}
-		if (lvl == 4){
-			canUseMeditate = true;
-			String str = "Ich kann nun meditieren. Zur Beruhigung und Stärkung meines Glaubens. ('2')";
+			String str = "(Lvl 3) Ich habe gerade die göttliche Sicht erlernt, Papa sei Dank! ('1')";
 			world().setActiveDialog(Dialog.createSimpleTextDialog("Der PaziFist", str));
 			this.appendMessage(str);
 		}
 		if (lvl == 5){
-			canUseRedemption = true;
-			String str = "Mein Glaube ist nun so gefestigt, dass ich arme Seelen retten kann! ('3')";
+			canUseMeditate = true;
+			String str = "(Lvl 5) Ich kann nun meditieren. Zur Beruhigung und Stärkung meines Glaubens. ('2')";
 			world().setActiveDialog(Dialog.createSimpleTextDialog("Der PaziFist", str));
 			this.appendMessage(str);
 		}
-		if (lvl == 6){
+		if (lvl == 7){
+			canUseRedemption = true;
+			String str = "(Lvl 7) Mein Glaube ist nun so gefestigt, dass ich arme Seelen retten kann! ('3')";
+			world().setActiveDialog(Dialog.createSimpleTextDialog("Der PaziFist", str));
+			this.appendMessage(str);
+		}
+		if (lvl == 9){
 			canUseRoundhousePunch = true;
-			String str = "AAAAAHHHHHHHH! ROUNDHOUSEPUNCH freigeschaltet (bei mind. 80% Rage: '4')";
+			String str = "(Lvl 9) AAAAAHHHHHHHH! ROUNDHOUSEPUNCH freigeschaltet (bei mind. 80% Rage: '4')";
 			world().setActiveDialog(Dialog.createSimpleTextDialog("Der PaziFist", str));
 			this.appendMessage(str);
 		}
@@ -371,5 +373,17 @@ public class Player extends Creature implements Camera
 		world().setActiveDialog(Dialog.createSimpleTextDialog(null, helpList));		
 		
 	}
+
+	public void changeMelee() {
+		if (inventory.getItems(MeleeWeaponPrototype.class) != null)
+			this.useItem(inventory.getItems(MeleeWeaponPrototype.class));
+	}
+	
+	public void changeRC() {
+		if (inventory.getItems(RCWeaponPrototype.class) != null)
+			this.useItem(inventory.getItems(RCWeaponPrototype.class));
+	}
+
+
 
 }

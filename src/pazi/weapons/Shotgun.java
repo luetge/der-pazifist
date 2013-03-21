@@ -8,7 +8,6 @@ import jade.util.datatype.Direction;
 import java.awt.Color;
 
 import rogue.creature.Creature;
-import rogue.creature.Player;
 
 public class Shotgun extends RCWeaponPrototype {
 
@@ -23,7 +22,7 @@ public class Shotgun extends RCWeaponPrototype {
 		if (attacker == null || victim == null
 				|| attacker.pos().distance(victim.pos()) > getRange())
 			return 0;
-		return (int) (getRange() + 1 - attacker.pos().distance(victim.pos())) * 10;
+		return (int) (getRange() + 1 - attacker.pos().distance(victim.pos())) * 30;
 	}
 
 	@Override

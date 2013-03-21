@@ -137,7 +137,7 @@ public abstract class Creature extends Actor
     	fight(creature, weapon.getDamage(this, creature), weapon.getProb(this, creature), melee);
     }    
     
-    public void takeDamage(int d,Creature source){
+    public void takeDamage(int d,Creature source, boolean melee){
     	if(getBehaviour().getClass() == DeadBehaviour.class)
     		return;
     	setHP(Math.max(0, hp-d));
@@ -339,13 +339,15 @@ public abstract class Creature extends Actor
 		if (weapon == null)
 			meleeWeapon = (IMeleeWeapon) ItemFactory.createWeapon("headnut");
 		else{
-			inventory.addItem((Item)meleeWeapon);
+			if (meleeWeapon != null)
+				inventory.addItem((Item)meleeWeapon);
 			meleeWeapon = weapon;
 		}
 	}
 	
 	public void setRCWeapon(IRangedCombatWeapon weapon) {
-		inventory.addItem((Item)rcWeapon);
+		if (rcWeapon != null)
+			inventory.addItem((Item)rcWeapon);
 		rcWeapon = weapon;
 	}
 	

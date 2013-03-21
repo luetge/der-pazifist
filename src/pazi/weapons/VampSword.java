@@ -25,7 +25,7 @@ public class VampSword extends MeleeWeaponPrototype {
 			appendMessage(attacker.world(), getWeaponFiredText(attacker, victim));
 			if(Math.random() < getProb(attacker, victim)){
 				int dmg = getDamage(attacker, victim);
-				victim.takeDamage(dmg, attacker);
+				victim.takeDamage(dmg, attacker, true);
 				attacker.addHP(dmg);
 				appendMessage(victim.world(), getHitText(attacker, victim));
 			}

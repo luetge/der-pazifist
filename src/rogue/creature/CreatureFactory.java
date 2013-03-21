@@ -37,6 +37,7 @@ import pazi.weapons.IWeapon;
 import pazi.weapons.KnuckleDuster;
 import pazi.weapons.MeleeWeaponPrototype;
 import pazi.weapons.Paralyzer;
+import pazi.weapons.Shotgun;
 
 public class CreatureFactory {
 	protected static HashMap<String, String> monsters = null;
@@ -106,7 +107,7 @@ public class CreatureFactory {
 			creature.setWalkBehaviour(new Follow(world.getPlayer(), 13, 5, 0.1));
 			creature.rcWeapon = (IRangedCombatWeapon) ItemFactory.createWeapon("sniper", creature);
 		} else if (identifier.equals("priest")) {
-			creature = new Ally (ColoredChar.create('P'), "Priest", new Dialog ("res/dialogs/priest.txt"));
+			creature = new Ally (ColoredChar.create('P'), "Priester", new Dialog ("res/dialogs/priest.txt"));
 			
 		} else if (identifier.equals("scientist0")) {
 			ColoredChar faces[] = new ColoredChar[9];
@@ -130,9 +131,12 @@ public class CreatureFactory {
 		else if (identifier.equals("door"))
 			creature = new DestructableObject(ColoredChar.create('═', new Color(0x663300)), "Tür", 500, KnuckleDuster.class, "Mist, die Tür klemmt! Ich brauche etwas, um sie aufzubrechen!", "KRACH!!!");
 		else if (identifier.equals("fenceI"))
-			creature = new DestructableObject(ColoredChar.create('I', new Color(0x663300)), "Zaun", 500, IWeapon.class, "", "KRACH!!!");
+					creature = new DestructableObject(ColoredChar.create('I', new Color (0x4c1800)), "Zaun", 5, Shotgun.class, "Für diesen Zaun braucht man etwas mit Durchschlagskraft!", "KRACH!!!");
+		
 		else if (identifier.equals("fencel"))
-			creature = new DestructableObject(ColoredChar.create('l', new Color(0x663300)), "Zaun", 500, IWeapon.class, "", "KRACH!!!");
+			creature = new DestructableObject(ColoredChar.create('l', new Color (0x4c1800)), "Zaun", 5, Shotgun.class, "Für diesen Zaun braucht man etwas mit Durchschlagskraft!", "KRACH!!!");
+
+		
 		else if (identifier.equals("dog")){
 			ColoredChar faces[] = new ColoredChar[9];
 			for (int i = 0; i < 9; i++)

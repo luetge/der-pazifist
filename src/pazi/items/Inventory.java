@@ -73,6 +73,7 @@ public class Inventory {
 			}
 		}
 		this.items = items;
+		update();
 		return removed;
 	}
 	

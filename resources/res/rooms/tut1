@@ -3,7 +3,7 @@ sd0=door:spawn0,tut1,spawn0,s;sd1=door:spawn1,tut1,spawn1,s;t0=door:tut1exit0,tu
 ║¥bdgrey¥¥fblack¥__¥p¥¥bbeige¥   ¥creature:scientist0¥   ¥np¥ʗ¥bgrey¥☎¥bbeige¥¥p¥ ¥bblack¥¥fwhite¥¥np¥║¥p¥      ┌─────┬─────┬───┘ ¥np¥║
 ║¥bdgrey¥¥fblack¥__¥p¥¥bbeige¥      ¥np¥ʗ¥bgrey¥ ¥bbeige¥¥p¥ ¥bblack¥¥fwhite¥¥np¥║¥p¥     ¥bgreen¥¥fgreen¥¥np¥┌┴─┐¥p¥¥bblack¥  ¥bgreen¥¥np¥┌┴─┐¥p¥¥bblack¥  ¥bgreen¥¥np¥┌┴─┐¥p¥¥bblack¥   ¥fwhite¥¥np¥║
 ║¥bdgrey¥¥fblack¥__¥p¥¥bbeige¥      ¥np¥ʗ¥bgrey¥ ¥bbeige¥¥p¥ ¥bblack¥¥fwhite¥¥np¥║¥p¥     ¥bgreen¥¥fgreen¥¥np¥└──┘¥p¥¥bblack¥  ¥bgreen¥¥np¥└──┘¥p¥¥bblack¥  ¥bgreen¥¥np¥└──┘¥p¥¥bblack¥   ¥fwhite¥¥np¥║
-║¥bdgrey¥  ¥p¥¥bbeige¥         ¥bblack¥¥fyell¥☢                        ¥fwhite¥¥np¥║
+║¥bdgrey¥  ¥p¥¥bbeige¥  ¥creature:priest¥       ¥bblack¥¥fyell¥☢                        ¥fwhite¥¥np¥║
 ║¥bbeige¥¥fblack¥◷¥p¥          ¥bblack¥                         ¥fwhite¥¥np¥║
 ║¥bbeige¥¥p¥        ¥fblack¥¥np¥ʗ¥bgrey¥ ¥bbeige¥¥p¥ ¥bblack¥¥fwhite¥¥np¥║¥p¥     ¥bgreen¥¥fgreen¥¥np¥┌──┐¥p¥¥bblack¥  ¥bgreen¥¥np¥┌──┐¥p¥¥bblack¥  ¥bgreen¥¥np¥┌¥p¥¥sd0¥ ¥sd1¥ ¥np¥┐¥p¥¥bblack¥   ¥fwhite¥¥np¥║
 ║¥p¥¥bbeige¥        ¥fblack¥¥np¥ʗ¥bgrey¥ ¥bbeige¥¥p¥ ¥bblack¥¥fwhite¥¥np¥║¥p¥     ¥bgreen¥¥fgreen¥¥np¥└┬─┘¥p¥¥bblack¥  ¥bgreen¥¥np¥└┬─┘¥p¥¥bblack¥  ¥bgreen¥¥np¥└┬─┘¥p¥¥bblack¥   ¥fwhite¥¥np¥║

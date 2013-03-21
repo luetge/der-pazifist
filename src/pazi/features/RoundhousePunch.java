@@ -11,7 +11,7 @@ public class RoundhousePunch implements IFeature {
 	public void punch(Creature creature){
 		for (Creature victim : creature.getCreaturesCloseby()){
 			if(victim != null){
-				victim.takeDamage(100, creature);
+				victim.takeDamage(100, creature, true);
 			}
 		}
 			

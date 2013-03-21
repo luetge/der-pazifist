@@ -153,11 +153,15 @@ public class World extends Messenger
         	return d;
         }
         
+        triggerTick();
+        
+        return null;
+    }
+    
+    public void triggerTick() {
         Iterator<ITrigger> it = trigger.descendingIterator();
         while(it.hasNext())
         	it.next().tick(this);
-        
-        return null;
     }
     
     public String getMessage ()

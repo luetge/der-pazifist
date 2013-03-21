@@ -8,6 +8,7 @@ import jade.util.datatype.Direction;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 import rogue.creature.Monster;
 
@@ -32,6 +33,7 @@ public class Flee implements IBehaviour<Monster> {
 	public void act(Monster monster) {
 		if(!monster.hasActed() && target.pos().distance(monster.pos()) > radius)
 			return;
+		List<Coordinate> path = pathFinder.getPartialPath(monster.world(), monster.pos(), target.pos());
 		Iterator<Coordinate> it = pathFinder.getPartialPath(monster.world(), monster.pos(), target.pos()).iterator();
 		if(Dice.global.chance(randomFactor)){
 			monster.move(Dice.global.choose(Arrays.asList(Direction.values())));

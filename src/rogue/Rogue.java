@@ -66,7 +66,7 @@ public class Rogue
 			level.world().addActor(CreatureFactory.createCreature("zombienecro", level.world()));
 		}
 
-        level.stepThroughDoor(new Door("spawndoor", 0, 0, "tut1", "spawn0"));
+        level.stepThroughDoor(new Door("spawndoor", 0, 0, "bunker", "spawn0"));
 	}
 	
     public boolean run () throws InterruptedException
@@ -142,7 +142,7 @@ public class Rogue
     	while(level.world().hasNextMessage()){
     		Message m = level.world().getNextMessage();
     		String source = m.source.getName();
-    		if(source == "mainworld" || source.startsWith("house"))
+    		if(source == "mainworld" || source.startsWith("house") || source.startsWith("tut"))
     			source = "Gott: ";
     		else
     			source += ": ";

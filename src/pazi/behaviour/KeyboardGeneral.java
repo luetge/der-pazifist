@@ -35,6 +35,12 @@ public class KeyboardGeneral implements IFeature<Player> {
 			case Keyboard.KEY_F1:
 				player.showHelp();
 				break;
+			case Keyboard.KEY_Q:
+				player.changeMelee();
+				break;
+			case Keyboard.KEY_W:
+				player.changeRC();
+				break;
 			default:
 				return;
 		}

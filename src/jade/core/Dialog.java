@@ -709,8 +709,11 @@ public class Dialog {
 		for (int i = 0; i < t.size(); i++)
 		{
 			if (speaker != null)
-				view.drawString(view.columns()/2 - width/2, posy + i, 1.0f, speaker + ": ",
-						Color.green);
+			{
+				if (i == 0)
+					view.drawString(view.columns()/2 - width/2, posy + i, 1.0f, speaker + ": ",
+							Color.green);
+			}
 			view.drawString(view.columns()/2 - width/2 + speakerlen,
 					posy + i, 1.0f, t.get(i), Color.white);
 		}

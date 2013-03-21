@@ -13,6 +13,7 @@ public class EndScreen {
 	
 	AsciiMap loosemap;
 	AsciiMap winmap;
+	AsciiMap creditsmap;
 	
 	private static int numzombies = 0;
 	private static int numaliens = 0;
@@ -38,10 +39,11 @@ public class EndScreen {
 	private static String hitlerkillerstr = "Hitler";
 	private static String hitlerkillactionstr = "erlegt";
 	
-	public EndScreen(String loosename, String winname)
+	public EndScreen(String loosename, String winname, String creditsname)
 	{
 		loosemap = new AsciiMap(loosename);
 		winmap = new AsciiMap(winname);
+		creditsmap = new AsciiMap(creditsname);
 	}
 	
 	public static void SetKiller (String id)
@@ -197,5 +199,25 @@ public class EndScreen {
 			if (view.closeRequested())
 				return;
 		}
+		
+		running = true;
+		while (running)
+		{
+			view.clear();
+			
+			creditsmap.render(view, 0, 0);
+			view.update();
+			while (view.nextKey() && !view.closeRequested())
+			{
+				if (view.getKeyEvent() == Keyboard.KEY_SPACE)
+				{
+					running = false;
+					break;
+				}
+			}
+			if (view.closeRequested())
+				return;
+		}
+		
 	}
 }

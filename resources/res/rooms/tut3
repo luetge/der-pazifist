@@ -10,7 +10,7 @@ gh=creature:goodHitler;tr0=trigger:tut3diag;t20=door:tut2entry0,tut2,tut2exit0,n
 ║¥p¥¥bred¥  ¥fdbrown¥__________¥bbred¥    ¥bred¥__________  ¥bblack¥¥fwhite¥¥np¥║
 ║¥p¥¥bred¥  ¥fdbrown¥¥np¥I¥bbrown¥--------¥bred¥I¥p¥¥bbred¥    ¥bred¥¥np¥I¥bbrown¥--------¥bred¥I¥p¥  ¥bblack¥¥fwhite¥¥np¥║
 ║¥p¥¥bred¥  ¥fdbrown¥__________¥bbred¥    ¥bred¥__________  ¥bblack¥¥fwhite¥¥np¥║
-║¥p¥¥bred¥  ¥fdbrown¥¥np¥I¥bbrown¥--------¥bred¥I¥p¥¥bbred¥    ¥bred¥¥np¥I¥bbrown¥-¥p¥-¥np¥------¥bred¥I¥p¥  ¥bblack¥¥fwhite¥¥np¥║
+║¥p¥¥bred¥  ¥fdbrown¥¥np¥I¥bbrown¥--------¥bred¥I¥p¥¥bbred¥    ¥bred¥¥np¥I¥bbrown¥-¥p¥¥tr0¥-¥np¥------¥bred¥I¥p¥  ¥bblack¥¥fwhite¥¥np¥║
 ║¥p¥¥bred¥            ¥bbred¥¥fblack¥____¥bred¥            ¥bblack¥¥fwhite¥¥np¥║
 ║¥p¥¥bred¥  ¥bbgrey¥          ¥bbred¥¥fblack¥____¥bbgrey¥          ¥bred¥  ¥bblack¥¥fwhite¥¥np¥║
 ║¥p¥¥bred¥  ¥bbgrey¥  ¥bgrey¥        ¥bbred¥¥fblack¥____¥bgrey¥        ¥bbgrey¥  ¥bred¥  ¥bblack¥¥fwhite¥¥np¥║

@@ -17,6 +17,7 @@ public class EndScreen {
 	private static int numaliens = 0;
 	private static int numbandits = 0;
 	private static int numsnipers = 0;
+	private static int numnazis = 0;
 	private static String killerid = null;
 	
 	private static String nokillerstr = "Gott";
@@ -30,6 +31,8 @@ public class EndScreen {
 	private static String banditkillactionstr = "gekopfnusst - und schämt sich";
 	private static String sniperkillerstr = "einem hinterhältigen Sniper";
 	private static String sniperkillactionstr = "erschossen";
+	private static String nazikillerstr = "einem Nazi";
+	private static String nazikillactionstr = "getötet";
 	private static String hitlerkillerstr = "Hitler";
 	private static String hitlerkillactionstr = "erlegt";
 	
@@ -61,6 +64,11 @@ public class EndScreen {
 	public static void SniperKilled()
 	{
 		numsnipers++;
+	}
+	
+	public static void NazisKilled()
+	{
+		numnazis++;
 	}
 	
 	private void print (Coordinate coord, Integer variable, int length)
@@ -121,6 +129,9 @@ public class EndScreen {
 			} else if (killerid.startsWith("sniper")) {
 				printkiller (killercoords, sniperkillerstr);
 				printkillaction (killactioncoords, sniperkillactionstr);
+			} else if (killerid.startsWith("nazi")) {
+				printkiller (killercoords, nazikillerstr);
+				printkillaction (killactioncoords, nazikillactionstr);
 			} else if (killerid.equals("hitler")) {
 				printkiller (killercoords, hitlerkillerstr);
 				printkillaction (killactioncoords, hitlerkillactionstr);
@@ -155,6 +166,12 @@ public class EndScreen {
 					for (Coordinate coord : map.getSpecialCoords(special))
 					{
 						print(coord, numsnipers, len);
+					}				
+				} else if (args[0].equals("numnazis")) {
+					int len = Integer.parseInt(args[1]);
+					for (Coordinate coord : map.getSpecialCoords(special))
+					{
+						print(coord, numnazis, len);
 					}				
 				}
 			}

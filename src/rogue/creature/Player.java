@@ -269,6 +269,8 @@ public class Player extends Creature implements Camera
 			EndScreen.AlienKilled();
 		else if (id.startsWith("sniper"))
 			EndScreen.SniperKilled();
+		else if (id.startsWith("nazi"))
+			EndScreen.NazisKilled();
 	}
 
 	public void meditate() {

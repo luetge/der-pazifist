@@ -1,5 +1,9 @@
 package jade.util.datatype;
 
+import jade.util.Dice;
+
+import java.util.LinkedList;
+
 import org.lwjgl.input.Keyboard;
 
 /**
@@ -92,5 +96,19 @@ public enum Direction
             default:
                 return null;
         }
+    }
+    
+    protected static LinkedList<Integer> lst;
+    
+    public static int getRandomDirKey() {
+    	if(lst == null){
+    		lst = new LinkedList<Integer>();
+    		lst.add(Keyboard.KEY_RIGHT);
+    		lst.add(Keyboard.KEY_LEFT);
+    		lst.add(Keyboard.KEY_UP);
+    		lst.add(Keyboard.KEY_DOWN);
+    	}
+    		
+    	return Dice.global.choose(lst);
     }
 }

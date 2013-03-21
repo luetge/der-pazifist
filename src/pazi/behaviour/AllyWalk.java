@@ -11,14 +11,23 @@ import rogue.creature.Creature;
 
 public class AllyWalk implements IBehaviour<Creature> {
 
+	private int walkchance;
 	
-	public AllyWalk(){}
+	public AllyWalk()
+	{
+		this(33);
+	}
+	
+	public AllyWalk(int walkchance)
+	{
+		this.walkchance = walkchance;
+	}
 	
 	public void act(Creature creature) {	
 		if(creature.hasActed())
 			return;
 
-		if(Dice.global.chance(33)){
+		if(Dice.global.chance(walkchance)){
 			creature.move(Dice.global.choose(Arrays.asList(Direction.values())));
 			creature.setHasActed(true);
 			return;

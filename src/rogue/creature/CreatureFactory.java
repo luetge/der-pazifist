@@ -37,6 +37,7 @@ import pazi.weapons.Fist;
 import pazi.weapons.IMeleeWeapon;
 import pazi.weapons.IRangedCombatWeapon;
 import pazi.weapons.KnuckleDuster;
+import pazi.weapons.MeleeWeaponPrototype;
 import pazi.weapons.Paralyzer;
 import rogue.behaviour.RandomWalk;
 
@@ -145,7 +146,7 @@ public class CreatureFactory {
 			creature = new Monster(faces, "Nazi");
 			creature.setWalkBehaviour(new Follow(world.getPlayer(), 8, 0.5));
 			creature.setBehaviour(new DefaultBehaviour());
-			creature.setMeleeWeapon(new Fist());
+			creature.setMeleeWeapon(new MeleeWeaponPrototype(5, 10, 1, "Stiefelkick", new ColoredChar(' ', Color.black), creature));
 	    }
 		else {
 	    	creature = getCreatureFromString(monsters.get(identifier), world);

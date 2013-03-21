@@ -167,6 +167,8 @@ public class Level
     	if (door.getID().startsWith("tut3exit"))
     	{
     		world.setActiveDialog(new Dialog("res/dialogs/tutexit.txt"));
+    		world.getPlayer().setMeleeWeapon(null);
+    		world.getPlayer().setRCWeapon(null);
     	}
     }
 

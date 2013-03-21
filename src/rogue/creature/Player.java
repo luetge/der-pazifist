@@ -248,9 +248,26 @@ public class Player extends Creature implements Camera
 	@Override
 	public void setMeleeWeapon(IMeleeWeapon weapon) {
 		if (weapon == null)
-			super.setMeleeWeapon((IMeleeWeapon) ItemFactory.createWeapon("fist"));
-		else
-			super.setMeleeWeapon(weapon);
+		{
+			boolean foundfist = false;
+			for (Item item : getInventory().getItems())
+			{
+				if (item.getIdentifier().equals("fist"))
+				{
+					meleeWeapon = (IMeleeWeapon)item;
+					getInventory().removeItem(item);
+					foundfist = true;
+					break;
+				}
+			}
+			if (!foundfist)
+				meleeWeapon = (IMeleeWeapon) ItemFactory.createWeapon("fist");
+		}
+		else{
+			if (meleeWeapon != null)
+				inventory.addItem((Item)meleeWeapon);
+			meleeWeapon = weapon;
+		}
 		HUD.setWeaponLbl(meleeWeapon, rcWeapon);
 	}
 	

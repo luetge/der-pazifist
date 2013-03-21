@@ -4,6 +4,7 @@ import jade.core.Actor;
 import jade.ui.Backpack;
 import jade.ui.HUD;
 import jade.util.Guard;
+import jade.util.Lambda;
 
 import java.util.ArrayList;
 
@@ -91,6 +92,11 @@ public class Inventory {
 	public ArrayList<Item> getItems(){
 		return (ArrayList<Item>)items.clone();
 	}
+	
+    public <T extends Item> T getItems(Class<T> cls)
+    {
+        return Lambda.first(Lambda.filterType(items, cls));
+    }
 
 	/**
 	 * Addiert den angegebenen Betrag zum Gold dazu.

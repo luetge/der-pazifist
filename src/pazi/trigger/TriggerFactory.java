@@ -6,6 +6,7 @@ import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
 import rogue.creature.Creature;
 import rogue.creature.CreatureFactory;
+import rogue.creature.JokesTeller;
 import rogue.creature.Player;
 
 public class TriggerFactory {
@@ -38,6 +39,15 @@ public class TriggerFactory {
 					trigger.setActivated(false);
 				}
 				
+			};
+			trigger = ct;
+		} else if (identifier.equals("jokestrigger")) {
+			CreatureTrigger ct = new CreatureTrigger(null, 2, Player.class);
+			ct.onEnterEvent = new ICreatureEvent() {
+				@Override
+				public void fired(Creature creature, CreatureTrigger trigger) {
+					creature.appendMessage(JokesTeller.getRandomMessage());
+				}
 			};
 			trigger = ct;
 		}

@@ -158,8 +158,9 @@ public class CreatureFactory {
 			creature.setWalkBehaviour(new Follow(world.getPlayer(), 8, 0.5));
 			creature.setBehaviour(new DefaultBehaviour());
 			creature.setMeleeWeapon(new MeleeWeaponPrototype(5, 10, 1, "Stiefelkick", new ColoredChar(' ', Color.black), creature));
-	    }
-		else {
+	    } else if(identifier.equals("jokesteller"))
+	    	creature = new JokesTeller(world);
+	    else {
 	    	creature = getCreatureFromString(monsters.get(identifier), world);
 			if(creature == null)
 				System.out.println("Konnte Kreatur \"" + identifier + "\" nicht laden!");

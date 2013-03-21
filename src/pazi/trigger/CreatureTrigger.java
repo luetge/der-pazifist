@@ -14,12 +14,12 @@ import rogue.creature.Creature;
 public class CreatureTrigger extends Actor implements ITrigger {
 
 	protected boolean activated = true;
-	protected int range;
+	protected double range;
 	protected Class cls;
 	public ICreatureEvent onEnterEvent, onExitEvent, movingInsideEvent;
 	protected ArrayList<Creature> creaturesInRange = new ArrayList<Creature>();
 	
-	public <T extends Creature> CreatureTrigger(Coordinate pos, int range, Class<T> cls) {
+	public <T extends Creature> CreatureTrigger(Coordinate pos, double range, Class<T> cls) {
 		super(new ColoredChar(' ', Color.black), "Trigger");
 		if(pos != null)
 			this.setPos(pos);
@@ -50,7 +50,7 @@ public class CreatureTrigger extends Actor implements ITrigger {
 		
 		// Kreaturen entfernen, wenn sie zu weit weg sind
 		for(int i = creaturesInRange.size(); i > 0; i--) 
-			if(creaturesInRange.get(i - 1).pos().distance(pos()) > getRange()){
+			if(creaturesInRange.get(i - 1).pos().manhattanDist(pos()) > getRange()){
 				if(onExitEvent != null)
 					onExitEvent.fired(creaturesInRange.get(i - 1), this);
 				creaturesInRange.remove(i - 1);
@@ -67,11 +67,11 @@ public class CreatureTrigger extends Actor implements ITrigger {
 		return activated;
 	}
 
-	public int getRange() {
+	public double getRange() {
 		return range;
 	}
 
-	public void setRange(int range) {
+	public void setRange(double range) {
 		this.range = range;
 	}
 

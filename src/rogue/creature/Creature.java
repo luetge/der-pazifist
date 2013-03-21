@@ -114,11 +114,10 @@ public abstract class Creature extends Actor
     	if (dir == null || dir == Direction.ORIGIN)
     		return;
     	Guard.verifyState(isPlayer());
-    	if(dir == null)
-    		return;
-    	Collection<Monster> monsters = world().getActorsAt(Monster.class, pos().getTranslated(dir));
-    	for (Monster monster : monsters)
-    		fight(monster, true);
+    	Collection<Creature> creatures = world().getActorsAt(Creature.class, pos().getTranslated(dir));
+    	for (Creature creature : creatures)
+    		if(!Ally.class.isAssignableFrom(creature.getClass()))
+    			fight(creature, true);
     	Collection<Ally> allies = world().getActorsAt(Ally.class, pos().getTranslated(dir));
     	for (Ally ally : allies)
     		talkto(ally);

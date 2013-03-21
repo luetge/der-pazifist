@@ -24,6 +24,8 @@ import pazi.items.ItemFactory;
 import pazi.weapons.IMeleeWeapon;
 import pazi.weapons.IRangedCombatWeapon;
 import pazi.weapons.IWeapon;
+import pazi.weapons.MeleeWeaponPrototype;
+import pazi.weapons.RCWeaponPrototype;
 import pazi.weapons.WeaponPrototype;
 
 public abstract class Creature extends Actor
@@ -239,6 +241,14 @@ public abstract class Creature extends Actor
 			return inventory.loseGold(-amount);
 	}
 	
+	public IRangedCombatWeapon getRCWeapon(){
+		return rcWeapon;
+	}
+	
+	public IMeleeWeapon getmelee(){
+		return meleeWeapon;
+	}
+	
 	public void useItem(Item item){
 		setHasActed(true);
 		item.interact(this);
@@ -297,7 +307,7 @@ public abstract class Creature extends Actor
 	}
 
 	protected void addAttackableCreature(ArrayList<AttackableCreature> list, AttackableCreature creature){
-		if(creature != null)
+		if(creature != null && creature.creature.getBehaviour().getClass() != DeadBehaviour.class)
 			list.add(creature);
 	}
 	

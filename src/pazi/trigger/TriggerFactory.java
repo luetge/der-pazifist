@@ -1,5 +1,6 @@
 package pazi.trigger;
 
+import jade.core.Dialog;
 import jade.core.World;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
@@ -33,7 +34,8 @@ public class TriggerFactory {
 
 				@Override
 				public void fired(Creature creature, CreatureTrigger trigger) {
-					System.out.println("TESTTRIGGER");
+					creature.world().setActiveDialog(new Dialog("res/dialogs/tut3diag.txt"));
+					trigger.setActivated(false);
 				}
 				
 			};

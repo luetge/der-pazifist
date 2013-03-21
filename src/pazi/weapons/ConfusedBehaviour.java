@@ -19,6 +19,10 @@ public class ConfusedBehaviour implements IBehaviour {
 		this.prob = prob;
 	}
 	
+	public void setRounds(int rounds){
+		this.rounds = rounds;
+	}
+	
 	@Override
 	public void act(Actor actor) {
 		currentKey = actor.world().getCurrentKey();

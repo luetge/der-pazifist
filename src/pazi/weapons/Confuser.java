@@ -4,6 +4,8 @@ import jade.util.datatype.ColoredChar;
 
 import java.awt.Color;
 
+import pazi.behaviour.IBehaviour;
+
 import rogue.creature.Creature;
 
 public class Confuser extends MeleeWeaponPrototype {
@@ -20,7 +22,13 @@ public class Confuser extends MeleeWeaponPrototype {
 	public void shoot(Creature attacker, Creature victim) {
 		if(victim != null && counter == 0){
 			victim.appendMessage("Wurde durch eine schallende Ohrfeige verwirrt!");
-			victim.setBehaviour(new ConfusedBehaviour(victim.getBehaviour(), 30, 0.33));
+			
+			IBehaviour victimOldBehaviour = victim.getBehaviour();
+			if (victimOldBehaviour.getClass() == ConfusedBehaviour.class){
+				ConfusedBehaviour victimOldConfusedB = (ConfusedBehaviour) victimOldBehaviour;
+				victimOldConfusedB.setRounds(30);
+			} else
+				victim.setBehaviour(new ConfusedBehaviour(victim.getBehaviour(), 30, 0.33));
 			if(attacker != null)
 				attacker.setHasActed(true);
 		}

@@ -387,6 +387,7 @@ public class Player extends Creature implements Camera
 		helpList.add("Angreifen oder reden mit Gegenlaufen");
 		helpList.add("Heiltrank benutzen: 'H'");
 		helpList.add("Fernkampfwaffe: Leertaste + Richtung");
+		helpList.add("Waffe wechseln: Nahkampf 'Q' , Fernkampf 'W'");
 		if (canUseVisionFeature){
 			helpList.add("Göttliche Sicht: '1' (20 Faith)");
 				if (canUseMeditate){

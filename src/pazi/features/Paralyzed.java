@@ -18,12 +18,14 @@ public class Paralyzed implements IFeature<Creature> {
 		victim.world().setMessage(victim.getName() + " wurde paralysiert! Für " + roundsToWait + " Runden!");
 		victim.appendMessage("Oh Nein! Ich kann mich nicht mehr bewegen! :O ");
 		if (victim.getClass() == Player.class)
+		{
 			if (!victim.getFeatures(VisionFeature.class).isEmpty()){
 				//remove old VisionFeature before applying new one!
 				VisionFeature f = victim.getFeatures(VisionFeature.class).iterator().next();
 				f.forceRemove((Player)victim);
 			}
 				victim.addGeneralFeature(new VisionFeature((Player)victim, roundsToWait, 2));
+		}
 	}
 
 	@Override

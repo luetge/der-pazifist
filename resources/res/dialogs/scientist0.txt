@@ -45,7 +45,16 @@ Sie Störenfried! Nehmen Sie das hier und lassen Sie mich in Ruhe!
 
 11:receiveitem:knuckleduster:1
 
-12:end:200
+12:text:nospeaker
+Items im Inventar können durch Doppelklick benutzt werden.
+12:done
+
+13:text:nospeaker
+Rüsten Sie sich mit dem Schlagring aus und schlagen Sie 
+die Tür kaputt, indem Sie auf sie zu gehen.
+13:done
+
+14:end:200
 
 99:end:100
 

@@ -697,7 +697,7 @@ public class Dialog {
 	public static void say (String speaker, ArrayList<String> t, int dy)
 	{
 		int speakerlen = 0;
-		if (speaker.equals("nospeaker"))
+		if (speaker != null && speaker.equals("nospeaker"))
 			speaker = null;
 		if (speaker != null)
 			speakerlen = speaker.length() + 2;

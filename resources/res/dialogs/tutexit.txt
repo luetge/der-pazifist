@@ -11,8 +11,12 @@ Verdammt, wo ist all mein cooles Zeug?
 1:done
 
 2:text:Der Pazifist
-Wie seltsam...
+Seltsam...
 2:done
 
+3:text:nospeaker
+Drücken Sie F1, um die Hilfe aufzurufen.
+3:done
 
-3:end:1
+
+4:end:4

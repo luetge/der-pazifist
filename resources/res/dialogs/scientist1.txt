@@ -20,10 +20,18 @@ Kommen Sie schon! Sie schießen nur auf Zielscheiben.
 Wenn das mein Vater wüsste...
 5:done
 
-6:end:7
+6:text:nospeaker
+Rüsten Sie sich mit der Shotgun aus und schießen Sie die Tür frei.
+6:done
 
-7:text
-Na los, probieren Sie es mal!
+7:text:nospeaker
+Um mit der Shotgun zu schießen, drücken Sie erst Leertaste und dann die Schussrichtung.
 7:done
 
-8:end:7
+7:end:8
+
+8:text
+Na los, probieren Sie es mal!
+8:done
+
+9:end:10

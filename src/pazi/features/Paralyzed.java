@@ -20,7 +20,8 @@ public class Paralyzed implements IFeature<Creature> {
 		if (victim.getClass() == Player.class)
 			if (!victim.getFeatures(VisionFeature.class).isEmpty()){
 				//remove old VisionFeature before applying new one!
-				victim.removeFeature(victim.getFeatures(VisionFeature.class).iterator().next());
+				VisionFeature f = victim.getFeatures(VisionFeature.class).iterator().next();
+				f.forceRemove((Player)victim);
 			}
 				victim.addGeneralFeature(new VisionFeature((Player)victim, roundsToWait, 2));
 	}

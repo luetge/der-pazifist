@@ -697,7 +697,9 @@ public class Dialog {
 	public static void say (String speaker, ArrayList<String> t, int dy)
 	{
 		int speakerlen = 0;
-		if (speaker != null && !speaker.trim().isEmpty())
+		if (speaker.equals("nospeaker"))
+			speaker = null;
+		if (speaker != null)
 			speakerlen = speaker.length() + 2;
 		View view = View.get();
 		int width = getMaxWidth(t) + speakerlen;

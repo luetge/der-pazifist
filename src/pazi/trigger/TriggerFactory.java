@@ -1,6 +1,7 @@
 package pazi.trigger;
 
 import jade.core.World;
+import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
 import rogue.creature.Creature;
 import rogue.creature.CreatureFactory;
@@ -14,9 +15,12 @@ public class TriggerFactory {
 			ct.onEnterEvent = new ICreatureEvent() {
 				@Override
 				public void fired(Creature creature, CreatureTrigger trigger) {
-					for(Direction dir : Direction.values())
-						if(creature.world().getActorAt(Creature.class, trigger.pos().getTranslated(dir)) == null)
-							creature.world().addActor(CreatureFactory.createCreature("zombie1", creature.world()), trigger.pos().getTranslated(dir));
+					Coordinate temp;
+					for(Direction dir : Direction.values()) {
+						temp = trigger.pos().getTranslated(dir);
+						if(creature.world().insideBounds(temp) && creature.world().passableAt(temp) && creature.world().getActorAt(Creature.class, temp) == null)
+							creature.world().addActor(CreatureFactory.createCreature("zombie1", creature.world()), temp);
+					}
 					creature.world().setMessage("Harharhar, du wirst niemals an mich herankommen!");
 					creature.world().getTrigger().remove(trigger);
 				}

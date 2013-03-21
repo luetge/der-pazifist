@@ -46,6 +46,16 @@ res/tiles/dog1/dog1S.txt
 res/tiles/dog1/dog1W.txt
 res/tiles/dog1/dog1dead.txt
 res/tiles/dog1/dog1.txt
+res/tiles/nazi1/nazi1E.txt
+res/tiles/nazi1/nazi1N.txt
+res/tiles/nazi1/nazi1SE.txt
+res/tiles/nazi1/nazi1NW.txt
+res/tiles/nazi1/nazi1dead.txt
+res/tiles/nazi1/nazi1NE.txt
+res/tiles/nazi1/nazi1.txt
+res/tiles/nazi1/nazi1SW.txt
+res/tiles/nazi1/nazi1W.txt
+res/tiles/nazi1/nazi1S.txt
 res/tiles/braindead/braindead.txt
 res/tiles/jesus/jesusNW0.txt
 res/tiles/jesus/jesusN0.txt

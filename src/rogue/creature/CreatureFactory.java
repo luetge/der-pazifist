@@ -30,8 +30,10 @@ import pazi.items.Item;
 import pazi.items.ItemFactory;
 import pazi.trigger.CreatureTrigger;
 import pazi.trigger.TriggerFactory;
+import pazi.weapons.Fist;
 import pazi.weapons.IMeleeWeapon;
 import pazi.weapons.IRangedCombatWeapon;
+import pazi.weapons.KnuckleDuster;
 import pazi.weapons.Paralyzer;
 import rogue.behaviour.RandomWalk;
 
@@ -115,7 +117,7 @@ public class CreatureFactory {
 		else if (identifier.equals("nothere"))
 			creature = new Ally (ColoredChar.create(' ', new Color(0xFFFFFF)), "nothere", new Dialog ("res/dialogs/nothere.txt"));
 		else if (identifier.equals("door"))
-			creature = new Door();
+			creature = new DestructibleObject(ColoredChar.create('═', new Color(0x663300)), "Tür", 500, KnuckleDuster.class, "Mist, die Tür klemmt! Ich brauche etwas, um sie aufzubrechen!", "KRACH!!!");
 		else if (identifier.equals("dog")){
 			ColoredChar faces[] = new ColoredChar[9];
 			for (int i = 0; i < 9; i++)
@@ -136,7 +138,16 @@ public class CreatureFactory {
 			CreatureTrigger ct = (CreatureTrigger)TriggerFactory.createTrigger("zombieguard", world);
 			ct.attach(creature);
 			world.getTrigger().add(ct);
-	    } else {
+	    } else if (identifier.equals("nazi")){
+	    	ColoredChar faces[] = new ColoredChar[9];
+			for (int i = 0; i < 9; i++)
+				faces[i] = ColoredChar.create('N', new Color(0xFFFF00+i));
+			creature = new Monster(faces, "Nazi");
+			creature.setWalkBehaviour(new Follow(world.getPlayer(), 8, 0.5));
+			creature.setBehaviour(new DefaultBehaviour());
+			creature.setMeleeWeapon(new Fist());
+	    }
+		else {
 	    	creature = getCreatureFromString(monsters.get(identifier), world);
 			if(creature == null)
 				System.out.println("Konnte Kreatur \"" + identifier + "\" nicht laden!");

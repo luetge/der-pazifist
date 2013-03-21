@@ -19,7 +19,7 @@ public class TriggerFactory {
 					for(Direction dir : Direction.values()) {
 						temp = trigger.pos().getTranslated(dir);
 						if(creature.world().insideBounds(temp) && creature.world().passableAt(temp) && creature.world().getActorAt(Creature.class, temp) == null)
-							creature.world().addActor(CreatureFactory.createCreature("zombie1", creature.world()), temp);
+							creature.world().addActor(CreatureFactory.createCreature("nazi", creature.world()), temp); //Hitler spawns Nazis
 					}
 					creature.world().setMessage("Harharhar, du wirst niemals an mich herankommen!");
 					creature.world().getTrigger().remove(trigger);

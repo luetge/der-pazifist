@@ -697,7 +697,7 @@ public class Dialog {
 	public static void say (String speaker, ArrayList<String> t, int dy)
 	{
 		int speakerlen = 0;
-		if (speaker != null && !speaker.isEmpty())
+		if (speaker != null && !speaker.trim().isEmpty())
 			speakerlen = speaker.length() + 2;
 		View view = View.get();
 		int width = getMaxWidth(t) + speakerlen;
@@ -709,7 +709,7 @@ public class Dialog {
 		
 		for (int i = 0; i < t.size(); i++)
 		{
-			if (speaker != null && !speaker.isEmpty())
+			if (speaker != null && !speaker.trim().isEmpty())
 			{
 				if (i == 0)
 					view.drawString(view.columns()/2 - width/2, posy + i, 1.0f, speaker + ": ",

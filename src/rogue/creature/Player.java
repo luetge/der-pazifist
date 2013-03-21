@@ -28,6 +28,7 @@ import pazi.items.Item;
 import pazi.items.ItemFactory;
 import pazi.weapons.IMeleeWeapon;
 import pazi.weapons.IRangedCombatWeapon;
+import pazi.weapons.KnuckleDuster;
 import pazi.weapons.MeleeWeaponPrototype;
 import pazi.weapons.RCWeaponPrototype;
 import pazi.weapons.Shotgun;
@@ -93,7 +94,8 @@ public class Player extends Creature implements Camera
     public void setGodMode(boolean godmode)
     {
     	this.godmode = godmode;
-    	inventory.addItem(new SniperRifle(100, 100, 10, 1, "wsdgkn", this));
+    	inventory.addItem(new KnuckleDuster(this));
+    	inventory.addItem(new SniperRifle(100, 100, 10, 1, "CheaterSniper", this));
     	inventory.addItem(new Shotgun());
     	if (this.godmode)
     		world().setMessage("GOD MODE ACTIVATED");

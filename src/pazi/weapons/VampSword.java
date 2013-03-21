@@ -15,8 +15,8 @@ public class VampSword extends MeleeWeaponPrototype {
 	}
 	
 	public VampSword(Creature holder) {
-		super(10, 20, 0.7, "Vampirklinge", new ColoredChar('V', Color.red), holder);
-		this.description = "Zieht dem Gegner 10 bis 20 HP ab und fügt sie dir hinzu.";
+		super(10, 15, 0.7, "Vampirklinge", new ColoredChar('V', Color.red), holder);
+		this.description = "Zieht dem Gegner 10 bis 15 HP ab und fügt sie dir hinzu.";
 	}
 	
 	@Override

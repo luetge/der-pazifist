@@ -291,8 +291,10 @@ public class Dialog {
 		@Override
 		public int tick (World world, Creature speaker)
 		{
+			// TODO
+			String name = ItemFactory.createItem(type).getName();
 			Log.addMessage("Der Pazifist gibt " + speaker.getName() + " " + amount
-					+ " " + type + ".");
+					+ " " + name + ".");
 			world.getPlayer().getInventory().giveItem (speaker, type, amount);
 			return getID() + 1;
 		}
@@ -316,8 +318,10 @@ public class Dialog {
 		@Override
 		public int tick (World world, Creature speaker)
 		{
+			// TODO
+			String name = ItemFactory.createItem(type).getName();
 			Log.addMessage("Der Pazifist erhält " + amount
-					+ " " + type + " von " + speaker.getName() + ".");
+					+ " " + name + " von " + speaker.getName() + ".");
 			speaker.getInventory().giveItem(world.getPlayer(), type, amount);
 			return getID() + 1;
 		}
@@ -341,8 +345,15 @@ public class Dialog {
 		@Override
 		public int tick (World world, Creature speaker)
 		{
-			Log.addMessage("Der Pazifist erhält " + amount
-					+ " " + type + " von " + speaker.getName() + ".");
+			// TODO
+			String name = ItemFactory.createItem(type).getName();
+			if (speaker != null)
+				Log.addMessage("Der Pazifist erhält " + amount
+						+ " " + name + " von " + speaker.getName() + ".");
+			else
+				Log.addMessage("Der Pazifist erhält " + amount
+						+ " " + name + ".");
+				
 			if (type.equals("gold"))
 			{
 				world.getPlayer().getInventory().findGold(amount);
@@ -375,6 +386,8 @@ public class Dialog {
 		public int tick (World world, Creature speaker)
 		{
 			int lost = 0;
+			// TODO
+			String name = ItemFactory.createItem(type).getName();
 			if (type.equals("gold"))
 			{
 				lost = world.getPlayer().getInventory().loseGold(amount);
@@ -386,11 +399,11 @@ public class Dialog {
 			if (lost > 1)
 			{
 				Log.addMessage("Der Pazifist verliert " + lost
-						+ " " + type + ".");
+						+ " " + name + ".");
 			}
 			else if (lost > 0)
 			{
-				Log.addMessage("Der Pazifist verliert " + type + ".");				
+				Log.addMessage("Der Pazifist verliert " + name + ".");				
 			}
 			return getID() + 1;
 		}

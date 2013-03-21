@@ -580,7 +580,8 @@ public class Dialog {
 			String str;
 			while((str = reader.readLine()) != null)
 			{
-				if (str.isEmpty() || str.trim().startsWith("#"))
+				str = str.trim();
+				if (str.isEmpty() || str.startsWith("#"))
 					continue;
 				String args[] = str.split(":");
 				

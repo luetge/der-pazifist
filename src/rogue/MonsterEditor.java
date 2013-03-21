@@ -219,7 +219,6 @@ public class MonsterEditor {
 		// select Features of current Monster in List
 		if (lst.length == FIELDS){
 			String[] tempFeatures = lst[FIELDS-1].split(",");
-			System.out.println(tempFeatures[0]);
 			for (String feat : tempFeatures)
 				lstFeatures.select(features.get(feat));
 		}

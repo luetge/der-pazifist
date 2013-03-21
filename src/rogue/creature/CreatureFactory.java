@@ -56,7 +56,7 @@ public class CreatureFactory {
 //			creature.setWalkBehaviour(new Follow(world.getPlayer(), 8, 0.2));
 //			creature.setBehaviour(new DefaultBehaviour());
 //			creature.meleeWeapon = (IMeleeWeapon) WeaponFactory.createWeapon("rottenFist");
-		} else if (identifier.equals("necro")){
+		} else if (identifier.equals("zombienecro")){
 			creature = new Monster(ColoredChar.create('W', Color.GREEN), "Zombieflüsterer");
 			//creature.addGeneralFeature(Braaaiiiiins.getInstance());
 			creature.setAllFaces(new ColoredChar('W', Color.GREEN));

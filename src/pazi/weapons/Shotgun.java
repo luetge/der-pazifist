@@ -62,6 +62,10 @@ public class Shotgun extends RCWeaponPrototype {
 	}
 
 	private boolean hitCoord(Creature attacker, Coordinate pos) {
+		if (pos.x() < 0 || pos.y() < 0)
+			return false;
+		if (pos.x() >= attacker.world().width() || pos.y() >= attacker.world().height())
+			return false;
 		for (Creature creature : attacker.world().getActorsAt(Creature.class,
 				pos)) {
 			if (!creature.isPassable()) {

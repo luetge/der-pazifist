@@ -124,7 +124,7 @@ public class Level
     				for (int i = 0; i < 8; i++){
     					if (Dice.global.chance(70))
     						continue;
-        				switch(Dice.global.nextInt(11))
+        				switch(Dice.global.nextInt(12))
         				{
         				case 0:
         				case 1:
@@ -148,6 +148,9 @@ public class Level
         					break;
         				case 10:
         					w.addActor(ItemFactory.createItem("vampsword"));
+        					break;
+        				case 11:
+        					w.addActor(ItemFactory.createItem("sniper"));
         					break;
         				}
     				}

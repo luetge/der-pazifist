@@ -5,6 +5,7 @@ import jade.util.datatype.ColoredChar;
 import java.awt.Color;
 
 import rogue.creature.Creature;
+import rogue.creature.Player;
 
 public class SniperRifle extends RCWeaponPrototype {
 
@@ -22,6 +23,8 @@ public class SniperRifle extends RCWeaponPrototype {
 	 */
 	@Override
 	public double getProb(Creature attacker, Creature victim) {
+		if (attacker.getClass() == Player.class)
+			return 1;
 		return attacker == null || victim == null || attacker.pos().distance(victim.pos()) < 2 || attacker.pos().distance(victim.pos()) > range ? 0 : prob;
 	}
 	
@@ -46,6 +49,6 @@ public class SniperRifle extends RCWeaponPrototype {
 	
 	@Override
 	public String getDescription() {
-		return "Auto-aim Sniper. Range von " + this.range + ". Gegner muss > 1 Feld entfernt stehen.";
+		return "Auto-aim Sniper. Range von " + this.range + ".";
 	}
 }

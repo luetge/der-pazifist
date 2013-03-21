@@ -32,7 +32,7 @@ public class HUD {
 			setForeground(Color.white);
 		}
 	}
-	protected static JLabel lblHP, lblAgil, lblFaith, lblRage, lblLevel, lblGold, lblXP;
+	protected static JLabel lblHP, lblFaith, lblRage, lblLevel, lblGold, lblXP;
 	protected static JTextArea taMonsters, taEquip;
 	protected static int fontHeight;
 	protected static JFrame hud;
@@ -89,7 +89,6 @@ public class HUD {
 	
 	private static void addLabels(JPanel pnl) {
 		lblHP = new MyLabel("100/100");
-		lblAgil = new MyLabel("0%");
 		lblFaith = new MyLabel("100%");
 		lblRage = new MyLabel("?%");
 		lblXP = new MyLabel("0");
@@ -97,8 +96,6 @@ public class HUD {
 		lblGold = new MyLabel("0");
 		pnl.add(new MyLabel("HP:"));
 		pnl.add(lblHP);
-		pnl.add(new MyLabel("Agil:"));
-		pnl.add(lblAgil);
 		pnl.add(new MyLabel("Faith:"));
 		pnl.add(lblFaith);
 		pnl.add(new MyLabel("Rage:"));
@@ -113,10 +110,6 @@ public class HUD {
 
 	public static void setHP(int hp,int maxHp){
 		lblHP.setText(hp + "/" + maxHp);
-	}
-	
-	public static void setAgil(int agil){
-		lblAgil.setText(agil + "%");
 	}
 	
 	public static void setFaith(int faith){

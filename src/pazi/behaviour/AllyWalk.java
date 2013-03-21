@@ -28,7 +28,8 @@ public class AllyWalk implements IBehaviour<Creature> {
 			return;
 
 		if(Dice.global.chance(walkchance)){
-			creature.move(Dice.global.choose(Arrays.asList(Direction.values())));
+			creature.setNextCoord(creature.pos().getTranslated(Dice.global.choose(Arrays.asList(Direction.values()))));
+			creature.doStep();
 			creature.setHasActed(true);
 			return;
 		}

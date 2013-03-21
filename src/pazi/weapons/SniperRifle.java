@@ -43,4 +43,9 @@ public class SniperRifle extends RCWeaponPrototype {
 	protected String getHitText(Creature attacker, Creature victim) {
 		return "...trifft. Autsch!";
 	}
+	
+	@Override
+	public String getDescription() {
+		return "Auto-aim Sniper. Range von " + this.range + ". Gegner muss > 1 Feld entfernt stehen.";
+	}
 }

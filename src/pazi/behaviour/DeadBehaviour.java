@@ -20,7 +20,6 @@ public class DeadBehaviour implements IBehaviour<Creature> {
 	
 	public DeadBehaviour(Creature creature,Creature source){
 		creature.appendMessage(creature.getDeathMessage());
-		source.gainXp(creature.getXp());
 		creature.setFace(new ColoredChar(creature.face().ch(), Color.gray));
 		creature.setPassable(true);
 		creature.dropInventory();

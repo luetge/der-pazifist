@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.newdawn.slick.util.ResourceLoader;
 
+import pazi.behaviour.AllyBehaviour;
 import pazi.behaviour.AllyWalk;
 import pazi.behaviour.DefaultBehaviour;
 import pazi.behaviour.Follow;
@@ -103,8 +104,8 @@ public class CreatureFactory {
 				faces[i] = ColoredChar.create('W', new Color(0x000000+i));
 			creature = new Ally (faces, "Wissenschaftler", new Dialog ("res/dialogs/scientist0.txt"));
 			creature.getInventory().addItem((Item)ItemFactory.createWeapon("knuckleduster", creature));
-			//creature.setWalkBehaviour(new RandomWalk());
-			//creature.setBehaviour(new AllyWalk());
+			creature.setWalkBehaviour(new AllyWalk());
+			creature.setBehaviour(new AllyBehaviour());
 		} else if (identifier.equals("scientist1")) {
 			creature = new Ally (ColoredChar.create('W', new Color(0x000005)), "Wissenschaftler", new Dialog ("res/dialogs/scientist1.txt"));
 			creature.getInventory().addItem((Item)ItemFactory.createWeapon("shotgun", creature));
@@ -117,7 +118,7 @@ public class CreatureFactory {
 		else if (identifier.equals("nothere"))
 			creature = new Ally (ColoredChar.create(' ', new Color(0xFFFFFF)), "nothere", new Dialog ("res/dialogs/nothere.txt"));
 		else if (identifier.equals("door"))
-			creature = new DestructibleObject(ColoredChar.create('═', new Color(0x663300)), "Tür", 500, KnuckleDuster.class, "Mist, die Tür klemmt! Ich brauche etwas, um sie aufzubrechen!", "KRACH!!!");
+			creature = new DestructableObject(ColoredChar.create('═', new Color(0x663300)), "Tür", 500, KnuckleDuster.class, "Mist, die Tür klemmt! Ich brauche etwas, um sie aufzubrechen!", "KRACH!!!");
 		else if (identifier.equals("dog")){
 			ColoredChar faces[] = new ColoredChar[9];
 			for (int i = 0; i < 9; i++)

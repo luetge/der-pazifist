@@ -51,6 +51,7 @@ public class Rogue
         HUD.init();
 
         player = new Player();
+//        level = new Level(256, 192, player, "mainworld");
         level = new Level(256, 192, player, "mainworld");
 
         view.setCenter(player.pos());
@@ -64,6 +65,8 @@ public class Rogue
 			level.world().addActor(CreatureFactory.createCreature("sniper1", level.world()));
 			level.world().addActor(CreatureFactory.createCreature("zombienecro", level.world()));
 		}
+
+        level.stepThroughDoor(new Door("spawndoor", 0, 0, "tut1", "spawn0"));
 	}
 	
     public boolean run () throws InterruptedException

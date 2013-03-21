@@ -29,6 +29,7 @@ import org.newdawn.slick.util.ResourceLoader;
 import pazi.behaviour.DeadBehaviour;
 import pazi.behaviour.Follow;
 import pazi.behaviour.SequenceBehaviour;
+import pazi.weapons.KnuckleDuster;
 import rogue.creature.CreatureFactory;
 import rogue.creature.Monster;
 import rogue.creature.Player;

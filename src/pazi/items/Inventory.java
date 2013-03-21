@@ -18,12 +18,12 @@ public class Inventory {
 	
 	public Inventory(Creature owner) {
 		this.owner = owner;
-		if(Player.class.isAssignableFrom(owner.getClass()))
+		if(owner.isPlayer())
 			Backpack.setInventory(this);
 	}
 	
 	protected void update() {
-		if(Player.class.isAssignableFrom(owner.getClass()))
+		if(owner.isPlayer())
 			Backpack.updateInventory();
 	}
 	
@@ -100,7 +100,7 @@ public class Inventory {
 		Guard.argumentIsNonNegative(gold);
 		
 		this.gold += gold;
-		if(Player.class.isAssignableFrom(owner.getClass()))
+		if(owner.isPlayer())
 			HUD.setGold(this.gold);
 		
 	}
@@ -116,7 +116,7 @@ public class Inventory {
 		if(this.gold - gold < 0)
 			gold = this.gold;
 		this.gold -= gold;
-		if(Player.class.isAssignableFrom(owner.getClass()))
+		if(owner.isPlayer())
 			HUD.setGold(this.gold);
 		return gold;
 	}

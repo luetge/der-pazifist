@@ -16,27 +16,14 @@ public class DeadBehaviour implements IBehaviour<Creature> {
 	// Achtung! In deadBodies sind nur die Toten mit Hirn!
 	public static AbstractCollection<Creature> deadBodies = new LinkedHashSet<Creature>();
 	
-	/**
-	 * Singleton
-	 */
-	private static DeadBehaviour inst;
-	
-	private DeadBehaviour(){}
-	
-	public static DeadBehaviour getInstance(){
-		if(inst == null)
-			inst = new DeadBehaviour();
-		return inst;
-	}
-	
 	public DeadBehaviour(Creature creature,Creature source){
-		creature.appendMessage("UUuuuuuuaaaaarrrrrrrghghhgghhh!");
+		creature.appendMessage(creature.getDeathMessage());
+		source.gainXp(creature.getXp());
 		creature.setFace(new ColoredChar(creature.face().ch(), Color.gray));
 		creature.setPassable(true);
 		creature.dropInventory();
 		source.killedSomeone(creature);
-		if(Player.class.isAssignableFrom(creature.getClass()))
-		{
+		if(creature.isPlayer()){
 			creature.expire();
 			EndScreen.SetKiller(source.getIdentifier());
 		}

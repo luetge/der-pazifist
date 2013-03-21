@@ -104,7 +104,7 @@ public abstract class Creature extends Actor
     
     @Override
     public void interact(Actor actor) {
-    	Guard.verifyState(Player.class.isAssignableFrom(this.getClass()));
+    	Guard.verifyState(isPlayer());
     	if(Creature.class.isAssignableFrom(actor.getClass()))
     		this.fight((Creature)actor, true);
     	/*else if (Ally.class.isAssignableFrom(actor.getClass()))
@@ -114,7 +114,7 @@ public abstract class Creature extends Actor
     public void interact (Direction dir) {
     	if (dir == null || dir == Direction.ORIGIN)
     		return;
-    	Guard.verifyState(Player.class.isAssignableFrom(this.getClass()));
+    	Guard.verifyState(isPlayer());
     	if(dir == null)
     		return;
     	Collection<Monster> monsters = world().getActorsAt(Monster.class, pos().getTranslated(dir));
@@ -149,7 +149,7 @@ public abstract class Creature extends Actor
     public void addHP(int hp){
     	setHP(this.hp + hp);
     }
-
+    
 	public void doStep() {
 		if(nextCoordinate != null)
 		{
@@ -371,5 +371,9 @@ public abstract class Creature extends Actor
 			setRCWeapon(null);
 			this.appendMessage(weapon.getName() + " hat keine Muni mehr. Weg damit!");
 		}
+	}
+
+	public String getDeathMessage() {
+		return "UUuuuuuuaaaaarrrrrrrghghhgghhh!";
 	}
 }

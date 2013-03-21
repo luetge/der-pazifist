@@ -5,7 +5,8 @@ Jeder Befehl in einer Dialogdatei hat eines der folgenden Formate:
 
 "id" ist hierbei eine ganze Zahl (negative Werte und 0 sind erlaubt),
 wobei die niedrigste ID den ursprünglichen Eintrittspunkt für den Dialog
-festlegt (der erste Aufruf des Dialogs startet bei der kleinsten ID).
+festlegt (der erste Aufruf des Dialogs startet bei der kleinsten ID, diese muss aber 
+kleiner oder gleich null sein).
 Jeder Befehlsblog muss eine feste, eindeutige ID haben, allerdings können
 IDs in beliebiger Reihenfolge definiert werden und nicht jeder ID muss ein
 Befehl zugewiesen werden.

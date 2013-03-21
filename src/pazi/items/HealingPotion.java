@@ -31,7 +31,7 @@ public class HealingPotion extends Item {
 
 	@Override
 	public void interact(Actor actor) {
-		if(Player.class.isAssignableFrom(actor.getClass())){
+		if(actor.isPlayer()){
 			((Player)actor).addHP(HP);
 			actor.appendMessage("Aaaaaah, das tut gut, ich fühle mich wie auferstanden!");
 			((Player)actor).setHasActed(true);

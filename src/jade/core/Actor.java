@@ -15,6 +15,7 @@ import java.util.Set;
 
 import pazi.behaviour.IBehaviour;
 import pazi.features.IFeature;
+import rogue.creature.Player;
 
 //TODO Prioritäten bei Features
 
@@ -408,4 +409,8 @@ public abstract class Actor extends Messenger
 		return face;
 	}
     
+    public boolean isPlayer(){
+    	return Player.class.isAssignableFrom(getClass());
+    }
+
 }

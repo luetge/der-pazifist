@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.newdawn.slick.util.ResourceLoader;
 
+import pazi.behaviour.AllyWalk;
 import pazi.behaviour.DefaultBehaviour;
 import pazi.behaviour.Follow;
 import pazi.behaviour.IBehaviour;
@@ -24,6 +25,8 @@ import pazi.behaviour.ZombieWhispererBehaviour;
 import pazi.features.Braaaiiiiins;
 import pazi.features.IBeforeAfterFeature;
 import pazi.features.IFeature;
+import pazi.features.Wuff;
+import pazi.items.Item;
 import pazi.items.ItemFactory;
 import pazi.trigger.CreatureTrigger;
 import pazi.trigger.TriggerFactory;
@@ -92,9 +95,36 @@ public class CreatureFactory {
 		} else if (identifier.equals("priest")) {
 			creature = new Ally (ColoredChar.create('P'), "Priest", new Dialog ("res/dialogs/priest.txt"));
 			
-		} else if (identifier.equals("scientist")) {
-			creature = new Ally (ColoredChar.create('W'), "Scientist", new Dialog ("res/dialogs/scientist.txt"));
-		}	
+		} else if (identifier.equals("scientist0")) {
+			ColoredChar faces[] = new ColoredChar[9];
+			for (int i = 0; i < 9; i++)
+				faces[i] = ColoredChar.create('W', new Color(0x000000+i));
+			creature = new Ally (faces, "Wissenschaftler", new Dialog ("res/dialogs/scientist0.txt"));
+			creature.getInventory().addItem((Item)ItemFactory.createWeapon("knuckleduster", creature));
+			//creature.setWalkBehaviour(new RandomWalk());
+			//creature.setBehaviour(new AllyWalk());
+		} else if (identifier.equals("scientist1")) {
+			creature = new Ally (ColoredChar.create('W', new Color(0x000005)), "Wissenschaftler", new Dialog ("res/dialogs/scientist1.txt"));
+			creature.getInventory().addItem((Item)ItemFactory.createWeapon("shotgun", creature));
+		} 
+		else if (identifier.equals("scientist0Pult"))
+			creature = new Ally (ColoredChar.create('w'), "Wissenschaftler", new Dialog ("res/dialogs/scientist0Pult.txt"));
+
+		else if (identifier.equals("goodHitler"))
+			creature = new Ally (ColoredChar.create('H', Color.white), "Hitler", new Dialog ("res/dialogs/hitlerGood.txt"));
+		else if (identifier.equals("nothere"))
+			creature = new Ally (ColoredChar.create(' ', new Color(0xFFFFFF)), "nothere", new Dialog ("res/dialogs/nothere.txt"));
+		else if (identifier.equals("door"))
+			creature = new Door();
+		else if (identifier.equals("dog")){
+			ColoredChar faces[] = new ColoredChar[9];
+			for (int i = 0; i < 9; i++)
+				faces[i] = ColoredChar.create('d', new Color(0x000000+i));
+			creature = new Monster (faces, "Hund");
+			creature.setWalkBehaviour(new Follow(world.getPlayer(), 8, 0.5));
+			creature.setBehaviour(new DefaultBehaviour());
+			creature.addGeneralFeature(new Wuff());
+		}
 		else if (identifier.equals("hitler")) {
 			creature = new Monster(ColoredChar.create('H', Color.white), "Hitler");
 			creature.setWalkBehaviour(new RandomWalk());

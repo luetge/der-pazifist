@@ -87,7 +87,7 @@ public class WeaponPrototype extends Item implements IWeapon {
 	
 	@Override
 	public void interact(Actor actor) {
-		if(Creature.class.isAssignableFrom(actor.getClass())){
+		if(actor.isPlayer()){
 			((Creature)actor).setWeapon(this);
 			appendMessage(actor, getEquipText());
 			setHasActed(false);

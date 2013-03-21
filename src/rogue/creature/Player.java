@@ -35,6 +35,7 @@ public class Player extends Creature implements Camera
     int counter = 0;
     int faith, rage;
     int maxFaith, maxRage;
+    int maxHP = 100;
     private int radius;
 	RoundhousePunch roundhousePunch;
     ColoredChar facesets[][];
@@ -163,11 +164,13 @@ public class Player extends Creature implements Camera
 	
 	protected void setHP(int hp){
 		super.setHP(hp);
+		if(this.hp > this.maxHP)
+			this.hp = maxHP;
 		updateHP();
 	}
 	
 	protected void updateHP(){
-		HUD.setHP(getHP(), this.maxHp);
+		HUD.setHP(getHP(), this.maxHP);
 	}
 	
 	protected void updateFaith(){
@@ -314,9 +317,9 @@ public class Player extends Creature implements Camera
 	public void levelUp(){
 		this.lvl += 1;
 		HUD.setLevel(this.lvl);
-		this.maxHp += 10;
+		this.maxHP += 10;
 		this.addHP(20);
-		HUD.setHP(getHP(),this.maxHp);
+		HUD.setHP(getHP(),this.maxHP);
 		this.min_d += 5;
 		this.max_d += 5;
 		world().setMessage("Du has Level " + this.lvl + " erreicht.");

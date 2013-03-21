@@ -171,7 +171,7 @@ public class EndScreen {
 					int len = Integer.parseInt(args[1]);
 					for (Coordinate coord : map.getSpecialCoords(special))
 					{
-						print(coord, numsnipers, len);
+						print(coord, numnazis, len);
 					}				
 				}
 			}

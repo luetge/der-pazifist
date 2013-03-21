@@ -29,7 +29,6 @@ import pazi.weapons.WeaponPrototype;
 public abstract class Creature extends Actor
 {
 	protected int hp = 100;
-	protected int maxHp = 100;
 	protected int min_d, max_d;
 	protected int givenXp = 25;
     protected int xp=0;
@@ -215,8 +214,6 @@ public abstract class Creature extends Actor
 	
 	protected void setHP(int hp){
 		this.hp = hp;
-		if(this.hp > this.maxHp)
-			this.hp = maxHp;
 		if(this.hp < 0)
 			this.hp = 0;
 	}

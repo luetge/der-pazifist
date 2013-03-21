@@ -25,13 +25,14 @@ Rüsten Sie sich mit der Shotgun aus und schießen Sie die Tür frei.
 6:done
 
 7:text:nospeaker
-Um mit der Shotgun zu schießen, drücken Sie erst Leertaste und dann die Schussrichtung.
+Um mit der Shotgun zu schießen, 
+drücken Sie erst Leertaste und dann die Schussrichtung.
 7:done
 
-7:end:8
+8:end:10
 
-8:text
+10:text
 Na los, probieren Sie es mal!
-8:done
+10:done
 
-9:end:10
+11:end:10

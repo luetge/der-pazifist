@@ -156,10 +156,10 @@ public class Player extends Creature implements Camera
     }
     
     @Override
-    public void takeDamage(int d, Creature source) {
+    public void takeDamage(int d, Creature source, boolean melee) {
     	if (godmode)
     		return;
-    	super.takeDamage(d, source);
+    	super.takeDamage(d, source, melee);
     	updateHP();
     }   
 

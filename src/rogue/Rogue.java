@@ -66,7 +66,7 @@ public class Rogue
 //			level.world().addActor(CreatureFactory.createCreature("zombienecro", level.world()));
 		}
 
-//        level.stepThroughDoor(new Door("spawndoor", 0, 0, "tut1", "spawn0"));
+        level.stepThroughDoor(new Door("spawndoor", 0, 0, "tut1", "spawn0"));
 	}
 	
     public boolean run () throws InterruptedException

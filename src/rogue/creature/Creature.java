@@ -137,7 +137,7 @@ public abstract class Creature extends Actor
     	fight(creature, weapon.getDamage(this, creature), weapon.getProb(this, creature), melee);
     }    
     
-    public void takeDamage(int d,Creature source){
+    public void takeDamage(int d,Creature source, boolean melee){
     	if(getBehaviour().getClass() == DeadBehaviour.class)
     		return;
     	setHP(Math.max(0, hp-d));

@@ -24,11 +24,11 @@ public class DestructableObject extends Creature {
 		}
 		
 	@Override
-	public void takeDamage(int d, Creature source) {
+	public void takeDamage(int d, Creature source, boolean melee) {
 		if(!source.isPlayer())
 			return;
 		Player player = (Player)source;
-		if(!destructibleBy.isAssignableFrom(player.meleeWeapon.getClass())) 
+		if( (melee && !destructibleBy.isAssignableFrom(player.meleeWeapon.getClass())) || (!melee && (player.rcWeapon == null || !destructibleBy.isAssignableFrom(player.rcWeapon.getClass())))) 
 			player.world().setMessage(getWrongWeaponText());
 		else {
 			if(getBehaviour().getClass() == DeadBehaviour.class)
@@ -36,7 +36,7 @@ public class DestructableObject extends Creature {
 	    	setHP(Math.max(0, hp-d));
 	    	if(hp == 0)
 	    		setBehaviour(new DeadBehaviour(this,source));
-		}
+		} 
 	}
 		
 	@Override

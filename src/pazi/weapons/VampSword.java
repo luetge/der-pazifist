@@ -42,4 +42,9 @@ public class VampSword extends MeleeWeaponPrototype {
 	protected String getPickupText() {
 		return "Oha. Das mächtige Vampirschwert, aus dem Knochen des großen Nosferatu geschnitzt. Nice.";
 	}
+	
+	@Override
+	protected String getMissedText(Creature attacker, Creature victim) {
+		return (victim.getName() + " verfehlt! Dieses Schwert ist schwer handzuhaben..");
+	}
 }

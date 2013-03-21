@@ -21,6 +21,23 @@ Bisherige Befehle für die Escape-Sequenzen sind:
 
 ¥dontbrighten¥  - belässt die Helligkeit bei ihrem normalen Wert (standard)
 
+¥yrandom:id,min,max¥
+...
+¥yrandomend:id¥
+Erstellt (falls nicht schon vorhanden) eine Zufallszahl, die später über die id wiederverwendet
+werden kann, und fügt den folgenden Block zeilenweise zufällig oft in die AsciiMap ein. Die
+besondere id "new" erhält bei jedem Aufruf einen neuen Zufallswert. ACHTUNG: diese Befehle
+können (im Gegensatz zu xrandom und xrandomend) NICHT durch Aliases ersetzt werden und müssen
+allein in einer Zeile stehen. Der Block kann beliebige weitere Escape-Sequenzen enthalten,
+einschließlich xrandoms und geschachtelter weiterer yrandoms.
+
+¥xrandom:id,min,max¥...¥xrandomend:id¥
+Erstellt (falls nicht schon vorhanden) eine Zufallszahl, die später über die id wiederverwendet
+werden kann, und fügt den folgenden Block zufällig oft in die aktuelle Zeile der AsciiMap ein. Die
+besondere id "new" erhält bei jedem Aufruf einen neuen Zufallswert. Der Block darf eine Zeile
+nicht überschreiten und kann beliebige weitere Escape-Sequenzen (außer yrandom/yrandomend)
+enthalten einschließlich geschachtelter weiterer xrandoms.
+
 ¥door:id,destworld,destname,n¥
 Definiert eine Tür am nächsten Zeichen.
 Die Tür bekommt die Bezeichnung "id" und führt in die

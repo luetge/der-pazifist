@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.Reader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -18,6 +19,7 @@ import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Door;
+import jade.util.Dice;
 import jade.util.Guard;
 import java.awt.Color;
 
@@ -160,108 +162,149 @@ public class AsciiMap {
 		private boolean passable;
 		private boolean brighten;
 		private Map<String, String> aliases;
+		private Map<String, Integer> randomnumbers;
+		
+		private class LineParser
+		{
+			private String line;
+			private int pos;
+			public LineParser(String line)
+			{
+				this.line = line;
+				pos = 0;
+			}
+			private void processEscape (MutableCoordinate coord, String input)
+			{
+				String esc;
+				esc = aliases.get(input);
+				if (esc == null)
+					esc = input;
+				if(esc.startsWith("bg:"))
+				{
+					background = Color.decode("0x"+esc.substring(3));
+				}
+				else if (esc.startsWith("fg:"))
+				{
+					foreground = Color.decode("0x"+esc.substring(3));
+				}
+				else if (esc.startsWith("creature:"))
+				{
+					creatures.put(coord.copy(), esc.substring(9));
+				}
+				else if (esc.startsWith("xrandom:"))
+				{
+					String params[] = esc.substring(8).split(",");
+					Guard.verifyState(params.length == 3);
+					Integer randomnumber;
+					if (params[0].equals("new"))
+					{
+						randomnumber = Dice.global.nextInt(Integer.parseInt(params[1]),
+								Integer.parseInt(params[2]));
+					}
+					else
+					{
+						randomnumber = randomnumbers.get(params[0]);
+						if (randomnumber == null)
+						{
+							randomnumber = Dice.global.nextInt(Integer.parseInt(params[1]),
+									Integer.parseInt(params[2]));
+							randomnumbers.put(params[0], randomnumber);
+						}
+					}
+					String randomend = "¥xrandomend:"+params[0]+"¥";
+					int sequenceend = line.substring(pos+1).indexOf(randomend);
+					for (int i = 0; i < randomnumber; i++)
+					{
+						LineParser parser = new LineParser (line.substring(pos+1, pos+1+sequenceend));
+						parser.execute(coord);
+					}
+					pos += sequenceend + randomend.length();
 
-		private void processEscape (Coordinate coord, String input)
-		{
-			String esc;
-			esc = aliases.get(input);
-			if (esc == null)
-				esc = input;
-			if(esc.startsWith("bg:"))
-			{
-				background = Color.decode("0x"+esc.substring(3));
-			}
-			else if (esc.startsWith("fg:"))
-			{
-				foreground = Color.decode("0x"+esc.substring(3));
-			}
-			else if (esc.startsWith("creature:"))
-			{
-				creatures.put(coord.copy(), esc.substring(9));
-			}
-			else if (esc.equals("brighten"))
-			{
-				brighten = true;
-			}
-			else if (esc.equals("brighten"))
-			{
-				brighten = true;
-			}
-			else if (esc.equals("dontbrighten"))
-			{
-				brighten = false;
-			}
-			else if (esc.startsWith("door:"))
-			{
-				String params[] = esc.substring(5).split(",");
-				Guard.validateArgument(params.length == 4);
-				Direction dir = Direction.NORTH;
-				Guard.validateArgument(params[3].length() == 1);
-				switch (params[3].charAt(0))
-				{
-				case 'n':
-					dir = Direction.NORTH;
-					break;
-				case 'w':
-					dir = Direction.WEST;
-					break;
-				case 'e':
-					dir = Direction.EAST;
-					break;
-				case 's':
-					dir = Direction.SOUTH;
-					break;
 				}
-				doors.put(coord.copy(), new Door(params[0],
-						coord.x(), coord.y(), params[1], params[2], dir));
+				else if (esc.equals("brighten"))
+				{
+					brighten = true;
+				}
+				else if (esc.equals("brighten"))
+				{
+					brighten = true;
+				}
+				else if (esc.equals("dontbrighten"))
+				{
+					brighten = false;
+				}
+				else if (esc.startsWith("door:"))
+				{
+					String params[] = esc.substring(5).split(",");
+					Guard.validateArgument(params.length == 4);
+					Direction dir = Direction.NORTH;
+					Guard.validateArgument(params[3].length() == 1);
+					switch (params[3].charAt(0))
+					{
+					case 'n':
+						dir = Direction.NORTH;
+						break;
+					case 'w':
+						dir = Direction.WEST;
+						break;
+					case 'e':
+						dir = Direction.EAST;
+						break;
+					case 's':
+						dir = Direction.SOUTH;
+						break;
+					}
+					doors.put(coord.copy(), new Door(params[0],
+							coord.x(), coord.y(), params[1], params[2], dir));
+				}
+				else if (esc.equals("p"))
+				{
+					passable = true;
+				}
+				else if (esc.equals("np"))
+				{
+					passable = false;
+				}
+				else
+				{
+					Set<Coordinate> set = specials.get(esc);
+					if (set == null)
+						specials.put(esc, set = new HashSet<Coordinate> ());
+					set.add(coord.copy());
+				}
 			}
-			else if (esc.equals("p"))
-			{
-				passable = true;
-			}
-			else if (esc.equals("np"))
-			{
-				passable = false;
-			}
-			else
-			{
-				Set<Coordinate> set = specials.get(esc);
-				if (set == null)
-					specials.put(esc, set = new HashSet<Coordinate> ());
-				set.add(coord.copy());
-			}
-		}
 	
-		private void processLine (String line, MutableCoordinate coord)
-		{
-			for (int i = 0; i < line.length(); i++)
+			private void execute (MutableCoordinate coord)
 			{
-				char c = line.charAt(i);
-				if (c == '¥')
+				for (pos = 0; pos < line.length(); pos++)
 				{
-					int escend = line.indexOf('¥', i+1);
-					Guard.argumentIsPositive (escend);
-					processEscape(coord, line.substring(i+1,escend));
-					i = escend;
-					continue;
-				}
-				characters.put(coord.copy(), new Tile(new ColoredChar (c, foreground),
-						passable));
-				if (width < coord.x())
-					width = coord.x();
-				if (height < coord.y())
-					height = coord.y();
-				if (!background.equals(Color.black))
-				{
-					backgrounds.put(coord.copy(), brighten?background.brighter():background);
+					char c = line.charAt(pos);
+					if (c == '¥')
+					{
+						int escstart = pos+1;
+						int escend = line.indexOf('¥', escstart);
+						pos = escend;
+						Guard.argumentIsPositive (escend);
+						processEscape(coord, line.substring(escstart, escend));
+						continue;
+					}
+					characters.put(coord.copy(), new Tile(new ColoredChar (c, foreground),
+							passable));
 					if (width < coord.x())
 						width = coord.x();
 					if (height < coord.y())
 						height = coord.y();
+					if (!background.equals(Color.black))
+					{
+						backgrounds.put(coord.copy(), brighten?background.brighter():background);
+						if (width < coord.x())
+							width = coord.x();
+						if (height < coord.y())
+							height = coord.y();
+					}
+					coord.setXY(coord.x()+1,coord.y());
 				}
-				coord.setXY(coord.x()+1,coord.y());
 			}
-			coord.setXY(0,coord.y()+1);
 		}
 		
 		private void parseAliases(String aliases)
@@ -276,6 +319,64 @@ public class AsciiMap {
 				this.aliases.put(s[0],s[1]);
 			}
 		}
+		
+		private class BlockParser
+		{
+			ArrayList<String> block;
+			public BlockParser(ArrayList<String> block)
+			{
+				this.block = block;  
+				
+			}
+			
+			public void execute (MutableCoordinate coord)
+			{
+				for (int i = 0; i < block.size(); i++)
+				{
+					String str = block.get(i);
+					if (str.startsWith("¥yrandom:"))
+					{
+						String params[] = str.trim().substring(9, str.length()-1).split(",");
+						Guard.verifyState(params.length == 3);
+						Integer randomnumber;
+						if (params[0].equals("new"))
+						{
+							randomnumber = Dice.global.nextInt(Integer.parseInt(params[1]),
+									Integer.parseInt(params[2]));
+						}
+						else
+						{
+							randomnumber = randomnumbers.get(params[0]);
+							if (randomnumber == null)
+							{
+								randomnumber = Dice.global.nextInt(Integer.parseInt(params[1]),
+										Integer.parseInt(params[2]));
+								randomnumbers.put(params[0], randomnumber);
+							}
+						}
+						
+						ArrayList<String> subblock = new ArrayList<String> ();
+						String endstr = "¥yrandomend:" + params[0] + "¥";
+						i++;
+						str = block.get(i);
+						while (!str.equals(endstr))
+						{
+							subblock.add(str);
+							i++;
+							str = block.get(i);
+						}
+						
+						for (int c = 0; c < randomnumber; c++)
+							new BlockParser(subblock).execute(coord);
+
+						continue;
+					}
+					LineParser lineparser = new LineParser(str);
+					lineparser.execute(coord);
+					coord.setXY(0,coord.y()+1);
+				}
+			}
+		}
 	
 		public void load(Reader r)
 		{
@@ -288,12 +389,17 @@ public class AsciiMap {
 				brighten = false;
 				MutableCoordinate coord = new MutableCoordinate (0,0);
 				aliases = new HashMap<String,String>();
+				randomnumbers = new HashMap<String, Integer> ();
 				parseAliases(reader.readLine());
+				ArrayList<String> lines = new ArrayList<String>();
 				while ((str = reader.readLine ()) != null)
 				{
-					processLine (str, coord);
+					lines.add(str);
 				}
 				reader.close();
+
+				new BlockParser(lines).execute(coord);
+
 				width++;
 				height++;
 			} catch (IOException e) {

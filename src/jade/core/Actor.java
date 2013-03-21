@@ -232,7 +232,7 @@ public abstract class Actor extends Messenger
      * Returns a copy of the current position of the {@code Actor}.
      * @return a copy of the current position of the {@code Actor}.
      */
-    public final Coordinate pos()
+    public Coordinate pos()
     {
         return pos.copy();
     }

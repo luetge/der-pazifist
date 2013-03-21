@@ -2,7 +2,6 @@ package rogue.creature;
 
 import jade.core.Actor;
 import jade.core.Messenger;
-import jade.ui.HUD;
 import jade.util.Guard;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
@@ -19,15 +18,12 @@ import pazi.behaviour.DeadBehaviour;
 import pazi.behaviour.DoNothingBehaviour;
 import pazi.behaviour.IBehaviour;
 import pazi.features.IBeforeAfterFeature;
-import pazi.items.Gold;
 import pazi.items.Inventory;
 import pazi.items.Item;
 import pazi.items.ItemFactory;
 import pazi.weapons.IMeleeWeapon;
 import pazi.weapons.IRangedCombatWeapon;
 import pazi.weapons.IWeapon;
-import pazi.weapons.MeleeWeaponPrototype;
-import pazi.weapons.RCWeaponPrototype;
 import pazi.weapons.WeaponPrototype;
 
 public abstract class Creature extends Actor
@@ -270,14 +266,14 @@ public abstract class Creature extends Actor
 	public ArrayList<Creature> getCreaturesCloseby(){
 		ArrayList<Creature> list = new ArrayList<Creature>();
 
-		list.add(world().getActorAt(Creature.class, pos().getTranslated(1, -1)));
-		list.add(world().getActorAt(Creature.class, pos().getTranslated(1, 0)));
-		list.add(world().getActorAt(Creature.class, pos().getTranslated(1, 1)));
-		list.add(world().getActorAt(Creature.class, pos().getTranslated(0, -1)));
-		list.add(world().getActorAt(Creature.class, pos().getTranslated(0, 1)));
-		list.add(world().getActorAt(Creature.class, pos().getTranslated(-1, -1)));
-		list.add(world().getActorAt(Creature.class, pos().getTranslated(-1, 0)));
-		list.add(world().getActorAt(Creature.class, pos().getTranslated(-1, 1)));
+		list.addAll(world().getActorsAt(Creature.class, pos().getTranslated(1, -1)));
+		list.addAll(world().getActorsAt(Creature.class, pos().getTranslated(1, 0)));
+		list.addAll(world().getActorsAt(Creature.class, pos().getTranslated(1, 1)));
+		list.addAll(world().getActorsAt(Creature.class, pos().getTranslated(0, -1)));
+		list.addAll(world().getActorsAt(Creature.class, pos().getTranslated(0, 1)));
+		list.addAll(world().getActorsAt(Creature.class, pos().getTranslated(-1, -1)));
+		list.addAll(world().getActorsAt(Creature.class, pos().getTranslated(-1, 0)));
+		list.addAll(world().getActorsAt(Creature.class, pos().getTranslated(-1, 1)));
 	
 		list.removeAll(Collections.singletonList(null));
 		return list;
@@ -295,7 +291,7 @@ public abstract class Creature extends Actor
 		return list;
 	}
 	
-	private List<Coordinate> getRect(Coordinate pos, double range) {
+	public static List<Coordinate> getRect(Coordinate pos, double range) {
 		ArrayList<Coordinate> coords = new ArrayList<Coordinate>();
 		int half = (int)(range/2);
 		for(int i=0; i<2*range; i++)

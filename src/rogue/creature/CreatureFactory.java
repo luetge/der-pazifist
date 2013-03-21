@@ -1,13 +1,12 @@
 package rogue.creature;
 
+import jade.core.Actor;
 import jade.core.Dialog;
 import jade.core.World;
 import jade.util.datatype.ColoredChar;
 
 import java.awt.Color;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Constructor;
@@ -26,6 +25,8 @@ import pazi.features.Braaaiiiiins;
 import pazi.features.IBeforeAfterFeature;
 import pazi.features.IFeature;
 import pazi.items.ItemFactory;
+import pazi.trigger.CreatureTrigger;
+import pazi.trigger.TriggerFactory;
 import pazi.weapons.IMeleeWeapon;
 import pazi.weapons.IRangedCombatWeapon;
 import pazi.weapons.Paralyzer;
@@ -102,6 +103,9 @@ public class CreatureFactory {
 			creature.max_d = 100;
 			creature.min_d = 30;
 			creature.setHP(1000);
+			CreatureTrigger ct = (CreatureTrigger)TriggerFactory.createTrigger("zombieguard", world);
+			ct.attach(creature);
+			world.getTrigger().add(ct);
 	    } else {
 	    	creature = getCreatureFromString(monsters.get(identifier), world);
 			if(creature == null)

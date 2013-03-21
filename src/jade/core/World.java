@@ -13,13 +13,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import pazi.items.Item;
-import rogue.creature.Monster;
+import pazi.trigger.ITrigger;
 import rogue.creature.Ally;
+import rogue.creature.Monster;
 import rogue.creature.Player;
 
 /**
@@ -39,6 +42,7 @@ public class World extends Messenger
 	private Door activedoor;
 	private boolean useViewfield;
 	private Dialog activedialog;
+	private LinkedList<ITrigger> trigger;
 	String message;
 	
 	public World(int width, int height, String name){
@@ -106,6 +110,8 @@ public class World extends Messenger
         actOrder.add(Ally.class);
         actOrder.add(Monster.class);
         actOrder.add(Item.class);
+        
+        trigger = new LinkedList<ITrigger>();
     }
 
     /**
@@ -146,6 +152,11 @@ public class World extends Messenger
         	activedoor = null;
         	return d;
         }
+        
+        Iterator<ITrigger> it = trigger.descendingIterator();
+        while(it.hasNext())
+        	it.next().tick(this);
+        
         return null;
     }
     
@@ -785,5 +796,9 @@ public class World extends Messenger
 
 	public int getCurrentKey() {
 		return currentKey;
+	}
+	
+	public List<ITrigger> getTrigger() {
+		return trigger;
 	}
 }

@@ -45,6 +45,10 @@ public class ItemFactory {
 			item = new Gold();
 		else if (identifier.equals("healingpotion"))
 			item = new HealingPotion();
+		else if(identifier.equals("adrenaline"))
+			item = new Adrenaline();
+		else if(identifier.equals("holywater"))
+			item = new HolyWater();
 		else
 			return (Item)createWeapon (identifier, null);
 		item.setIdentifier(identifier);

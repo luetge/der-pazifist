@@ -103,9 +103,9 @@ public class HUD {
 		pnl.add(new MyLabel("Erfahrung:"));
 		pnl.add(lblXP);	
 		pnl.add(new MyLabel("Level:"));
-		pnl.add(lblLevel);	
+		pnl.add(lblLevel);
 		pnl.add(new MyLabel("Gold:"));
-		pnl.add(lblGold);	
+		pnl.add(lblGold);
 	}
 
 	public static void setHP(int hp,int maxHp){

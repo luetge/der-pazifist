@@ -17,7 +17,8 @@ public class PlayerBehaviour implements IBehaviour<Creature> {
 			return;
 		
 		if(creature.world().getCurrentKey() == Keyboard.KEY_SPACE){
-			
+			if (creature.getRCWeapon() == null)
+				return;			
 			if (creature.getRCWeapon().getClass() == SniperRifle.class){
 				
 				AttackableCreature creat = creature.getAttackableCreature(Monster.class);

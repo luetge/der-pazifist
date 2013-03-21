@@ -30,6 +30,7 @@ import pazi.weapons.IMeleeWeapon;
 import pazi.weapons.IRangedCombatWeapon;
 import pazi.weapons.MeleeWeaponPrototype;
 import pazi.weapons.RCWeaponPrototype;
+import pazi.weapons.SniperRifle;
 
 public class Player extends Creature implements Camera
 {
@@ -273,6 +274,11 @@ public class Player extends Creature implements Camera
 			EndScreen.SniperKilled();
 		else if (id.startsWith("nazi"))
 			EndScreen.NazisKilled();
+		else if (id.equals("hitler"))
+		{
+			EndScreen.HitlerKilled();
+			expire();
+		}
 	}
 
 	public void meditate() {
@@ -384,6 +390,15 @@ public class Player extends Creature implements Camera
 			this.useItem(inventory.getItems(RCWeaponPrototype.class));
 	}
 
+	public void addRage(int rage) {
+		this.rage += rage;
+		if(this.rage > 100)
+			this.rage = 100;
+	}
 
-
+	public void addFaith(int faith) {
+		this.faith += faith;
+		if(this.faith > 100)
+			this.faith = 100;
+	}
 }

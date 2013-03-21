@@ -12,7 +12,7 @@ public class TriggerFactory {
 		ITrigger trigger = null;
 		if(identifier.equals("zombieguard")) {
 			CreatureTrigger ct = new CreatureTrigger(null, 4, Player.class);
-			ct.onEnterEvent = new ICreatureEvent() {
+			ct.movingInsideEvent = new ICreatureEvent() {
 				@Override
 				public void fired(Creature creature, CreatureTrigger trigger) {
 					Coordinate temp;
@@ -22,13 +22,22 @@ public class TriggerFactory {
 							creature.world().addActor(CreatureFactory.createCreature("nazi", creature.world()), temp); //Hitler spawns Nazis
 					}
 					creature.world().setMessage("Harharhar, du wirst niemals an mich herankommen!");
-					creature.world().getTrigger().remove(trigger);
+					trigger.setActivated(false);
 				}
 			};
 			trigger = ct;
-		} else if (identifier.equals("tut3diag"))
-		{
-			System.out.println("CREATE TRIGGER");
+		} else if (identifier.equals("tut3diag")) {
+			CreatureTrigger ct = new CreatureTrigger (null, 4, Player.class);
+			ct.setPassable(true);
+			ct.onEnterEvent = new ICreatureEvent () {
+
+				@Override
+				public void fired(Creature creature, CreatureTrigger trigger) {
+					System.out.println("TESTTRIGGER");
+				}
+				
+			};
+			trigger = ct;
 		}
 		return trigger;
 	}

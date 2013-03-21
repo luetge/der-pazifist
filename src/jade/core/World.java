@@ -22,7 +22,11 @@ import java.util.Set;
 import pazi.items.Item;
 import pazi.trigger.ITrigger;
 import rogue.creature.Ally;
+<<<<<<< HEAD
+import rogue.creature.JokesTeller;
+=======
 import rogue.creature.DestructableObject;
+>>>>>>> 775959aba7eecece80d38a0cd8eff5f430f92c38
 import rogue.creature.Monster;
 import rogue.creature.Player;
 
@@ -104,6 +108,7 @@ public class World extends Messenger
         drawOrder.add(Player.class);
         drawOrder.add(Ally.class);
         drawOrder.add(Monster.class);
+        drawOrder.add(JokesTeller.class);
         drawOrder.add(DestructableObject.class);
         drawOrder.add(Item.class);
 
@@ -111,6 +116,7 @@ public class World extends Messenger
         actOrder.add(Player.class);
         actOrder.add(Ally.class);
         actOrder.add(Monster.class);
+        drawOrder.add(JokesTeller.class);
         actOrder.add(DestructableObject.class);
         actOrder.add(Item.class);
         

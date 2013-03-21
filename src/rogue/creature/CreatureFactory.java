@@ -163,7 +163,7 @@ public class CreatureFactory {
 			creature.setBehaviour(new DefaultBehaviour());
 			creature.setMeleeWeapon(new MeleeWeaponPrototype(5, 10, 1, "Stiefelkick", new ColoredChar(' ', Color.black), creature));
 	    } else if(identifier.equals("jokesteller"))
-	    	creature = new JokesTeller(world);
+			creature = new Ally (ColoredChar.create('O', Color.MAGENTA), "Witzbold", new Dialog ("res/dialogs/jokesteller.txt"));
 	    else {
 	    	creature = getCreatureFromString(monsters.get(identifier), world);
 			if(creature == null)

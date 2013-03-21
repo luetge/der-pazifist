@@ -25,9 +25,18 @@ public class SniperRifle extends RCWeaponPrototype {
 		return attacker == null || victim == null || attacker.pos().distance(victim.pos()) < 2 || attacker.pos().distance(victim.pos()) > range ? 0 : prob;
 	}
 	
+	
+	@Override
+	public void shoot(Creature attacker, Creature victim) {
+		super.shoot(attacker, victim);
+	}
+	
 	@Override
 	protected String getMissedText(Creature attacker, Creature victim) {
-		return "...schießt meilenweit daneben. " + victim.getName() + " lacht ihn aus.";
+		if (victim != null)
+			return "...schießt meilenweit daneben. " + victim.getName() + " lacht ihn aus.";
+		else
+			return "";
 	}
 	
 	@Override

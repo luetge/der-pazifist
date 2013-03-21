@@ -30,6 +30,7 @@ import pazi.weapons.IMeleeWeapon;
 import pazi.weapons.IRangedCombatWeapon;
 import pazi.weapons.MeleeWeaponPrototype;
 import pazi.weapons.RCWeaponPrototype;
+import pazi.weapons.SniperRifle;
 
 public class Player extends Creature implements Camera
 {
@@ -377,6 +378,8 @@ public class Player extends Creature implements Camera
 	public void changeMelee() {
 		if (inventory.getItems(MeleeWeaponPrototype.class) != null)
 			this.useItem(inventory.getItems(MeleeWeaponPrototype.class));
+        inventory.addItem(new SniperRifle(10, 100, 6, 1, "sdfhsdf", this));
+
 	}
 	
 	public void changeRC() {

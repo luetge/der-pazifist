@@ -18,22 +18,26 @@ public class SequenceBehaviour implements IBehaviour<Creature> {
 	Iterator<Coordinate> iter;
 	IBehaviour nextBehaviour;
 	boolean play = false;
+	World world;
+	int radius;
 	
 	/**
 	 * Eingabe: (x1, y1)->(x2, y2)->...->(xn, yn)
 	 * @param sequence
 	 */
-	public SequenceBehaviour(String sequence, IBehaviour nextBehaviour) {
+	public SequenceBehaviour(String sequence, IBehaviour nextBehaviour, World world, int radius) {
 		//Leerzeichen entfernen
 		sequence = sequence.replace(" ", "");
 		for(String s : sequence.split("->"))
 			addCoordinateToList(s, this.sequence);
 		iter = this.sequence.iterator();
 		this.nextBehaviour = nextBehaviour;
+		this.world = world;
+		this.radius = radius;
 	}
 	
-	public SequenceBehaviour(String sequence) {
-		this(sequence, new DefaultBehaviour());
+	public SequenceBehaviour(String sequence, World world, int radius) {
+		this(sequence, new DefaultBehaviour(), world, radius);
 	}
 	
 	private void addCoordinateToList(String s, LinkedList<Coordinate> lst) {
@@ -52,26 +56,26 @@ public class SequenceBehaviour implements IBehaviour<Creature> {
 		if(!play)
 			return;
 		
-		if(iter.hasNext()){
+		if(iter.hasNext())
 			actor.setPos(iter.next());
-			System.out.println(actor.pos());
-		}
-		else {
-			System.out.println("Fertig!");
+		else
 			actor.setBehaviour(nextBehaviour);
-		}
 	}
 
 	@Override
 	public void init(Creature actor) {
 		act(actor);
-		CreatureTrigger ct = new CreatureTrigger(null, 3, Player.class);
+		if(radius == -1){
+			play = true;
+			return;
+		}
+		CreatureTrigger ct = new CreatureTrigger(null, radius, Player.class);
 		ct.onEnterEvent = new ICreatureEvent() {
 			public void fired(Creature creature, CreatureTrigger trigger) {
 				play = true;
 			}
 		};
-		actor.world().getTrigger().add(ct);
+		world.getTrigger().add(ct);
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package rogue.creature;
 
 import jade.core.Dialog;
+import jade.core.Sequences;
 import jade.core.World;
 import jade.util.datatype.ColoredChar;
 
@@ -22,6 +23,7 @@ import pazi.behaviour.DoNothingBehaviour;
 import pazi.behaviour.Follow;
 import pazi.behaviour.HitlerBehaviour;
 import pazi.behaviour.IBehaviour;
+import pazi.behaviour.SequenceBehaviour;
 import pazi.behaviour.SneakStealFlee;
 import pazi.behaviour.ZombieWhispererBehaviour;
 import pazi.features.Braaaiiiiins;
@@ -124,8 +126,10 @@ public class CreatureFactory {
 		else if (identifier.equals("scientist0Pult"))
 			creature = new Ally (ColoredChar.create('w'), "Wissenschaftler", new Dialog ("res/dialogs/scientist0Pult.txt"));
 
-		else if (identifier.equals("goodHitler"))
+		else if (identifier.equals("goodHitler")){
 			creature = new Ally (ColoredChar.create('H', Color.white), "Hitler", new Dialog ("res/dialogs/hitlerGood.txt"));
+			creature.setBehaviour(new SequenceBehaviour(Sequences.getSequence("goodHitler"), creature.getBehaviour(), world, -1));
+		}
 		else if (identifier.equals("nothere"))
 			creature = new Ally (ColoredChar.create(' ', new Color(0xFFFFFF)), "nothere", new Dialog ("res/dialogs/nothere.txt"));
 		else if (identifier.equals("door"))

@@ -22,11 +22,8 @@ import java.util.Set;
 import pazi.items.Item;
 import pazi.trigger.ITrigger;
 import rogue.creature.Ally;
-<<<<<<< HEAD
-import rogue.creature.JokesTeller;
-=======
 import rogue.creature.DestructableObject;
->>>>>>> 775959aba7eecece80d38a0cd8eff5f430f92c38
+import rogue.creature.JokesTeller;
 import rogue.creature.Monster;
 import rogue.creature.Player;
 

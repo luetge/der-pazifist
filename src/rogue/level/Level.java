@@ -1,6 +1,6 @@
 package rogue.level;
 
-import jade.core.Actor;
+import jade.core.Sequences;
 import jade.core.World;
 import jade.gen.Generator;
 import jade.gen.map.AsciiMap;
@@ -15,11 +15,14 @@ import java.util.Map;
 
 import org.newdawn.slick.util.ResourceLoader;
 
+import pazi.behaviour.SequenceBehaviour;
 import pazi.items.Item;
 import pazi.items.ItemFactory;
 import pazi.trigger.CreatureTrigger;
-import pazi.trigger.TriggerFactory;
+import pazi.trigger.ICreatureEvent;
+import rogue.creature.Creature;
 import rogue.creature.CreatureFactory;
+import rogue.creature.Monster;
 import rogue.creature.Player;
 
 public class Level
@@ -106,7 +109,6 @@ public class Level
     			}
     			else
     			{
-
     				for (int i = 0; i < 8; i++)
     				{
     					if (Dice.global.chance(30))

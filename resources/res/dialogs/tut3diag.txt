@@ -1,25 +1,26 @@
--1:goto:20
+#Tutorial-Rede
+#-1:goto:20
+
+-1:text:Wissenschaftler
+Willkommen meine Herren. Schön, dass Sie hier sind.
+-1:done
 
 0:text:Wissenschaftler
-Willkommen meine Herren. Schön, dass Sie hier sind.
+Ich hoffe, Sie haben ein wenig Ihrer alten Stärke wiedererlangt.
 0:done
 
-1:text:Wissenschaftler
-Ich hoffe, Sie haben ein wenig Ihrer alten Stärke wiedererlangt.
+1:text:Hitler
+Arrrrr!
 1:done
 
-2:text:Hitler
-Arrrrr!
-2:done
-
-3:text:Wissenschaftler
+2:text:Wissenschaftler
 Wie Sie vielleicht schon bemerkt haben, haben wir 
 Sie zusammen mit einigen anderen Diktatoren wiederbelebt.
-3:done
+2:done
 
-4:text:Jesus
+3:text:Jesus
 Diktatoren?
-4:done
+3:done
 
 4:text:Wissenschaftler
 Wir benötigen Ihr unterdrückerisches Know-How. 

@@ -55,12 +55,15 @@ public class Rogue
         level = new Level(256, 192, player, "mainworld");
 
 		for (int i = 0; i < 100; i++){
-			level.world().addActor(CreatureFactory.createCreature("zombie2", level.world()));
-			level.world().addActor(CreatureFactory.createCreature("jokesteller", level.world()));
-			level.world().addActor(CreatureFactory.createCreature("bandit2", level.world()));
+			level.world().addActor(CreatureFactory.createCreature("zombie1", level.world()));
 			level.world().addActor(CreatureFactory.createCreature("alien1", level.world()));
 		}
 		for (int i = 0; i < 20; i++) {
+			level.world().addActor(CreatureFactory.createCreature("zombie2", level.world()));
+			level.world().addActor(CreatureFactory.createCreature("bandit2", level.world()));
+		}
+		for (int i = 0; i < 10; i++)
+		{
 			level.world().addActor(CreatureFactory.createCreature("sniper1", level.world()));
 			level.world().addActor(CreatureFactory.createCreature("zombienecro", level.world()));
 		}

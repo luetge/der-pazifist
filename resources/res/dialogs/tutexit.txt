@@ -1,4 +1,18 @@
+-2:loseitem:knuckleduster:100
+
+-1:loseitem:shotgun:100
+
 0:text:Der Pazifist
-Los gehts!
+Verdammt, wo ist all mein cooles Zeug?
 0:done
-1:end:0
+
+1:text
+*Unheimliche Musik*
+1:done
+
+2:text:Der Pazifist
+Wie seltsam...
+2:done
+
+
+3:end:1

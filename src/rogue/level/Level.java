@@ -64,7 +64,10 @@ public class Level
     	world().removeActor(player);
 		Door destdoor = toworld.getDoor(door.getDestID());
 		toworld.addActor(player, destdoor.getDestination());
-		View.get().setCenter(toworld.width()/2, toworld.height()/2);
+		if (toworld.getName().equals("mainworld"))
+			View.get().setCenter(player.pos());
+		else
+			View.get().setCenter(toworld.width()/2, toworld.height()/2);
     }
     
     public void stepThroughDoor (Door door)

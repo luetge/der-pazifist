@@ -23,6 +23,7 @@ import pazi.items.Item;
 import pazi.trigger.ITrigger;
 import rogue.creature.Ally;
 import rogue.creature.DestructableObject;
+import rogue.creature.JokesTeller;
 import rogue.creature.Monster;
 import rogue.creature.Player;
 
@@ -104,6 +105,7 @@ public class World extends Messenger
         drawOrder.add(Player.class);
         drawOrder.add(Ally.class);
         drawOrder.add(Monster.class);
+        drawOrder.add(JokesTeller.class);
         drawOrder.add(DestructableObject.class);
         drawOrder.add(Item.class);
 
@@ -111,6 +113,7 @@ public class World extends Messenger
         actOrder.add(Player.class);
         actOrder.add(Ally.class);
         actOrder.add(Monster.class);
+        drawOrder.add(JokesTeller.class);
         actOrder.add(DestructableObject.class);
         actOrder.add(Item.class);
         

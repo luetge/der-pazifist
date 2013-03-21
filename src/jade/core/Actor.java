@@ -235,7 +235,7 @@ public abstract class Actor extends Messenger
     {
         return pos.copy();
     }
-
+    
     /**
      * Returns true if the {@code Actor} is expired, or in other words, marked for removal.
      * @return true if the {@code Actor} is expired

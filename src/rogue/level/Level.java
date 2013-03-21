@@ -7,6 +7,7 @@ import jade.gen.Generator;
 import jade.gen.map.AsciiMap;
 import jade.gen.map.City;
 import jade.gen.map.House;
+import jade.ui.View;
 import jade.util.Dice;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.Door;
@@ -63,6 +64,7 @@ public class Level
     	world().removeActor(player);
 		Door destdoor = toworld.getDoor(door.getDestID());
 		toworld.addActor(player, destdoor.getDestination());
+		View.get().setCenter(toworld.width()/2, toworld.height()/2);
     }
     
     public void stepThroughDoor (Door door)

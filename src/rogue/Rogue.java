@@ -54,8 +54,6 @@ public class Rogue
 //        level = new Level(256, 192, player, "mainworld");
         level = new Level(256, 192, player, "mainworld");
 
-        view.setCenter(player.pos());
-        
 		for (int i = 0; i < 100; i++){
 			level.world().addActor(CreatureFactory.createCreature("zombie2", level.world()));
 			level.world().addActor(CreatureFactory.createCreature("jokesteller", level.world()));
@@ -68,6 +66,8 @@ public class Rogue
 		}
 
         level.stepThroughDoor(new Door("spawndoor", 0, 0, "tut1", "spawn0"));
+        level.world().setActiveDialog(new Dialog("res/dialogs/startdialog.txt"));
+        view.setCenter(level.world().width()/2, level.world().height()/2);
 	}
 	
     public boolean run () throws InterruptedException

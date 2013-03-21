@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.AbstractCollection;
 
+import pazi.features.IFeature;
+
 import rogue.creature.Creature;
 import rogue.creature.Player;
 
@@ -27,6 +29,8 @@ public class DeadBehaviour implements IBehaviour<Creature> {
 			creature.expire();
 			EndScreen.SetKiller(source.getIdentifier());
 		}
+		for (IFeature feature : creature.getFeatures(IFeature.class))
+			creature.removeFeature(feature);
 		deadBodies.add(creature);
 	}
 	

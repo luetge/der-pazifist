@@ -1,6 +1,6 @@
-t20=door:tut2entry0,tut2,tut2exit0,n;t21=door:tut2entry1,tut2,tut2exit1,n;t22=door:tut2entry2,tut2,tut2exit2,n;tutexit0=door:tut3exit0,mainworld,house0entry1,e;tutexit1=door:tut3exit1,mainworld,house0entry1,e;bblack=bg:000000;bbrown=bg:834100;bbred=bg:C5000B;bred=bg:7E0021;bbgrey=bg:CCCCCC;bgrey=bg:999999;bdgrey=bg:666666;bdbrown=bg:663300;fdbrown=fg:996600;fblack=fg:000000;fwhite=fg:FFFFFF;
+tr0=trigger:tut3diag;t20=door:tut2entry0,tut2,tut2exit0,n;t21=door:tut2entry1,tut2,tut2exit1,n;t22=door:tut2entry2,tut2,tut2exit2,n;tutexit0=door:tut3exit0,mainworld,house0entry1,e;tutexit1=door:tut3exit1,mainworld,house0entry1,e;bblack=bg:000000;bbrown=bg:834100;bbred=bg:C5000B;bred=bg:7E0021;bbgrey=bg:CCCCCC;bgrey=bg:999999;bdgrey=bg:666666;bdbrown=bg:663300;fdbrown=fg:996600;fblack=fg:000000;fwhite=fg:FFFFFF;
 ╔════¥bbrown¥¥fblack¥¥t20¥↓¥t21¥↓¥t22¥↓¥fwhite¥¥bblack¥═════════════════════╗
-║¥p¥¥bred¥    ¥bbred¥            ¥bred¥            ¥bbrown¥¥fblack¥¥np¥¥tutexit0¥→¥fwhite¥¥bblack¥
+║¥p¥¥bred¥    ¥bbred¥¥tr0¥ ¥tr0¥ ¥tr0¥          ¥bred¥            ¥bbrown¥¥fblack¥¥np¥¥tutexit0¥→¥fwhite¥¥bblack¥
 ║¥p¥¥bred¥  ¥fdbrown¥__¥bbred¥________    ¥bred¥__________  ¥bbrown¥¥fblack¥¥np¥¥tutexit1¥→¥fwhite¥¥bblack¥
 ║¥p¥¥bred¥  ¥fdbrown¥¥np¥I¥bbrown¥--------¥bred¥I¥p¥¥bbred¥    ¥bred¥¥np¥I¥bbrown¥--------¥bred¥I¥p¥  ¥bblack¥¥fwhite¥¥np¥║
 ║¥p¥¥bred¥  ¥fdbrown¥__________¥bbred¥    ¥bred¥__________  ¥bblack¥¥fwhite¥¥np¥║

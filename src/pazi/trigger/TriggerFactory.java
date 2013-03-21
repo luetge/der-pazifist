@@ -26,6 +26,18 @@ public class TriggerFactory {
 				}
 			};
 			trigger = ct;
+		} else if (identifier.equals("tut3diag")) {
+			CreatureTrigger ct = new CreatureTrigger (null, 4, Player.class);
+			ct.setPassable(true);
+			ct.onEnterEvent = new ICreatureEvent () {
+
+				@Override
+				public void fired(Creature creature, CreatureTrigger trigger) {
+					System.out.println("TESTTRIGGER");
+				}
+				
+			};
+			trigger = ct;
 		}
 		return trigger;
 	}

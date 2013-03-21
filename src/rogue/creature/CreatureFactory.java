@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.newdawn.slick.util.ResourceLoader;
 
+import pazi.behaviour.AllyBehaviour;
 import pazi.behaviour.AllyWalk;
 import pazi.behaviour.DefaultBehaviour;
 import pazi.behaviour.DoNothingBehaviour;
@@ -105,8 +106,8 @@ public class CreatureFactory {
 				faces[i] = ColoredChar.create('W', new Color(0x000000+i));
 			creature = new Ally (faces, "Wissenschaftler", new Dialog ("res/dialogs/scientist0.txt"));
 			creature.getInventory().addItem((Item)ItemFactory.createWeapon("knuckleduster", creature));
-			//creature.setWalkBehaviour(new RandomWalk());
-			//creature.setBehaviour(new AllyWalk());
+			creature.setWalkBehaviour(new AllyWalk());
+			creature.setBehaviour(new AllyBehaviour());
 		} else if (identifier.equals("scientist1")) {
 			creature = new Ally (ColoredChar.create('W', new Color(0x000005)), "Wissenschaftler", new Dialog ("res/dialogs/scientist1.txt"));
 			creature.getInventory().addItem((Item)ItemFactory.createWeapon("shotgun", creature));

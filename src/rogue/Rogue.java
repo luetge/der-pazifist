@@ -2,6 +2,7 @@ package rogue;
 
 import jade.core.Dialog;
 import jade.core.Messenger.Message;
+import jade.core.Sequences;
 import jade.gen.map.AsciiMap;
 import jade.ui.Backpack;
 import jade.ui.EndScreen;
@@ -10,6 +11,7 @@ import jade.ui.HUD;
 import jade.ui.LegacyView;
 import jade.ui.Log;
 import jade.ui.View;
+import jade.util.datatype.Coordinate;
 import jade.util.datatype.Door;
 
 import java.awt.Point;
@@ -24,7 +26,11 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.util.ResourceLoader;
 
+import pazi.behaviour.DeadBehaviour;
+import pazi.behaviour.Follow;
+import pazi.behaviour.SequenceBehaviour;
 import rogue.creature.CreatureFactory;
+import rogue.creature.Monster;
 import rogue.creature.Player;
 import rogue.level.Level;
 
@@ -51,20 +57,23 @@ public class Rogue
         HUD.init();
 
         player = new Player();
-        level = new Level(256, 192, player, "mainworld");
-//        level = new Level(70, 70, player, "mainworld");
+//        level = new Level(256, 192, player, "mainworld");
+        level = new Level(70, 70, player, "mainworld");
 
         view.setCenter(player.pos());
         
-		for (int i = 0; i < 100; i++){
-			level.world().addActor(CreatureFactory.createCreature("zombie1", level.world()));
-			level.world().addActor(CreatureFactory.createCreature("bandit2", level.world()));
+//		for (int i = 0; i < 100; i++){
+//			level.world().addActor(CreatureFactory.createCreature("zombie1", level.world()));
+//			level.world().addActor(CreatureFactory.createCreature("bandit2", level.world()));
 			level.world().addActor(CreatureFactory.createCreature("alien1", level.world()));
-		}
-		for (int i = 0; i < 20; i++) {
-			level.world().addActor(CreatureFactory.createCreature("sniper1", level.world()));
-			level.world().addActor(CreatureFactory.createCreature("necro", level.world()));
-		}
+			Monster alien = (Monster) CreatureFactory.createCreature("alien1", level.world());
+			level.world().addActor(alien, new Coordinate(2,2));
+			alien.setBehaviour(new SequenceBehaviour(Sequences.getSequence("test"), alien.getBehaviour()));
+//		}
+//		for (int i = 0; i < 20; i++) {
+//			level.world().addActor(CreatureFactory.createCreature("sniper1", level.world()));
+//			level.world().addActor(CreatureFactory.createCreature("necro", level.world()));
+//		}
 		
 
 	}

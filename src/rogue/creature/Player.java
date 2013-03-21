@@ -20,6 +20,7 @@ import java.util.Collection;
 import pazi.behaviour.KeyboardGeneral;
 import pazi.behaviour.KeyboardWalk;
 import pazi.behaviour.PlayerBehaviour;
+import pazi.features.RecordSteps;
 import pazi.features.RoundhousePunch;
 import pazi.features.VisionFeature;
 import pazi.items.HealingPotion;
@@ -66,6 +67,7 @@ public class Player extends Creature implements Camera
         setWalkBehaviour(new KeyboardWalk());
         setBehaviour(new PlayerBehaviour());
         addGeneralFeature(new KeyboardGeneral());
+        addGeneralFeature(new RecordSteps());
         meleeWeapon = (IMeleeWeapon) ItemFactory.createWeapon("fist", this);
         
         roundhousePunch = new RoundhousePunch();

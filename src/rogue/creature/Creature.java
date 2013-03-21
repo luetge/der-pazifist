@@ -339,13 +339,15 @@ public abstract class Creature extends Actor
 		if (weapon == null)
 			meleeWeapon = (IMeleeWeapon) ItemFactory.createWeapon("headnut");
 		else{
-			inventory.addItem((Item)meleeWeapon);
+			if (meleeWeapon != null)
+				inventory.addItem((Item)meleeWeapon);
 			meleeWeapon = weapon;
 		}
 	}
 	
 	public void setRCWeapon(IRangedCombatWeapon weapon) {
-		inventory.addItem((Item)rcWeapon);
+		if (rcWeapon != null)
+			inventory.addItem((Item)rcWeapon);
 		rcWeapon = weapon;
 	}
 	

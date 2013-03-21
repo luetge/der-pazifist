@@ -57,6 +57,24 @@ public class Inventory {
 		update();
 	}
 	
+	public void removeItems(String id, int amount)
+	{
+		ArrayList<Item> items = new ArrayList<Item>();
+		int removed = 0;
+		for (Item item : this.items)
+		{
+			if (item.getIdentifier().equals(id) && removed < amount)
+			{
+				removed++;
+			}
+			else
+			{
+				items.add(item);
+			}
+		}
+		this.items = items;
+	}
+	
 	public Item getItem (String id)
 	{
 		for (Item item : items)

@@ -51,6 +51,7 @@ public class Rogue
         HUD.init();
 
         player = new Player();
+//        level = new Level(256, 192, player, "mainworld");
         level = new Level(256, 192, player, "mainworld");
 
         view.setCenter(player.pos());

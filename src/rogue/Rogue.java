@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import org.newdawn.slick.util.ResourceLoader;
 
 import pazi.weapons.KnuckleDuster;
+import rogue.creature.CreatureFactory;
 import rogue.creature.Player;
 import rogue.level.Level;
 
@@ -51,7 +52,7 @@ public class Rogue
         HUD.init();
 
         player = new Player();
-        level = new Level(70, 70, player, "mainworld");
+        level = new Level(150, 70, player, "mainworld");
         
 
         view.setCenter(player.pos());
@@ -68,7 +69,7 @@ public class Rogue
 			level.world().addActor(CreatureFactory.createCreature("sniper1", level.world()));
 		}
         */
-        
+        //level.world().addActor(CreatureFactory.createCreature("necro", level.world()));
 		view.displayScreen (new AsciiMap("res/start"));;
         
 		view.loadTiles();

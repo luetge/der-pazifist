@@ -1,0 +1,22 @@
+eed=door:eastereggentry,easteregg,eastereggexit,s;bgreen=bg:3AAE00;bdgreen=bg:355E00;bbrown=bg:5C8526;bblue=bg:4699FF;bdblue=bg:3447FF;bblack=bg:000000;fgreen=fg:44C653;fbrown=fg:3A1200;fdgreen=fg:163A3A;fblue=fg:1D0087
+¥p¥                       ¥bgreen¥    ¥bblack¥                                       
+                  ¥bgreen¥              ¥bblack¥                                   
+           ¥bgreen¥                                            ¥bdgreen¥ ¥bblack¥           
+   ¥bgreen¥                   ¥fgreen¥ _                                           
+                 ¥bbrown¥     ¥bdgreen¥¥np¥( )¥p¥¥bbrown¥     _   ¥bgreen¥                     ¥bdgreen¥¥fdgreen¥♣   ♣¥bgreen¥       
+               ¥bbrown¥      ¥fgreen¥_ ¥fbrown¥¥np¥I¥p¥  ¥fgreen¥_  ¥bdgreen¥¥np¥( )¥p¥¥bbrown¥ ¥bgreen¥          ¥bdgreen¥¥fdgreen¥♣      ♣      ♣    ¥bgreen¥     
+¥bbrown¥  ¥bgreen¥        ¥bblue¥¥fblue¥~ ¥bgreen¥       ¥bbrown¥ ¥bdgreen¥¥fgreen¥¥np¥( )¥p¥¥bbrown¥ ¥eed¥_¥bdgreen¥¥np¥( )¥p¥¥bbrown¥  ¥fbrown¥¥np¥I¥p¥  ¥fgreen¥_ ¥bgreen¥          ¥bdgreen¥  ¥fdgreen¥♣     ♣   ♣  ♣      
+¥bbrown¥     ¥bgreen¥¥fgreen¥_   ¥bblue¥   ¥fblue¥~  ¥bgreen¥   ¥bbrown¥   ¥fbrown¥¥np¥I¥p¥ ¥bdgreen¥¥fgreen¥¥np¥( )¥p¥¥bbrown¥¥fbrown¥I ¥fgreen¥_ _ ¥bdgreen¥¥fgreen¥¥np¥( )¥p¥¥bbrown¥  ¥bgreen¥          ¥bdgreen¥    ¥fdgreen¥♣   ♣      ♣    
+¥bbrown¥ ¥fgreen¥__ ¥bdgreen¥¥np¥( )¥p¥¥bgreen¥   ¥bblue¥   ¥fblue¥~ ¥bgreen¥    ¥bbrown¥  ¥fgreen¥_  ¥fbrown¥¥np¥I¥p¥  ¥bdgreen¥¥fgreen¥¥np¥( ) )¥p¥¥bbrown¥ ¥fbrown¥I ¥bgreen¥        ¥bblue¥              ¥fblue¥~¥bdgreen¥  ¥fdgreen¥♣      
+¥bdgreen¥¥fgreen¥¥np¥( ))¥p¥¥bbrown¥ ¥fbrown¥¥np¥I¥p¥  ¥bgreen¥   ¥bblue¥  ¥fblue¥~¥bgreen¥    ¥bbrown¥  ¥bdgreen¥¥fgreen¥¥np¥( )¥p¥¥bbrown¥ _   ¥fbrown¥I¥np¥ ¥np¥I¥p¥   ¥fgreen¥_     ¥bgreen¥     ¥bblue¥     ¥fblue¥≈   ~ ¥bgreen¥ ¥bdgreen¥¥fdgreen¥♣         
+¥bbrown¥ ¥fbrown¥¥np¥II¥p¥ ¥fgreen¥_   ¥bgreen¥   ¥bblue¥¥fblue¥~ ¥bgreen¥       ¥bbrown¥ ¥fbrown¥¥np¥I¥p¥ ¥bdgreen¥¥fgreen¥¥np¥( )¥p¥¥bbrown¥  ¥fgreen¥_    ¥bdgreen¥¥np¥( )¥p¥¥bbrown¥     ¥bgreen¥       ¥bblue¥¥fblue¥≈    ~  ¥bgreen¥  ¥bdgreen¥¥fdgreen¥♣ ♣ ♣    
+¥bbrown¥   ¥bdgreen¥¥fgreen¥¥np¥( )¥p¥¥bbrown¥    ¥bgreen¥  ¥bblue¥  ¥bgreen¥       ¥bbrown¥   ¥fbrown¥¥np¥I¥p¥  ¥bdgreen¥¥fgreen¥¥np¥( )¥p¥¥bbrown¥  ¥bdgreen¥¥np¥( )¥p¥¥bbrown¥    ¥bgreen¥    ¥bblue¥¥fblue¥~       ~ ¥bgreen¥  ¥bdgreen¥¥fdgreen¥♣     ♣     
+¥bbrown¥ ¥fgreen¥_  ¥fbrown¥¥np¥I¥p¥  ¥bgreen¥     ¥bblue¥¥fblue¥~  ≈   ¥bgreen¥  ¥bbrown¥       ¥fbrown¥¥np¥I¥p¥    ¥np¥I¥p¥    ¥bgreen¥        ¥bblue¥¥fblue¥~ ¥bdblue¥ ≈ ¥bblue¥   ~ ¥bgreen¥   ¥bdgreen¥¥fdgreen¥♣  ♣    
+¥bdgreen¥¥fgreen¥¥np¥( )¥p¥¥bbrown¥    ¥bgreen¥     ¥bblue¥ ¥bdblue¥¥fblue¥≈ ¥bblue¥   ~    ~¥bgreen¥            ¥bblue¥ ~    ¥bdblue¥≈      ≈  ¥bblue¥~ ¥bgreen¥   ¥bdgreen¥¥fdgreen¥♣ ♣       
+¥bbrown¥ ¥np¥I¥p¥   ¥bgreen¥ _  ¥bblue¥~    ¥bdblue¥   ~ ¥bblue¥   ¥bdblue¥ ≈  ¥bblue¥   ~ ¥bgreen¥   ¥bblue¥  ~  ≈   ¥bdblue¥    ~  ¥bblue¥     ¥bgreen¥     ¥bdgreen¥ ¥fdgreen¥♣     
+¥bbrown¥     ¥bdgreen¥¥fgreen¥¥np¥( )¥p¥¥bgreen¥  ¥bblue¥ ¥fblue¥~ ¥bdblue¥ ≈ ¥bblue¥   ¥bdblue¥ ≈     ≈  ¥bblue¥  ~  ~  ≈      ~ ¥bdblue¥ ≈ ¥bblue¥  ¥bgreen¥    ¥bdgreen¥  ¥fdgreen¥♣ ♣       
+¥bgreen¥ ¥bbrown¥     ¥fbrown¥¥np¥I¥p¥  ¥bgreen¥     ¥bblue¥  ¥fblue¥≈ ¥bdblue¥   ≈   ≈  ≈ ¥bblue¥   ~  ¥bgreen¥   ¥bblue¥ ~  ≈   ¥bgreen¥     ¥bdgreen¥  ¥fdgreen¥♣   ♣  ♣     
+¥bgreen¥               ¥bblue¥       ¥fblue¥~           ¥bgreen¥              ¥bdgreen¥     ¥fdgreen¥♣    ♣  ♣     
+¥bgreen¥                ¥bblue¥    ¥fblue¥≈    ¥bgreen¥                     ¥bdgreen¥    ¥fdgreen¥♣   ♣   ¥bblack¥         
+¥bblack¥                   ¥bgreen¥                         ¥bblack¥                       
+                                ¥bgreen¥        ¥bblack¥                           

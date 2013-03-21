@@ -1,0 +1,7 @@
+#Der Pazifist betritt die EasterEgg-Welt
+
+0:text:Der Pazifist
+Ich gehöre hier nicht her, ich gehe besser zurück...
+0:done
+
+1:end:0

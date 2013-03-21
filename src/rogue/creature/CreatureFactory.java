@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.newdawn.slick.util.ResourceLoader;
 
+import pazi.behaviour.AllyWalk;
 import pazi.behaviour.DefaultBehaviour;
 import pazi.behaviour.Follow;
 import pazi.behaviour.IBehaviour;
@@ -94,13 +95,24 @@ public class CreatureFactory {
 			creature = new Ally (ColoredChar.create('P'), "Priest", new Dialog ("res/dialogs/priest.txt"));
 			
 		} else if (identifier.equals("scientist0")) {
-
-			creature = new Ally (ColoredChar.create('W'), "Wissenschaftler", new Dialog ("res/dialogs/scientist0.txt"));
+			ColoredChar faces[] = new ColoredChar[9];
+			for (int i = 0; i < 9; i++)
+				faces[i] = ColoredChar.create('W', new Color(0x000000+i));
+			creature = new Ally (faces, "Wissenschaftler", new Dialog ("res/dialogs/scientist0.txt"));
 			creature.getInventory().addItem((Item)ItemFactory.createWeapon("knuckleduster", creature));
+			//creature.setWalkBehaviour(new RandomWalk());
+			//creature.setBehaviour(new AllyWalk());
 		} else if (identifier.equals("scientist1")) {
-			creature = new Ally (ColoredChar.create('W'), "Wissenschaftler", new Dialog ("res/dialogs/scientist1.txt"));
+			creature = new Ally (ColoredChar.create('W', new Color(0x000005)), "Wissenschaftler", new Dialog ("res/dialogs/scientist1.txt"));
 			creature.getInventory().addItem((Item)ItemFactory.createWeapon("shotgun", creature));
-		}
+		} 
+		else if (identifier.equals("scientist0Pult"))
+			creature = new Ally (ColoredChar.create('w'), "Wissenschaftler", new Dialog ("res/dialogs/scientist0Pult.txt"));
+
+		else if (identifier.equals("goodHitler"))
+			creature = new Ally (ColoredChar.create('H', Color.white), "Hitler", new Dialog ("res/dialogs/hitlerGood.txt"));
+		else if (identifier.equals("nothere"))
+			creature = new Ally (ColoredChar.create(' ', new Color(0xFFFFFF)), "nothere", new Dialog ("res/dialogs/nothere.txt"));
 		else if (identifier.equals("door"))
 			creature = new Door();
 		else if (identifier.equals("dog")){

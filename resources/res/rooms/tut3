@@ -2,19 +2,19 @@ t20=door:tut2entry0,tut2,tut2exit0,n;t21=door:tut2entry1,tut2,tut2exit1,n;t22=do
 ╔════¥bbrown¥¥fblack¥¥t20¥↓¥t21¥↓¥t22¥↓¥fwhite¥¥bblack¥═════════════════════╗
 ║¥p¥¥bred¥    ¥bbred¥            ¥bred¥            ¥bbrown¥¥fblack¥¥np¥¥tutexit0¥→¥fwhite¥¥bblack¥
 ║¥p¥¥bred¥  ¥fdbrown¥__¥bbred¥________    ¥bred¥__________  ¥bbrown¥¥fblack¥¥np¥¥tutexit1¥→¥fwhite¥¥bblack¥
-║¥p¥¥bred¥  ¥fdbrown¥I¥bbrown¥--------¥bred¥I¥bbred¥    ¥bred¥I¥bbrown¥--------¥bred¥I  ¥bblack¥¥fwhite¥¥np¥║
+║¥p¥¥bred¥  ¥fdbrown¥¥np¥I¥bbrown¥--------¥bred¥I¥p¥¥bbred¥    ¥bred¥¥np¥I¥bbrown¥--------¥bred¥I¥p¥  ¥bblack¥¥fwhite¥¥np¥║
 ║¥p¥¥bred¥  ¥fdbrown¥__________¥bbred¥    ¥bred¥__________  ¥bblack¥¥fwhite¥¥np¥║
-║¥p¥¥bred¥  ¥fdbrown¥I¥bbrown¥--------¥bred¥I¥bbred¥    ¥bred¥I¥bbrown¥--------¥bred¥I  ¥bblack¥¥fwhite¥¥np¥║
+║¥p¥¥bred¥  ¥fdbrown¥¥np¥I¥bbrown¥--------¥bred¥I¥p¥¥bbred¥    ¥bred¥¥np¥I¥bbrown¥--------¥bred¥I¥p¥  ¥bblack¥¥fwhite¥¥np¥║
 ║¥p¥¥bred¥  ¥fdbrown¥__________¥bbred¥    ¥bred¥__________  ¥bblack¥¥fwhite¥¥np¥║
-║¥p¥¥bred¥  ¥fdbrown¥I¥bbrown¥--------¥bred¥I¥bbred¥    ¥bred¥I¥bbrown¥--------¥bred¥I  ¥bblack¥¥fwhite¥¥np¥║
+║¥p¥¥bred¥  ¥fdbrown¥¥np¥I¥bbrown¥--------¥bred¥I¥p¥¥bbred¥    ¥bred¥¥np¥I¥bbrown¥--------¥bred¥I¥p¥  ¥bblack¥¥fwhite¥¥np¥║
 ║¥p¥¥bred¥  ¥fdbrown¥__________¥bbred¥    ¥bred¥__________  ¥bblack¥¥fwhite¥¥np¥║
-║¥p¥¥bred¥  ¥fdbrown¥I¥bbrown¥--------¥bred¥I¥bbred¥    ¥bred¥I¥bbrown¥--------¥bred¥I  ¥bblack¥¥fwhite¥¥np¥║
+║¥p¥¥bred¥  ¥fdbrown¥¥np¥I¥bbrown¥--------¥bred¥I¥p¥¥bbred¥    ¥bred¥¥np¥I¥bbrown¥--------¥bred¥I¥p¥  ¥bblack¥¥fwhite¥¥np¥║
 ║¥p¥¥bred¥  ¥fdbrown¥__________¥bbred¥    ¥bred¥__________  ¥bblack¥¥fwhite¥¥np¥║
-║¥p¥¥bred¥  ¥fdbrown¥I¥bbrown¥--------¥bred¥I¥bbred¥    ¥bred¥I¥bbrown¥--------¥bred¥I  ¥bblack¥¥fwhite¥¥np¥║
+║¥p¥¥bred¥  ¥fdbrown¥¥np¥I¥bbrown¥--------¥bred¥I¥p¥¥bbred¥    ¥bred¥¥np¥I¥bbrown¥-¥p¥¥creature:goodHitler¥¥np¥-------¥bred¥I¥p¥  ¥bblack¥¥fwhite¥¥np¥║
 ║¥p¥¥bred¥            ¥bbred¥¥fblack¥____¥bred¥            ¥bblack¥¥fwhite¥¥np¥║
 ║¥p¥¥bred¥  ¥bbgrey¥          ¥bbred¥¥fblack¥____¥bbgrey¥          ¥bred¥  ¥bblack¥¥fwhite¥¥np¥║
 ║¥p¥¥bred¥  ¥bbgrey¥  ¥bgrey¥        ¥bbred¥¥fblack¥____¥bgrey¥        ¥bbgrey¥  ¥bred¥  ¥bblack¥¥fwhite¥¥np¥║
 ║¥p¥¥bred¥  ¥bbgrey¥  ¥bgrey¥  ¥bdgrey¥                ¥bgrey¥  ¥bbgrey¥  ¥bred¥  ¥bblack¥¥np¥║
 ║¥p¥¥bred¥  ¥bbgrey¥  ¥bgrey¥  ¥bdgrey¥      ¥bdbrown¥¥np¥    ¥p¥¥bdgrey¥      ¥bgrey¥  ¥bbgrey¥  ¥bred¥  ¥bblack¥¥np¥║
-║¥p¥¥bred¥  ¥bbgrey¥  ¥bgrey¥  ¥bdgrey¥       ¥fblack¥♛        ¥bgrey¥  ¥bbgrey¥  ¥bred¥  ¥bblack¥¥fwhite¥¥np¥║
+║¥p¥¥bred¥  ¥bbgrey¥  ¥bgrey¥  ¥bdgrey¥       ¥fblack¥¥creature:scientist0Pult¥         ¥bgrey¥  ¥bbgrey¥  ¥bred¥  ¥bblack¥¥fwhite¥¥np¥║
 ╚════════════════════════════╝

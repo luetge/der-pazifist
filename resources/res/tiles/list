@@ -53,6 +53,15 @@ res/tiles/jesus/jesusW0.txt
 res/tiles/jesus/jesusW1.txt
 res/tiles/priest/priest.txt
 res/tiles/scientist0/scientist0.txt
+res/tiles/scientist0/scientist0E.txt
+res/tiles/scientist0/scientist0N.txt
+res/tiles/scientist0/scientist0NE.txt
+res/tiles/scientist0/scientist0NW.txt
+res/tiles/scientist0/scientist0Pult.txt
+res/tiles/scientist0/scientist0S.txt
+res/tiles/scientist0/scientist0SE.txt
+res/tiles/scientist0/scientist0SW.txt
+res/tiles/scientist0/scientist0W.txt
 res/tiles/sniper1/sniper1dead.txt
 res/tiles/sniper1/sniper1E.txt
 res/tiles/sniper1/sniper1W.txt

@@ -52,7 +52,9 @@ public class EatBrains implements IBeforeAfterFeature<Monster> {
 			monster.appendMessage("Hahahahahaha! I am eating your brains! Yumyumyumyum!");
 			eatBrain(monster);
 //			deadBody.expire();
-			deadBody.setAllFaces(new ColoredChar('Z', Color.DARK_GRAY));	//TODO Leichenbild
+			ColoredChar face = new ColoredChar('Z', Color.DARK_GRAY);
+			deadBody.setAllFaces(face);	//TODO Leichenbild
+			deadBody.setFace(face);
 			DeadBehaviour.deadBodies.remove(deadBody);
 			deadBody = null;
 			

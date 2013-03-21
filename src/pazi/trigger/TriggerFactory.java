@@ -11,7 +11,7 @@ public class TriggerFactory {
 	public static ITrigger createTrigger(String identifier, World world) {
 		ITrigger trigger = null;
 		if(identifier.equals("zombieguard")) {
-			CreatureTrigger ct = new CreatureTrigger(null, 3, Player.class);
+			CreatureTrigger ct = new CreatureTrigger(null, 4, Player.class);
 			ct.onEnterEvent = new ICreatureEvent() {
 				@Override
 				public void fired(Creature creature, CreatureTrigger trigger) {

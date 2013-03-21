@@ -15,7 +15,7 @@ public class ZombieWhispererBehaviour implements IBehaviour<Monster> {
 	
 	@Override
 	public void act(Monster monster) {
-		if (monster.pos().distance(monster.world().getPlayer().pos()) <= 4){
+		if (monster.pos().distance(monster.world().getPlayer().pos()) <= 5){
 			monster.appendMessage("Kommt, meine Freunde. Essen ist angerichtet!");
 			monster.world().setMessage("Zombies graben sich rund um den Zombieflüsterer aus dem Boden!");
 			callForBackup(monster);
@@ -64,7 +64,7 @@ public class ZombieWhispererBehaviour implements IBehaviour<Monster> {
 
 	@Override
 	public void init(Monster monster) {
-		monster.setWalkBehaviour(new Follow(player, 20, 3, 0.2));		
+		monster.setWalkBehaviour(new Follow(player, 20, 4, 0.2));		
 	}
 
 }

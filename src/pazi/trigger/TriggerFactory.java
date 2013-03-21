@@ -4,7 +4,7 @@ import jade.core.Dialog;
 import jade.core.World;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
-import jade.util.datatype.Door;
+import rogue.creature.Ally;
 import rogue.creature.Creature;
 import rogue.creature.CreatureFactory;
 import rogue.creature.JokesTeller;
@@ -30,17 +30,14 @@ public class TriggerFactory {
 			};
 			trigger = ct;
 		} else if (identifier.equals("tut3diag")) {
-			CreatureTrigger ct = new CreatureTrigger (null, 0, Creature.class);
+			CreatureTrigger ct = new CreatureTrigger (null, 0, Ally.class);
 			ct.setPassable(true);
 			ct.onEnterEvent = new ICreatureEvent () {
-
 				@Override
 				public void fired(Creature creature, CreatureTrigger trigger) {
 					creature.world().setActiveDialog(new Dialog("res/dialogs/tut3diag.txt"));
-					// Add Door at (29, 0), (29,1)
 					trigger.setActivated(false);
 				}
-				
 			};
 			trigger = ct;
 		} else if (identifier.equals("jokestrigger")) {

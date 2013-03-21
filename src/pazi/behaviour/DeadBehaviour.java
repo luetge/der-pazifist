@@ -11,6 +11,7 @@ import java.util.AbstractCollection;
 import pazi.features.IFeature;
 
 import rogue.creature.Creature;
+import rogue.creature.DestructableObject;
 import rogue.creature.Player;
 
 public class DeadBehaviour implements IBehaviour<Creature> {
@@ -20,7 +21,10 @@ public class DeadBehaviour implements IBehaviour<Creature> {
 	
 	public DeadBehaviour(Creature creature,Creature source){
 		creature.appendMessage(creature.getDeathMessage());
-		creature.setFace(new ColoredChar(creature.face().ch(), Color.gray));
+		if (creature.getClass().isAssignableFrom(DestructableObject.class))
+			creature.setFace(ColoredChar.create(' '));
+		else
+			creature.setFace(new ColoredChar(creature.face().ch(), Color.gray));
 		creature.setPassable(true);
 		creature.dropInventory();
 		source.killedSomeone(creature);

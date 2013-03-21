@@ -94,9 +94,6 @@ public class Player extends Creature implements Camera
     public void setGodMode(boolean godmode)
     {
     	this.godmode = godmode;
-    	inventory.addItem(new KnuckleDuster(this));
-    	inventory.addItem(new SniperRifle(100, 100, 10, 1, "CheaterSniper", this));
-    	inventory.addItem(new Shotgun());
     	if (this.godmode)
     		world().setMessage("GOD MODE ACTIVATED");
     	else

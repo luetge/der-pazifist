@@ -192,4 +192,8 @@ public class Coordinate
     public Coordinate getSwapped() {
     	return new Coordinate(y, x);
     }
+
+	public double maxDist(Coordinate pos) {
+		return Math.max(Math.abs(x-pos.x), Math.abs(y-pos.y));
+	}
 }

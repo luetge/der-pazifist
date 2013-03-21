@@ -7,6 +7,7 @@ import jade.util.datatype.Direction;
 
 import java.awt.Color;
 
+import rogue.creature.Ally;
 import rogue.creature.Creature;
 
 public class Shotgun extends RCWeaponPrototype {
@@ -65,9 +66,8 @@ public class Shotgun extends RCWeaponPrototype {
 			return false;
 		if (pos.x() >= attacker.world().width() || pos.y() >= attacker.world().height())
 			return false;
-		for (Creature creature : attacker.world().getActorsAt(Creature.class,
-				pos)) {
-			if (!creature.isPassable()) {
+		for (Creature creature : attacker.world().getActorsAt(Creature.class, pos)) {
+			if (!creature.isPassable() && !Ally.class.isAssignableFrom(creature.getClass())) {
 				super.shoot(attacker, creature);
 				return true;
 			}

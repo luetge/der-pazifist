@@ -299,10 +299,10 @@ public abstract class Creature extends Actor
 	
 	public static List<Coordinate> getRect(Coordinate pos, double range) {
 		ArrayList<Coordinate> coords = new ArrayList<Coordinate>();
-		int half = (int)(range/2);
-		for(int i=0; i<2*range; i++)
-			for(int j=0; j<2*range; j++)
-				coords.add(pos.getTranslated(i-half, j-half));
+		int rg = (int)range;
+		for(int i=-rg; i<=rg; i++)
+			for(int j=-rg; j<=rg; j++)
+				coords.add(pos.getTranslated(i, j));
 		return coords;
 	}
 

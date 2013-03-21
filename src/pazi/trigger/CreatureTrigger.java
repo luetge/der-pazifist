@@ -50,7 +50,7 @@ public class CreatureTrigger extends Actor implements ITrigger {
 		
 		// Kreaturen entfernen, wenn sie zu weit weg sind
 		for(int i = creaturesInRange.size(); i > 0; i--) 
-			if(creaturesInRange.get(i - 1).pos().manhattanDist(pos()) > getRange()){
+			if(creaturesInRange.get(i - 1).pos().maxDist(pos()) > getRange()){
 				if(onExitEvent != null)
 					onExitEvent.fired(creaturesInRange.get(i - 1), this);
 				creaturesInRange.remove(i - 1);

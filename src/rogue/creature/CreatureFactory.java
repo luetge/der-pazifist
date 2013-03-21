@@ -32,6 +32,7 @@ import pazi.trigger.CreatureTrigger;
 import pazi.trigger.TriggerFactory;
 import pazi.weapons.IMeleeWeapon;
 import pazi.weapons.IRangedCombatWeapon;
+import pazi.weapons.KnuckleDuster;
 import pazi.weapons.Paralyzer;
 import rogue.behaviour.RandomWalk;
 
@@ -115,7 +116,7 @@ public class CreatureFactory {
 		else if (identifier.equals("nothere"))
 			creature = new Ally (ColoredChar.create(' ', new Color(0xFFFFFF)), "nothere", new Dialog ("res/dialogs/nothere.txt"));
 		else if (identifier.equals("door"))
-			creature = new Door();
+			creature = new DestructibleObject(ColoredChar.create('═', new Color(0x663300)), "Tür", 500, KnuckleDuster.class, "Mist, die Tür klemmt! Ich brauche etwas, um sie aufzubrechen!", "KRACH!!!");
 		else if (identifier.equals("dog")){
 			ColoredChar faces[] = new ColoredChar[9];
 			for (int i = 0; i < 9; i++)

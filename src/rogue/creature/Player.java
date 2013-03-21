@@ -279,6 +279,9 @@ public class Player extends Creature implements Camera
 	
 	@Override
 	public void killedSomeone(Creature creature) {
+		if (creature.getClass().isAssignableFrom(DestructableObject.class))
+			return;
+			
 		this.gainXp(creature.getXp());
 		increaseRage(20);
 		increaseFaith(-20);

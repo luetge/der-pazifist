@@ -88,6 +88,7 @@ res/tiles/bandit2/bandit2W.txt
 res/tiles/sniper1/sniper1E.txt
 res/tiles/sniper1/sniper1dead.txt
 res/tiles/sniper1/sniper1W.txt
+res/tiles/joker/joker.txt
 res/tiles/hitler/hitler.txt
 res/tiles/hitler/hitlerdead.txt
 res/tiles/priest/priest.txt

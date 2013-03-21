@@ -1,0 +1,53 @@
+#
+
+0:text
+...Ist mir scheißegal, wer Dein Vater ist! 
+Solange ich am Angeln bin läuft hier niemand übers Wasser!
+0:done
+
+1:end:2
+
+2:text
+Wie nennt man die Fussballschuhe von Jesus? Christstollen!
+2:done
+
+3:end:4
+
+4:text		
+Warum war Jesus ein typischer Student? Er wohnte bis 30 noch bei seiner Mutter, 
+hatte lange Haare und wenn er was gearbeitet hat, war es ein Wunder.
+4:done
+
+5:end:6
+
+6:text
+Wer war der erste Basketballer? Jesus! Schließlich 
+steht in der Bibel: Er nahm das Brot und dunkte...
+6:done
+
+7:end:8
+
+8:text
+Was hat Jesus am Karfreitag gesagt? "Also dann, schönes Wochenende!"
+8:done
+
+9:end:10
+
+10:text
+Was ist der Unterschied zwischen Jesus Christus und Casanova? 
+Der Gesichtsausdruck beim nageln!
+10:done
+
+11:end:12
+
+12:text
+Wer war der erste Verkehrssünder? Jesus, denn er hatte zwölf Anhänger!
+12:done
+
+13:end:14
+
+14:text
+Wer erfand das Deo? Jesus, er brach das Brot und verteilte es unter den Armen.
+14:done
+
+15:end:0

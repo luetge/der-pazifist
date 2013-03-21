@@ -29,7 +29,7 @@ Laber nicht so viel und zeig mir, was du hast!
 Schau her
 6:done
 
-7:question:Gib mir erstmal Geld!:10:Heiltrank (50 Gold):100:Adrenalinspritze (50 Gold):400:Weihwasser (50 Gold):500:Shotgun (500 Gold):200:Schwert des Eiskönigs (500 Gold):300:Doch nichts:1000
+7:question:Gib mir erstmal Geld!:10:Heiltrank (50 Gold):100:Adrenalinspritze (50 Gold):400:Weihwasser (50 Gold):500:Shotgun (500 Gold):200:Frostschwert (500 Gold):300:Doch nichts:1000
 Was willst du?
 7:done
 
@@ -86,7 +86,6 @@ Willst du noch mehr?
 888:done
 
 889:question:Ja:7:Nein:1000
-Was willst du?
 889:done
 
 890:text

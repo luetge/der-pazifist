@@ -28,8 +28,11 @@ import pazi.items.Item;
 import pazi.items.ItemFactory;
 import pazi.weapons.IMeleeWeapon;
 import pazi.weapons.IRangedCombatWeapon;
+import pazi.weapons.KnuckleDuster;
 import pazi.weapons.MeleeWeaponPrototype;
 import pazi.weapons.RCWeaponPrototype;
+import pazi.weapons.Shotgun;
+import pazi.weapons.SniperRifle;
 
 public class Player extends Creature implements Camera
 {
@@ -91,6 +94,9 @@ public class Player extends Creature implements Camera
     public void setGodMode(boolean godmode)
     {
     	this.godmode = godmode;
+    	inventory.addItem(new KnuckleDuster(this));
+    	inventory.addItem(new SniperRifle(100, 100, 10, 1, "CheaterSniper", this));
+    	inventory.addItem(new Shotgun());
     	if (this.godmode)
     		world().setMessage("GOD MODE ACTIVATED");
     	else
@@ -273,6 +279,11 @@ public class Player extends Creature implements Camera
 			EndScreen.SniperKilled();
 		else if (id.startsWith("nazi"))
 			EndScreen.NazisKilled();
+		else if (id.equals("hitler"))
+		{
+			EndScreen.HitlerKilled();
+			expire();
+		}
 	}
 
 	public void meditate() {

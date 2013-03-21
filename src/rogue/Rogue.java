@@ -66,7 +66,7 @@ public class Rogue
 //			level.world().addActor(CreatureFactory.createCreature("zombienecro", level.world()));
 		}
 
-        level.stepThroughDoor(new Door("spawndoor", 0, 0, "bunker", "spawn0"));
+//        level.stepThroughDoor(new Door("spawndoor", 0, 0, "tut1", "spawn0"));
 	}
 	
     public boolean run () throws InterruptedException
@@ -154,7 +154,7 @@ public class Rogue
 	public void finish () throws InterruptedException
 	{
 		view.clearTiles();
-		EndScreen endscreen = new EndScreen("res/end");
+		EndScreen endscreen = new EndScreen("res/end", "res/endwin");
 		endscreen.display();
 	}
 	

@@ -20,6 +20,7 @@ import org.newdawn.slick.util.ResourceLoader;
 
 import org.lwjgl.input.Keyboard;
 
+import pazi.items.Item;
 import pazi.items.ItemFactory;
 
 public class Dialog {
@@ -359,6 +360,46 @@ public class Dialog {
 		{
 		}
 	}
+	private class LooseItemNode extends Node {
+		String type;
+		int amount;
+		public LooseItemNode(Dialog parent, int id, String args[])
+		{
+			super(parent, id);
+			Guard.validateArgument(args.length == 4);
+			type = new String (args[2]);
+			amount = Integer.parseInt(args[3]);
+		}
+		
+		@Override
+		public int tick (World world, Creature speaker)
+		{
+			int lost = 0;
+			if (type.equals("gold"))
+			{
+				lost = world.getPlayer().getInventory().loseGold(amount);
+			}
+			else
+			{
+				lost = world.getPlayer().getInventory().removeItems(type, amount);
+			}
+			if (lost > 1)
+			{
+				Log.addMessage("Der Pazifist verliert " + lost
+						+ " " + type + ".");
+			}
+			else if (lost > 0)
+			{
+				Log.addMessage("Der Pazifist verliert " + type + ".");				
+			}
+			return getID() + 1;
+		}
+		
+		@Override
+		public void load (BufferedReader reader)
+		{
+		}
+	}
 	private class QuestionNode extends Node {
 		private ArrayList<String> text;
 		private String choices[];
@@ -551,6 +592,8 @@ public class Dialog {
 					node = new ReceiveItemNode (this, id, args);
 				} else if (args[1].equals("spawnitem")) {
 					node = new SpawnItemNode (this, id, args);
+				}  else if (args[1].equals("looseitem")) {
+					node = new LooseItemNode (this, id, args);
 				} else if (args[1].equals("goto")) {
 					node = new GotoNode (this, id, args);
 				} else if (args[1].equals("hasitem")) {

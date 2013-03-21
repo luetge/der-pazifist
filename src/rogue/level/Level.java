@@ -1,5 +1,6 @@
 package rogue.level;
 
+import jade.core.Dialog;
 import jade.core.Sequences;
 import jade.core.World;
 import jade.gen.Generator;
@@ -123,7 +124,7 @@ public class Level
     				for (int i = 0; i < 8; i++){
     					if (Dice.global.chance(70))
     						continue;
-        				switch(Dice.global.nextInt(11))
+        				switch(Dice.global.nextInt(12))
         				{
         				case 0:
         				case 1:
@@ -148,6 +149,9 @@ public class Level
         				case 10:
         					w.addActor(ItemFactory.createItem("vampsword"));
         					break;
+        				case 11:
+        					w.addActor(ItemFactory.createItem("sniper"));
+        					break;
         				}
     				}
     			}
@@ -160,6 +164,10 @@ public class Level
     		movePlayerThroughDoor(w, door);
     	}
     	world = w;
+    	if (door.getID().startsWith("tut3exit"))
+    	{
+    		world.setActiveDialog(new Dialog("res/dialogs/tutexit.txt"));
+    	}
     }
 
     private static Generator getLevelGenerator()

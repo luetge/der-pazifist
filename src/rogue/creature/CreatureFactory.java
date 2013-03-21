@@ -90,7 +90,7 @@ public class CreatureFactory {
 				faces[i] = ColoredChar.create('ø', new Color(0xFFFFFF));
 			creature = new Monster(faces, "Mr. Sniper");
 			creature.setBehaviour(new DefaultBehaviour());
-			creature.setWalkBehaviour(new Follow(world.getPlayer(), 13, 5, 0));
+			creature.setWalkBehaviour(new Follow(world.getPlayer(), 13, 5, 0.1));
 			creature.rcWeapon = (IRangedCombatWeapon) ItemFactory.createWeapon("sniper", creature);
 		} else if (identifier.equals("priest")) {
 			creature = new Ally (ColoredChar.create('P'), "Priest", new Dialog ("res/dialogs/priest.txt"));

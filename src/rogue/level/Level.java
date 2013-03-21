@@ -128,9 +128,9 @@ public class Level
         				case 0:
         				case 1:
         				case 2:
-        					Item item = ItemFactory.createItem("healingpotion");
-        					break;
         				case 3:
+        					w.addActor(ItemFactory.createItem("healingpotion"));
+        					break;
         				case 4:
         				case 5:
         				case 6:

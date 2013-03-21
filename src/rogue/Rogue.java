@@ -24,6 +24,7 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.util.ResourceLoader;
 
+import rogue.creature.CreatureFactory;
 import rogue.creature.Player;
 import rogue.level.Level;
 
@@ -50,24 +51,19 @@ public class Rogue
         HUD.init();
 
         player = new Player();
-        level = new Level(150, 70, player, "mainworld");
-        
+        level = new Level(256, 192, player, "mainworld");
 
         view.setCenter(player.pos());
         
-/*		for (int i = 0; i < 100; i++){
+		for (int i = 0; i < 100; i++){
 			level.world().addActor(CreatureFactory.createCreature("zombie1", level.world()));
 			level.world().addActor(CreatureFactory.createCreature("bandit2", level.world()));
 			level.world().addActor(CreatureFactory.createCreature("alien1", level.world()));
-			level.world().addActor(new HealingPotion());
-			level.world().addActor((Item)WeaponFactory.createWeapon("knuckleduster"));
-			level.world().addActor((Item)WeaponFactory.createWeapon("shotgun"));
 		}
 		for (int i = 0; i < 20; i++) {
 			level.world().addActor(CreatureFactory.createCreature("sniper1", level.world()));
 			level.world().addActor(CreatureFactory.createCreature("zombienecro", level.world()));
 		}
-        */
         //level.world().addActor(CreatureFactory.createCreature("necro", level.world()));
 		view.displayScreen (new AsciiMap("res/start"));;
         

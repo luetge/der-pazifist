@@ -14,7 +14,7 @@ public class HealingPotion extends Item {
 	private int HP;
 	
 	protected HealingPotion() {
-		this(40);
+		this(Dice.global.nextInt(40,60));
 	}
 	
 	protected HealingPotion(int HP){

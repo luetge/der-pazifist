@@ -13,7 +13,7 @@ public class HolyWater extends Item {
 	private int faith;
 	
 	protected HolyWater() {
-		this(Dice.global.nextInt(49)+1);
+		this(Dice.global.nextInt(20,70));
 	}
 	
 	protected HolyWater(int faith){

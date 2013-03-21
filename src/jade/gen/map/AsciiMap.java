@@ -25,7 +25,12 @@ import java.awt.Color;
 
 import org.newdawn.slick.util.ResourceLoader;
 
+import pazi.items.Item;
+import pazi.items.ItemFactory;
+import pazi.trigger.TriggerFactory;
+
 import rogue.creature.CreatureFactory;
+import jade.core.Actor;
 import jade.core.World;
 
 public class AsciiMap {
@@ -57,6 +62,8 @@ public class AsciiMap {
 	private Map<Coordinate, Color> backgrounds;
 	private Map<Coordinate, Door> doors;
 	private Map<Coordinate, String> creatures;
+	private Map<Coordinate, String> triggers;
+	private Map<Coordinate, String> items;
 	private Map<String, Set<Coordinate>> specials;
 	public AsciiMap(String filename)
 	{
@@ -67,6 +74,8 @@ public class AsciiMap {
 	private AsciiMap()
 	{
 		creatures = new HashMap<Coordinate, String>();
+		triggers = new HashMap<Coordinate, String>();
+		items = new HashMap<Coordinate, String>();
 		characters = new HashMap<Coordinate, Tile> ();
 		backgrounds = new HashMap<Coordinate, Color> ();
 		specials = new HashMap<String, Set<Coordinate>>();
@@ -82,6 +91,16 @@ public class AsciiMap {
 	public Map<Coordinate, String> getCreatures()
 	{
 		return creatures;
+	}
+	
+	public Map<Coordinate, String> getTriggers()
+	{
+		return triggers;
+	}
+	
+	public Map<Coordinate, String> getItems()
+	{
+		return items;
 	}
 	
 	private void loadFromFile (String filename)
@@ -122,7 +141,25 @@ public class AsciiMap {
         	world.addActor(CreatureFactory.createCreature(creatures.get(coord), world), coord);
         }
 	}
-	
+
+	public void addItems (World world)
+	{
+        for (Coordinate coord : items.keySet())
+        {
+        	Item item = ItemFactory.createItem(items.get(coord));
+        	world.addActor(item, coord);
+        }
+	}
+
+	public void addTriggers (World world)
+	{
+        for (Coordinate coord : triggers.keySet())
+        {
+        	Actor actor = (Actor) TriggerFactory.createTrigger(triggers.get(coord), world);
+        	world.addActor(actor, coord);
+        }
+	}
+
 	public void render (View view, Coordinate pos)
 	{
 		for (Coordinate coord : backgrounds.keySet())
@@ -190,6 +227,14 @@ public class AsciiMap {
 				else if (esc.startsWith("creature:"))
 				{
 					creatures.put(coord.copy(), esc.substring(9));
+				}
+				else if (esc.startsWith("item:"))
+				{
+					items.put(coord.copy(), esc.substring(5));
+				}
+				else if (esc.startsWith("trigger:"))
+				{
+					triggers.put(coord.copy(), esc.substring(8));
 				}
 				else if (esc.startsWith("xrandom:"))
 				{

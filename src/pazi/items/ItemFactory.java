@@ -2,6 +2,7 @@ package pazi.items;
 
 import java.awt.Color;
 
+import pazi.weapons.Confuser;
 import pazi.weapons.Fist;
 import pazi.weapons.FrostSword;
 import pazi.weapons.IWeapon;
@@ -35,6 +36,8 @@ public class ItemFactory {
 			weapon = new FrostSword();
 		else if(identifier.equals("vampsword"))
 			weapon = new VampSword();
+		else if(identifier.equals("confuser"))
+			weapon = new Confuser();
 		((Item)weapon).setIdentifier(identifier);
 		return weapon;
 	}

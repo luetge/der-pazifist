@@ -1,6 +1,5 @@
 package rogue.creature;
 
-import jade.core.Actor;
 import jade.core.Dialog;
 import jade.core.World;
 import jade.util.datatype.ColoredChar;
@@ -32,15 +31,12 @@ import pazi.features.IFeature;
 import pazi.features.Wuff;
 import pazi.items.Item;
 import pazi.items.ItemFactory;
-import pazi.trigger.CreatureTrigger;
-import pazi.trigger.TriggerFactory;
-import pazi.weapons.Fist;
 import pazi.weapons.IMeleeWeapon;
 import pazi.weapons.IRangedCombatWeapon;
+import pazi.weapons.IWeapon;
 import pazi.weapons.KnuckleDuster;
 import pazi.weapons.MeleeWeaponPrototype;
 import pazi.weapons.Paralyzer;
-import rogue.behaviour.RandomWalk;
 
 public class CreatureFactory {
 	protected static HashMap<String, String> monsters = null;
@@ -55,7 +51,7 @@ public class CreatureFactory {
 		if(monsters == null)
 			init();
 		Creature creature = null;
-		if(identifier.equals ("zombie2")){
+		if(identifier.equals ("zombie1")){
 			//creature = getCreatureFromString("Neuer Zombie;Z;0x00FF00;100;35;45;DefaultBehaviour;Follow(¥Player,8,0.2);Braaaiiiiins;rottenFist;;EatBrains;", world);
 			ColoredChar faces[] = new ColoredChar[9];
 			for (int i = 0; i < 9; i++)
@@ -66,6 +62,16 @@ public class CreatureFactory {
 			creature.setWalkBehaviour(new Follow(world.getPlayer(), 8, 0.2));
 			creature.setBehaviour(new DefaultBehaviour());
 			creature.meleeWeapon = (IMeleeWeapon) ItemFactory.createWeapon("rottenFist");
+		} else if(identifier.equals ("zombie2")){
+			ColoredChar faces[] = new ColoredChar[9];
+			for (int i = 0; i < 9; i++)
+				faces[i] = ColoredChar.create('Z', new Color(0x00FF00+i));
+			creature = new Monster(faces, "Okkulter Zombie");
+			creature.addGeneralFeature(new Braaaiiiiins());
+	        creature.getWalkFeatures().add(new EatBrains());
+			creature.setWalkBehaviour(new Follow(world.getPlayer(), 8, 0.2));
+			creature.setBehaviour(new DefaultBehaviour());
+			creature.meleeWeapon = (IMeleeWeapon) ItemFactory.createWeapon("confuser");
 		} else if (identifier.equals("zombienecro")){
 			creature = new Monster(ColoredChar.create('W', Color.GREEN), "Zombieflüsterer");
 			//creature.addGeneralFeature(Braaaiiiiins.getInstance());
@@ -123,6 +129,10 @@ public class CreatureFactory {
 			creature = new Ally (ColoredChar.create(' ', new Color(0xFFFFFF)), "nothere", new Dialog ("res/dialogs/nothere.txt"));
 		else if (identifier.equals("door"))
 			creature = new DestructableObject(ColoredChar.create('═', new Color(0x663300)), "Tür", 500, KnuckleDuster.class, "Mist, die Tür klemmt! Ich brauche etwas, um sie aufzubrechen!", "KRACH!!!");
+		else if (identifier.equals("fenceI"))
+			creature = new DestructableObject(ColoredChar.create('I', new Color(0x663300)), "Zaun", 500, IWeapon.class, "", "KRACH!!!");
+		else if (identifier.equals("fencel"))
+			creature = new DestructableObject(ColoredChar.create('l', new Color(0x663300)), "Zaun", 500, IWeapon.class, "", "KRACH!!!");
 		else if (identifier.equals("dog")){
 			ColoredChar faces[] = new ColoredChar[9];
 			for (int i = 0; i < 9; i++)

@@ -5,8 +5,8 @@ bin/
 /build
 /dist
 /keystore.prop
-/getdown/pazifist/Der-Pazifist.jar
-/getdown/pazifist/cert.crt
-/getdown/pazifist/digest.txt
-/getdown/pazifist/digest.txt.sig
-/getdown/pazifist/getdown-client.jar
+/getdown/*/Der-Pazifist.jar
+/getdown/*/cert.crt
+/getdown/*/digest.txt
+/getdown/*/digest.txt.sig
+/getdown/*/getdown-client.jar

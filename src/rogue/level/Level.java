@@ -1,5 +1,6 @@
 package rogue.level;
 
+import jade.core.Dialog;
 import jade.core.Sequences;
 import jade.core.World;
 import jade.gen.Generator;
@@ -160,6 +161,10 @@ public class Level
     		movePlayerThroughDoor(w, door);
     	}
     	world = w;
+    	if (door.getID().startsWith("tut3exit"))
+    	{
+    		world.setActiveDialog(new Dialog("res/dialogs/tutexit.txt"));
+    	}
     }
 
     private static Generator getLevelGenerator()

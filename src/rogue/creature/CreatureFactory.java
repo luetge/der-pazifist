@@ -139,7 +139,22 @@ public class CreatureFactory {
 			CreatureTrigger ct = (CreatureTrigger)TriggerFactory.createTrigger("zombieguard", world);
 			ct.attach(creature);
 			world.getTrigger().add(ct);
-	    } else if (identifier.equals("nazi")){
+			
+	    } else if (identifier.equals("hitler")) {
+			creature = new Monster(ColoredChar.create('H', Color.white), "Hitler");
+			creature.setWalkBehaviour(new RandomWalk());
+			creature.addGeneralFeature(new Braaaiiiiins("Arrrrrrr!", 10));
+			creature.setBehaviour(new DefaultBehaviour());
+			creature.max_d = 100;
+			creature.min_d = 30;
+			creature.setHP(1000);
+			CreatureTrigger ct = (CreatureTrigger)TriggerFactory.createTrigger("zombieguard", world);
+			ct.attach(creature);
+			world.getTrigger().add(ct);
+	    }
+			
+		
+		else if (identifier.equals("nazi")){
 	    	ColoredChar faces[] = new ColoredChar[9];
 			for (int i = 0; i < 9; i++)
 				faces[i] = ColoredChar.create('N', new Color(0xFFFF00+i));

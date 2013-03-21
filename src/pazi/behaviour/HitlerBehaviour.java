@@ -37,7 +37,6 @@ public class HitlerBehaviour extends DefaultBehaviour {
 			spawnNazisCounter = 0;
 			ct.setActivated(true);
 		}
-		System.out.println(spawnNazisCounter);
 		if(--roundsToNextBehaviour <= 0) {
 			setRoundsToNextBehaviour();
 			creature.setWalkBehaviour(Dice.global.choose(walkBehaviours));

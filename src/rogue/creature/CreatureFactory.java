@@ -30,6 +30,7 @@ import pazi.items.Item;
 import pazi.items.ItemFactory;
 import pazi.trigger.CreatureTrigger;
 import pazi.trigger.TriggerFactory;
+import pazi.weapons.Fist;
 import pazi.weapons.IMeleeWeapon;
 import pazi.weapons.IRangedCombatWeapon;
 import pazi.weapons.Paralyzer;
@@ -136,7 +137,16 @@ public class CreatureFactory {
 			CreatureTrigger ct = (CreatureTrigger)TriggerFactory.createTrigger("zombieguard", world);
 			ct.attach(creature);
 			world.getTrigger().add(ct);
-	    } else {
+	    } else if (identifier.equals("nazi")){
+	    	ColoredChar faces[] = new ColoredChar[9];
+			for (int i = 0; i < 9; i++)
+				faces[i] = ColoredChar.create('N', new Color(0xFFFF00+i));
+			creature = new Monster(faces, "Nazi");
+			creature.setWalkBehaviour(new Follow(world.getPlayer(), 8, 0.5));
+			creature.setBehaviour(new DefaultBehaviour());
+			creature.setMeleeWeapon(new Fist());
+	    }
+		else {
 	    	creature = getCreatureFromString(monsters.get(identifier), world);
 			if(creature == null)
 				System.out.println("Konnte Kreatur \"" + identifier + "\" nicht laden!");

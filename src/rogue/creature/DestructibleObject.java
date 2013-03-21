@@ -17,7 +17,6 @@ public class DestructibleObject extends Creature {
 	public DestructibleObject(ColoredChar face, String name, int hp, Class destructibleBy, String wrongWeaponText, String deathText) {
 			super(face, name);
 			System.out.println("Hallo");
-			maxHp = hp;
 			setHP(hp);
 			this.destructibleBy = destructibleBy;
 			setBehaviour(DoNothingBehaviour.getInstance());

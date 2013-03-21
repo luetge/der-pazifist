@@ -112,6 +112,11 @@ public class Level
     			}
     			else
     			{
+    				if (Dice.global.chance(5))
+    				{
+    					w.addActor(CreatureFactory.createCreature("jokesteller", w));
+    				}
+    				else {
     				for (int i = 0; i < 8; i++)
     				{
     					if (Dice.global.chance(30))
@@ -121,6 +126,7 @@ public class Level
     						w.addActor(CreatureFactory.createCreature("zombie1", w));
     					else
     						w.addActor(CreatureFactory.createCreature("alien1", w));
+    				}
     				}
 
     				for (int i = 0; i < 8; i++){

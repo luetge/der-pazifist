@@ -360,10 +360,10 @@ public class Dialog {
 		{
 		}
 	}
-	private class LooseItemNode extends Node {
+	private class LoseItemNode extends Node {
 		String type;
 		int amount;
-		public LooseItemNode(Dialog parent, int id, String args[])
+		public LoseItemNode(Dialog parent, int id, String args[])
 		{
 			super(parent, id);
 			Guard.validateArgument(args.length == 4);
@@ -592,8 +592,8 @@ public class Dialog {
 					node = new ReceiveItemNode (this, id, args);
 				} else if (args[1].equals("spawnitem")) {
 					node = new SpawnItemNode (this, id, args);
-				}  else if (args[1].equals("looseitem")) {
-					node = new LooseItemNode (this, id, args);
+				}  else if (args[1].equals("loseitem")) {
+					node = new LoseItemNode (this, id, args);
 				} else if (args[1].equals("goto")) {
 					node = new GotoNode (this, id, args);
 				} else if (args[1].equals("hasitem")) {

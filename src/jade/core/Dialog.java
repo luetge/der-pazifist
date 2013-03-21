@@ -374,22 +374,23 @@ public class Dialog {
 		@Override
 		public int tick (World world, Creature speaker)
 		{
-			if (amount > 1)
-			{
-				Log.addMessage("Der Pazifist verliert " + amount
-						+ " " + type + ".");
-			}
-			else
-			{
-				Log.addMessage("Der Pazifist verliert " + type + ".");				
-			}
+			int lost = 0;
 			if (type.equals("gold"))
 			{
-				world.getPlayer().getInventory().loseGold(amount);
+				lost = world.getPlayer().getInventory().loseGold(amount);
 			}
 			else
 			{
-				world.getPlayer().getInventory().removeItems(type, amount);
+				lost = world.getPlayer().getInventory().removeItems(type, amount);
+			}
+			if (lost > 1)
+			{
+				Log.addMessage("Der Pazifist verliert " + lost
+						+ " " + type + ".");
+			}
+			else if (lost > 0)
+			{
+				Log.addMessage("Der Pazifist verliert " + type + ".");				
 			}
 			return getID() + 1;
 		}

@@ -57,7 +57,7 @@ public class Inventory {
 		update();
 	}
 	
-	public void removeItems(String id, int amount)
+	public int removeItems(String id, int amount)
 	{
 		ArrayList<Item> items = new ArrayList<Item>();
 		int removed = 0;
@@ -73,6 +73,7 @@ public class Inventory {
 			}
 		}
 		this.items = items;
+		return removed;
 	}
 	
 	public Item getItem (String id)

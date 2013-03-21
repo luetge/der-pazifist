@@ -14,6 +14,7 @@ import pazi.weapons.VampSword;
 
 import jade.util.datatype.ColoredChar;
 import rogue.creature.Creature;
+import rogue.creature.Player;
 
 public class ItemFactory {
 	
@@ -25,7 +26,16 @@ public class ItemFactory {
 		else if(identifier.equals("rottenFist"))
 			weapon = new MeleeWeaponPrototype(5, 10, 0.9, "Verrottete Zombiefaust", new ColoredChar(' ', Color.black), holder);
 		else if(identifier.equals("sniper"))
-			weapon = new SniperRifle(15, 30, 8, 0.4, "Scharfschützengewehr", holder);
+		{
+			if (holder == null)
+			{
+				weapon = new SniperRifle(50, 100, 8, 0.4, "Scharfschützengewehr", holder);
+			}
+			else
+			{
+				weapon = new SniperRifle(15, 30, 8, 0.4, "Scharfschützengewehr", holder);
+			}
+		}
 		else if(identifier.equals("headnut"))
 			weapon = new MeleeWeaponPrototype(1, 3, 0.5, "Kopfnuss der Verzweiflung", new ColoredChar(' ', Color.black), holder);
 		else if(identifier.equals("knuckleduster"))

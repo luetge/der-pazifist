@@ -154,7 +154,7 @@ public class Rogue
 	public void finish () throws InterruptedException
 	{
 		view.clearTiles();
-		EndScreen endscreen = new EndScreen("res/end");
+		EndScreen endscreen = new EndScreen("res/end", "res/endwin");
 		endscreen.display();
 	}
 	

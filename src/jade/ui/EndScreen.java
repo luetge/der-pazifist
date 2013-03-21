@@ -11,13 +11,15 @@ import jade.util.datatype.Coordinate;
 
 public class EndScreen {
 	
-	AsciiMap map;
+	AsciiMap loosemap;
+	AsciiMap winmap;
 	
 	private static int numzombies = 0;
 	private static int numaliens = 0;
 	private static int numbandits = 0;
 	private static int numsnipers = 0;
 	private static int numnazis = 0;
+	private static boolean hitlerkilled = false;
 	private static String killerid = null;
 	
 	private static String nokillerstr = "Gott";
@@ -36,14 +38,20 @@ public class EndScreen {
 	private static String hitlerkillerstr = "Hitler";
 	private static String hitlerkillactionstr = "erlegt";
 	
-	public EndScreen(String name)
+	public EndScreen(String loosename, String winname)
 	{
-		map = new AsciiMap(name);
+		loosemap = new AsciiMap(loosename);
+		winmap = new AsciiMap(winname);
 	}
 	
 	public static void SetKiller (String id)
 	{
 		killerid = id;
+	}
+	
+	public static void HitlerKilled()
+	{
+		hitlerkilled = true;
 	}
 	
 	public static void ZombieKilled()
@@ -99,7 +107,7 @@ public class EndScreen {
 			View.get().drawString(coord.x(), coord.y(), 1.0f, str, Color.white);
 		}
 	}
-
+	
 	public void display()
 	{
 		boolean running = true;
@@ -109,6 +117,8 @@ public class EndScreen {
 		{
 			view.clear();
 
+			AsciiMap map = hitlerkilled?winmap:loosemap;
+			
 			map.render(view, 0, 0);
 			
 			Set<Coordinate> killercoords = map.getSpecialCoords("killer");

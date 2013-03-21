@@ -52,23 +52,21 @@ public class Rogue
 
         player = new Player();
 //        level = new Level(256, 192, player, "mainworld");
-        level = new Level(100, 100, player, "mainworld");
+        level = new Level(256, 192, player, "mainworld");
 
         view.setCenter(player.pos());
         
 		for (int i = 0; i < 100; i++){
-//			level.world().addActor(CreatureFactory.createCreature("zombie1", level.world()));
-//			level.world().addActor(CreatureFactory.createCreature("bandit2", level.world()));
-//			level.world().addActor(CreatureFactory.createCreature("alien1", level.world()));
+			level.world().addActor(CreatureFactory.createCreature("zombie1", level.world()));
+			level.world().addActor(CreatureFactory.createCreature("bandit2", level.world()));
+			level.world().addActor(CreatureFactory.createCreature("alien1", level.world()));
 		}
 		for (int i = 0; i < 20; i++) {
-//			level.world().addActor(CreatureFactory.createCreature("sniper1", level.world()));
-//			level.world().addActor(CreatureFactory.createCreature("zombienecro", level.world()));
+			level.world().addActor(CreatureFactory.createCreature("sniper1", level.world()));
+			level.world().addActor(CreatureFactory.createCreature("zombienecro", level.world()));
 		}
-        //level.world().addActor(CreatureFactory.createCreature("necro", level.world()));
-		view.displayScreen (new AsciiMap("res/start"));;
-        
-		view.loadTiles();
+
+        level.stepThroughDoor(new Door("spawndoor", 0, 0, "tut1", "spawn0"));
 	}
 	
     public boolean run () throws InterruptedException

@@ -320,7 +320,7 @@ public class Player extends Creature implements Camera
 			return;
 		if (target.isPassable()){
 			target.expire();
-			gainHP(2);
+			gainHP(30);
 			increaseFaith(-30);
 			this.appendMessage("Ich nehme deine Sünden auf mich. Deine Seele wird nun Frieden finden.");
 		}

@@ -29,7 +29,7 @@ public class ItemFactory {
 		{
 			if (holder == null)
 			{
-				weapon = new SniperRifle(50, 100, 8, 0.4, "Scharfschützengewehr", holder);
+				weapon = new SniperRifle(30, 70, 8, 0.4, "Scharfschützengewehr", holder);
 			}
 			else
 			{

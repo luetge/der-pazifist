@@ -133,7 +133,7 @@ public class CreatureFactory {
 		else if (identifier.equals("nothere"))
 			creature = new Ally (ColoredChar.create(' ', new Color(0xFFFFFF)), "nothere", new Dialog ("res/dialogs/nothere.txt"));
 		else if (identifier.equals("door"))
-			creature = new DestructableObject(ColoredChar.create('═', new Color(0x663300)), "Tür", 500, KnuckleDuster.class, "Mist, die Tür klemmt! Ich brauche etwas, um sie aufzubrechen!", "KRACH!!!");
+			creature = new DestructableObject(ColoredChar.create('═', new Color(0x663300)), "Tür", 5, KnuckleDuster.class, "Mist, die Tür klemmt! Ich brauche etwas, um sie aufzubrechen!", "KRACH!!!");
 		else if (identifier.equals("fenceI"))
 					creature = new DestructableObject(ColoredChar.create('I', new Color (0x4c1800)), "Zaun", 5, Shotgun.class, "Für diesen Zaun braucht man etwas mit Durchschlagskraft!", "KRACH!!!");
 		

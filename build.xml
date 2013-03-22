@@ -20,7 +20,7 @@
         description="compile the source " >
 
     <!-- Compile the java code from ${src} into ${build} -->
-    <javac srcdir="${src}" destdir="${build}" includeantruntime="false">
+    <javac srcdir="${src}" destdir="${build}" includeantruntime="false" encoding="utf8">
     <classpath refid="classpath" />
     </javac>
   </target>

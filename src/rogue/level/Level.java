@@ -92,6 +92,11 @@ public class Level
     			asciimap.addCreatures(w);
     			asciimap.addTriggers(w);
     			asciimap.addItems(w);
+    			if (door.getDestWorld().equals("bunker"))
+    			{
+    				for (int i = 0; i < 10; i++)
+    					w.addActor(CreatureFactory.createCreature("nazi", w));
+    			}
     		}
     		else
     		{

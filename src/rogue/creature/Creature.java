@@ -2,7 +2,6 @@ package rogue.creature;
 
 import jade.core.Actor;
 import jade.core.Messenger;
-import jade.ui.HUD;
 import jade.util.Guard;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
@@ -19,7 +18,6 @@ import pazi.behaviour.DeadBehaviour;
 import pazi.behaviour.DoNothingBehaviour;
 import pazi.behaviour.IBehaviour;
 import pazi.features.IBeforeAfterFeature;
-import pazi.items.Gold;
 import pazi.items.Inventory;
 import pazi.items.Item;
 import pazi.items.ItemFactory;
@@ -33,7 +31,6 @@ import pazi.weapons.WeaponPrototype;
 public abstract class Creature extends Actor
 {
 	protected int hp = 100;
-	protected int maxHp = 100;
 	protected int min_d, max_d;
 	protected int givenXp = 25;
     protected int xp=0;
@@ -108,7 +105,7 @@ public abstract class Creature extends Actor
     
     @Override
     public void interact(Actor actor) {
-    	Guard.verifyState(Player.class.isAssignableFrom(this.getClass()));
+    	Guard.verifyState(isPlayer());
     	if(Creature.class.isAssignableFrom(actor.getClass()))
     		this.fight((Creature)actor, true);
     	/*else if (Ally.class.isAssignableFrom(actor.getClass()))
@@ -118,12 +115,11 @@ public abstract class Creature extends Actor
     public void interact (Direction dir) {
     	if (dir == null || dir == Direction.ORIGIN)
     		return;
-    	Guard.verifyState(Player.class.isAssignableFrom(this.getClass()));
-    	if(dir == null)
-    		return;
-    	Collection<Monster> monsters = world().getActorsAt(Monster.class, pos().getTranslated(dir));
-    	for (Monster monster : monsters)
-    		fight(monster, true);
+    	Guard.verifyState(isPlayer());
+    	Collection<Creature> creatures = world().getActorsAt(Creature.class, pos().getTranslated(dir));
+    	for (Creature creature : creatures)
+    		if(!Ally.class.isAssignableFrom(creature.getClass()))
+    			fight(creature, true);
     	Collection<Ally> allies = world().getActorsAt(Ally.class, pos().getTranslated(dir));
     	for (Ally ally : allies)
     		talkto(ally);
@@ -141,7 +137,7 @@ public abstract class Creature extends Actor
     	fight(creature, weapon.getDamage(this, creature), weapon.getProb(this, creature), melee);
     }    
     
-    public void takeDamage(int d,Creature source){
+    public void takeDamage(int d,Creature source, boolean melee){
     	if(getBehaviour().getClass() == DeadBehaviour.class)
     		return;
     	setHP(Math.max(0, hp-d));
@@ -153,7 +149,7 @@ public abstract class Creature extends Actor
     public void addHP(int hp){
     	setHP(this.hp + hp);
     }
-
+    
 	public void doStep() {
 		if(nextCoordinate != null)
 		{
@@ -220,8 +216,6 @@ public abstract class Creature extends Actor
 	
 	protected void setHP(int hp){
 		this.hp = hp;
-		if(this.hp > this.maxHp)
-			this.hp = maxHp;
 		if(this.hp < 0)
 			this.hp = 0;
 	}
@@ -247,6 +241,14 @@ public abstract class Creature extends Actor
 			return inventory.loseGold(-amount);
 	}
 	
+	public IRangedCombatWeapon getRCWeapon(){
+		return rcWeapon;
+	}
+	
+	public IMeleeWeapon getmelee(){
+		return meleeWeapon;
+	}
+	
 	public void useItem(Item item){
 		setHasActed(true);
 		item.interact(this);
@@ -270,14 +272,14 @@ public abstract class Creature extends Actor
 	public ArrayList<Creature> getCreaturesCloseby(){
 		ArrayList<Creature> list = new ArrayList<Creature>();
 
-		list.add(world().getActorAt(Creature.class, pos().getTranslated(1, -1)));
-		list.add(world().getActorAt(Creature.class, pos().getTranslated(1, 0)));
-		list.add(world().getActorAt(Creature.class, pos().getTranslated(1, 1)));
-		list.add(world().getActorAt(Creature.class, pos().getTranslated(0, -1)));
-		list.add(world().getActorAt(Creature.class, pos().getTranslated(0, 1)));
-		list.add(world().getActorAt(Creature.class, pos().getTranslated(-1, -1)));
-		list.add(world().getActorAt(Creature.class, pos().getTranslated(-1, 0)));
-		list.add(world().getActorAt(Creature.class, pos().getTranslated(-1, 1)));
+		list.addAll(world().getActorsAt(Creature.class, pos().getTranslated(1, -1)));
+		list.addAll(world().getActorsAt(Creature.class, pos().getTranslated(1, 0)));
+		list.addAll(world().getActorsAt(Creature.class, pos().getTranslated(1, 1)));
+		list.addAll(world().getActorsAt(Creature.class, pos().getTranslated(0, -1)));
+		list.addAll(world().getActorsAt(Creature.class, pos().getTranslated(0, 1)));
+		list.addAll(world().getActorsAt(Creature.class, pos().getTranslated(-1, -1)));
+		list.addAll(world().getActorsAt(Creature.class, pos().getTranslated(-1, 0)));
+		list.addAll(world().getActorsAt(Creature.class, pos().getTranslated(-1, 1)));
 	
 		list.removeAll(Collections.singletonList(null));
 		return list;
@@ -295,17 +297,17 @@ public abstract class Creature extends Actor
 		return list;
 	}
 	
-	private List<Coordinate> getRect(Coordinate pos, double range) {
+	public static List<Coordinate> getRect(Coordinate pos, double range) {
 		ArrayList<Coordinate> coords = new ArrayList<Coordinate>();
-		int half = (int)(range/2);
-		for(int i=0; i<2*range; i++)
-			for(int j=0; j<2*range; j++)
-				coords.add(pos.getTranslated(i-half, j-half));
+		int rg = (int)range;
+		for(int i=-rg; i<=rg; i++)
+			for(int j=-rg; j<=rg; j++)
+				coords.add(pos.getTranslated(i, j));
 		return coords;
 	}
 
 	protected void addAttackableCreature(ArrayList<AttackableCreature> list, AttackableCreature creature){
-		if(creature != null)
+		if(creature != null && creature.creature.getBehaviour().getClass() != DeadBehaviour.class)
 			list.add(creature);
 	}
 	
@@ -337,13 +339,15 @@ public abstract class Creature extends Actor
 		if (weapon == null)
 			meleeWeapon = (IMeleeWeapon) ItemFactory.createWeapon("headnut");
 		else{
-			inventory.addItem((Item)meleeWeapon);
+			if (meleeWeapon != null)
+				inventory.addItem((Item)meleeWeapon);
 			meleeWeapon = weapon;
 		}
 	}
 	
 	public void setRCWeapon(IRangedCombatWeapon weapon) {
-		inventory.addItem((Item)rcWeapon);
+		if (rcWeapon != null)
+			inventory.addItem((Item)rcWeapon);
 		rcWeapon = weapon;
 	}
 	
@@ -375,5 +379,9 @@ public abstract class Creature extends Actor
 			setRCWeapon(null);
 			this.appendMessage(weapon.getName() + " hat keine Muni mehr. Weg damit!");
 		}
+	}
+
+	public String getDeathMessage() {
+		return "UUuuuuuuaaaaarrrrrrrghghhgghhh!";
 	}
 }

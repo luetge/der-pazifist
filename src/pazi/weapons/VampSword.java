@@ -15,8 +15,8 @@ public class VampSword extends MeleeWeaponPrototype {
 	}
 	
 	public VampSword(Creature holder) {
-		super(10, 20, 0.7, "Vampirklinge", new ColoredChar('V', Color.red), holder);
-		this.description = "Zieht dem Gegner 10 bis 20 HP ab und fügt sie dir hinzu.";
+		super(10, 15, 0.7, "Vampirklinge", new ColoredChar('V', Color.red), holder);
+		this.description = "Zieht dem Gegner 10 bis 15 HP ab und fügt sie dir hinzu.";
 	}
 	
 	@Override
@@ -25,7 +25,7 @@ public class VampSword extends MeleeWeaponPrototype {
 			appendMessage(attacker.world(), getWeaponFiredText(attacker, victim));
 			if(Math.random() < getProb(attacker, victim)){
 				int dmg = getDamage(attacker, victim);
-				victim.takeDamage(dmg, attacker);
+				victim.takeDamage(dmg, attacker, true);
 				attacker.addHP(dmg);
 				appendMessage(victim.world(), getHitText(attacker, victim));
 			}
@@ -41,5 +41,10 @@ public class VampSword extends MeleeWeaponPrototype {
 	@Override
 	protected String getPickupText() {
 		return "Oha. Das mächtige Vampirschwert, aus dem Knochen des großen Nosferatu geschnitzt. Nice.";
+	}
+	
+	@Override
+	protected String getMissedText(Creature attacker, Creature victim) {
+		return (victim.getName() + " verfehlt! Dieses Schwert ist schwer handzuhaben..");
 	}
 }

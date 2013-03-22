@@ -15,14 +15,14 @@ public class ZombieWhispererBehaviour implements IBehaviour<Monster> {
 	
 	@Override
 	public void act(Monster monster) {
-		if (monster.pos().distance(monster.world().getPlayer().pos()) <= 6){
+		if (monster.pos().distance(monster.world().getPlayer().pos()) <= 5){
 			monster.appendMessage("Kommt, meine Freunde. Essen ist angerichtet!");
 			monster.world().setMessage("Zombies graben sich rund um den Zombieflüsterer aus dem Boden!");
 			callForBackup(monster);
 			exit(monster);
 		}
 	}
-
+	
 	private void callForBackup(Monster monster) {
 		Monster[] zombies;		
 		zombies = new Monster[8];
@@ -32,15 +32,24 @@ public class ZombieWhispererBehaviour implements IBehaviour<Monster> {
 			switch (i) {
 	        	case 0:
 	        	case 1:
-	        	case 2: monster.world().addActor(zombies[i], pos.x() + i - 1, pos.y()-1);
-	        			break;
-	        	case 3: monster.world().addActor(zombies[i], pos.x() - 1, pos.y());
-	        			break;
-	        	case 4: monster.world().addActor(zombies[i], pos.x() + 1, pos.y());
-	        			break;
+	        	case 2:
+	        		if (monster.world().passableAt(pos.x() + i - 1, pos.y()-1))
+	        			monster.world().addActor(zombies[i], pos.x() + i - 1, pos.y()-1);
+	        		break;
+	        	case 3:
+	        		if (monster.world().passableAt(pos.x() - 1, pos.y()))
+	        			monster.world().addActor(zombies[i], pos.x() - 1, pos.y());
+	        		break;
+	        	case 4:
+	        		if (monster.world().passableAt(pos.x() + 1, pos.y()))
+	        			monster.world().addActor(zombies[i], pos.x() + 1, pos.y());
+	        		break;
 	        	case 5:	        	
 	        	case 6:
-	        	case 7:	monster.world().addActor(zombies[i], pos.x() + i - 6, pos.y() + 1);
+	        	case 7:
+	        		if (monster.world().passableAt(pos.x() + i - 6, pos.y() + 1))
+	        			monster.world().addActor(zombies[i], pos.x() + i - 6, pos.y() + 1);
+	        		break;
 	        	default:
 	        			break;
 			}
@@ -55,7 +64,7 @@ public class ZombieWhispererBehaviour implements IBehaviour<Monster> {
 
 	@Override
 	public void init(Monster monster) {
-		monster.setWalkBehaviour(new Follow(player, 20, 5, 0.2));		
+		monster.setWalkBehaviour(new Follow(player, 20, 4, 0.2));		
 	}
 
 }

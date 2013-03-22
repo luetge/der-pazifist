@@ -32,6 +32,7 @@ public class City extends MapGenerator
     private int minHeight;
     private AsciiMap church[];
     private AsciiMap bunker;
+    private AsciiMap park;
     private LinkedList<Rectangle> reserved;
     private int housenum;
 
@@ -64,6 +65,7 @@ public class City extends MapGenerator
         	this.church[i] = new AsciiMap ("res/maps/church" + i + ".txt");
         
         this.bunker = new AsciiMap("res/maps/bunker.txt");
+        this.park = new AsciiMap("res/maps/park.txt");
     }
     
     private Rectangle getRandomRect (World world, Dice dice, int width, int height)
@@ -121,6 +123,7 @@ public class City extends MapGenerator
         for (int i = 0; i < church.length; i++)
         	generateSpecialRoom(world, dice, church[i]);
         
+        generateSpecialRoom(world, dice, park);
         
        	BSPNode head = new BSPNode(world);
         	

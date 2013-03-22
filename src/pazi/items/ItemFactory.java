@@ -2,6 +2,7 @@ package pazi.items;
 
 import java.awt.Color;
 
+import pazi.weapons.Confuser;
 import pazi.weapons.Fist;
 import pazi.weapons.FrostSword;
 import pazi.weapons.IWeapon;
@@ -13,6 +14,7 @@ import pazi.weapons.VampSword;
 
 import jade.util.datatype.ColoredChar;
 import rogue.creature.Creature;
+import rogue.creature.Player;
 
 public class ItemFactory {
 	
@@ -24,7 +26,16 @@ public class ItemFactory {
 		else if(identifier.equals("rottenFist"))
 			weapon = new MeleeWeaponPrototype(5, 10, 0.9, "Verrottete Zombiefaust", new ColoredChar(' ', Color.black), holder);
 		else if(identifier.equals("sniper"))
-			weapon = new SniperRifle(15, 30, 8, 0.4, "Scharfschützengewehr", holder);
+		{
+			if (holder == null)
+			{
+				weapon = new SniperRifle(50, 100, 8, 0.4, "Scharfschützengewehr", holder);
+			}
+			else
+			{
+				weapon = new SniperRifle(15, 30, 8, 0.4, "Scharfschützengewehr", holder);
+			}
+		}
 		else if(identifier.equals("headnut"))
 			weapon = new MeleeWeaponPrototype(1, 3, 0.5, "Kopfnuss der Verzweiflung", new ColoredChar(' ', Color.black), holder);
 		else if(identifier.equals("knuckleduster"))
@@ -35,6 +46,8 @@ public class ItemFactory {
 			weapon = new FrostSword();
 		else if(identifier.equals("vampsword"))
 			weapon = new VampSword();
+		else if(identifier.equals("confuser"))
+			weapon = new Confuser();
 		((Item)weapon).setIdentifier(identifier);
 		return weapon;
 	}
@@ -45,6 +58,10 @@ public class ItemFactory {
 			item = new Gold();
 		else if (identifier.equals("healingpotion"))
 			item = new HealingPotion();
+		else if(identifier.equals("adrenaline"))
+			item = new Adrenaline();
+		else if(identifier.equals("holywater"))
+			item = new HolyWater();
 		else
 			return (Item)createWeapon (identifier, null);
 		item.setIdentifier(identifier);

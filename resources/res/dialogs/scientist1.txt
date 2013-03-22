@@ -1,0 +1,38 @@
+#Der Wissenschaftler im zweiten Tutorialraum
+
+0:goto:1
+
+1:text
+Guten Morgen! Hier können Sie ein wenig ballern. Hehe
+1:done
+
+2:text:Jesus
+Ich verachte die Gewalt, bin durch und durch Pazifist.
+2:done
+
+3:text
+Kommen Sie schon! Sie schießen nur auf Zielscheiben.
+3:done
+
+4:receiveitem:shotgun:1
+
+5:text:Jesus
+Wenn das mein Vater wüsste...
+5:done
+
+6:text:nospeaker
+Rüsten Sie sich mit der Shotgun aus und schießen Sie die Tür frei.
+6:done
+
+7:text:nospeaker
+Um mit der Shotgun zu schießen, 
+drücken Sie erst Leertaste und dann die Schussrichtung.
+7:done
+
+8:end:10
+
+10:text
+Na los, probieren Sie es mal!
+10:done
+
+11:end:10

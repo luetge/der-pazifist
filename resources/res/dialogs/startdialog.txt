@@ -1,0 +1,30 @@
+0:text:Jesus
+Wo bin ich hier?
+0:done
+
+1:text:Jesus
+...
+1:done
+
+2:text:Jesus
+Sieht aus, als wäre das hier eine Art Labor.
+2:done
+
+3:text:Wissenschaftler
+Murmelmurmel...
+3:done
+
+4:text:Jesus
+Ah da ist jemand, ich werde ihn am Besten mal fragen.
+4:done
+
+5:text:nospeaker
+Bewegung funktioniert über die Pfeiltasten.
+5:done
+
+6:text:nospeaker
+Sprechen Sie den Wissenschaftler an, indem Sie auf ihn zu gehen.
+6:done
+
+
+7:end:7

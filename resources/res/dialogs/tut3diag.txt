@@ -1,0 +1,92 @@
+#Tutorial-Rede
+#-1:goto:20
+
+-1:text:Wissenschaftler
+Willkommen meine Herren. Schön, dass Sie hier sind.
+-1:done
+
+0:text:Wissenschaftler
+Ich hoffe, Sie haben ein wenig Ihrer alten Stärke wiedererlangt.
+0:done
+
+1:text:Hitler
+Arrrrr!
+1:done
+
+2:text:Wissenschaftler
+Wie Sie vielleicht schon bemerkt haben, haben wir 
+Sie zusammen mit einigen anderen Diktatoren wiederbelebt.
+2:done
+
+3:text:Jesus
+Diktatoren?
+3:done
+
+4:text:Wissenschaftler
+Wir benötigen Ihr unterdrückerisches Know-How. 
+Unsere neuen Herren belieben, die Erde auszubeuten.
+4:done
+
+5:text:Wissenschaftler
+Sie können es nicht wissen, aber als unsere neuen Herren zur Erde kamen, 
+reagierten die Menschen mit einem nuklearen Gegenschlag.
+5:done
+
+6:text:Wissenschaftler
+Leider ging dabei etwas schief, deswegen werden Sie 
+sich dort draußen mit Zombies herumschlagen müssen.
+6:done
+
+7:text:Hitler
+HEIL!
+7:done
+
+8:text:Wissenschaftler
+Sie erkennen unsere Herren übrigens an der blauen Hautfarbe.
+8:done
+
+9:text:Jesus
+...
+9:done
+
+10:text:Jesus
+Ich glaub das nicht.
+10:done
+
+11:text:Jesus
+Halten mich diese Vollschrippen tatsächlich für einen Diktator.
+11:done
+
+12:text:Wissenschaftler
+Bla bla bla
+12:done
+
+13:text:Jesus
+Ich bin damals gestorben, um die Menschheit zu retten, und so wirds einem gedankt.
+13:done
+
+14:text:Jesus
+Man, das gab Ärger von Papi...
+14:done
+
+15:text:Jesus
+Bei diesem Spiel spiele ich nicht mit! Die bekommen alle eins vor die Matraze!
+15:done
+
+16:text:Jesus
+Ab jetzt bin ich DER PAZIFIST!
+16:done
+
+17:text:Der Pazifist
+Tschüss Leute, ich hau in'n Sack!
+17:done
+
+18:text:Wissenschaftler
+Bla bla viel Erfolg Ihnen allen
+18:done
+
+19:text:Hitler
+Arrrrr!
+19:done
+
+20:end:19

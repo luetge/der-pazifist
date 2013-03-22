@@ -7,8 +7,8 @@ import jade.util.datatype.Direction;
 
 import java.awt.Color;
 
+import rogue.creature.Ally;
 import rogue.creature.Creature;
-import rogue.creature.Player;
 
 public class Shotgun extends RCWeaponPrototype {
 
@@ -23,12 +23,12 @@ public class Shotgun extends RCWeaponPrototype {
 		if (attacker == null || victim == null
 				|| attacker.pos().distance(victim.pos()) > getRange())
 			return 0;
-		return (int) (getRange() + 1 - attacker.pos().distance(victim.pos())) * 10;
+		return (int) (getRange() + 1 - attacker.pos().distance(victim.pos())) * 30;
 	}
 
 	@Override
 	public void shoot(Creature attacker, Creature victim) {
-		if (Player.class.isAssignableFrom(attacker.getClass())) {
+		if(attacker.isPlayer()) {
 			// Player-Verhalten
 			while (!View.get().nextKey())
 				View.get().update();
@@ -62,9 +62,12 @@ public class Shotgun extends RCWeaponPrototype {
 	}
 
 	private boolean hitCoord(Creature attacker, Coordinate pos) {
-		for (Creature creature : attacker.world().getActorsAt(Creature.class,
-				pos)) {
-			if (!creature.isPassable()) {
+		if (pos.x() < 0 || pos.y() < 0)
+			return false;
+		if (pos.x() >= attacker.world().width() || pos.y() >= attacker.world().height())
+			return false;
+		for (Creature creature : attacker.world().getActorsAt(Creature.class, pos)) {
+			if (!creature.isPassable() && !Ally.class.isAssignableFrom(creature.getClass())) {
 				super.shoot(attacker, creature);
 				return true;
 			}

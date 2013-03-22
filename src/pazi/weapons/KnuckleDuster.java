@@ -15,6 +15,7 @@ public class KnuckleDuster extends MeleeWeaponPrototype {
 	
 	public KnuckleDuster(Creature holder) {
 		super(45, 80, 1, "Schlagring des Grauens", new ColoredChar('B', Color.magenta), holder);
+		description = "Ein epischer Schlagring aus gehärtetem Stahl.";
 	}
 	
 	/*protected static final int min_d = 100;

@@ -20,6 +20,7 @@ import org.newdawn.slick.util.ResourceLoader;
 
 import org.lwjgl.input.Keyboard;
 
+import pazi.items.Item;
 import pazi.items.ItemFactory;
 
 public class Dialog {
@@ -290,8 +291,10 @@ public class Dialog {
 		@Override
 		public int tick (World world, Creature speaker)
 		{
+			// TODO
+			String name = ItemFactory.createItem(type).getName();
 			Log.addMessage("Der Pazifist gibt " + speaker.getName() + " " + amount
-					+ " " + type + ".");
+					+ " " + name + ".");
 			world.getPlayer().getInventory().giveItem (speaker, type, amount);
 			return getID() + 1;
 		}
@@ -315,8 +318,10 @@ public class Dialog {
 		@Override
 		public int tick (World world, Creature speaker)
 		{
+			// TODO
+			String name = ItemFactory.createItem(type).getName();
 			Log.addMessage("Der Pazifist erhält " + amount
-					+ " " + type + " von " + speaker.getName() + ".");
+					+ " " + name + " von " + speaker.getName() + ".");
 			speaker.getInventory().giveItem(world.getPlayer(), type, amount);
 			return getID() + 1;
 		}
@@ -340,8 +345,15 @@ public class Dialog {
 		@Override
 		public int tick (World world, Creature speaker)
 		{
-			Log.addMessage("Der Pazifist erhält " + amount
-					+ " " + type + " von " + speaker.getName() + ".");
+			// TODO
+			String name = ItemFactory.createItem(type).getName();
+			if (speaker != null)
+				Log.addMessage("Der Pazifist erhält " + amount
+						+ " " + name + " von " + speaker.getName() + ".");
+			else
+				Log.addMessage("Der Pazifist erhält " + amount
+						+ " " + name + ".");
+				
 			if (type.equals("gold"))
 			{
 				world.getPlayer().getInventory().findGold(amount);
@@ -350,6 +362,48 @@ public class Dialog {
 			{
 				for (int i = 0; i < amount; i++)
 					world.getPlayer().getInventory().addItem(ItemFactory.createItem(type));
+			}
+			return getID() + 1;
+		}
+		
+		@Override
+		public void load (BufferedReader reader)
+		{
+		}
+	}
+	private class LoseItemNode extends Node {
+		String type;
+		int amount;
+		public LoseItemNode(Dialog parent, int id, String args[])
+		{
+			super(parent, id);
+			Guard.validateArgument(args.length == 4);
+			type = new String (args[2]);
+			amount = Integer.parseInt(args[3]);
+		}
+		
+		@Override
+		public int tick (World world, Creature speaker)
+		{
+			int lost = 0;
+			// TODO
+			String name = ItemFactory.createItem(type).getName();
+			if (type.equals("gold"))
+			{
+				lost = world.getPlayer().getInventory().loseGold(amount);
+			}
+			else
+			{
+				lost = world.getPlayer().getInventory().removeItems(type, amount);
+			}
+			if (lost > 1)
+			{
+				Log.addMessage("Der Pazifist verliert " + lost
+						+ " " + name + ".");
+			}
+			else if (lost > 0)
+			{
+				Log.addMessage("Der Pazifist verliert " + name + ".");				
 			}
 			return getID() + 1;
 		}
@@ -526,7 +580,8 @@ public class Dialog {
 			String str;
 			while((str = reader.readLine()) != null)
 			{
-				if (str.isEmpty() || str.trim().startsWith("#"))
+				str = str.trim();
+				if (str.isEmpty() || str.startsWith("#"))
 					continue;
 				String args[] = str.split(":");
 				
@@ -551,6 +606,8 @@ public class Dialog {
 					node = new ReceiveItemNode (this, id, args);
 				} else if (args[1].equals("spawnitem")) {
 					node = new SpawnItemNode (this, id, args);
+				}  else if (args[1].equals("loseitem")) {
+					node = new LoseItemNode (this, id, args);
 				} else if (args[1].equals("goto")) {
 					node = new GotoNode (this, id, args);
 				} else if (args[1].equals("hasitem")) {
@@ -640,6 +697,8 @@ public class Dialog {
 	public static void say (String speaker, ArrayList<String> t, int dy)
 	{
 		int speakerlen = 0;
+		if (speaker != null && speaker.equals("nospeaker"))
+			speaker = null;
 		if (speaker != null)
 			speakerlen = speaker.length() + 2;
 		View view = View.get();
@@ -652,9 +711,12 @@ public class Dialog {
 		
 		for (int i = 0; i < t.size(); i++)
 		{
-			if (speaker != null)
-				view.drawString(view.columns()/2 - width/2, posy + i, 1.0f, speaker + ": ",
-						Color.green);
+			if (speaker != null && !speaker.trim().isEmpty())
+			{
+				if (i == 0)
+					view.drawString(view.columns()/2 - width/2, posy + i, 1.0f, speaker + ": ",
+							Color.green);
+			}
 			view.drawString(view.columns()/2 - width/2 + speakerlen,
 					posy + i, 1.0f, t.get(i), Color.white);
 		}

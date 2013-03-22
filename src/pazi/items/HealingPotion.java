@@ -14,7 +14,7 @@ public class HealingPotion extends Item {
 	private int HP;
 	
 	protected HealingPotion() {
-		this(Dice.global.nextInt(49)+1);
+		this(Dice.global.nextInt(40,60));
 	}
 	
 	protected HealingPotion(int HP){
@@ -31,7 +31,7 @@ public class HealingPotion extends Item {
 
 	@Override
 	public void interact(Actor actor) {
-		if(Player.class.isAssignableFrom(actor.getClass())){
+		if(actor.isPlayer()){
 			((Player)actor).addHP(HP);
 			actor.appendMessage("Aaaaaah, das tut gut, ich fühle mich wie auferstanden!");
 			((Player)actor).setHasActed(true);

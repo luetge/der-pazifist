@@ -56,7 +56,7 @@ public class AsciiMapEditor implements DocumentListener, WindowListener {
 	
 	public void load ()
 	{
-		JFileChooser chooser = new JFileChooser("res/");
+		JFileChooser chooser = new JFileChooser("resources/res/");
 		int returnval = chooser.showOpenDialog(frame);
 		if (returnval == JFileChooser.APPROVE_OPTION)
 		{

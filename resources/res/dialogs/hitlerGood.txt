@@ -1,0 +1,13 @@
+# Dialog mit Hitler im Tutorial
+
+0:text
+Arrrrrrr!
+0:done
+
+1:end:2
+
+2:text
+HEIL!
+2:done
+
+3:end:0

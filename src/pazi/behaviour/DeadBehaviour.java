@@ -8,7 +8,10 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.AbstractCollection;
 
+import pazi.features.IFeature;
+
 import rogue.creature.Creature;
+import rogue.creature.DestructableObject;
 import rogue.creature.Player;
 
 public class DeadBehaviour implements IBehaviour<Creature> {
@@ -16,30 +19,21 @@ public class DeadBehaviour implements IBehaviour<Creature> {
 	// Achtung! In deadBodies sind nur die Toten mit Hirn!
 	public static AbstractCollection<Creature> deadBodies = new LinkedHashSet<Creature>();
 	
-	/**
-	 * Singleton
-	 */
-	private static DeadBehaviour inst;
-	
-	private DeadBehaviour(){}
-	
-	public static DeadBehaviour getInstance(){
-		if(inst == null)
-			inst = new DeadBehaviour();
-		return inst;
-	}
-	
 	public DeadBehaviour(Creature creature,Creature source){
-		creature.appendMessage("UUuuuuuuaaaaarrrrrrrghghhgghhh!");
-		creature.setFace(new ColoredChar(creature.face().ch(), Color.gray));
+		creature.appendMessage(creature.getDeathMessage());
+		if (creature.getClass().isAssignableFrom(DestructableObject.class))
+			creature.setFace(ColoredChar.create(' '));
+		else
+			creature.setFace(new ColoredChar(creature.face().ch(), Color.gray));
 		creature.setPassable(true);
 		creature.dropInventory();
 		source.killedSomeone(creature);
-		if(Player.class.isAssignableFrom(creature.getClass()))
-		{
+		if(creature.isPlayer()){
 			creature.expire();
 			EndScreen.SetKiller(source.getIdentifier());
 		}
+		for (IFeature feature : creature.getFeatures(IFeature.class))
+			creature.removeFeature(feature);
 		deadBodies.add(creature);
 	}
 	

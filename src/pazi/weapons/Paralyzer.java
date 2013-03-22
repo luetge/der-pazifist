@@ -23,7 +23,7 @@ public class Paralyzer implements IMeleeWeapon {
 		}
 		
 		if(attacker.pos().distance(victim.pos()) < 2){
-			target.addGeneralFeature(new Paralyzed(2, target));
+			target.addGeneralFeature(new Paralyzed(2, attacker, target));
 			counter = 0;
 			attacker.appendMessage("Freeze, Motherfucker!");
 		}

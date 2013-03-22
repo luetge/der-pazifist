@@ -34,7 +34,15 @@ public class VisionFeature implements IFeature<Player> {
 		player.setViewFieldRadius(radius);
 		seeAll = false;
 	}
-	
+
+	public void forceRemove(Player player) {
+		if (seeAll) 
+			player.world().useViewfield(true);
+		else
+			if (oldViewFieldRadius > 0)
+				player.setViewFieldRadius(oldViewFieldRadius);
+		player.removeFeature(this);
+	}
 	
 	@Override
 	public void act(Player player) {

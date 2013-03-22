@@ -53,7 +53,7 @@ public class Follow implements IBehaviour<Monster> {
 			return;
 
 		dist = target.pos().distance(monster.pos());
-		if (dist > radius || dist < minDistance)
+		if ((monster.world().getName().equals("mainworld") && dist > radius) || dist < minDistance)
 			return;
 		
 		if(Dice.global.chance(randomFactor)){

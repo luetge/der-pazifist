@@ -4,6 +4,7 @@ import jade.core.Actor;
 import jade.ui.Backpack;
 import jade.ui.HUD;
 import jade.util.Guard;
+import jade.util.Lambda;
 
 import java.util.ArrayList;
 
@@ -18,12 +19,12 @@ public class Inventory {
 	
 	public Inventory(Creature owner) {
 		this.owner = owner;
-		if(Player.class.isAssignableFrom(owner.getClass()))
+		if(owner.isPlayer())
 			Backpack.setInventory(this);
 	}
 	
 	protected void update() {
-		if(Player.class.isAssignableFrom(owner.getClass()))
+		if(owner.isPlayer())
 			Backpack.updateInventory();
 	}
 	
@@ -54,6 +55,26 @@ public class Inventory {
 		Guard.verifyState(items.contains(item));
 		items.remove(item);
 		update();
+	}
+	
+	public int removeItems(String id, int amount)
+	{
+		ArrayList<Item> items = new ArrayList<Item>();
+		int removed = 0;
+		for (Item item : this.items)
+		{
+			if (item.getIdentifier().equals(id) && removed < amount)
+			{
+				removed++;
+			}
+			else
+			{
+				items.add(item);
+			}
+		}
+		this.items = items;
+		update();
+		return removed;
 	}
 	
 	public Item getItem (String id)
@@ -91,6 +112,11 @@ public class Inventory {
 	public ArrayList<Item> getItems(){
 		return (ArrayList<Item>)items.clone();
 	}
+	
+    public <T extends Item> T getItems(Class<T> cls)
+    {
+        return Lambda.first(Lambda.filterType(items, cls));
+    }
 
 	/**
 	 * Addiert den angegebenen Betrag zum Gold dazu.
@@ -100,7 +126,7 @@ public class Inventory {
 		Guard.argumentIsNonNegative(gold);
 		
 		this.gold += gold;
-		if(Player.class.isAssignableFrom(owner.getClass()))
+		if(owner.isPlayer())
 			HUD.setGold(this.gold);
 		
 	}
@@ -116,7 +142,7 @@ public class Inventory {
 		if(this.gold - gold < 0)
 			gold = this.gold;
 		this.gold -= gold;
-		if(Player.class.isAssignableFrom(owner.getClass()))
+		if(owner.isPlayer())
 			HUD.setGold(this.gold);
 		return gold;
 	}

@@ -37,6 +37,11 @@ public class Coordinate
         return new Coordinate(x, y);
     }
 
+    public int manhattanDist(Coordinate coord)
+    {
+    	return Math.abs(x-coord.x) + Math.abs(y-coord.y);
+    }
+    
     /**
      * Returns a mutable copy of the {@code Coordinate}
      * @return a mutable copy of the {@code Coordinate}
@@ -187,4 +192,8 @@ public class Coordinate
     public Coordinate getSwapped() {
     	return new Coordinate(y, x);
     }
+
+	public double maxDist(Coordinate pos) {
+		return Math.max(Math.abs(x-pos.x), Math.abs(y-pos.y));
+	}
 }

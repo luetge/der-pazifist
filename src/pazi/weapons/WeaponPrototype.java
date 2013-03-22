@@ -13,6 +13,7 @@ public class WeaponPrototype extends Item implements IWeapon {
 	protected String name;
 	protected Creature holder;	// Wer hält diese Waffe?
 	protected int ammoLeft;
+	protected boolean melee = true;
 	
 	public WeaponPrototype(int min_d, int max_d, double range, double prob, String name, ColoredChar face, Creature creature, int ammo){
 		super(face, name);
@@ -50,7 +51,7 @@ public class WeaponPrototype extends Item implements IWeapon {
 		if(attacker != null && victim != null)
 			appendMessage(attacker.world(), getWeaponFiredText(attacker, victim));
 			if(Math.random() < getProb(attacker, victim)){
-				victim.takeDamage(getDamage(attacker, victim), attacker);
+				victim.takeDamage(getDamage(attacker, victim), attacker, melee);
 				appendMessage(victim.world(), getHitText(attacker, victim));
 			}
 			else
@@ -87,7 +88,7 @@ public class WeaponPrototype extends Item implements IWeapon {
 	
 	@Override
 	public void interact(Actor actor) {
-		if(Creature.class.isAssignableFrom(actor.getClass())){
+		if(actor.isPlayer()){
 			((Creature)actor).setWeapon(this);
 			appendMessage(actor, getEquipText());
 			setHasActed(false);

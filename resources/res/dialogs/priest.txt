@@ -1,69 +1,115 @@
-# Kommentar
--1:setstate:washere:0
+# Shop beim Priest
 
-0:text:Der Pazifist
-Was gehtn hier ab?
+
+0:text
+Willkommen mein Sohn. Diese Welt dort draußen ist grausam.
 0:done
 
-1:text
-Uähh... was?
-Warum hängst du nicht am Kreuz? Hicks!
+1:text:Der Pazifist
+Ich werde sie PaziFisten!
 1:done
 
-2:question:Bist du besoffen?:10:Halt dein Maul!:82
+2:text
+Aber, aber mein Sohn, wer wird denn gleich..
 2:done
 
+3:text
+Ohne die nötige Ausrüstung kommt man dort draußen nicht weit.
+3:done
+
+4:text
+Schau, was ich habe und wähle weise!
+4:done
+
+5:text:Der Pazifist
+Laber nicht so viel und zeig mir, was du hast!
+5:done
+
+6:text
+Schau her
+6:done
+
+7:question:Gib mir erstmal Geld!:10:Heiltrank (50 Gold):100:Adrenalinspritze (50 Gold):400:Weihwasser (50 Gold):500:Shotgun (500 Gold):200:Frostschwert (500 Gold):300:Doch nichts:1000
+Was willst du?
+7:done
+
 10:text
-Ja.
+Okay, okay, hau mich nicht...
 10:done
 
-11:question:Ja:20:Halt dein Maul!:80
-Hast du Gold?
-11:done
+11:spawnitem:gold:500
 
-20:playerhasitem:gold:1:40:30
+12:goto:888
 
-30:text
-Verarsch mich nicht!
-30:done
-31:end:0
+100:playerhasitem:gold:50:101:980
 
-40:giveitem:gold:1
+101:spawnitem:healingpotion:1
 
-41:text:Der Pazifist
-Da!
-41:done
+102:giveitem:gold:50
 
-42:text
-Yeeha! Dann kann ich endlich neuen Messwein kaufen! Sau geil!
-42:done
+103:goto:888
 
-43:end:100
+200:playerhasitem:gold:500:201:980
 
-80:text
-Dann verpiss dich aus meiner Kirche, du Penner!
-80:done
-81:goto:90
+201:spawnitem:shotgun:1
 
-82:text
-Verpiss dich aus meiner Kirche, du Penner!
-82:done
-83:goto:90
+202:giveitem:gold:500
 
+203:goto:888
 
-90:end:0
+300:playerhasitem:gold:500:301:980
 
-100:isstate:washere:1:120:110
+301:spawnitem:frostsword:1
 
-110:text
-Verdammt - wo soll ich nur Messwein kaufen?
-110:done
+302:giveitem:gold:500
 
-111:setstate:washere:1
+303:goto:888
 
-112:end:0
+400:playerhasitem:gold:50:401:980
 
-120:text
-Ich weiß immer noch nicht wo ich Messein kaufen soll...
-120:done
-121:end:0
+401:spawnitem:adrenaline:1
+
+402:giveitem:gold:50
+
+403:goto:888
+
+500:playerhasitem:gold:50:501:980
+
+501:spawnitem:holywater:1
+
+502:giveitem:gold:50
+
+503:goto:888
+
+888:text
+Willst du noch mehr?
+888:done
+
+889:question:Ja:7:Nein:1000
+889:done
+
+890:text
+Willst du etwas Anderes?
+890:done
+
+891:goto:889
+
+980:text
+Du hast garnicht genug Geld!
+980:done
+
+981:goto:890
+
+1000:text
+Der Herr sei mit dir!
+1000:done
+
+1001:text:Der Pazifist
+Und wie der mit mir ist!
+1001:done
+
+1002:text:Der Pazifist
+Und jetzt Maul halten du Dorfpfaffe!
+1002:done
+
+1003:end:3

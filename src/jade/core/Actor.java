@@ -15,6 +15,7 @@ import java.util.Set;
 
 import pazi.behaviour.IBehaviour;
 import pazi.features.IFeature;
+import rogue.creature.Player;
 
 //TODO Prioritäten bei Features
 
@@ -84,9 +85,7 @@ public abstract class Actor extends Messenger
     	features.addAll(generalFeatures);
     	Iterator<IFeature> it = features.descendingIterator();
     	while (it.hasNext())
-    	{
     		it.next().act(this);
-    	}
     	
 
     	//verhaltensfeature ausführen
@@ -232,11 +231,11 @@ public abstract class Actor extends Messenger
      * Returns a copy of the current position of the {@code Actor}.
      * @return a copy of the current position of the {@code Actor}.
      */
-    public final Coordinate pos()
+    public Coordinate pos()
     {
         return pos.copy();
     }
-
+    
     /**
      * Returns true if the {@code Actor} is expired, or in other words, marked for removal.
      * @return true if the {@code Actor} is expired
@@ -410,4 +409,8 @@ public abstract class Actor extends Messenger
 		return face;
 	}
     
+    public boolean isPlayer(){
+    	return Player.class.isAssignableFrom(getClass());
+    }
+
 }

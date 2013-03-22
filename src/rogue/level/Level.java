@@ -1,26 +1,30 @@
 package rogue.level;
 
+import jade.core.Dialog;
+import jade.core.Sequences;
 import jade.core.World;
 import jade.gen.Generator;
 import jade.gen.map.AsciiMap;
 import jade.gen.map.City;
 import jade.gen.map.House;
+import jade.ui.View;
 import jade.util.Dice;
-import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
-import jade.util.datatype.Direction;
 import jade.util.datatype.Door;
 
-import java.awt.Color;
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.newdawn.slick.util.ResourceLoader;
 
-import pazi.items.Gold;
+import pazi.behaviour.SequenceBehaviour;
+import pazi.items.Item;
 import pazi.items.ItemFactory;
+import pazi.trigger.CreatureTrigger;
+import pazi.trigger.ICreatureEvent;
+import rogue.creature.Creature;
 import rogue.creature.CreatureFactory;
+import rogue.creature.Monster;
 import rogue.creature.Player;
 
 public class Level
@@ -60,6 +64,10 @@ public class Level
     	world().removeActor(player);
 		Door destdoor = toworld.getDoor(door.getDestID());
 		toworld.addActor(player, destdoor.getDestination());
+		if (toworld.getName().equals("mainworld"))
+			View.get().setCenter(player.pos());
+		else
+			View.get().setCenter(toworld.width()/2, toworld.height()/2);
     }
     
     public void stepThroughDoor (Door door)
@@ -82,6 +90,13 @@ public class Level
     			}
     			movePlayerThroughDoor (w, door);
     			asciimap.addCreatures(w);
+    			asciimap.addTriggers(w);
+    			asciimap.addItems(w);
+    			if (door.getDestWorld().equals("bunker"))
+    			{
+    				for (int i = 0; i < 10; i++)
+    					w.addActor(CreatureFactory.createCreature("nazi", w));
+    			}
     		}
     		else
     		{
@@ -105,7 +120,11 @@ public class Level
     			}
     			else
     			{
-
+    				if (Dice.global.chance(5))
+    				{
+    					w.addActor(CreatureFactory.createCreature("jokesteller", w));
+    				}
+    				else {
     				for (int i = 0; i < 8; i++)
     				{
     					if (Dice.global.chance(30))
@@ -116,18 +135,19 @@ public class Level
     					else
     						w.addActor(CreatureFactory.createCreature("alien1", w));
     				}
+    				}
 
     				for (int i = 0; i < 8; i++){
     					if (Dice.global.chance(70))
     						continue;
-        				switch(Dice.global.nextInt(11))
+        				switch(Dice.global.nextInt(12))
         				{
         				case 0:
         				case 1:
         				case 2:
+        				case 3:
         					w.addActor(ItemFactory.createItem("healingpotion"));
         					break;
-        				case 3:
         				case 4:
         				case 5:
         				case 6:
@@ -145,6 +165,9 @@ public class Level
         				case 10:
         					w.addActor(ItemFactory.createItem("vampsword"));
         					break;
+        				case 11:
+        					w.addActor(ItemFactory.createItem("sniper"));
+        					break;
         				}
     				}
     			}
@@ -157,6 +180,12 @@ public class Level
     		movePlayerThroughDoor(w, door);
     	}
     	world = w;
+    	if (door.getID().startsWith("tut3exit"))
+    	{
+    		world.setActiveDialog(new Dialog("res/dialogs/tutexit.txt"));
+    		world.getPlayer().setMeleeWeapon(null);
+    		world.getPlayer().setRCWeapon(null);
+    	}
     }
 
     private static Generator getLevelGenerator()

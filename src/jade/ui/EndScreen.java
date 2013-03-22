@@ -11,12 +11,16 @@ import jade.util.datatype.Coordinate;
 
 public class EndScreen {
 	
-	AsciiMap map;
+	AsciiMap loosemap;
+	AsciiMap winmap;
+	AsciiMap creditsmap;
 	
 	private static int numzombies = 0;
 	private static int numaliens = 0;
 	private static int numbandits = 0;
 	private static int numsnipers = 0;
+	private static int numnazis = 0;
+	private static boolean hitlerkilled = false;
 	private static String killerid = null;
 	
 	private static String nokillerstr = "Gott";
@@ -30,17 +34,26 @@ public class EndScreen {
 	private static String banditkillactionstr = "gekopfnusst - und schämt sich";
 	private static String sniperkillerstr = "einem hinterhältigen Sniper";
 	private static String sniperkillactionstr = "erschossen";
+	private static String nazikillerstr = "einem Nazi";
+	private static String nazikillactionstr = "getötet";
 	private static String hitlerkillerstr = "Hitler";
 	private static String hitlerkillactionstr = "erlegt";
 	
-	public EndScreen(String name)
+	public EndScreen(String loosename, String winname, String creditsname)
 	{
-		map = new AsciiMap(name);
+		loosemap = new AsciiMap(loosename);
+		winmap = new AsciiMap(winname);
+		creditsmap = new AsciiMap(creditsname);
 	}
 	
 	public static void SetKiller (String id)
 	{
 		killerid = id;
+	}
+	
+	public static void HitlerKilled()
+	{
+		hitlerkilled = true;
 	}
 	
 	public static void ZombieKilled()
@@ -61,6 +74,11 @@ public class EndScreen {
 	public static void SniperKilled()
 	{
 		numsnipers++;
+	}
+	
+	public static void NazisKilled()
+	{
+		numnazis++;
 	}
 	
 	private void print (Coordinate coord, Integer variable, int length)
@@ -91,7 +109,7 @@ public class EndScreen {
 			View.get().drawString(coord.x(), coord.y(), 1.0f, str, Color.white);
 		}
 	}
-
+	
 	public void display()
 	{
 		boolean running = true;
@@ -101,6 +119,8 @@ public class EndScreen {
 		{
 			view.clear();
 
+			AsciiMap map = hitlerkilled?winmap:loosemap;
+			
 			map.render(view, 0, 0);
 			
 			Set<Coordinate> killercoords = map.getSpecialCoords("killer");
@@ -121,6 +141,9 @@ public class EndScreen {
 			} else if (killerid.startsWith("sniper")) {
 				printkiller (killercoords, sniperkillerstr);
 				printkillaction (killactioncoords, sniperkillactionstr);
+			} else if (killerid.startsWith("nazi")) {
+				printkiller (killercoords, nazikillerstr);
+				printkillaction (killactioncoords, nazikillactionstr);
 			} else if (killerid.equals("hitler")) {
 				printkiller (killercoords, hitlerkillerstr);
 				printkillaction (killactioncoords, hitlerkillactionstr);
@@ -156,6 +179,12 @@ public class EndScreen {
 					{
 						print(coord, numsnipers, len);
 					}				
+				} else if (args[0].equals("numnazis")) {
+					int len = Integer.parseInt(args[1]);
+					for (Coordinate coord : map.getSpecialCoords(special))
+					{
+						print(coord, numnazis, len);
+					}				
 				}
 			}
 			view.update();
@@ -170,5 +199,25 @@ public class EndScreen {
 			if (view.closeRequested())
 				return;
 		}
+		
+		running = true;
+		while (running)
+		{
+			view.clear();
+			
+			creditsmap.render(view, 0, 0);
+			view.update();
+			while (view.nextKey() && !view.closeRequested())
+			{
+				if (view.getKeyEvent() == Keyboard.KEY_SPACE)
+				{
+					running = false;
+					break;
+				}
+			}
+			if (view.closeRequested())
+				return;
+		}
+		
 	}
 }

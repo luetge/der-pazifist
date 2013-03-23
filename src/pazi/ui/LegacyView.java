@@ -712,5 +712,10 @@ public class LegacyView extends View {
             }
         }
 	}
+	
+	public void cleanup()
+	{
+		
+	}
 
 }

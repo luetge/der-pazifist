@@ -254,4 +254,6 @@ public abstract class View {
 	public abstract boolean wasResized ();
 	
 	public abstract void drawWorld (World world);
+	
+	public abstract void cleanup();
 }

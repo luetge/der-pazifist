@@ -582,4 +582,9 @@ public class GLView extends View {
             }
         }
 	}
+	
+	public void cleanup()
+	{
+		Display.destroy();
+	}
 }

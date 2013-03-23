@@ -233,6 +233,11 @@ public class PaziFist
     	System.setProperty("org.lwjgl.librarypath", tmpdir.getAbsolutePath());
 	}
 	
+	public void cleanup()
+	{
+		view.cleanup();
+	}
+	
 	public static void cleanupLWJGL()
 	{
     	deleteDir(tmpdir);
@@ -241,6 +246,7 @@ public class PaziFist
     public static void main(String[] args)
     {
         try {
+        	System.setProperty("file.encoding", "utf-8");
         	boolean useGLview = Boolean.parseBoolean(System.getProperty("useglview", "true"));
         	for (String arg : args)
         	{
@@ -251,8 +257,11 @@ public class PaziFist
         	PaziFist rogue = new PaziFist (useGLview);
         	if (rogue.run ())
         		rogue.finish ();
-        	cleanupLWJGL();
+        	
+        	rogue.cleanup();
         
+        	cleanupLWJGL();
+
         	System.exit(0);
 		} catch (Exception e) {
         	cleanupLWJGL();

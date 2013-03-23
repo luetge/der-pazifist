@@ -240,7 +240,7 @@ public class Rogue
     public static void main(String[] args)
     {
         try {
-        	boolean useGLview = true;
+        	boolean useGLview = Boolean.parseBoolean(System.getProperty("useglview", "true"));
         	for (String arg : args)
         	{
         		if (arg.equals("-noglview"))

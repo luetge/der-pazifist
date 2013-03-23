@@ -1,7 +1,7 @@
 package pazi.features;
 
-import rogue.creature.Creature;
-import rogue.creature.Player;
+import pazi.creature.Creature;
+import pazi.creature.Player;
 
 public class Paralyzed implements IFeature<Creature> {
 

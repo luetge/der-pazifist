@@ -1,14 +1,15 @@
 package pazi.weapons;
 
-import jade.ui.View;
-import jade.util.datatype.ColoredChar;
-import jade.util.datatype.Coordinate;
-import jade.util.datatype.Direction;
 
 import java.awt.Color;
 
-import rogue.creature.Ally;
-import rogue.creature.Creature;
+import pazi.creature.Ally;
+import pazi.creature.Creature;
+import pazi.ui.View;
+import pazi.util.datatype.ColoredChar;
+import pazi.util.datatype.Coordinate;
+import pazi.util.datatype.Direction;
+
 
 public class Shotgun extends RCWeaponPrototype {
 

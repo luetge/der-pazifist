@@ -1,11 +1,12 @@
 package pazi.weapons;
 
-import jade.util.datatype.ColoredChar;
 
 import java.awt.Color;
 
-import rogue.creature.Creature;
-import rogue.creature.Player;
+import pazi.creature.Creature;
+import pazi.creature.Player;
+import pazi.util.datatype.ColoredChar;
+
 
 public class SniperRifle extends RCWeaponPrototype {
 

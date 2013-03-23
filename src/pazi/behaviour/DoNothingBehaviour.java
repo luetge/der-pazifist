@@ -1,6 +1,6 @@
 package pazi.behaviour;
 
-import jade.core.Actor;
+import pazi.core.Actor;
 
 public class DoNothingBehaviour implements IBehaviour<Actor> {
 

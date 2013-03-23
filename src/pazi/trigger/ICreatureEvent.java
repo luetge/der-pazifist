@@ -1,6 +1,6 @@
 package pazi.trigger;
 
-import rogue.creature.Creature;
+import pazi.creature.Creature;
 
 public interface ICreatureEvent {
 	void fired(Creature creature, CreatureTrigger trigger);

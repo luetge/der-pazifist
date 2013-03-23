@@ -1,15 +1,16 @@
 package pazi.trigger;
 
-import jade.core.Actor;
-import jade.core.World;
-import jade.util.datatype.ColoredChar;
-import jade.util.datatype.Coordinate;
 
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import rogue.creature.Creature;
+import pazi.core.Actor;
+import pazi.core.World;
+import pazi.creature.Creature;
+import pazi.util.datatype.ColoredChar;
+import pazi.util.datatype.Coordinate;
+
 
 public class CreatureTrigger extends Actor implements ITrigger {
 

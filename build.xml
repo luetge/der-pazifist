@@ -48,7 +48,7 @@
          </archives>
        </restrict>
        <manifest>
-         <attribute name="Main-Class" value="rogue.Rogue" />
+         <attribute name="Main-Class" value="pazi.PaziFist" />
        </manifest>
     </jar>
   </target>

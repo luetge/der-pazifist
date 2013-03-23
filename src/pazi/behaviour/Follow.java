@@ -1,16 +1,17 @@
 package pazi.behaviour;
 
-import jade.core.Actor;
-import jade.path.AStar;
-import jade.util.Dice;
-import jade.util.datatype.Coordinate;
-import jade.util.datatype.Direction;
 
 import java.util.Arrays;
 import java.util.Iterator;
 
-import rogue.creature.Monster;
-import rogue.creature.Player;
+import pazi.core.Actor;
+import pazi.creature.Monster;
+import pazi.creature.Player;
+import pazi.path.AStar;
+import pazi.util.Dice;
+import pazi.util.datatype.Coordinate;
+import pazi.util.datatype.Direction;
+
 
 public class Follow implements IBehaviour<Monster> {
 

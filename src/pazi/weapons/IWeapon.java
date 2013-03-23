@@ -1,6 +1,6 @@
 package pazi.weapons;
 
-import rogue.creature.Creature;
+import pazi.creature.Creature;
 
 public interface IWeapon {
 	int getDamage(Creature attacker, Creature victim);

@@ -1,9 +1,9 @@
 package pazi.behaviour;
 
-import jade.util.Guard;
-import jade.util.datatype.ColoredChar;
-import rogue.creature.Monster;
-import rogue.creature.Player;
+import pazi.creature.Monster;
+import pazi.creature.Player;
+import pazi.util.Guard;
+import pazi.util.datatype.ColoredChar;
 
 public class SneakStealFlee implements IBehaviour<Monster> {
 	

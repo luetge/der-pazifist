@@ -1,14 +1,14 @@
 package pazi.behaviour;
 
-import jade.core.World;
-import jade.util.Dice;
 
 import java.util.LinkedList;
 import java.util.List;
 
+import pazi.core.World;
+import pazi.creature.Creature;
 import pazi.trigger.CreatureTrigger;
 import pazi.trigger.TriggerFactory;
-import rogue.creature.Creature;
+import pazi.util.Dice;
 
 public class HitlerBehaviour extends DefaultBehaviour {
 	protected int roundsToNextBehaviour;

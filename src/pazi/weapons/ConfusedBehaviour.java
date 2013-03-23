@@ -1,9 +1,9 @@
 package pazi.weapons;
 
-import jade.core.Actor;
-import jade.util.Guard;
-import jade.util.datatype.Direction;
 import pazi.behaviour.IBehaviour;
+import pazi.core.Actor;
+import pazi.util.Guard;
+import pazi.util.datatype.Direction;
 
 public class ConfusedBehaviour implements IBehaviour {
 

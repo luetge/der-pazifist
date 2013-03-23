@@ -1,15 +1,16 @@
 package pazi.items;
 
-import jade.core.Actor;
-import jade.ui.Backpack;
-import jade.ui.HUD;
-import jade.util.Guard;
-import jade.util.Lambda;
 
 import java.util.ArrayList;
 
-import rogue.creature.Creature;
-import rogue.creature.Player;
+import pazi.core.Actor;
+import pazi.creature.Creature;
+import pazi.creature.Player;
+import pazi.ui.Backpack;
+import pazi.ui.HUD;
+import pazi.util.Guard;
+import pazi.util.Lambda;
+
 
 public class Inventory {
 

@@ -2,11 +2,11 @@ package pazi.weapons;
 
 import java.awt.Color;
 
-import jade.core.Actor;
-import jade.util.datatype.ColoredChar;
+import pazi.core.Actor;
+import pazi.creature.Creature;
 import pazi.features.Paralyzed;
 import pazi.items.Item;
-import rogue.creature.Creature;
+import pazi.util.datatype.ColoredChar;
 
 public class FrostSword extends MeleeWeaponPrototype {
 

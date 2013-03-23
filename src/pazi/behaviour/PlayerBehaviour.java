@@ -2,13 +2,13 @@ package pazi.behaviour;
 
 import org.lwjgl.input.Keyboard;
 
+import pazi.creature.Creature;
+import pazi.creature.Monster;
+import pazi.creature.Player;
+import pazi.creature.Creature.AttackableCreature;
+import pazi.util.datatype.Direction;
 import pazi.weapons.SniperRifle;
 
-import jade.util.datatype.Direction;
-import rogue.creature.Creature;
-import rogue.creature.Monster;
-import rogue.creature.Player;
-import rogue.creature.Creature.AttackableCreature;
 
 public class PlayerBehaviour implements IBehaviour<Creature> {
 	@Override

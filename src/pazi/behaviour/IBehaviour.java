@@ -1,6 +1,6 @@
 package pazi.behaviour;
 
-import jade.core.Actor;
+import pazi.core.Actor;
 
 public interface IBehaviour<T extends Actor> {
 	public void act(T actor);

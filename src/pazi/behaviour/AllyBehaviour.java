@@ -1,6 +1,6 @@
 package pazi.behaviour;
 
-import rogue.creature.Creature;
+import pazi.creature.Creature;
 
 public class AllyBehaviour implements IBehaviour<Creature> {
 	

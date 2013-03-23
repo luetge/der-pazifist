@@ -2,7 +2,8 @@ package pazi.features;
 
 import org.lwjgl.input.Keyboard;
 
-import rogue.creature.Player;
+import pazi.creature.Player;
+
 
 public class RecordSteps implements IFeature<Player> {
 

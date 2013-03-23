@@ -1,11 +1,11 @@
 package pazi.behaviour;
 
-import jade.core.Dialog;
 
 import org.lwjgl.input.Keyboard;
 
+import pazi.core.Dialog;
+import pazi.creature.Player;
 import pazi.features.IFeature;
-import rogue.creature.Player;
 
 public class KeyboardGeneral implements IFeature<Player> {
 	

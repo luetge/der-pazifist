@@ -1,9 +1,9 @@
 package pazi.behaviour;
 
-import jade.util.datatype.Coordinate;
-import rogue.creature.CreatureFactory;
-import rogue.creature.Monster;
-import rogue.creature.Player;
+import pazi.creature.CreatureFactory;
+import pazi.creature.Monster;
+import pazi.creature.Player;
+import pazi.util.datatype.Coordinate;
 
 public class ZombieWhispererBehaviour implements IBehaviour<Monster> {
 

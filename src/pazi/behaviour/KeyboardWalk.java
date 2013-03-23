@@ -1,7 +1,7 @@
 package pazi.behaviour;
 
-import jade.util.datatype.Direction;
-import rogue.creature.Creature;
+import pazi.creature.Creature;
+import pazi.util.datatype.Direction;
 
 public class KeyboardWalk implements IBehaviour<Creature> {
 	@Override

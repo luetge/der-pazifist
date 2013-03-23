@@ -1,6 +1,6 @@
 package pazi.features;
 
-import rogue.creature.Monster;
+import pazi.creature.Monster;
 
 public class Wuff implements IFeature<Monster> {
 

@@ -1,14 +1,14 @@
 package pazi.trigger;
 
-import jade.core.Dialog;
-import jade.core.World;
-import jade.util.datatype.Coordinate;
-import jade.util.datatype.Direction;
-import rogue.creature.Ally;
-import rogue.creature.Creature;
-import rogue.creature.CreatureFactory;
-import rogue.creature.JokesTeller;
-import rogue.creature.Player;
+import pazi.core.Dialog;
+import pazi.core.World;
+import pazi.creature.Ally;
+import pazi.creature.Creature;
+import pazi.creature.CreatureFactory;
+import pazi.creature.JokesTeller;
+import pazi.creature.Player;
+import pazi.util.datatype.Coordinate;
+import pazi.util.datatype.Direction;
 
 public class TriggerFactory {
 	public static ITrigger createTrigger(String identifier, World world) {

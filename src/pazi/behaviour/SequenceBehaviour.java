@@ -1,16 +1,16 @@
 package pazi.behaviour;
 
-import jade.core.World;
-import jade.util.datatype.Coordinate;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import pazi.core.World;
+import pazi.creature.Creature;
+import pazi.creature.Player;
 import pazi.trigger.CreatureTrigger;
 import pazi.trigger.ICreatureEvent;
+import pazi.util.datatype.Coordinate;
 
-import rogue.creature.Creature;
-import rogue.creature.Player;
 
 public class SequenceBehaviour implements IBehaviour<Creature> {
 

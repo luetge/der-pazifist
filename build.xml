@@ -80,21 +80,6 @@
 	     storepass="${keystore_password}">
        <fileset dir="${getdown}/pazifist" includes="getdown-client.jar" />
     </signjar>
-
-
-    <copy file="${dist}/Der-Pazifist.jar"
-	  tofile="${getdown}/legacy/Der-Pazifist.jar" />
-    <copy file="${getdown}/getdown-client-1.2.jar"
-	  tofile="${getdown}/legacy/getdown-client.jar" />
-
-    <digest appdir="${getdown}/legacy"
-	    keystore="${keystore}"
-	    storepass="${keystore_password}" alias="${key_alias}" />
-
-    <signjar keystore="${keystore}" alias="${key_alias}"
-	     storepass="${keystore_password}">
-       <fileset dir="${getdown}/legacy" includes="getdown-client.jar" />
-    </signjar>
   </target>
 
   <target name="clean"

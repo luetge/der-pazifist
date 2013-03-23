@@ -89,10 +89,10 @@
 
     <digest appdir="${getdown}/legacy"
 	    keystore="${keystore}"
-	    storepass="${keystore_pass}" alias="${key_alias}" />
+	    storepass="${keystore_password}" alias="${key_alias}" />
 
-    <signjar keystore="${getdown}/keystore" alias="${key_alias}"
-	     storepass="${keystorepass}">
+    <signjar keystore="${keystore}" alias="${key_alias}"
+	     storepass="${keystore_password}">
        <fileset dir="${getdown}/legacy" includes="getdown-client.jar" />
     </signjar>
   </target>

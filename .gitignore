@@ -1,12 +1,11 @@
 bin/
 .DS_Store
-/pazi.jar
-/export.xml
 /build
 /dist
-/keystore.prop
 /getdown/*/Der-Pazifist.jar
 /getdown/*/cert.crt
 /getdown/*/digest.txt
 /getdown/*/digest.txt.sig
 /getdown/*/getdown-client.jar
+/signing.prop
+/keystore.jks

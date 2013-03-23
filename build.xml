@@ -78,7 +78,7 @@
 
     <signjar keystore="${keystore}" alias="${key_alias}"
 	     storepass="${keystore_password}">
-       <fileset dir="${getdown}/pazifist" includes="getdown-client.jar" />
+       <fileset dir="${getdown}/pazifist" includes="*.jar" />
     </signjar>
   </target>
 

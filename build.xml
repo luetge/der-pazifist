@@ -6,10 +6,12 @@
   <property name="src" location="src"/>
   <property name="build" location="build"/>
   <property name="dist"  location="dist"/>
+  <property name="resources" location="resources"/>
+  <property name="getdown" location="getdown"/>
 
   <path id="classpath">
-    <fileset dir="src/lib/" includes="*.jar" />
-    <fileset dir="src/lib/lwjgl/" includes="*.jar" />
+    <fileset dir="${src}/lib/" includes="*.jar" />
+    <fileset dir="${src}/lib/lwjgl/" includes="*.jar" />
   </path>
 
   <target name="init">
@@ -20,22 +22,28 @@
         description="compile the source " >
 
     <!-- Compile the java code from ${src} into ${build} -->
-    <javac srcdir="${src}" destdir="${build}" includeantruntime="false" encoding="utf8">
+    <javac srcdir="${src}" destdir="${build}" includeantruntime="false"
+	   encoding="utf8">
     <classpath refid="classpath" />
     </javac>
   </target>
 
   <target name="dist" depends="compile"
-        description="generate the distribution" >
+        description="generate the distribution">
 
     <jar destfile="${dist}/Der-Pazifist.jar">
-       <fileset dir="${build}" />
-       <fileset dir="resources" />
+       <fileset dir="${resources}" />
+       <fileset dir="${build}">
+         <include name="**/*.class" />
+         <exclude name="**/test/**" />
+         <exclude name="**/lib/**" />
+       </fileset>
        <restrict>
          <name name="**/*.class" />
          <archives>
             <zips>
-              <fileset dir="src/lib" includes="**/*.jar" />
+	      <fileset file="${src}/lib/lwjgl/lwjgl.jar" />
+              <fileset file="${src}/lib/slick-util.jar" />
             </zips>
          </archives>
        </restrict>
@@ -46,27 +54,46 @@
   </target>
 
 
-  <target name="getdown" depends="dist" description="generate signatures for getdown">
-    <property file="keystore.prop" />
-    <copy file="${dist}/Der-Pazifist.jar" tofile="getdown/pazifist/Der-Pazifist.jar" />
-    <copy file="util/getdown-client-1.2.jar" tofile="getdown/pazifist/getdown-client.jar" />
+  <target name="getdown" depends="dist"
+	  description="generate signatures for getdown">
+    <!--
+	Sensible Daten werden in "signing.prop" ausgelagert:
+	keystore: Pfad zum Keystore
+	keystore_password: Passwort des Keystores
+	key_alias: Alias des Keys zum Signieren
+    //-->
+    <property file="signing.prop" />
 
-    <taskdef name="digest" classname="com.threerings.getdown.tools.DigesterTask"
-             classpath="util/getdown-tools-1.2.jar" />
-    <digest appdir="getdown/pazifist" keystore="getdown/keystore" storepass="${keystorepass}" alias="pazikey" />
+    <copy file="${dist}/Der-Pazifist.jar"
+	  tofile="${getdown}/pazifist/Der-Pazifist.jar" />
+    <copy file="${getdown}/getdown-client-1.2.jar"
+	  tofile="${getdown}/pazifist/getdown-client.jar" />
 
-    <signjar keystore="getdown/keystore" alias="pazikey" storepass="${keystorepass}">
-       <fileset dir="getdown/pazifist" includes="getdown-client.jar" />
+    <taskdef name="digest"
+	     classname="com.threerings.getdown.tools.DigesterTask"
+             classpath="${getdown}/getdown-tools-1.2.jar" />
+    <digest appdir="${getdown}/pazifist"
+	    keystore="${keystore}" storepass="${keystore_password}"
+	    alias="${key_alias}" />
+
+    <signjar keystore="${keystore}" alias="${key_alias}"
+	     storepass="${keystore_password}">
+       <fileset dir="${getdown}/pazifist" includes="getdown-client.jar" />
     </signjar>
 
 
-    <copy file="${dist}/Der-Pazifist.jar" tofile="getdown/legacy/Der-Pazifist.jar" />
-    <copy file="util/getdown-client-1.2.jar" tofile="getdown/legacy/getdown-client.jar" />
+    <copy file="${dist}/Der-Pazifist.jar"
+	  tofile="${getdown}/legacy/Der-Pazifist.jar" />
+    <copy file="${getdown}/getdown-client-1.2.jar"
+	  tofile="${getdown}/legacy/getdown-client.jar" />
 
-    <digest appdir="getdown/legacy" keystore="getdown/keystore" storepass="${keystorepass}" alias="pazikey" />
+    <digest appdir="${getdown}/legacy"
+	    keystore="${keystore}"
+	    storepass="${keystore_pass}" alias="${key_alias}" />
 
-    <signjar keystore="getdown/keystore" alias="pazikey" storepass="${keystorepass}">
-       <fileset dir="getdown/legacy" includes="getdown-client.jar" />
+    <signjar keystore="${getdown}/keystore" alias="${key_alias}"
+	     storepass="${keystorepass}">
+       <fileset dir="${getdown}/legacy" includes="getdown-client.jar" />
     </signjar>
   </target>
 

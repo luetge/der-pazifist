@@ -7,3 +7,4 @@ ui.status = 15, 300, 870, 60
 ui.status_text = FFFFFF
 code = Der-Pazifist.jar
 class = pazi.PaziFist
+apparg = -noglview

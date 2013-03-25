@@ -17,7 +17,7 @@ public class Sequences {
 		BufferedReader reader;
 		sequences = new HashMap<String, String>();
 		try {
-			reader = new BufferedReader(new InputStreamReader(ResourceLoader.getResourceAsStream("res/sequences")));
+			reader = new BufferedReader(new InputStreamReader(ResourceLoader.getResourceAsStream("res/sequences"), "UTF-8"));
 			while(reader.ready())
 				addSequence(reader.readLine());
 			reader.close();

@@ -212,7 +212,7 @@ public class PaziFist
 	public static void extract_native_libs (File dir)
 	{
 		try {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(ResourceLoader.getResourceAsStream("res/native/files.txt")));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(ResourceLoader.getResourceAsStream("res/native/files.txt"), "UTF-8"));
 			String str;
 			while ((str = reader.readLine()) != null)
 			{

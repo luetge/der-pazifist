@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -288,7 +289,7 @@ public class LegacyView extends View {
 
 	private void loadTile (String filename) throws IOException
 	{
-		BufferedReader reader = new BufferedReader(new InputStreamReader(ResourceLoader.getResourceAsStream(filename)));
+		BufferedReader reader = new BufferedReader(new InputStreamReader(ResourceLoader.getResourceAsStream(filename), "UTF-8"));
 		String ch = reader.readLine();
 		String color = reader.readLine();
 		reader.close();
@@ -304,7 +305,13 @@ public class LegacyView extends View {
 	
 	@Override
 	public void loadTiles() {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(ResourceLoader.getResourceAsStream("res/tiles/list")));
+		BufferedReader reader;
+		try {
+			reader = new BufferedReader(new InputStreamReader(ResourceLoader.getResourceAsStream("res/tiles/list"), "UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return;
+		}
 
 		String str;
 		try {

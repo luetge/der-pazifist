@@ -181,7 +181,7 @@ public class CreatureFactory {
 		BufferedReader reader;
 		monsters = new HashMap<String, String>();
 		try {
-			reader = new BufferedReader(new InputStreamReader(ResourceLoader.getResourceAsStream("res/monsters")));
+			reader = new BufferedReader(new InputStreamReader(ResourceLoader.getResourceAsStream("res/monsters"), "UTF-8"));
 			while(reader.ready())
 				addMonster(reader.readLine());
 			reader.close();

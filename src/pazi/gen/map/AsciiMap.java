@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.Reader;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -107,7 +108,11 @@ public class AsciiMap {
 	private void loadFromFile (String filename)
 	{
 		Loader l = new Loader();
-		l.load(new InputStreamReader (ResourceLoader.getResourceAsStream(filename)));
+		try {
+			l.load(new InputStreamReader (ResourceLoader.getResourceAsStream(filename), "UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void loadFromString (String str)

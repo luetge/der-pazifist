@@ -575,7 +575,7 @@ public class Dialog {
 	void load (String filename)
 	{
 		try {
-			BufferedReader reader = new BufferedReader (new InputStreamReader (ResourceLoader.getResourceAsStream(filename)));
+			BufferedReader reader = new BufferedReader (new InputStreamReader (ResourceLoader.getResourceAsStream(filename), "UTF-8"));
 
 			String str;
 			while((str = reader.readLine()) != null)

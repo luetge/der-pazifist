@@ -1,3 +1,3 @@
-getdown.txt = 6ae203980147cb40f68691c883eb1f8c
-Der-Pazifist.jar = 6feeb07365ae83d0d19970538eb29dcd
-digest.txt = 36b64e318a73d4fbc6f31f3f4cb76d5a
+getdown.txt = c5f1a57ec34fb42c5748b3c4ee601bd6
+Der-Pazifist.jar = 898213fb7ac6832035beb2acc985503f
+digest.txt = 6cb4663956e2c2439e5c8705f7ee2636

@@ -1,4 +1,4 @@
-appbase = http://luetge.github.com/der-pazifist/pazifist/
+appbase = http://luetge.github.com/der-pazifist/legacy/
 ui.name = Der Pazifist
 ui.progress_bar = FF0000
 ui.progress_text = 000000
@@ -8,3 +8,4 @@ ui.status_text = FFFFFF
 code = Der-Pazifist.jar
 class = pazi.PaziFist
 jvmarg = -Dfile.encoding=utf-8
+apparg = -noglview

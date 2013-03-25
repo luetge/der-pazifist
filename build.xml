@@ -80,6 +80,23 @@
 	     storepass="${keystore_password}">
        <fileset dir="${getdown}/pazifist" includes="*.jar" />
     </signjar>
+
+    <copy file="${dist}/Der-Pazifist.jar"
+	  tofile="${getdown}/legacy/Der-Pazifist.jar" />
+    <copy file="${getdown}/getdown-client-1.2.jar"
+	  tofile="${getdown}/legacy/getdown-client.jar" />
+
+    <taskdef name="digest"
+	     classname="com.threerings.getdown.tools.DigesterTask"
+             classpath="${getdown}/getdown-tools-1.2.jar" />
+    <digest appdir="${getdown}/legacy"
+	    keystore="${keystore}" storepass="${keystore_password}"
+	    alias="${key_alias}" />
+
+    <signjar keystore="${keystore}" alias="${key_alias}"
+	     storepass="${keystore_password}">
+       <fileset dir="${getdown}/legacy" includes="*.jar" />
+    </signjar>
   </target>
 
   <target name="clean"

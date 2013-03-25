@@ -21,21 +21,21 @@ public class House extends MapGenerator {
     {
 
         // TODO: make the edge characters global
-        ColoredChar edge = new ColoredChar ('╔', Color.white);
+        ColoredChar edge = new ColoredChar ('\u2554', Color.white); // ╔
         world.setTile(edge, false, 0, 0, true);
-        edge = new ColoredChar ('╚', Color.white);
+        edge = new ColoredChar ('\u255A', Color.white); // ╚
         world.setTile(edge, false, 0, world.height()-1, true);
-        edge = new ColoredChar ('╗', Color.white);
+        edge = new ColoredChar ('\u2557', Color.white); // ╗
         world.setTile(edge, false, world.width()-1, 0, true);
-        edge = new ColoredChar ('╝', Color.white);
+        edge = new ColoredChar ('\u255d', Color.white); // ╝ 
         world.setTile(edge, false, world.width()-1, world.height()-1, true);
 
-        edge = new ColoredChar ('═', Color.white);
+        edge = new ColoredChar ('\u2550', Color.white); // ═
         for(int x=1; x < world.width()-1; x++){
         	world.setTile(edge, false, x, 0, true);
         	world.setTile(edge, false, x, world.height()-1, true);
         }
-        edge = new ColoredChar ('║', Color.white);
+        edge = new ColoredChar ('\u2551', Color.white); // ║
         for(int y=1; y < world.height()-1; y++){
         	world.setTile(edge, false, 0, y, true);
         	world.setTile(edge, false, world.width()-1, y, true);
@@ -55,7 +55,7 @@ public class House extends MapGenerator {
         {
         	int doorx = world.width()/2+i;
         	int doory = world.height()-1;
-        	ColoredChar doorTile = ColoredChar.create('↓');
+        	ColoredChar doorTile = ColoredChar.create('\u2193'); // ↓
         	world.setTileBackground(new Color(0x806000).brighter(), doorx, doory);
         	world.setTile(doorTile, false, doorx, doory, true);
         }

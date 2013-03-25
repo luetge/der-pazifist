@@ -101,9 +101,9 @@ public class CreatureFactory {
 		} else if (identifier.equals("sniper1")){
 			ColoredChar faces[] = new ColoredChar[9];
 			for (int i : new int[]{0,2,3,7,8})
-				faces[i] = ColoredChar.create('ø', new Color(0xFFFFFE));
+				faces[i] = ColoredChar.create('\u00F8', new Color(0xFFFFFE)); // ø
 			for (int i : new int[]{1,4,5,6})
-				faces[i] = ColoredChar.create('ø', new Color(0xFFFFFF));
+				faces[i] = ColoredChar.create('\u00F8', new Color(0xFFFFFF)); // ø
 			creature = new Monster(faces, "Mr. Sniper");
 			creature.setBehaviour(new DefaultBehaviour());
 			creature.setWalkBehaviour(new Follow(world.getPlayer(), 13, 5, 0.1));
@@ -133,7 +133,7 @@ public class CreatureFactory {
 		else if (identifier.equals("nothere"))
 			creature = new Ally (ColoredChar.create(' ', new Color(0xFFFFFF)), "nothere", new Dialog ("res/dialogs/nothere.txt"));
 		else if (identifier.equals("door"))
-			creature = new DestructableObject(ColoredChar.create('═', new Color(0x663300)), "Tür", 5, KnuckleDuster.class, "Mist, die Tür klemmt! Ich brauche etwas, um sie aufzubrechen!", "KRACH!!!");
+			creature = new DestructableObject(ColoredChar.create('\u2550', new Color(0x663300)), "Tür", 5, KnuckleDuster.class, "Mist, die Tür klemmt! Ich brauche etwas, um sie aufzubrechen!", "KRACH!!!"); // ═
 		else if (identifier.equals("fenceI"))
 					creature = new DestructableObject(ColoredChar.create('I', new Color (0x4c1800)), "Zaun", 5, Shotgun.class, "Für diesen Zaun braucht man etwas mit Durchschlagskraft!", "KRACH!!!");
 		
@@ -283,9 +283,9 @@ public class CreatureFactory {
 						ArrayList<Object> parameter = new ArrayList<Object>();
 						Class<?>[] classes = constructor.getParameterTypes();
 						for(int i=0; i<classes.length; i++)
-							if(sArgs[i].equals("¥Player"))
+							if(sArgs[i].equals("\u00a5Player")) // ¥
 								parameter.add(world.getPlayer());
-							else if(sArgs[i].startsWith("¥"))
+							else if(sArgs[i].startsWith("\u00a5")) // ¥
 								parameter.add(World.class.getDeclaredField(sArgs[i].substring(1)));
 							else
 								parameter.add(getWrapped(classes[i]).getConstructor(new Class<?>[] {String.class}).newInstance(sArgs[i]));

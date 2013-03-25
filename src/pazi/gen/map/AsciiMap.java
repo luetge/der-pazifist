@@ -258,7 +258,7 @@ public class AsciiMap {
 							randomnumbers.put(params[0], randomnumber);
 						}
 					}
-					String randomend = "¥xrandomend:"+params[0]+"¥";
+					String randomend = "\u00a5xrandomend:"+params[0]+"\u00a5"; // ¥
 					int sequenceend = line.substring(pos+1).indexOf(randomend);
 					for (int i = 0; i < randomnumber; i++)
 					{
@@ -326,10 +326,10 @@ public class AsciiMap {
 				for (pos = 0; pos < line.length(); pos++)
 				{
 					char c = line.charAt(pos);
-					if (c == '¥')
+					if (c == '\u00a5') // ¥
 					{
 						int escstart = pos+1;
-						int escend = line.indexOf('¥', escstart);
+						int escend = line.indexOf('\u00a5', escstart); // ¥
 						pos = escend;
 						Guard.argumentIsPositive (escend);
 						processEscape(coord, line.substring(escstart, escend));
@@ -381,7 +381,7 @@ public class AsciiMap {
 				for (int i = 0; i < block.size(); i++)
 				{
 					String str = block.get(i);
-					if (str.startsWith("¥yrandom:"))
+					if (str.startsWith("\u00a5yrandom:")) // ¥
 					{
 						String params[] = str.trim().substring(9, str.length()-1).split(",");
 						Guard.verifyState(params.length == 3);
@@ -403,7 +403,7 @@ public class AsciiMap {
 						}
 						
 						ArrayList<String> subblock = new ArrayList<String> ();
-						String endstr = "¥yrandomend:" + params[0] + "¥";
+						String endstr = "\u00a5yrandomend:" + params[0] + "\u00a5"; // ¥
 						i++;
 						str = block.get(i);
 						while (!str.equals(endstr))

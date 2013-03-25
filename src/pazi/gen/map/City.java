@@ -215,29 +215,29 @@ public class City extends MapGenerator
                 	return;
 
                 // TODO: make the edge characters global
-                ColoredChar edge = new ColoredChar ('╔', Color.white);
+                ColoredChar edge = new ColoredChar ('\u2554', Color.white); // ╔
                 world.setTile(edge, false, rx1, ry1, true);
-                edge = new ColoredChar ('╚', Color.white);
+                edge = new ColoredChar ('\u255A', Color.white); // ╚
                 world.setTile(edge, false, rx1, ry2, true);
-                edge = new ColoredChar ('╗', Color.white);
+                edge = new ColoredChar ('\u2557', Color.white); // ╗
                 world.setTile(edge, false, rx2 , ry1, true);
-                edge = new ColoredChar ('╝', Color.white);
+                edge = new ColoredChar ('\u255d', Color.white); // ╝
                 world.setTile(edge, false, rx2, ry2, true);
 
-                edge = new ColoredChar ('═', Color.white);
+                edge = new ColoredChar ('\u2550', Color.white); // ═
                 for(int x=rx1+1; x < rx2; x++){
                 	world.setTile(edge, false, x, ry1, true);
                 	world.setTile(edge, false, x, ry2, true);
                 }
-                edge = new ColoredChar ('║', Color.white);
+                edge = new ColoredChar ('\u2551', Color.white); // ║
                 for(int y=ry1+1; y < ry2; y++){
                 	world.setTile(edge, false, rx1, y, true);
                 	world.setTile(edge, false, rx2, y, true);
                 }
                 
                 // TODO: make this character global
-                ColoredChar window = new ColoredChar('⊞', Color.black);
-                ColoredChar windowlit = new ColoredChar('⊞', Color.yellow);
+                ColoredChar window = new ColoredChar('\u229E', Color.black); // ⊞
+                ColoredChar windowlit = new ColoredChar('\u229E', Color.yellow); // ⊞
                 
                 float brightness = ((float)dice.nextInt (64,196))/256.0f;
                 Color background = new Color (brightness,brightness,brightness);
@@ -259,14 +259,14 @@ public class City extends MapGenerator
                 }
                 
                 // TODO: make this character global
-                ColoredChar antenna = new ColoredChar('╧', Color.white);
+                ColoredChar antenna = new ColoredChar('\u2567', Color.white); // ╧
                 world.setTile(antenna, false, dice.nextInt(rx1+(rx2-rx1)/3,rx2-(rx2-rx1)/3), ry1, true);
                 
                 int doorx = dice.nextInt (rx1+(rx2-rx1)/3,rx2-(rx2-rx1)/3);
                 int doory = ry2;
 
                 // TODO: make c global
-                ColoredChar c = new ColoredChar ('↑', Color.white);
+                ColoredChar c = new ColoredChar ('\u2191', Color.white); // ↑
                 for (int x = 0; x < 3; x++)
                 {
                 	world.setTile(c, false, doorx+x, doory, true);

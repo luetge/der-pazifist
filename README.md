@@ -29,5 +29,5 @@ bei der Tastatureingabe kommen.
 
 
 
-Copyright (c) 2012
+Copyright (c) 2013
 Eric Badstübner, Daniel Kirchner, Daniel Lütgehetmann, Niklas Rughöft, Toan Tran Ngoc, Markus Winzer

@@ -2,6 +2,7 @@ bin/
 .DS_Store
 /build
 /dist
+/.settings
 /getdown/*/Der-Pazifist.jar
 /getdown/*/cert.crt
 /getdown/*/digest.txt

@@ -246,8 +246,7 @@ public class PaziFist
     public static void main(String[] args)
     {
         try {
-        	System.setProperty("file.encoding", "utf-8");
-        	boolean useGLview = Boolean.parseBoolean(System.getProperty("useglview", "true"));
+        	boolean useGLview = true;
         	for (String arg : args)
         	{
         		if (arg.equals("-noglview"))

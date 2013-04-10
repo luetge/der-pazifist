@@ -1,6 +1,5 @@
 package pazi.features;
 
-import jade.util.datatype.ColoredChar;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -8,8 +7,9 @@ import java.util.ArrayList;
 import pazi.behaviour.DeadBehaviour;
 import pazi.behaviour.Follow;
 import pazi.behaviour.IBehaviour;
-import rogue.creature.Creature;
-import rogue.creature.Monster;
+import pazi.creature.Creature;
+import pazi.creature.Monster;
+import pazi.util.datatype.ColoredChar;
 
 public class EatBrains implements IBeforeAfterFeature<Monster> {
 	

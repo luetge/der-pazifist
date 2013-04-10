@@ -1,18 +1,18 @@
 package pazi.behaviour;
 
-import jade.ui.EndScreen;
-import jade.util.datatype.ColoredChar;
 
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.AbstractCollection;
 
+import pazi.creature.Creature;
+import pazi.creature.DestructableObject;
+import pazi.creature.Player;
 import pazi.features.IFeature;
+import pazi.ui.EndScreen;
+import pazi.util.datatype.ColoredChar;
 
-import rogue.creature.Creature;
-import rogue.creature.DestructableObject;
-import rogue.creature.Player;
 
 public class DeadBehaviour implements IBehaviour<Creature> {
 	

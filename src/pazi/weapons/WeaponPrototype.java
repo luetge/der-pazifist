@@ -1,10 +1,10 @@
 package pazi.weapons;
 
-import jade.core.Actor;
-import jade.core.Messenger;
-import jade.util.datatype.ColoredChar;
+import pazi.core.Actor;
+import pazi.core.Messenger;
+import pazi.creature.Creature;
 import pazi.items.Item;
-import rogue.creature.Creature;
+import pazi.util.datatype.ColoredChar;
 
 public class WeaponPrototype extends Item implements IWeapon {
 	

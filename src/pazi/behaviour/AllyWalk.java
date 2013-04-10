@@ -1,13 +1,14 @@
 package pazi.behaviour;
 
-import jade.util.Dice;
-import jade.util.datatype.Coordinate;
-import jade.util.datatype.Direction;
 
 import java.util.Arrays;
 import java.util.Iterator;
 
-import rogue.creature.Creature;
+import pazi.creature.Creature;
+import pazi.util.Dice;
+import pazi.util.datatype.Coordinate;
+import pazi.util.datatype.Direction;
+
 
 public class AllyWalk implements IBehaviour<Creature> {
 

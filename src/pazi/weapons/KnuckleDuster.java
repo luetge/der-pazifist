@@ -1,10 +1,11 @@
 package pazi.weapons;
 
-import jade.util.datatype.ColoredChar;
 
 import java.awt.Color;
 
-import rogue.creature.Creature;
+import pazi.creature.Creature;
+import pazi.util.datatype.ColoredChar;
+
 
 
 public class KnuckleDuster extends MeleeWeaponPrototype {

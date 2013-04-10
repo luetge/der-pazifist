@@ -1,7 +1,7 @@
 package pazi.weapons;
 
-import jade.util.datatype.ColoredChar;
-import rogue.creature.Creature;
+import pazi.creature.Creature;
+import pazi.util.datatype.ColoredChar;
 
 
 public class MeleeWeaponPrototype extends WeaponPrototype implements IMeleeWeapon {

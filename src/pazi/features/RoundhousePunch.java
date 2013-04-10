@@ -1,7 +1,7 @@
 package pazi.features;
 
-import jade.core.Actor;
-import rogue.creature.Creature;
+import pazi.core.Actor;
+import pazi.creature.Creature;
 
 public class RoundhousePunch implements IFeature {
 

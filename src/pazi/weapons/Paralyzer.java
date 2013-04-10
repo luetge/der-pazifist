@@ -1,7 +1,7 @@
 package pazi.weapons;
 
+import pazi.creature.Creature;
 import pazi.features.Paralyzed;
-import rogue.creature.Creature;
 
 public class Paralyzer implements IMeleeWeapon {
 

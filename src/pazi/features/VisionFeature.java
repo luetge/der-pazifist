@@ -1,6 +1,6 @@
 package pazi.features;
 
-import rogue.creature.Player;
+import pazi.creature.Player;
 
 public class VisionFeature implements IFeature<Player> {
 

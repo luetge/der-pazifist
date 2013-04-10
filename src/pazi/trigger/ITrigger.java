@@ -1,6 +1,6 @@
 package pazi.trigger;
 
-import jade.core.World;
+import pazi.core.World;
 
 public interface ITrigger {
 	public void setActivated(boolean activated);

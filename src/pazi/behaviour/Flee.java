@@ -1,16 +1,17 @@
 package pazi.behaviour;
 
-import jade.core.Actor;
-import jade.path.AStar;
-import jade.util.Dice;
-import jade.util.datatype.Coordinate;
-import jade.util.datatype.Direction;
 
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import rogue.creature.Monster;
+import pazi.core.Actor;
+import pazi.creature.Monster;
+import pazi.path.AStar;
+import pazi.util.Dice;
+import pazi.util.datatype.Coordinate;
+import pazi.util.datatype.Direction;
+
 
 public class Flee implements IBehaviour<Monster> {
 

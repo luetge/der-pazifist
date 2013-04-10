@@ -2,6 +2,9 @@ package pazi.items;
 
 import java.awt.Color;
 
+import pazi.creature.Creature;
+import pazi.creature.Player;
+import pazi.util.datatype.ColoredChar;
 import pazi.weapons.Confuser;
 import pazi.weapons.Fist;
 import pazi.weapons.FrostSword;
@@ -12,9 +15,6 @@ import pazi.weapons.Shotgun;
 import pazi.weapons.SniperRifle;
 import pazi.weapons.VampSword;
 
-import jade.util.datatype.ColoredChar;
-import rogue.creature.Creature;
-import rogue.creature.Player;
 
 public class ItemFactory {
 	

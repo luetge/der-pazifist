@@ -1,8 +1,8 @@
 package pazi.items;
 
-import jade.core.Actor;
-import jade.util.datatype.ColoredChar;
-import rogue.creature.Creature;
+import pazi.core.Actor;
+import pazi.creature.Creature;
+import pazi.util.datatype.ColoredChar;
 
 public abstract class Item extends Actor {
 	

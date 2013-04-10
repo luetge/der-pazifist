@@ -2,11 +2,12 @@ package pazi.items;
 
 import java.awt.Color;
 
-import rogue.creature.Creature;
-import rogue.creature.Player;
-import jade.core.Actor;
-import jade.util.Dice;
-import jade.util.datatype.ColoredChar;
+import pazi.core.Actor;
+import pazi.creature.Creature;
+import pazi.creature.Player;
+import pazi.util.Dice;
+import pazi.util.datatype.ColoredChar;
+
 
 public class HolyWater extends Item {
 

@@ -1,18 +1,5 @@
 package rogue;
 
-import jade.core.Dialog;
-import jade.core.IExecute;
-import jade.core.Messenger.Message;
-import jade.gen.map.AsciiMap;
-import jade.ui.Backpack;
-import jade.ui.EndScreen;
-import jade.ui.GLView;
-import jade.ui.HUD;
-import jade.ui.LegacyView;
-import jade.ui.Log;
-import jade.ui.View;
-import jade.util.datatype.Door;
-
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.io.BufferedReader;
@@ -25,9 +12,21 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.util.ResourceLoader;
 
-import rogue.creature.CreatureFactory;
-import rogue.creature.Player;
-import rogue.level.Level;
+import pazi.core.Dialog;
+import pazi.core.IExecute;
+import pazi.core.Messenger.Message;
+import pazi.creature.CreatureFactory;
+import pazi.creature.Player;
+import pazi.gen.map.AsciiMap;
+import pazi.level.Level;
+import pazi.ui.Backpack;
+import pazi.ui.EndScreen;
+import pazi.ui.GLView;
+import pazi.ui.HUD;
+import pazi.ui.LegacyView;
+import pazi.ui.Log;
+import pazi.ui.View;
+import pazi.util.datatype.Door;
 
 public class Rogue
 {

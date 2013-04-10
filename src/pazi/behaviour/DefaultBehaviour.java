@@ -1,8 +1,8 @@
 package pazi.behaviour;
 
-import rogue.creature.Creature;
-import rogue.creature.Creature.AttackableCreature;
-import rogue.creature.Player;
+import pazi.creature.Creature;
+import pazi.creature.Player;
+import pazi.creature.Creature.AttackableCreature;
 
 public class DefaultBehaviour implements IBehaviour<Creature> {
 

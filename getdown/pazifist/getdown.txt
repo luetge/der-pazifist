@@ -1,4 +1,4 @@
-appbase = http://page.mi.fu-berlin.de/mokaga/pazifist/pazifist/
+appbase = http://luetge.github.com/der-pazifist/pazifist/
 ui.name = Der Pazifist
 ui.progress_bar = FF0000
 ui.progress_text = 000000
@@ -6,5 +6,5 @@ ui.progress = 15, 380, 870, 30
 ui.status = 15, 300, 870, 60
 ui.status_text = FFFFFF
 code = Der-Pazifist.jar
-class = rogue.Rogue
+class = pazi.PaziFist
 jvmarg = -Dfile.encoding=utf-8

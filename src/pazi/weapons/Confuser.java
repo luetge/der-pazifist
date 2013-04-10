@@ -1,12 +1,12 @@
 package pazi.weapons;
 
-import jade.util.datatype.ColoredChar;
 
 import java.awt.Color;
 
 import pazi.behaviour.IBehaviour;
+import pazi.creature.Creature;
+import pazi.util.datatype.ColoredChar;
 
-import rogue.creature.Creature;
 
 public class Confuser extends MeleeWeaponPrototype {
 

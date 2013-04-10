@@ -142,12 +142,18 @@ public class HUD {
 		String meleeName, rcWeaponName;
 		if (melee == null)
 			meleeName = "Keine Nahkampfwaffe";
-		else
+		else{
 			meleeName = melee.getName();
+//			if (melee.getAmmo() != -1)
+			meleeName += ": " + melee.getAmmo();
+		}
 		if (rcWeapon == null)
 			rcWeaponName = "Keine Fernkampfwaffe";
-		else
+		else{
 			rcWeaponName = rcWeapon.getName();
+//			if (melee.getAmmo() != -1)
+			rcWeaponName += ": " + rcWeapon.getAmmo();
+		}
 		taEquip.setText("Deine Waffenwahl: " + "\n" + meleeName + "\n" + rcWeaponName);
 	}
 }

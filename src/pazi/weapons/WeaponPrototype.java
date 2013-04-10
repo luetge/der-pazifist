@@ -3,6 +3,7 @@ package pazi.weapons;
 import pazi.core.Actor;
 import pazi.core.Messenger;
 import pazi.creature.Creature;
+import pazi.creature.Player;
 import pazi.items.Item;
 import pazi.util.datatype.ColoredChar;
 
@@ -15,7 +16,7 @@ public class WeaponPrototype extends Item implements IWeapon {
 	protected int ammoLeft;
 	protected boolean melee = true;
 	
-	public WeaponPrototype(int min_d, int max_d, double range, double prob, String name, ColoredChar face, Creature creature, int ammo){
+	public WeaponPrototype(int min_d, int max_d, double range, double prob, String name, ColoredChar face, Creature holder, int ammo){
 		super(face, name);
 		this.min_d = min_d;
 		this.max_d = max_d;
@@ -41,7 +42,7 @@ public class WeaponPrototype extends Item implements IWeapon {
 
 	@Override
 	public double getProb(Creature attacker, Creature victim) {
-		return attacker == null || victim == null || attacker.pos().distance(victim.pos()) > range ? 0 : prob;
+		return ((attacker == null || victim == null || attacker.pos().distance(victim.pos()) > range) ? 0 : prob);
 	}
 
 	@Override
@@ -58,10 +59,12 @@ public class WeaponPrototype extends Item implements IWeapon {
 				appendMessage(attacker.world(), getMissedText(attacker, victim));
 	}
 	
-	private void reduceAmmo() {
+	protected void reduceAmmo() {
 		ammoLeft -= 1;
 		if (ammoLeft <= 0)
 			this.expire();
+		if (holder.getClass() == Player.class)
+			((Player) holder).refreshWeaponsHUD();
 	}
 
 	/**
@@ -125,6 +128,11 @@ public class WeaponPrototype extends Item implements IWeapon {
 	@Override
 	public String getName() {
 		return name;
+	}
+
+	@Override
+	public int getAmmo() {
+		return ammoLeft;
 	}
 
 

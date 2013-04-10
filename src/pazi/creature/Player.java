@@ -272,7 +272,7 @@ public class Player extends Creature
 	@Override
 	public void setRCWeapon(IRangedCombatWeapon weapon) {
 		super.setRCWeapon(weapon);
-		HUD.setWeaponLbl(meleeWeapon, rcWeapon);
+		refreshWeaponsHUD();
 	}
 	
 	@Override
@@ -406,7 +406,18 @@ public class Player extends Creature
 			this.useItem(inventory.getItems(MeleeWeaponPrototype.class));
 	}
 	
+	public void refreshWeaponsHUD(){
+		HUD.setWeaponLbl(meleeWeapon, rcWeapon);
+	}
+	
 	public void changeRC() {
+		//TODO: SUPERCHEAT, RAUS DAMIT!
+		inventory.addItem(ItemFactory.createItem("sniper"));
+		inventory.addItem(ItemFactory.createItem("shotgun"));
+		inventory.addItem(ItemFactory.createItem("vampsword"));
+		inventory.addItem(ItemFactory.createItem("frostsword"));
+
+		
 		if (inventory.getItems(RCWeaponPrototype.class) != null)
 			this.useItem(inventory.getItems(RCWeaponPrototype.class));
 	}

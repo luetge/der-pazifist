@@ -15,13 +15,15 @@ public class VampSword extends MeleeWeaponPrototype {
 	}
 	
 	public VampSword(Creature holder) {
-		super(10, 15, 0.7, "Vampirklinge", new ColoredChar('V', Color.red), holder);
+		super(10, 15, 0.7, "Vampirklinge", new ColoredChar('V', Color.red), holder, 50);
 		this.description = "Zieht dem Gegner 10 bis 15 HP ab und fügt sie dir hinzu.";
 	}
 	
 	@Override
 	public void shoot(Creature attacker, Creature victim){
-		if(attacker != null && victim != null)
+		if(attacker != null && victim != null){
+			if (ammoLeft > 0)
+				reduceAmmo();
 			appendMessage(attacker.world(), getWeaponFiredText(attacker, victim));
 			if(Math.random() < getProb(attacker, victim)){
 				int dmg = getDamage(attacker, victim);
@@ -31,6 +33,7 @@ public class VampSword extends MeleeWeaponPrototype {
 			}
 			else
 				appendMessage(attacker.world(), getMissedText(attacker, victim));
+		}
 	}
 	
 	@Override

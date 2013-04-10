@@ -272,7 +272,7 @@ public class Player extends Creature
 	@Override
 	public void setRCWeapon(IRangedCombatWeapon weapon) {
 		super.setRCWeapon(weapon);
-		HUD.setWeaponLbl(meleeWeapon, rcWeapon);
+		refreshWeaponsHUD();
 	}
 	
 	@Override
@@ -404,6 +404,10 @@ public class Player extends Creature
 	public void changeMelee() {
 		if (inventory.getItems(MeleeWeaponPrototype.class) != null)
 			this.useItem(inventory.getItems(MeleeWeaponPrototype.class));
+	}
+	
+	public void refreshWeaponsHUD(){
+		HUD.setWeaponLbl(meleeWeapon, rcWeapon);
 	}
 	
 	public void changeRC() {

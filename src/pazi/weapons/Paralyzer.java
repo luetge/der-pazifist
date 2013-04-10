@@ -46,4 +46,13 @@ public class Paralyzer implements IMeleeWeapon {
 		return "Paralysator";
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * returns remaining cooldown
+	 */
+	@Override
+	public int getAmmo() {
+		return (cooldown - counter);
+	}
+
 }

@@ -1,6 +1,7 @@
 package rogue;
 
 import jade.core.Dialog;
+import jade.core.IExecute;
 import jade.core.Messenger.Message;
 import jade.gen.map.AsciiMap;
 import jade.ui.Backpack;
@@ -68,9 +69,17 @@ public class Rogue
 			level.world().addActor(CreatureFactory.createCreature("zombienecro", level.world()));
 		}
 
-        level.stepThroughDoor(new Door("spawndoor", 0, 0, "tut1", "spawn0"));
-        level.world().setActiveDialog(new Dialog("res/dialogs/startdialog.txt"));
         view.setCenter(level.world().width()/2, level.world().height()/2);
+        level.world().setActiveDialog(new Dialog("res/dialogs/tutQuestion.txt", new IExecute() {
+			
+			@Override
+			public void exec(Dialog dialog) {
+				if(dialog.getState("tut") == 1) {
+			        level.stepThroughDoor(new Door("spawndoor", 0, 0, "tut1", "spawn0"));
+			        level.world().setActiveDialog(new Dialog("res/dialogs/startdialog.txt"));
+				}
+			}
+		}));
 	}
 	
     public boolean run () throws InterruptedException

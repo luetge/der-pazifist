@@ -536,14 +536,22 @@ public class Dialog {
 	private Map<String, Integer> state;
 	private Ally speaker;
 	private int currentid;
+	private IExecute executeAtEndOfDialog;
 	public Dialog (String filename) {
-		this();
-		load (filename);
+		this(filename, null);
 	}
+	
 	private Dialog () {
+		this(null);
+	}
+	
+	public Dialog(String filename, IExecute executeAtEndOfDialog) {
 			this.nodes = new HashMap<Integer, Node> ();
 			this.state = new HashMap<String, Integer> ();
 			this.currentid = 0;
+			this.executeAtEndOfDialog = executeAtEndOfDialog;
+			if(filename != null)
+				load (filename);
 	}
 	
 	public void setState (String name, int value)
@@ -747,5 +755,8 @@ public class Dialog {
 		} while (!node.getClass().isAssignableFrom(EndNode.class));
 		
 		world.setActiveDialog(null);
+		
+		if(executeAtEndOfDialog != null)
+			executeAtEndOfDialog.exec(this);
 	}
 }

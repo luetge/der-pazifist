@@ -1,0 +1,14 @@
+0:text:Gott
+Möchtest du das Tutorial spielen?
+0:done
+
+1:question:Natürlich, ich will die Story hören!:2:Ich kenne mich aus, lass mich spielen!:4
+1:done
+
+2:setstate:tut:1
+
+3:end:3
+
+4:setstate:tut:0
+
+5:end:5

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import org.newdawn.slick.util.ResourceLoader;
 
 import pazi.core.Dialog;
+import pazi.core.IExecute;
 import pazi.core.Messenger.Message;
 import pazi.creature.CreatureFactory;
 import pazi.creature.Player;
@@ -69,9 +70,17 @@ public class PaziFist
 			level.world().addActor(CreatureFactory.createCreature("zombienecro", level.world()));
 		}
 
-        level.stepThroughDoor(new Door("spawndoor", 0, 0, "tut1", "spawn0"));
-        level.world().setActiveDialog(new Dialog("res/dialogs/startdialog.txt"));
         view.setCenter(level.world().width()/2, level.world().height()/2);
+        level.world().setActiveDialog(new Dialog("res/dialogs/tutQuestion.txt", new IExecute() {
+			
+			@Override
+			public void exec(Dialog dialog) {
+				if(dialog.getState("tut") == 1) {
+			        level.stepThroughDoor(new Door("spawndoor", 0, 0, "tut1", "spawn0"));
+			        level.world().setActiveDialog(new Dialog("res/dialogs/startdialog.txt"));
+				}
+			}
+		}));
 	}
 	
     public boolean run () throws InterruptedException

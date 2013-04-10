@@ -411,13 +411,6 @@ public class Player extends Creature
 	}
 	
 	public void changeRC() {
-		//TODO: SUPERCHEAT, RAUS DAMIT!
-		inventory.addItem(ItemFactory.createItem("sniper"));
-		inventory.addItem(ItemFactory.createItem("shotgun"));
-		inventory.addItem(ItemFactory.createItem("vampsword"));
-		inventory.addItem(ItemFactory.createItem("frostsword"));
-
-		
 		if (inventory.getItems(RCWeaponPrototype.class) != null)
 			this.useItem(inventory.getItems(RCWeaponPrototype.class));
 	}
